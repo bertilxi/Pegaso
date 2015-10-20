@@ -13,8 +13,26 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    listar_competencias.cpp \
+    pantalla_usuario.cpp \
+    alta_competencia.cpp \
+    alta_competencia_eliminacion.cpp \
+    alta_competencia_liga.cpp \
+    ver_competencia.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    listar_competencias.h \
+    pantalla_usuario.h \
+    alta_competencia.h \
+    alta_competencia_eliminacion.h \
+    alta_competencia_liga.h \
+    ver_competencia.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    listar_competencias.ui \
+    pantalla_usuario.ui \
+    alta_competencia.ui \
+    alta_competencia_eliminacion.ui \
+    alta_competencia_liga.ui \
+    ver_competencia.ui
