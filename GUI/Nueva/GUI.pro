@@ -21,7 +21,13 @@ SOURCES += main.cpp\
     alta_competencia_liga.cpp \
     ver_competencia.cpp \
     alta_participante.cpp \
-    modificar_competencia.cpp
+    modificar_competencia.cpp \
+    GestorBaseDatos.cpp \
+    GestorCompetencias.cpp \
+    GestorLugares.cpp \
+    GestorParticipantes.cpp \
+    GestorPartidos.cpp \
+    GestorUsuarios.cpp
 
 HEADERS  += mainwindow.h \
     listar_competencias.h \
@@ -31,7 +37,13 @@ HEADERS  += mainwindow.h \
     alta_competencia_liga.h \
     ver_competencia.h \
     alta_participante.h \
-    modificar_competencia.h
+    modificar_competencia.h \
+    GestorBaseDatos.h \
+    GestorCompetencias.h \
+    GestorLugares.h \
+    GestorParticipantes.h \
+    GestorPartidos.h \
+    GestorUsuarios.h
 
 FORMS    += mainwindow.ui \
     listar_competencias.ui \
