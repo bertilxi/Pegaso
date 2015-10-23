@@ -9,9 +9,9 @@
 class GestorParticipantes {
 public: 
     
-    void alta();
+    void virtual alta();
     
-    void baja();
+    void virtual baja();
     
     void mod();
     
