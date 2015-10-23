@@ -13,7 +13,7 @@ public:
 	
 };
 
-DtoCompetencia::DtoCompetencia(QString u , QVector<QString> filtros = {NULL,NULL,NULL,NULL} ){
+DtoCompetencia::DtoCompetencia(QString u , QVector<QString> filtros){
 	
 	user = u;
 	filtros[0] = nombreCom;
