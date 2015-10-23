@@ -236,14 +236,6 @@
            <string>Generar Fixture</string>
           </property>
          </widget>
-         <widget class="QLabel" name="label_5">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="pixmap">
-           <pixmap>dialog-ok.png</pixmap>
-          </property>
-         </widget>
         </widget>
        </item>
        <item>

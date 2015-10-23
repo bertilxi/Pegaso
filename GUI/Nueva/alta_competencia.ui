@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>413</width>
-    <height>503</height>
+    <width>405</width>
+    <height>505</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,7 +24,27 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="comboBox"/>
+      <spacer name="horizontalSpacer_6">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -153,14 +173,6 @@
         <enum>Qt::Horizontal</enum>
        </property>
        <widget class="QLineEdit" name="lineEdit_2"/>
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string/>
-        </property>
-        <property name="pixmap">
-         <pixmap>delete.png</pixmap>
-        </property>
-       </widget>
       </widget>
      </item>
     </layout>
@@ -206,6 +218,12 @@
         <enum>Qt::Horizontal</enum>
        </property>
        <widget class="QComboBox" name="comboBox_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <item>
          <property name="text">
           <string>Eliminacion Simple</string>
@@ -221,14 +239,6 @@
           <string>Eliminacion Doble</string>
          </property>
         </item>
-       </widget>
-       <widget class="QLabel" name="label_15">
-        <property name="text">
-         <string/>
-        </property>
-        <property name="pixmap">
-         <pixmap>dialog-ok.png</pixmap>
-        </property>
        </widget>
       </widget>
      </item>
@@ -288,14 +298,6 @@
   </layout>
   <zorder>checkBox</zorder>
   <zorder>label_16</zorder>
-  <zorder>horizontalLayoutWidget</zorder>
-  <zorder>horizontalLayoutWidget_2</zorder>
-  <zorder>horizontalLayoutWidget_3</zorder>
-  <zorder>horizontalLayoutWidget_4</zorder>
-  <zorder>horizontalLayoutWidget_5</zorder>
-  <zorder>label_4</zorder>
-  <zorder>verticalLayoutWidget</zorder>
-  <zorder>horizontalLayoutWidget_6</zorder>
   <zorder>verticalSpacer</zorder>
   <zorder>verticalSpacer_2</zorder>
   <zorder>verticalSpacer_3</zorder>
