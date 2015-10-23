@@ -19,8 +19,12 @@
 #include "GestorUsuarios.h"
 
 class GestorCompetencias {
-public: 
-    
+public:
+    GestorCompetencias(GestorBaseDatos* gestb,GestorPartidos* gestp,GestorUsuarios* gestu)
+        :gestorbasedatos(gestb),gestorpartidos(gestp),gestorusuarios(gestu){};
+    GestorPartidos* gestorpartidos;
+    GestorBaseDatos* gestorbasedatos;
+    GestorUsuarios* gestorusuarios;
     /**
      * @param datos
      */
