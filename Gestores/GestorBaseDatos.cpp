@@ -17,7 +17,28 @@
  */
 template <class T>
 T GestorBaseDatos::load(T obj, int id) {
-    return null;
+	// le pedimos al objeto sus datos para poder buscarlo en la base de datos
+	QString tabla = getTable(obj);
+	QString atributo = obj.getAtributo();
+	QString valor = obj.getValor();
+	QString querystr="select * from " + tabla + " where " + atributo + " = " + valor + "'";
+
+    QSqlQuery query;
+    if(query.exec(querystr)){
+
+        QSqlRecord record = query.record();
+
+        //setters
+
+        obj.setAll(record);
+        qDebug() << "Consulta exitosa";
+        return obj;
+
+    }
+    else {
+        qDebug() << "La consulta ha fallado";
+        return null;
+    }
 }
 
 /**
