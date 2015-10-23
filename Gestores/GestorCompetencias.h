@@ -6,73 +6,85 @@
 #ifndef _GESTORCOMPETENCIAS_H
 #define _GESTORCOMPETENCIAS_H
 
+#include "../Grupo Competencia/Competencia.h"
+#include "../Grupo Competencia/Modalidad.h"
+#include "../Grupo Competencia/Participante.h"
+#include "../Grupo Competencia/HistorialParticipante.h"
+#include "../Grupo Competencia/Lugar.h"
+#include "../Grupo Competencia/Deporte.h"
+#include "../Grupo Competencia/Disponibilidad.h"
+#include "../Grupo Competencia/Resultado.h"
+#include "GestorPartidos.h"
+#include "GestorBaseDatos.h"
+#include "GestorUsuarios.h"
+
 class GestorCompetencias {
 public: 
     
     /**
      * @param datos
      */
-    Competencia$ crearCompetencia(Datos datos);
+    Competencia virtual crearCompetencia(Datos datos);
     
     /**
      * @param comp
      */
-    bool bajaCompetencia(Competencia$ comp);
-    
-    /**
-     * @param comp
-     * @param datos
-     */
-    bool modCompetencia(Competencia$ comp, Datos datos);
-    
-    QVector<Competencia> listarCompetencias();
+    bool virtual bajaCompetencia(Competencia comp);
     
     /**
      * @param comp
      * @param datos
      */
-    bool altaParticipante(Competencia$ comp, Datos datos);
+    bool virtual modCompetencia(Competencia comp, Datos datos);
+    
+    QVector<Competencia> virtual listarCompetencias();
+    
+    /**
+     * @param comp
+     * @param datos
+     */
+    bool virtual altaParticipante(Competencia comp, Datos datos);
     
     /**
      * @param comp
      * @param part
      */
-    bool eliminarParticipante(Competencia$ comp, Partido$ part);
+    bool virtual eliminarParticipante(Competencia comp, Partido part);
     
     /**
      * @param part
      * @param datos
      */
-    bool modParticipante(Participante$ part, Datos datos);
+    bool virtual modParticipante(Participante part, Datos datos);
     
     /**
      * @param comp
      * @param part
      * @param res
      */
-    void nuevoResultado(Competencia$ comp, Partido$ part, Resultado$ res);
+    void virtual nuevoResultado(Competencia comp, Partido$ part, Resultado res);
     
     /**
      * @param id_comp
      */
-    Competencia$ getCompetenciaFull(int id_comp);
+    Competencia virtual getCompetenciaFull(int id_comp);
     
     /**
      * @param id_usuario
      * @param filtros
      */
-    QVector<Competencia> getCompetenciasLazy(int id_usuario, QVector<QString> filtros);
+    QVector<Competencia> virtual getCompetenciasLazy(int id_usuario, QVector<QString> filtros);
     
     /**
      * @param comp
      */
-    bool generarFixture(Competencia$ comp);
+    bool virtual generarFixture(Competencia comp);
     
     /**
      * @param part
      * @param comp
      */
-    bool puedeModificar(Partido$ part, Competencia$ comp);
+    bool virtual puedeModificar(Partido part, Competencia comp);
 };
 
 #endif //_GESTORCOMPETENCIAS_H
