@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     alta_competencia.cpp \
     alta_competencia_eliminacion.cpp \
     alta_competencia_liga.cpp \
-    ver_competencia.cpp
+    ver_competencia.cpp \
+    alta_participante.cpp
 
 HEADERS  += mainwindow.h \
     listar_competencias.h \
@@ -27,7 +28,8 @@ HEADERS  += mainwindow.h \
     alta_competencia.h \
     alta_competencia_eliminacion.h \
     alta_competencia_liga.h \
-    ver_competencia.h
+    ver_competencia.h \
+    alta_participante.h
 
 FORMS    += mainwindow.ui \
     listar_competencias.ui \
@@ -35,4 +37,5 @@ FORMS    += mainwindow.ui \
     alta_competencia.ui \
     alta_competencia_eliminacion.ui \
     alta_competencia_liga.ui \
-    ver_competencia.ui
+    ver_competencia.ui \
+    alta_participante.ui

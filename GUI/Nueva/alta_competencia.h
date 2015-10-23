@@ -15,6 +15,9 @@ public:
     explicit alta_competencia(QWidget *parent = 0);
     ~alta_competencia();
 
+private slots:
+    void on_pushButton_2_clicked();
+
 private:
     Ui::alta_competencia *ui;
 };

@@ -13,3 +13,8 @@ alta_competencia::~alta_competencia()
 {
     delete ui;
 }
+
+void alta_competencia::on_pushButton_2_clicked()
+{
+    this->close();
+}
