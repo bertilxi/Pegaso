@@ -13,30 +13,35 @@ public:
      * @param obj
      * @param id
      */
+    template <class T>
     T virtual load(T obj, int id);
     
     /**
      * @param objs
      */
-    void virtual save(QVector<T> objs);
+    template <class T1>
+    void virtual save(QVector<T1> objs);
     
     /**
      * @param objs
      * @param id
      */
-    void virtual save(QVector<T> objs, int id);
+    template <class T2>
+    void virtual save(QVector<T2> objs, int id);
     
     /**
      * @param obj1
      * @param obj2
      */
-    void virtual saveRelacion(T1 obj1, T2 obj2);
+    template <class T3,class T4>
+    void virtual saveRelacion(T3 obj1, T4 obj2);
     
     /**
      * @param obj
      * @param filtros
      */
-    QVector<T> virtual query(T obj, QVector<QString> filtros);
+    template <class T5>
+    QVector<T5> virtual query(T5 obj, QVector<QString> filtros);
     
     void virtual beginTransaction();
     
