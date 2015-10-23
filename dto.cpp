@@ -9,7 +9,7 @@ class DtoCompetencia
 public:
 	QString user;
 	QVector<QString> filtros[4];
-	DtoCompetencia(QString u , QVector<QString> filtros);
+	DtoCompetencia(QString u , QVector<QString> filtros = {NULL,NULL,NULL,NULL} );
 	
 };
 
