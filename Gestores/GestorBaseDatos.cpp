@@ -46,6 +46,38 @@ T GestorBaseDatos::load(T obj, int id) {
  */
 template <class T1>
 void GestorBaseDatos::save(QVector<T1> objs) {
+	
+	QString tabla = objs.getTable();
+	QVector<QString> campo = objs.getCampos();
+	QVector<QString>  valor = objs.getValores();
+
+	QString querystr = "insert or replace into " + tabla + " ( " ;
+    int i;
+    for (i = 0; i < campo.size()-1; ++i)
+    {
+        querystr += campo[i] + " , " ;
+    }
+    querystr += campo[i] + ") values ( " ;
+
+    for (i = 0; i < valor.size()-1; ++i)
+    {
+        querystr += "'" + valor[i] + "'" + " , ";
+    }
+    querystr += "'" + valor[i] + "' ) ";
+
+    QSqlQuery query;
+
+    // consulta
+    if(query.exec(querystr)){
+
+        qDebug() << "Consulta exitosa";
+        return true;
+
+    }
+    else {
+        qDebug() << "La consulta ha fallado";
+        return false;
+    }
 
 }
 
