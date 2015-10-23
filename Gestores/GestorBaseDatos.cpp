@@ -15,6 +15,7 @@
  * @param id
  * @return T
  */
+template <class T>
 T GestorBaseDatos::load(T obj, int id) {
     return null;
 }
@@ -22,7 +23,8 @@ T GestorBaseDatos::load(T obj, int id) {
 /**
  * @param objs
  */
-void GestorBaseDatos::save(QVector<T> objs) {
+template <class T1>
+void GestorBaseDatos::save(QVector<T1> objs) {
 
 }
 
@@ -30,7 +32,8 @@ void GestorBaseDatos::save(QVector<T> objs) {
  * @param objs
  * @param id
  */
-void GestorBaseDatos::save(QVector<T> objs, int id) {
+template <class T2> 
+void GestorBaseDatos::save(QVector<T2> objs, int id) {
 
 }
 
@@ -38,7 +41,8 @@ void GestorBaseDatos::save(QVector<T> objs, int id) {
  * @param obj1
  * @param obj2
  */
-void GestorBaseDatos::saveRelacion(T1 obj1, T2 obj2) {
+template <class T3,class T4>
+void GestorBaseDatos::saveRelacion(T3 obj1, T4 obj2) {
 
 }
 
@@ -47,7 +51,8 @@ void GestorBaseDatos::saveRelacion(T1 obj1, T2 obj2) {
  * @param filtros
  * @return QVector<T>
  */
-QVector<T> GestorBaseDatos::query(T obj, QVector<QString> filtros) {
+template <class T5>
+QVector<T5> GestorBaseDatos::query(T5 obj, QVector<QString> filtros) {
     return null;
 }
 
