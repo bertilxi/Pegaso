@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>431</width>
-    <height>513</height>
+    <height>601</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -340,7 +340,6 @@
   <zorder>verticalSpacer</zorder>
   <zorder>verticalSpacer_2</zorder>
   <zorder>verticalSpacer_3</zorder>
-  <zorder>horizontalLayoutWidget</zorder>
  </widget>
  <tabstops>
   <tabstop>lineEdit</tabstop>

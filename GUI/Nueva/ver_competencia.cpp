@@ -1,6 +1,6 @@
 #include "ver_competencia.h"
 #include "ui_ver_competencia.h"
-//#include "modificar_competencia.h"
+#include "modificar_competencia.h"
 //#include "baja_competencia.h"
 //#include "mostrar_fixture.h"
 //#include "tabla_posiciones.h"
@@ -26,14 +26,14 @@ void ver_competencia::on_pushButton_7_clicked()
     this->close();
 }
 
-//void ver_competencia::on_pushButton_2_clicked()
-//{
-//    modificar_competencia * m;
-//    m= new modificar_competencia();
-//    m->setModal(true);
-//    m->show();
+void ver_competencia::on_pushButton_2_clicked()
+{
+    modificar_competencia * m;
+    m= new modificar_competencia();
+    m->setModal(true);
+    m->show();
 
-//}
+}
 
 //void ver_competencia::on_pushButton_3_clicked()
 //{
@@ -75,3 +75,6 @@ void ver_competencia::on_pushButton_7_clicked()
 //    l->setModal(true);
 //    l->show();
 //}
+
+
+

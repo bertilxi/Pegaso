@@ -42,4 +42,5 @@ void MainWindow::on_pushButton_2_clicked()
 void MainWindow::on_pushButton_4_clicked()
 {
     this->close();
+    qDebug()<<"se cerro el programa"
 }
