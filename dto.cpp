@@ -13,9 +13,9 @@ public:
 	
 };
 
-DtoCompetencia::DtoCompetencia(usuario,nombreCom,deporte,modalidad,estado){
+DtoCompetencia::DtoCompetencia(QString u , QVector<QString> filtros = {NULL,NULL,NULL,NULL} ){
 	
-	user = usuario;
+	user = u;
 	filtros[0] = nombreCom;
 	filtros[1] = deporte;
 	filtros[2] = modalidad;
