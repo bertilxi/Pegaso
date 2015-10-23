@@ -10,7 +10,14 @@
 
 
 class Puntos: public Resultado {
-private: 
+public:
+    int getPuntosA() const;
+    void setPuntosA(int value);
+
+    int getPuntosB() const;
+    void setPuntosB(int value);
+
+private:
     int puntosA;
     int puntosB;
 };

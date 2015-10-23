@@ -6,8 +6,16 @@
 #ifndef _DEPORTE_H
 #define _DEPORTE_H
 
+#include <QString>
 class Deporte {
-private: 
+public:
+    int getId() const;
+    void setId(int value);
+
+    QString getNombre() const;
+    void setNombre(const QString &value);
+
+private:
     int id;
     QString nombre;
 };

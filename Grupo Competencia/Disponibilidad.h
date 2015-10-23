@@ -11,8 +11,14 @@
 
 class Disponibilidad {
 public: 
+    Lugar getLugar() const;
+    void setLugar(const Lugar &value);
+
+    int getDisponibilidad() const;
+    void setDisponibilidad(int value);
+
+private:
     Lugar lugar;
-private: 
     int disponibilidad;
 };
 
