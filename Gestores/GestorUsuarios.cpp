@@ -13,8 +13,18 @@
 /**
  * @param datos
  */
-void GestorUsuarios::altaUsuario(Datos datos) {
 
+Usuario GestorUsuarios::getActual() const
+{
+    return actual;
+}
+
+void GestorUsuarios::setActual(const Usuario &value)
+{
+    actual = value;
+}
+void GestorUsuarios::altaUsuario(Datos datos) {
+    
 }
 
 /**
