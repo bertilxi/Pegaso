@@ -10,20 +10,22 @@
 #include "Set.h"
 
 #include <QVector>
-
+#include <QDebug>
 
 class Sets: public Resultado {
 public: 
 
-    QVector<Set> getSets() const;
-    void setSets(const QVector<Set> &value);
-
     int getCant_sets() const;
     void setCant_sets(int value);
 
+    bool operator==(const Sets &other)const;
+
+    QVector<Set *> getSets() const;
+    void setSets(const QVector<Set *> &value);
+
 private:
     int cant_sets;
-    QVector<Set> sets;
+    QVector<Set *> sets;
 };
 
 #endif //_SETS_H

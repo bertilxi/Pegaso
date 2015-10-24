@@ -8,6 +8,7 @@
 
 #include <QString>
 #include <QVector>
+#include <QDebug>
 #include "Disponibilidad.h"
 #include "Participante.h"
 #include "Modalidad.h"
@@ -17,7 +18,6 @@
 
 class Competencia {
 public: 
-
 
     int getId() const;
     void setId(int value);
@@ -42,6 +42,8 @@ public:
 
     Deporte *getDeporte() const;
     void setDeporte(Deporte *value);
+
+    bool operator==(const Competencia &other)const;
 
 private:
     int id;

@@ -29,4 +29,17 @@ void Disponibilidad::setLugar(Lugar *value)
     lugar = value;
 }
 
+bool Disponibilidad::operator==(const Disponibilidad &other) const
+{
+    if(other.getDisponibilidad()!=disponibilidad){
+        qDebug()<<"Disponibilidad: "<<other.getDisponibilidad()<<" "<<disponibilidad;
+        return 0;
+    }
+    if(!(*(other.getLugar()) == *lugar)){
+        qDebug()<<" en disponibilidad";
+        return 0;
+    }
+
+}
+
 

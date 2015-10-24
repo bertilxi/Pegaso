@@ -6,6 +6,8 @@
 #ifndef _SET_H
 #define _SET_H
 
+#include <QDebug>
+
 class Set {
 public:
     int getNro_set() const;
@@ -16,6 +18,8 @@ public:
 
     int getPuntosB() const;
     void setPuntosB(int value);
+
+    bool operator==(const Set &other)const;
 
 private:
     int nro_set;

@@ -82,6 +82,39 @@ void Modalidad::setPuntos_empate(int value)
     puntos_empate = value;
 }
 
+bool Modalidad::operator==(const Modalidad &other) const
+{
+    if(other.getCant_max_sets()!=cant_max_sets){
+        qDebug()<<"cant_max_sets: "<<other.getCant_max_sets()<<" "<<cant_max_sets<<" en modalidad "<<id;
+        return 0;
+    }
+    if(other.getEmpate()!=empate){
+        qDebug()<<"Empate: "<<other.getEmpate()<<" "<<empate<<" en modalidad "<<id;
+        return 0;
+    }
+    if(other.getNombre()!=nombre){
+        qDebug()<<"Nombre: "<<other.getNombre()<<" "<<nombre<<" en modalidad "<<id;
+        return 0;
+    }
+    if(other.getPuntos_empate()!=puntos_empate){
+        qDebug()<<"Puntos_empate: "<<other.getPuntos_empate()<<" "<<puntos_empate<<" en modalidad "<<id;
+        return 0;
+    }
+    if(other.puntos_ganar()!=puntos_ganar){
+        qDebug()<<"Puntos_ganar: "<<other.puntos_ganar()<<" "<<puntos_ganar<<" en modalidad "<<id;
+        return 0;
+    }
+    if(other.puntos_presentarse()!=puntos_presentarse){
+        qDebug()<<"Puntos_presentarse: "<<other.puntos_presentarse()<<" "<<puntos_presentarse<<" en modalidad "<<id;
+        return 0;
+    }
+    if(other.getTipo_resultado()!=tipo_resultado){
+        qDebug()<<"Tipo_Resultado: "<<other.getTipo_resultado()<<" "<<tipo_resultado<<" en modalidad "<<id;
+        return 0;
+    }
+    return 1;
+}
+
 
 
 

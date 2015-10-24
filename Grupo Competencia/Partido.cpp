@@ -91,6 +91,61 @@ void Partido::setActual(const Resultado *value)
     actual = value;
 }
 
+bool Partido::operator==(const Partido &other) const
+{
+    if(!(*(other.getActual()) == *actual)){
+        qDebug()<<" en partido "<<id;
+        return 0;
+    }
+    if(other.getFecha()!=fecha){
+        qDebug()<<"Fecha: "<<other.getFecha()<<" "<<fecha<<" en partido "<<id;
+        return 0;
+    }
+    if(other.getRonda()!=ronda){
+        qDebug()<<"Ronda: "<<other.getRonda()<<" "<<ronda<<" en partido "<<id;
+        return 0;
+    }
+    if(!(*(other.getEquipoA()) == *equipoA)){
+        qDebug()<<" EquipoA en partido "<<id;
+        return 0;
+    }
+    if(!(*(other.getEquipoB()) == *equipoB)){
+        qDebug()<<" EquipoB en partido "<<id;
+        return 0;
+    }
+    if(!(*(other.getLugar()) == *lugar)){
+        qDebug()<<" en partido "<<id;
+        return 0;
+    }
+    if(!(*(other.getActual()) == *actual)){
+        qDebug()<<" en partido "<<id;
+        return 0;
+    }
+    QVector<Resultado *> otherModificado(other.getModificado());
+    if(otherModificado.size()!=modificado.size()){
+        qDebug()<<"modificados en partido "<<id;
+        return 0;
+    }
+    for(int i=0;i<otherModificado.size();i++){
+        if(!(*otherModificado[i] == *modificado[i])){
+            qDebug()<<" en partido "<<id;
+            return 0;
+        }
+    }
+    QVector<Partido *> otherSucesor(other.getSucesor());
+    if(otherSucesor.size()!=sucesor.size()){
+        qDebug()<<"Sucesor en partido "<<id;
+        return 0;
+    }
+    for(int i=0;i<otherSucesor.size();i++){
+        if(!(*otherSucesor[i] == *sucesor[i])){
+            qDebug()<<" en partido "<<id;
+            return 0;
+        }
+    }
+    return 1;
+}
+
 
 
 

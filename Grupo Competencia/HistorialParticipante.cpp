@@ -46,5 +46,22 @@ void HistorialParticipante::setImagen(const QString &value)
     imagen = value;
 }
 
+bool HistorialParticipante::operator==(const HistorialParticipante &other) const
+{
+    if(other.getNombre()!=nombre){
+        qDebug()<<"Nombre: "<<other.getNombre()<<" "<<nombre<<" en historial "<<id;
+        return 0;
+    }
+    if(other.getCorreo()!=correo){
+        qDebug()<<"Correo: "<<other.getCorreo()<<" "<<correo<<" en historial "<<id;
+        return 0;
+    }
+    if(other.getImagen()!=imagen){
+        qDebug()<<"Imagen: "<<other.getImagen()<<" "<<imagen<<" en historial "<<id;
+        return 0;
+    }
+    return 1;
+}
+
 
 

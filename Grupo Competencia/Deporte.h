@@ -7,6 +7,7 @@
 #define _DEPORTE_H
 
 #include <QString>
+#include <QDebug>
 class Deporte {
 public:
     int getId() const;
@@ -14,6 +15,8 @@ public:
 
     QString getNombre() const;
     void setNombre(const QString &value);
+
+    bool operator==(const Deporte &other)const;
 
 private:
     int id;

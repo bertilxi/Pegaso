@@ -10,11 +10,6 @@
  */
 
 
-
-
-
-
-
 int Competencia::getId() const
 {
     return id;
@@ -86,6 +81,58 @@ Deporte *Competencia::getDeporte() const
 void Competencia::setDeporte(Deporte *value)
 {
     deporte = value;
+}
+
+bool Competencia::operator==(const Competencia &other) const
+{
+    QVector<Disponibilidad *> otherDisponibilidades(other.getDisponibilidades());
+    if(otherDisponibilidades.size()!=disponibilidades.size()){
+        qDebug()<<"Disponibilidades en competencia "<<id;
+        return 0;
+    }
+    for(int i=0;i<other.size();i++){
+        if(!(*otherDisponibilidades[i] == *disponibilidades[i])){
+            qDebug()<<" en competencia "<<id;
+            return 0;
+        }
+    }
+
+    QVector<Participante *> otherParticipantes(other.getParticipantes());
+    if(otherParticipantes.size()!=participantes.size()){
+        qDebug()<<" Participantes en competencia "<<id;
+        return 0;
+    }
+    for(int i=0;i<otherParticipantes.size();i++){
+        if(!(*otherParticipantes[i] == *participantes[i])){
+            qDebug()<<" en competencia "<<id;
+            return 0;
+        }
+    }
+
+    QVector<Partido *> otherPartidos(other.getPartidos());
+    if(otherPartidos.size()!=partidos.size()){
+        qDebug()<<"Partidos en competencia "<<id;
+        return 0;
+    }
+    for(int i=0;i<other.size();i++){
+        if(!(*otherPartidos[i] == *partidos[i])){
+            qDebug()<<" en competencia "<<id;
+            return 0;
+        }
+    }
+    if(!(*(other.getDeporte()) == *deporte)){
+        qDebug()<<" en competencia"<<id;
+        return 0;
+    }
+    if(!(*(other.getModalidad()) == *modalidad)){
+        qDebug()<<" en competencia"<<id;
+        return 0;
+    }
+    if(other.getEstado()!=estado){
+        qDebug()<<"Estado: "<<other.getEstado()<<" "<<estado<<" en competencia"<<id;
+        return 0;
+    }
+    return 1;
 }
 
 

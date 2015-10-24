@@ -11,7 +11,7 @@
 
 #include <QString>
 #include <QVector>
-
+#include <QDebug>
 
 class Participante {
 public: 
@@ -33,6 +33,8 @@ public:
 
     Puntaje *getPuntaje() const;
     void setPuntaje(const Puntaje *value);
+
+    bool operator==(const Participante &other)const;
 
 private:
     int id;

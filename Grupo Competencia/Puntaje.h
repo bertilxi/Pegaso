@@ -2,11 +2,11 @@
  * Project Pegaso
  */
 
-#include "Resultado.h"
-
-
 #ifndef _PUNTAJE_H
 #define _PUNTAJE_H
+
+#include <QDebug>
+#include "Resultado.h"
 
 class Puntaje {
 public: 
@@ -40,6 +40,8 @@ public:
 
     int getDif() const;
     void setDif(int value);
+
+    bool operator==(const Puntaje &other)const;
 
 private:
     int puntos;

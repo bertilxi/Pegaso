@@ -2,11 +2,12 @@
  * Project Pegaso
  */
 
-#include <QString>
-
 
 #ifndef _HISTORIALPARTICIPANTE_H
 #define _HISTORIALPARTICIPANTE_H
+
+#include <QString>
+#include <QDebug>
 
 class HistorialParticipante {
 public:
@@ -21,6 +22,8 @@ public:
 
     QString getImagen() const;
     void setImagen(const QString &value);
+
+    bool operator==(const HistorialParticipante &other)const;
 
 private:
     int id;
