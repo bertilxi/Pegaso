@@ -18,6 +18,7 @@
 class Competencia {
 public: 
 
+
     int getId() const;
     void setId(int value);
 
@@ -27,24 +28,30 @@ public:
     QString getNombre() const;
     void setNombre(const QString &value);
 
-    QVector<Disponibilidad> getDisponibilidades() const;
-    void setDisponibilidades(const QVector<Disponibilidad> &value);
+    QVector<Disponibilidad *> getDisponibilidades() const;
+    void setDisponibilidades(const QVector<Disponibilidad *> &value);
 
-    QVector<Participante> getParticipantes() const;
-    void setParticipantes(const QVector<Participante> &value);
+    QVector<Participante *> getParticipantes() const;
+    void setParticipantes(const QVector<Participante *> &value);
 
-    QVector<Partido> getPartidos() const;
-    void setPartidos(const QVector<Partido> &value);
+    Modalidad *getModalidad() const;
+    void setModalidad(Modalidad *value);
+
+    QVector<Partido *> getPartidos() const;
+    void setPartidos(const QVector<Partido *> &value);
+
+    Deporte *getDeporte() const;
+    void setDeporte(Deporte *value);
 
 private:
     int id;
     QString estado;
     QString nombre;
-    QVector<Disponibilidad> disponibilidades;
-    QVector<Participante> participantes;
-    Modalidad modalidad;
-    QVector<Partido> partidos;
-    Deporte deporte;
+    QVector<Disponibilidad *> disponibilidades;
+    QVector<Participante *> participantes;
+    Modalidad *modalidad;
+    QVector<Partido *> partidos;
+    Deporte *deporte;
 };
 
 #endif //_COMPETENCIA_H

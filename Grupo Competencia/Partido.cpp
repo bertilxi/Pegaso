@@ -36,57 +36,57 @@ void Partido::setFecha(int value)
 {
     fecha = value;
 }
-Participante Partido::getEquipoA() const
+Participante *Partido::getEquipoA() const
 {
     return equipoA;
 }
 
-void Partido::setEquipoA(const Participante &value)
+void Partido::setEquipoA(const Participante *value)
 {
     equipoA = value;
 }
-Participante Partido::getEquipoB() const
+Participante *Partido::getEquipoB() const
 {
     return equipoB;
 }
 
-void Partido::setEquipoB(const Participante &value)
+void Partido::setEquipoB(const Participante *value)
 {
     equipoB = value;
 }
-Lugar Partido::getLugar() const
+Lugar *Partido::getLugar() const
 {
     return lugar;
 }
 
-void Partido::setLugar(const Lugar &value)
+void Partido::setLugar(const Lugar *value)
 {
     lugar = value;
 }
-Partido Partido::getSucesor() const
+Partido *Partido::getSucesor() const
 {
     return sucesor;
 }
 
-void Partido::setSucesor(const Partido &value)
+void Partido::setSucesor(const Partido *value)
 {
     sucesor = value;
 }
-QVector<Resultado> Partido::getModificado() const
+QVector<Resultado *> Partido::getModificado() const
 {
     return modificado;
 }
 
-void Partido::setModificado(const QVector<Resultado> &value)
+void Partido::setModificado(const QVector<Resultado *> &value)
 {
     modificado = value;
 }
-Resultado Partido::getActual() const
+Resultado *Partido::getActual() const
 {
     return actual;
 }
 
-void Partido::setActual(const Resultado &value)
+void Partido::setActual(const Resultado *value)
 {
     actual = value;
 }

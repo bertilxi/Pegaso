@@ -28,19 +28,19 @@ public:
     QString getImg() const;
     void setImg(const QString &value);
 
-    QVector<HistorialParticipante> getHistorial() const;
-    void setHistorial(const QVector<HistorialParticipante> &value);
+    QVector<HistorialParticipante *> getHistorial() const;
+    void setHistorial(const QVector<HistorialParticipante *> &value);
 
-    Puntaje getPuntaje() const;
-    void setPuntaje(const Puntaje &value);
+    Puntaje *getPuntaje() const;
+    void setPuntaje(const Puntaje *value);
 
 private:
     int id;
     QString nombre;
     QString correo;
     QString img;
-    QVector<HistorialParticipante> historial;
-    Puntaje puntaje;
+    QVector<HistorialParticipante *> historial;
+    Puntaje* puntaje;
 };
 
 #endif //_PARTICIPANTE_H

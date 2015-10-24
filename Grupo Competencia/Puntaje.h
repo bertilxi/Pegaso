@@ -2,7 +2,7 @@
  * Project Pegaso
  */
 
-#include "Partido.h"
+#include "Resultado.h"
 
 
 #ifndef _PUNTAJE_H
@@ -14,12 +14,12 @@ public:
     /**
      * @param part
      */
-    void restar(Partido part);
+    void restar(Resultado part);
     
     /**
      * @param part
      */
-    void sumar(Partido part);
+    void sumar(Resultado part);
     int getPuntos() const;
     void setPuntos(int value);
 

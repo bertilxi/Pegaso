@@ -45,21 +45,21 @@ void Participante::setImg(const QString &value)
 {
     img = value;
 }
-QVector<HistorialParticipante> Participante::getHistorial() const
+QVector<HistorialParticipante *> Participante::getHistorial() const
 {
     return historial;
 }
 
-void Participante::setHistorial(const QVector<HistorialParticipante> &value)
+void Participante::setHistorial(const QVector<HistorialParticipante *> &value)
 {
     historial = value;
 }
-Puntaje Participante::getPuntaje() const
+Puntaje *Participante::getPuntaje() const
 {
     return puntaje;
 }
 
-void Participante::setPuntaje(const Puntaje &value)
+void Participante::setPuntaje(const Puntaje *value)
 {
     puntaje = value;
 }

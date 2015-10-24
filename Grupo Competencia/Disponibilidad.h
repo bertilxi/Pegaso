@@ -11,14 +11,15 @@
 
 class Disponibilidad {
 public: 
-    Lugar getLugar() const;
-    void setLugar(const Lugar &value);
 
     int getDisponibilidad() const;
     void setDisponibilidad(int value);
 
+    Lugar *getLugar() const;
+    void setLugar(Lugar *value);
+
 private:
-    Lugar lugar;
+    Lugar *lugar;
     int disponibilidad;
 };
 

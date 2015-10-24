@@ -18,7 +18,6 @@ TEMPLATE = app
 SOURCES += Competencia.cpp \
     Deporte.cpp \
     Disponibilidad.cpp \
-    Doble.cpp \
     Fixture.cpp \
     HistorialParticipante.cpp \
     Liga.cpp \
