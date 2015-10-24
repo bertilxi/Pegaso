@@ -9,19 +9,13 @@
 //    ui->setupUi(this);
 //}
 
-MainWindow::MainWindow(QWidget *parent,GestorBaseDatos gdb, GestorCompetencias gComp, GestorLugares gLugares, GestorParticipantes gParticipantes, GestorPartidos gPartidos, GestorUsuarios gUsuarios):
+MainWindow::MainWindow(QWidget *parent,GestorBaseDatos* gdb, GestorCompetencias* gComp, GestorLugares* gLugares, GestorParticipantes* gParticipantes, GestorPartidos* gPartidos, GestorUsuarios* gUsuarios):
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    GestorBaseDatos(gdb),GestorCompetencias(gComp),GestorLugares(gLugares),
+    GestorParticipantes(gParticipantes),GestorPartidos(gPartidos),GestorUsuarios(gUsuarios)
 {
     ui->setupUi(this);
-    /*
-    gestorBaseDeDatos = gdb;
-    gestorCompetencias = gComp;
-    gestorLugares = gLugares;
-    gestorParticipantes = gParticipantes;
-    gestorPartidos = gPartidos;
-    gestorUsuarios = gUsuarios;
-    */
 }
 
 MainWindow::~MainWindow()
