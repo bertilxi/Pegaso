@@ -39,7 +39,7 @@ bool Disponibilidad::operator==(const Disponibilidad &other) const
         qDebug()<<" en disponibilidad";
         return 0;
     }
-
+    return 1;
 }
 
 

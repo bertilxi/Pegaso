@@ -46,6 +46,6 @@ bool Puntos::operator==(const Puntos &other) const
         qDebug()<<"ResultadoB: "<<other.getResultadoB()<<" "<<resultadoB<<" en resultado";
         return 0;
     }
-    return1;
+    return 1;
 }
 

@@ -51,6 +51,7 @@ bool Set::operator==(const Set &other) const
         qDebug()<<"PuntosB: "<<other.getPuntosB()<<" "<<puntosB;
         return 0;
     }
+    return 1;
 }
 
 

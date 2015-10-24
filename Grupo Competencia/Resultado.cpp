@@ -38,5 +38,6 @@ bool virtual Resultado::operator==(const Resultado &other) const
         qDebug()<<"ResultadoB: "<<other.getResultadoB()<<" "<<resultadoB<<" en resultado";
         return 0;
     }
+    return 1;
 }
 

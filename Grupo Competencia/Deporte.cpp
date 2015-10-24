@@ -38,5 +38,6 @@ bool Deporte::operator==(const Deporte &other) const
         qDebug()<<"Id: "<<other.getId()<<" "<<id<<" en deporte";
         return 0;
     }
+    return 1;
 }
 

@@ -55,5 +55,6 @@ bool Sets::operator==(const Sets &other) const
             return 0;
         }
     }
+    return 1;
 }
 
