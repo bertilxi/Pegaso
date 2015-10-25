@@ -7,6 +7,7 @@
 #define _MODALIDAD_H
 
 #include <QString>
+#include <QDebug>
 
 class Modalidad {
 public:
@@ -33,6 +34,8 @@ public:
 
     int getPuntos_empate() const;
     void setPuntos_empate(int value);
+
+    bool operator==(const Modalidad &other)const;
 
 private:
     int id;

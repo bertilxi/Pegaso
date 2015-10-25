@@ -7,6 +7,7 @@
 #define _LUGAR_H
 
 #include <QString>
+#include <QDebug>
 
 class Lugar {
 public:
@@ -19,6 +20,7 @@ public:
     QString getDescripcion() const;
     void setDescripcion(const QString &value);
 
+    bool operator==(const Lugar &other)const;
 private:
     int id;
     QString nombre;

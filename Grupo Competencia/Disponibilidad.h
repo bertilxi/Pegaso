@@ -7,18 +7,21 @@
 #define _DISPONIBILIDAD_H
 
 #include "Lugar.h"
-
+#include <QDebug>
 
 class Disponibilidad {
 public: 
-    Lugar getLugar() const;
-    void setLugar(const Lugar &value);
 
     int getDisponibilidad() const;
     void setDisponibilidad(int value);
 
+    Lugar *getLugar() const;
+    void setLugar(Lugar *value);
+
+    bool operator==(const Disponibilidad &other)const;
+
 private:
-    Lugar lugar;
+    Lugar *lugar;
     int disponibilidad;
 };
 

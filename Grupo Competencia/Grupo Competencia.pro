@@ -18,10 +18,7 @@ TEMPLATE = app
 SOURCES += Competencia.cpp \
     Deporte.cpp \
     Disponibilidad.cpp \
-    Doble.cpp \
-    Fixture.cpp \
     HistorialParticipante.cpp \
-    Liga.cpp \
     Lugar.cpp \
     Modalidad.cpp \
     Participante.cpp \
@@ -30,8 +27,7 @@ SOURCES += Competencia.cpp \
     Puntos.cpp \
     Resultado.cpp \
     Set.cpp \
-    Sets.cpp \
-    Simple.cpp
+    Sets.cpp
 
 HEADERS += Competencia.h \
     Deporte.h \

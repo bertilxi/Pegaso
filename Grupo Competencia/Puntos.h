@@ -6,6 +6,7 @@
 #ifndef _PUNTOS_H
 #define _PUNTOS_H
 
+#include <QDebug>
 #include "Resultado.h"
 
 
@@ -16,6 +17,8 @@ public:
 
     int getPuntosB() const;
     void setPuntosB(int value);
+
+    bool operator==(const Puntos &other)const;
 
 private:
     int puntosA;

@@ -87,6 +87,39 @@ void Puntaje::setDif(int value)
     Dif = value;
 }
 
+bool Puntaje::operator==(const Puntaje &other) const
+{
+    if(other.getDif()!=Dif){
+        qDebug()<<"Dif: "<<other.getDif()<<" "<<Dif<<" en puntaje";
+        return 0;
+    }
+    if(other.getPE()!=PE){
+        qDebug()<<"PE: "<<other.getPE()<<" "<<PE<<" en puntaje";
+        return 0;
+    }
+    if(other.getPG()!=){
+        qDebug()<<"PG: "<<other.getPG()<<" "<<PG<<" en puntaje";
+        return 0;
+    }
+    if(other.getPP()!=){
+        qDebug()<<"PP: "<<other.getPP()<<" "<<PP<<" en puntaje";
+        return 0;
+    }
+    if(other.getPuntos()!=){
+        qDebug()<<"Puntos: "<<other.getPuntos()<<" "<<Puntos<<" en puntaje";
+        return 0;
+    }
+    if(other.getTC()!=){
+        qDebug()<<"TC: "<<other.getTC()<<" "<<TC<<" en puntaje";
+        return 0;
+    }
+    if(other.getTF()!=){
+        qDebug()<<"TF: "<<other.getTF()<<" "<<TF<<" en puntaje";
+        return 0;
+    }
+    return 1;
+}
+
 
 
 

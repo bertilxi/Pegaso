@@ -37,4 +37,21 @@ void Lugar::setDescripcion(const QString &value)
     descripcion = value;
 }
 
+bool Lugar::operator==(const Lugar &other) const
+{
+    if (other.getDescripcion()!=descripcion){
+        qDebug()<<"Descripcion: "<<other.getDescripcion()<<" "<<descripcion<<" en lugar "<<id;
+        return 0;
+    }
+    if(other.getId()!=id){
+        qDebug()<<"Id: "<<other.getId()<<" "<<id<<" en lugar";
+        return 0;
+    }
+    if(other.getNombre()!=nombre){
+        qDebug()<<"Nombre: "<<other.nombre()<<" "<<nombre<<" en lugar"<<id;
+        return 0;
+    }
+    return 1;
+}
+
 

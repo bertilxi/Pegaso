@@ -2,11 +2,11 @@
  * Project Pegaso
  */
 
-#include "Partido.h"
-
-
 #ifndef _PUNTAJE_H
 #define _PUNTAJE_H
+
+#include <QDebug>
+#include "Resultado.h"
 
 class Puntaje {
 public: 
@@ -14,12 +14,12 @@ public:
     /**
      * @param part
      */
-    void restar(Partido part);
+    void restar(Resultado part);
     
     /**
      * @param part
      */
-    void sumar(Partido part);
+    void sumar(Resultado part);
     int getPuntos() const;
     void setPuntos(int value);
 
@@ -40,6 +40,8 @@ public:
 
     int getDif() const;
     void setDif(int value);
+
+    bool operator==(const Puntaje &other)const;
 
 private:
     int puntos;

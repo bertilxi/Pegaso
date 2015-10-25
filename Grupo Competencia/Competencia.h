@@ -8,6 +8,7 @@
 
 #include <QString>
 #include <QVector>
+#include <QDebug>
 #include "Disponibilidad.h"
 #include "Participante.h"
 #include "Modalidad.h"
@@ -27,24 +28,32 @@ public:
     QString getNombre() const;
     void setNombre(const QString &value);
 
-    QVector<Disponibilidad> getDisponibilidades() const;
-    void setDisponibilidades(const QVector<Disponibilidad> &value);
+    QVector<Disponibilidad *> getDisponibilidades() const;
+    void setDisponibilidades(const QVector<Disponibilidad *> &value);
 
-    QVector<Participante> getParticipantes() const;
-    void setParticipantes(const QVector<Participante> &value);
+    QVector<Participante *> getParticipantes() const;
+    void setParticipantes(const QVector<Participante *> &value);
 
-    QVector<Partido> getPartidos() const;
-    void setPartidos(const QVector<Partido> &value);
+    Modalidad *getModalidad() const;
+    void setModalidad(Modalidad *value);
+
+    QVector<Partido *> getPartidos() const;
+    void setPartidos(const QVector<Partido *> &value);
+
+    Deporte *getDeporte() const;
+    void setDeporte(Deporte *value);
+
+    bool operator==(const Competencia &other)const;
 
 private:
     int id;
     QString estado;
     QString nombre;
-    QVector<Disponibilidad> disponibilidades;
-    QVector<Participante> participantes;
-    Modalidad modalidad;
-    QVector<Partido> partidos;
-    Deporte deporte;
+    QVector<Disponibilidad *> disponibilidades;
+    QVector<Participante *> participantes;
+    Modalidad *modalidad;
+    QVector<Partido *> partidos;
+    Deporte *deporte;
 };
 
 #endif //_COMPETENCIA_H
