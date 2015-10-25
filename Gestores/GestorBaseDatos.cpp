@@ -2,6 +2,8 @@
  * Project Pegaso
  */
 
+#include <QSqlQuery>
+#include <QDebug>
 
 #include "GestorBaseDatos.h"
 
@@ -37,48 +39,56 @@ T GestorBaseDatos::load(T obj, int id) {
     }
     else {
         qDebug() << "La consulta ha fallado";
-        return null;
+        return NULL;
     }
 }
 
 /**
- * @param objs
+ * @param objptrs es una lista de punteros a objetos
+ * @return bool indica si la operacion fue exitosa
  */
 template <class T1>
-void GestorBaseDatos::save(QVector<T1> objs) {
-	
-	QString tabla = objs.getTable();
-	QVector<QString> campo = objs.getCampos();
-	QVector<QString>  valor = objs.getValores();
+bool GestorBaseDatos::save(QVector<T1 *> objptrs) {
 
-	QString querystr = "insert or replace into " + tabla + " ( " ;
+    QString tabla = objptrs[0]->getTable();
+    QVector<QString> campos = objptrs[0]->getCampos(); //incluido el id si ya estaba persistido (sino, no).
+    QVector<QString> valores = objptrs[0]->getValores();
+
+    QString querystr;
+
     int i;
-    for (i = 0; i < campo.size()-1; ++i)
+    for(i = 0; i < objptrs.size(); i++)
     {
-        querystr += campo[i] + " , " ;
+        querystr = "insert or replace into " + tabla + " ( " ;
+
+        int j;
+        for (j = 0; j < campos.size()-1; ++j)
+        {
+            querystr += campos[j] + " , " ;
+        }
+        querystr += campos[j] + ") values ( " ;
+
+        for (j = 0; j < valores.size()-1; ++j)
+        {
+            querystr += "'" + valores[j] + "'" + " , ";
+        }
+        querystr += "'" + valores[j] + "' ) ";
+
+        QSqlQuery query;
+
+        // consulta
+        if(!query.exec(querystr)){
+            qDebug() << "La consulta " << i << " ha fallado";
+            return false;
+        }
+        else{
+            qDebug() << "Consulta " << i << " exitosa";
+        }
+
+        objptrs[i]->id = query.lastInsertId(); //se agrega a cada objeto su id, asignado por la BD
     }
-    querystr += campo[i] + ") values ( " ;
 
-    for (i = 0; i < valor.size()-1; ++i)
-    {
-        querystr += "'" + valor[i] + "'" + " , ";
-    }
-    querystr += "'" + valor[i] + "' ) ";
-
-    QSqlQuery query;
-
-    // consulta
-    if(query.exec(querystr)){
-
-        qDebug() << "Consulta exitosa";
-        return true;
-
-    }
-    else {
-        qDebug() << "La consulta ha fallado";
-        return false;
-    }
-
+    return true;
 }
 
 /**
@@ -106,7 +116,7 @@ void GestorBaseDatos::saveRelacion(T3 obj1, T4 obj2) {
  */
 template <class T5>
 QVector<T5> GestorBaseDatos::query(T5 obj, QVector<QString> filtros) {
-    return null;
+    return NULL;
 }
 
 void GestorBaseDatos::beginTransaction() {
