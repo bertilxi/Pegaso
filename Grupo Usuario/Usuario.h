@@ -6,8 +6,8 @@
 #ifndef _USUARIO_H
 #define _USUARIO_H
 
-#include "Competencia.h"
-#include "Lugar.h"
+#include "../Grupo Competencia/Competencia.h"
+#include "../Grupo Competencia/Lugar.h"
 #include "Doc.h"
 #include "Localidad.h"
 #include "Auditoria.h"
