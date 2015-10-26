@@ -20,10 +20,12 @@ SOURCES += GestorBaseDatos.cpp \
     GestorCompetencias.cpp \
     GestorLugares.cpp \
     GestorPartidos.cpp \
-    GestorUsuarios.cpp
+    GestorUsuarios.cpp \
+    GestorParticipantes.cpp
 
 HEADERS += GestorBaseDatos.h \
     GestorCompetencias.h \
     GestorLugares.h \
     GestorPartidos.h \
-    GestorUsuarios.h
+    GestorUsuarios.h \
+    GestorParticipantes.h
