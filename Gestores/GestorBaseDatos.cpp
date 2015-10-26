@@ -85,7 +85,7 @@ bool GestorBaseDatos::save(QVector<T1 *> objptrs) {
             qDebug() << "Consulta " << i << " exitosa";
         }
 
-        objptrs[i]->id = query.lastInsertId(); //se agrega a cada objeto su id, asignado por la BD
+        objptrs[i]->id = query.lastInsertId().toInt(); //se agrega a cada objeto su id, asignado por la BD
     }
 
     return true;
