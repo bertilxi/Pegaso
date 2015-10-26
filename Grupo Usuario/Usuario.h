@@ -15,11 +15,11 @@
 
 class Usuario {
 public: 
-    Vector<Competencia> competencias;
-    Vector<Lugar> lugares;
+    QVector<Competencia> competencias;
+    QVector<Lugar> lugares;
     Doc doc;
     Localidad localidad;
-    Vector<Auditoria> auditorias;
+    QVector<Auditoria> auditorias;
 private: 
     int id;
     QString password;
