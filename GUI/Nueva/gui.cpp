@@ -1,7 +1,7 @@
 #include "gui.h"
 
-GUI::GUI()
+void GUI::show()
 {
-
+    mainWindow(0,this,gestorDB);
+    mainWindow->show();
 }
-

@@ -11,7 +11,8 @@ public:
 	QString modalidad;
 	QString estado;
 	DtoGetCompetencia(QString usuarioP , QString nombreCompetenciaP = NULL, Deporte * deporteP = NULL, QString modalidadP = NULL, QString estadoP = NULL ):
-		usuario(usuarioP), nombreCompetencia(nombreCompetenciaP), deporte(deporteP), modalidad(modalidadP), estado(estadoP) {};
+		usuario(usuarioP), nombreCompetencia(nombreCompetenciaP), deporte(deporteP), modalidad(modalidadP), estado(estadoP) {}
+		
 };
 
 class DtoCompetencia
@@ -24,7 +25,7 @@ public:
 	Modalidad * modalidad;
 	QString reglamento;
 	DtoCompetencia(QString nombreCompentenciaP, Deporte * deporteP, QVector<Lugar*> lugaresP, QVector<int> disponibilidadesP, Modalidad * modalidadP, QString reglamentoP ):
-		nombreCompetencia(nombreCompetencia), deporte(deporteP), lugares(lugaresP), disponibilidades(disponibilidadesP), modalidad(modalidadP), reglamento(reglamentoP) {};
+		nombreCompetencia(nombreCompetencia), deporte(deporteP), lugares(lugaresP), disponibilidades(disponibilidadesP), modalidad(modalidadP), reglamento(reglamentoP) {}
 	
 };
 
@@ -35,7 +36,7 @@ public:
 	QString correo;
 	QString imgUrl;
 	DtoParticipante(QString nombreP, QString correoP, QString imgUrlP):
-		nombre(nombreP), correo(correoP), imgUrl(imgUrlP) {};
+		nombre(nombreP), correo(correoP), imgUrl(imgUrlP) {}
 	
 };
 
@@ -51,7 +52,7 @@ public:
 	QString provincia;
 	QString localidad;
  	DtoUsuario(QString correoP, QString nombreP, QString apellidoP, QString tipoDniP, QString numeroDniP, QString paisP, QString provinciaP, QString localidadP):
- 		correo(correoP), nombre(nombreP), apellido(apellidoP), tipoDni(tipoDniP), numeroDni(numeroDniP), pais(paisP), provincia(provinciaP), localidad(localidadP) {};
+ 		correo(correoP), nombre(nombreP), apellido(apellidoP), tipoDni(tipoDniP), numeroDni(numeroDniP), pais(paisP), provincia(provinciaP), localidad(localidadP) {}
 
 };
 
@@ -62,5 +63,5 @@ public:
 	QString descripcion = NULL;
 	QVector<Deporte*> Deportes;
 	DtoLugar(QString nombreP, QString descripcionP = NULL, QVector<Deporte*> DeportesP):
-		nombre(nombreP), descripcion(descripcionP), Deportes(DeportesP) {};
+		nombre(nombreP), descripcion(descripcionP), Deportes(DeportesP) {}
 };

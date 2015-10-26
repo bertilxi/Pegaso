@@ -1,19 +1,8 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include "pantalla_usuario.h"
 
-//MainWindow::MainWindow(QWidget *parent) :
-//    QMainWindow(parent),
-//    ui(new Ui::MainWindow)
-//{
-//    ui->setupUi(this);
-//}
 
-MainWindow::MainWindow(QWidget *parent,GestorBaseDatos* gdb, GestorCompetencias* gComp, GestorLugares* gLugares, GestorParticipantes* gParticipantes, GestorPartidos* gPartidos, GestorUsuarios* gUsuarios):
-    QMainWindow(parent),
-    ui(new Ui::MainWindow),
-    GestorBaseDatos(gdb),GestorCompetencias(gComp),GestorLugares(gLugares),
-    GestorParticipantes(gParticipantes),GestorPartidos(gPartidos),GestorUsuarios(gUsuarios)
+MainWindow::MainWindow(QWidget *parent, GUI guiP, GestorBaseDatos* gestorDBP):
+    QMainWindow(parent), gui(guiP), gestorDB(gestorDBP), ui(new Ui::MainWindow),
 {
     ui->setupUi(this);
 }

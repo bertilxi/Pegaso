@@ -27,7 +27,8 @@ SOURCES += main.cpp\
     GestorLugares.cpp \
     GestorParticipantes.cpp \
     GestorPartidos.cpp \
-    GestorUsuarios.cpp
+    GestorUsuarios.cpp \
+    gui.cpp
 
 HEADERS  += mainwindow.h \
     listar_competencias.h \
@@ -43,7 +44,8 @@ HEADERS  += mainwindow.h \
     GestorLugares.h \
     GestorParticipantes.h \
     GestorPartidos.h \
-    GestorUsuarios.h
+    GestorUsuarios.h \
+    gui.h
 
 FORMS    += mainwindow.ui \
     listar_competencias.ui \
