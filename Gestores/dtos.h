@@ -19,14 +19,15 @@ public:
 class DtoCompetencia
 {
 public:
+    int idUsuario;
     QString nombreCompetencia;
     Deporte * deporte;
     QVector<Lugar*> lugares;
     QVector<int> disponibilidades;
     Modalidad * modalidad;
     QString reglamento;
-    DtoCompetencia(QString nombreCompentenciaP, Deporte * deporteP, QVector<Lugar*> lugaresP, QVector<int> disponibilidadesP, Modalidad * modalidadP, QString reglamentoP ):
-        nombreCompetencia(nombreCompetencia), deporte(deporteP), lugares(lugaresP), disponibilidades(disponibilidadesP), modalidad(modalidadP), reglamento(reglamentoP) {}
+    DtoCompetencia(int idUsuarioP,QString nombreCompentenciaP, Deporte * deporteP, QVector<Lugar*> lugaresP, QVector<int> disponibilidadesP, Modalidad * modalidadP, QString reglamentoP ):
+        idUsuario(idUsuarioP),nombreCompetencia(nombreCompetencia), deporte(deporteP), lugares(lugaresP), disponibilidades(disponibilidadesP), modalidad(modalidadP), reglamento(reglamentoP) {}
 
 };
 
