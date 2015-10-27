@@ -9,105 +9,85 @@
  * GestorCompetencias implementation
  */
 
-
-/**
- * @param datos
- * @return Competencia$
- */
-Competencia GestorCompetencias::crearCompetencia(DtoCompetencia datos) {
-    return null;
+Competencia *GestorCompetencias::crearCompetencia(DtoCompetencia *datos, bool operacionExitosa, QString error)
+{
+    //Valido si existe una competencia con el mismo nombre
+    /*
+    DtoGetCompetencia dto(datos->idUsuario,datos->nombreCompetencia,null,null,null);
+    QVector<Competencia*> auxComps=gestorBaseDatos->getCompetenciasLazy(dto);
+    if(! auxComps.isEmpty()){
+        operacionExitosa=false;
+        error="Ya existe una competencia con el mismo nombre";
+        return (new Competencia);
+    }
+    */
+    //Creo la competencia
+    Competencia *comp=new Competencia;
+    comp->setEstado("Creada");
+    comp->setModalidad(datos->modalidad);
+    comp->setDeporte(datos->deporte);
+    QVector<Disponibilidad*> disponibilidades;
+    for(int i=0;i<datos->lugares.size();i++){
+        Disponibilidad disp=new Disponibilidad;
+        disp.setDisponibilidad(datos->disponibilidades[i]);
+        disp.setLugar(datos->lugares[i]);
+        disponibilidades.push_back(disp);
+    }
+    comp->setDisponibilidades(disponibilidades);
+  //  gestorBaseDatos->saveCompetencia(comp);
+    operacionExitosa=true;
+    error="La operación ha culminado con éxito";
+    return comp;
 }
 
-/**
- * @param comp
- * @return bool
- */
-bool GestorCompetencias::bajaCompetencia(Competencia comp) {
+void GestorCompetencias::bajaCompetencia(Competencia *comp)
+{
+    comp->setBorrado(true);
+    comp->setFecha_y_horaB(QDateTime::currentDateTime().toString(Qt::ISODate));
+  //  gestorBaseDatos->saveCompetencia(comp);
+}
+
+bool GestorCompetencias::modCompetencia(Competencia *comp, DtoCompetencia *datos, QString error)
+{
     return false;
 }
 
-/**
- * @param comp
- * @param datos
- * @return bool
- */
-bool GestorCompetencias::modCompetencia(Competencia comp, DtoCompetencia datos) {
-    return false;
-}
-
-/**
- * @return QVector<Competencia>
- */
-QVector<Competencia> GestorCompetencias::listarCompetencias() {
-    return null;
-}
-
-/**
- * @param comp
- * @param datos
- * @return bool
- */
-bool GestorCompetencias::altaParticipante(Competencia comp, DtoParticipante datos) {
-    return false;
-}
-
-/**
- * @param comp
- * @param part
- * @return bool
- */
-bool GestorCompetencias::eliminarParticipante(Competencia comp, Partido part) {
-    return false;
-}
-
-/**
- * @param part
- * @param datos
- * @return bool
- */
-bool GestorCompetencias::modParticipante(Participante part, DtoParticipante datos) {
-    return false;
-}
-
-/**
- * @param comp
- * @param part
- * @param res
- */
-void GestorCompetencias::nuevoResultado(Competencia comp, Partido part, Resultado res) {
+bool GestorCompetencias::altaParticipante(Competencia *comp, DtoParticipante *datos, QString error)
+{
 
 }
 
-/**
- * @param id_comp
- * @return Competencia$
- */
-Competencia$ GestorCompetencias::getCompetenciaFull(int id_comp) {
-    return null;
+bool GestorCompetencias::eliminarParticipante(Competencia *comp, Participante *part, QString error)
+{
+
 }
 
-/**
- * @param id_usuario
- * @param filtros
- * @return QVector<Competencia>
- */
-QVector<Competencia> GestorCompetencias::getCompetenciasLazy(int id_usuario, QVector<QString> filtros) {
-    return null;
+bool GestorCompetencias::modParticipante(Participante *part, DtoParticipante *datos, QString error)
+{
+
 }
 
-/**
- * @param comp
- * @return bool
- */
-bool GestorCompetencias::generarFixture(Competencia comp) {
-    return false;
+void GestorCompetencias::nuevoResultado(Competencia *comp, Partido *part, Resultado *res)
+{
+
 }
 
-/**
- * @param part
- * @param comp
- * @return bool
- */
-bool GestorCompetencias::puedeModificar(Partido part, Competencia comp) {
-    return false;
+Competencia *GestorCompetencias::getCompetenciaFull(int id_comp)
+{
+
+}
+
+QVector<Competencia *> GestorCompetencias::getCompetenciasLazy(DtoGetCompetencia *datos)
+{
+
+}
+
+bool GestorCompetencias::generarFixture(Competencia *comp, QString error)
+{
+
+}
+
+bool GestorCompetencias::puedeModificar(Partido *part, Competencia *comp, QString error)
+{
+
 }
