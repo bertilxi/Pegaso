@@ -9,7 +9,6 @@
  * GestorCompetencias implementation
  */
 
-
 Competencia *GestorCompetencias::crearCompetencia(DtoCompetencia *datos, bool operacionExitosa, QString error)
 {
     //Valido si existe una competencia con el mismo nombre
@@ -50,7 +49,7 @@ void GestorCompetencias::bajaCompetencia(Competencia *comp)
 
 bool GestorCompetencias::modCompetencia(Competencia *comp, DtoCompetencia *datos, QString error)
 {
-
+    return false;
 }
 
 bool GestorCompetencias::altaParticipante(Competencia *comp, DtoParticipante *datos, QString error)
@@ -78,7 +77,7 @@ Competencia *GestorCompetencias::getCompetenciaFull(int id_comp)
 
 }
 
-QVector<Competencia *> GestorCompetencias::getCompetenciasLazy(DtoGetCompetencia)
+QVector<Competencia *> GestorCompetencias::getCompetenciasLazy(DtoGetCompetencia *datos)
 {
 
 }

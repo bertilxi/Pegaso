@@ -7,6 +7,7 @@
 #define _GESTORUSUARIOS_H
 
 #include "../Grupo Usuario/Usuario.h"
+#include "dtos.h"
 
 
 class GestorUsuarios {
@@ -14,13 +15,13 @@ public:
     /**
      * @param datos
      */
-    void virtual altaUsuario(Datos datos);
+    void virtual altaUsuario(DtoUsuario datos);
     
     /**
      * @param usuario
      * @param datos
      */
-    void virtual modUsuario(Usuario usuario, Datos datos);
+    void virtual modUsuario(Usuario usuario, DtoUsuario datos);
     
     /**
      * @param email

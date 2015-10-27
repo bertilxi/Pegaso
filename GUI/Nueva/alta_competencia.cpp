@@ -3,7 +3,7 @@
 
 alta_competencia::alta_competencia(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::alta_competencia)
+    ui(new Ui::AltaCompetencia)
 {
     ui->setupUi(this);
 
