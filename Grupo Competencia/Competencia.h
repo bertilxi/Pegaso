@@ -51,12 +51,16 @@ public:
     bool getBorrado() const;
     void setBorrado(bool value);
 
+    QString getReglamento() const;
+    void setReglamento(const QString &value);
+
 private:
     int id;
     QString estado;
     QString nombre;
     QString fecha_y_horaB;
     bool borrado;
+    QString reglamento;
     QVector<Disponibilidad *> disponibilidades;
     QVector<Participante *> participantes;
     Modalidad *modalidad;

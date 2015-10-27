@@ -161,3 +161,13 @@ void Competencia::setBorrado(bool value)
 
 
 
+
+QString Competencia::getReglamento() const
+{
+    return reglamento;
+}
+
+void Competencia::setReglamento(const QString &value)
+{
+    reglamento = value;
+}
