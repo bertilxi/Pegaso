@@ -39,6 +39,7 @@ public:
 
     virtual Competencia *crearCompetencia(DtoCompetencia* datos,bool operacionExitosa,QString error);
 
+
     Competencia virtual crearCompetencia(DtoCompetencia datos);
 
 
@@ -46,7 +47,7 @@ public:
      * @param comp
      */
     virtual void bajaCompetencia(Competencia* comp);
-
+    
     /**
      * @param comp
      * @param datos
@@ -55,11 +56,12 @@ public:
 
     virtual bool modCompetencia(Competencia* comp, DtoCompetencia* datos,QString error);
 
+
     bool virtual modCompetencia(Competencia comp, DtoCompetencia datos);
 
-
+    
     QVector<Competencia*> virtual listarCompetencias();
-
+    
     /**
      * @param comp
      * @param datos
@@ -68,8 +70,8 @@ public:
 
     virtual bool altaParticipante(Competencia* comp, DtoParticipante* datos,QString error);
 
-    bool virtual altaParticipante(Competencia comp, DtoParticipante datos);
 
+    bool virtual altaParticipante(Competencia comp, DtoParticipante datos);
 
     /**
      * @param comp
@@ -77,7 +79,7 @@ public:
      * @param error informacion sobre el error ocurrido o si fue exitosa la operacion
      */
     virtual bool eliminarParticipante(Competencia* comp, Participante* part,QString error);
-
+    
     /**
      * @param part
      * @param datos
@@ -86,9 +88,10 @@ public:
 
     virtual bool modParticipante(Participante* part,DtoParticipante* datos,QString error);
 
+
     bool virtual modParticipante(Participante part, DtoParticipante datos);
 
-
+    
     /**
      * @param comp
      * @param part
@@ -99,24 +102,24 @@ public:
 
     void virtual nuevoResultado(Competencia comp, Partido part, Resultado res);
 
-
+    
     /**
      * @param id_comp
      */
     virtual Competencia *getCompetenciaFull(int id_comp);
-
+    
     /**
      * @param id_usuario
      * @param filtros
      */
     virtual QVector<Competencia*> getCompetenciasLazy(DtoGetCompetencia);
-
+    
     /**
      * @param comp
      * @param error informacion sobre el error ocurrido o si fue exitosa la operacion
      */
     virtual bool generarFixture(Competencia* comp,QString error);
-
+    
     /**
      * @param part
      * @param comp

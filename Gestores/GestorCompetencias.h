@@ -25,12 +25,14 @@
 
 
 class GestorCompetencias {
-public:
-    GestorCompetencias(GestorBaseDatos* gestb,GestorPartidos* gestp,GestorUsuarios* gestu)
-        :gestorBaseDatos(gestb),gestorPartidos(gestp),gestorUsuarios(gestu){};
+private:
     GestorPartidos* gestorPartidos;
     GestorBaseDatos* gestorBaseDatos;
     GestorUsuarios* gestorUsuarios;
+public:
+    GestorCompetencias(GestorBaseDatos* gestb,GestorPartidos* gestp,GestorUsuarios* gestu)
+        :gestorBaseDatos(gestb),gestorPartidos(gestp),gestorUsuarios(gestu){};
+
     /**
      * @param datos
      * @param error informacion sobre el error ocurrido o si fue exitosa la operacion

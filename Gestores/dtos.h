@@ -27,7 +27,7 @@ public:
     Modalidad * modalidad;
     QString reglamento;
     DtoCompetencia(int idUsuarioP,QString nombreCompentenciaP, Deporte * deporteP, QVector<Lugar*> lugaresP, QVector<int> disponibilidadesP, Modalidad * modalidadP, QString reglamentoP ):
-        idUsuario(idUsuarioP),nombreCompetencia(nombreCompetencia), deporte(deporteP), lugares(lugaresP), disponibilidades(disponibilidadesP), modalidad(modalidadP), reglamento(reglamentoP) {}
+        idUsuario(idUsuarioP),nombreCompetencia(nombreCompentenciaP), deporte(deporteP), lugares(lugaresP), disponibilidades(disponibilidadesP), modalidad(modalidadP), reglamento(reglamentoP) {}
 
 };
 
