@@ -1,6 +1,8 @@
 #ifndef DTOS
 #define DTOS
 
+#include "../Grupo Competencia/Deporte.h"
+#include "../Grupo Competencia/Modalidad.h"
 
 
 class DtoGetCompetencia

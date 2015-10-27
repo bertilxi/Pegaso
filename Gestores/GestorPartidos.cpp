@@ -13,7 +13,7 @@
 /**
  * @param comp
  */
-void GestorPartidos::generarFixture(Competencia$ comp) {
+void GestorPartidos::generarFixture(Competencia comp) {
 
 }
 
@@ -22,7 +22,7 @@ void GestorPartidos::generarFixture(Competencia$ comp) {
  * @param part
  * @param res
  */
-void GestorPartidos::nuevoResultado(Competencia$ comp, Partido$ part, Resultado$ res) {
+void GestorPartidos::nuevoResultado(Competencia comp, Partido part, Resultado$ res) {
 
 }
 
@@ -31,27 +31,27 @@ void GestorPartidos::nuevoResultado(Competencia$ comp, Partido$ part, Resultado$
  * @param comp
  * @return bool
  */
-bool GestorPartidos::puedeModificar(Partido$ part, Competencia$ comp) {
+bool GestorPartidos::puedeModificar(Partido part, Competencia comp) {
     return false;
 }
 
 /**
  * @param comp
  */
-void GestorPartidos::generarFixtureLiga(Competencia$ comp) {
+void GestorPartidos::generarFixtureLiga(Competencia comp) {
 
 }
 
 /**
  * @param comp
  */
-void GestorPartidos::generarFixtureElimSimple(Competencia$ comp) {
+void GestorPartidos::generarFixtureElimSimple(Competencia comp) {
 
 }
 
 /**
  * @param comp
  */
-void GestorPartidos::generarFixtureElimDoble(Competencia$ comp) {
+void GestorPartidos::generarFixtureElimDoble(Competencia comp) {
 
 }
