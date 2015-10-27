@@ -21,8 +21,7 @@ SOURCES += GestorBaseDatos.cpp \
     GestorLugares.cpp \
     GestorPartidos.cpp \
     GestorUsuarios.cpp \
-    GestorParticipantes.cpp \
-    ../dto.cpp
+    GestorParticipantes.cpp
 
 HEADERS += GestorBaseDatos.h \
     GestorCompetencias.h \
