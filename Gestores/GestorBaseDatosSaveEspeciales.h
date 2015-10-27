@@ -39,12 +39,12 @@ bool GestorBaseDatos::saveCompetencia(Competencia *comp, int usuarioId){
 
     for(int i = 0; i < partidos.size(); i++){
         //guardo los resultados de cada partido
-        status &= this->saveResultado(partidos[i]->getActual(), partidos[i]->getId());///agregar campo de partidoId
+        status &= this->saveResultado(partidos[i]->getActual(), partidos[i]->getId());
 
         //guardo el historial de cada partido
         QVector<Resultado *> modificados = partidos[i]->getModificado();
         for(int j = 0; j < modificados.size(); j++){
-            status &= this->saveResultado(modificados[j], partidos[i]->getId());///agregar campo de partidoId
+            status &= this->saveResultado(modificados[j], partidos[i]->getId());
         }
     }
 
@@ -57,13 +57,14 @@ bool GestorBaseDatos::saveCompetencia(Competencia *comp, int usuarioId){
     return status;
 }
 
+///esto necesita ser corregido para saber si es actual o modificado
 bool GestorBaseDatos::saveResultado(Resultado *resultado, int partidoId){
     bool status = true;
     QString tabla = resultado->getTable();
 
     switch(tabla[0].toLatin1()){
     case 'R': //"Resultado"
-        status &= this->save(QVector<Resultado *>(1,resultado), partidoId); ///agregar campo de partidoId
+        status &= this->save(QVector<Resultado *>(1,resultado), partidoId);
         break;
     case 'P': //"Puntos"
         status &= this->save(QVector<Resultado *>(1,resultado), partidoId);
