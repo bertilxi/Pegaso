@@ -18,36 +18,36 @@ public:
     /**
      * @param comp
      */
-    void virtual generarFixture(Competencia comp);
+    virtual void generarFixture(Competencia *comp);
     
     /**
      * @param comp
      * @param part
      * @param res
      */
-    void virtual nuevoResultado(Competencia comp, Partido part, Resultado res);
+    virtual void nuevoResultado(Competencia *comp, Partido *part, Resultado *res);
     
     /**
      * @param part
      * @param comp
      */
-    bool virtual puedeModificar(Partido part, Competencia comp);
+    virtual bool puedeModificar(Partido *part, Competencia *comp);
 private: 
     
     /**
      * @param comp
      */
-    void virtual generarFixtureLiga(Competencia comp);
+    virtual void generarFixtureLiga(Competencia *comp);
     
     /**
      * @param comp
      */
-    void virtual generarFixtureElimSimple(Competencia comp);
+    virtual void generarFixtureElimSimple(Competencia *comp);
     
     /**
      * @param comp
      */
-    void virtual generarFixtureElimDoble(Competencia comp);
+    virtual void generarFixtureElimDoble(Competencia *comp);
 };
 
 #endif //_GESTORPARTIDOS_H
