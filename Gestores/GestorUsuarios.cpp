@@ -40,6 +40,6 @@ void GestorUsuarios::modUsuario(Usuario usuario, DtoUsuario datos) {
  * @param password
  * @return Usuario$
  */
-Usuario$ GestorUsuarios::login(QString email, QString password) {
-    return null;
+Usuario GestorUsuarios::login(QString email, QString password) {
+    return NULL;
 }

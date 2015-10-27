@@ -21,7 +21,7 @@ private:
     alta_competencia_liga * altaCompetenciaLiga;
     alta_participante * altaParticipante;
     listar_competencias * listarCompetencias;
-    Ui::MainWindow * mainWindow;
+    Ui::MainWindow * mW;
     modificar_competencia * modificarCompetencia;
     pantalla_usuario * pantallaUsuario;
     ver_competencia * verCompetencia;

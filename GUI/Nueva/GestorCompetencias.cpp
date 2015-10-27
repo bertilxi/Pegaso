@@ -28,7 +28,7 @@
 //    comp->setDeporte(datos->deporte);
 //    QVector<Disponibilidad*> disponibilidades;
 //    for(int i=0;i<datos->lugares.size();i++){
-//        Disponibilidad disp=new Disponibilidad();
+//        Disponibilidad disp = new Disponibilidad();
 //        disp.setDisponibilidad(datos->disponibilidades[i]);
 //        disp.setLugar(datos->lugares[i]);
 //        disponibilidades.push_back(disp);

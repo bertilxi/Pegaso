@@ -7,7 +7,7 @@
 #include "GestorBaseDatos.h"
 #include "ui_mainwindow.h"
 
-
+class GUI;
 namespace Ui {
 class MainWindow;
 }
@@ -17,7 +17,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(GUI guiP, GestorBaseDatos* gestorDBP,QWidget *parent = 0);
+    explicit MainWindow(GUI* guiP , GestorBaseDatos* gestorDBP, QWidget *parent = 0);
     ~MainWindow();
 
 private slots:
@@ -26,7 +26,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    GUI gui;
+    GUI* gui;
     GestorBaseDatos* gestorDB;
 
 };

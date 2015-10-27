@@ -16,19 +16,19 @@ public:
     /**
      * @param datos
      */
-    void virtual altaUsuario(DtoUsuario datos);
+    void virtual altaUsuario(DtoUsuario datos){}
     
     /**
      * @param usuario
      * @param datos
      */
-    void virtual modUsuario(Usuario usuario, DtoUsuario datos);
+    void virtual modUsuario(Usuario usuario, DtoUsuario datos){}
     
     /**
      * @param email
      * @param password
      */
-    Usuario virtual login(QString email, QString password);
+    Usuario virtual login(QString email, QString password){}
     Usuario getActual() const;
     void setActual(const Usuario &value);
     GestorUsuarios(GestorBaseDatos* gestorDBP):

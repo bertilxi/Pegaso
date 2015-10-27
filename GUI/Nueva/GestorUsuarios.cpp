@@ -1,45 +1,45 @@
-/**
- * Project Pegaso
- */
+///**
+// * Project Pegaso
+// */
 
 
-#include "GestorUsuarios.h"
+//#include "GestorUsuarios.h"
 
-/**
- * GestorUsuarios implementation
- */
+///**
+// * GestorUsuarios implementation
+// */
 
 
-/**
- * @param datos
- */
+///**
+// * @param datos
+// */
 
-Usuario GestorUsuarios::getActual() const
-{
-    return actual;
-}
+//Usuario GestorUsuarios::getActual() const
+//{
+//    return actual;
+//}
 
-void GestorUsuarios::setActual(const Usuario &value)
-{
-    actual = value;
-}
-void GestorUsuarios::altaUsuario(DtoUsuario datos) {
+//void GestorUsuarios::setActual(const Usuario &value)
+//{
+//    actual = value;
+//}
+//void GestorUsuarios::altaUsuario(DtoUsuario datos) {
     
-}
+//}
 
-/**
- * @param usuario
- * @param datos
- */
-void GestorUsuarios::modUsuario(Usuario usuario, DtoUsuario datos) {
+///**
+// * @param usuario
+// * @param datos
+// */
+//void GestorUsuarios::modUsuario(Usuario usuario, DtoUsuario datos) {
 
-}
+//}
 
-/**
- * @param email
- * @param password
- * @return Usuario$
- */
-Usuario$ GestorUsuarios::login(QString email, QString password) {
-    return null;
-}
+///**
+// * @param email
+// * @param password
+// * @return Usuario$
+// */
+//Usuario GestorUsuarios::login(QString email, QString password) {
+//    return NULL;
+//}

@@ -22,7 +22,7 @@ void GestorPartidos::generarFixture(Competencia comp) {
  * @param part
  * @param res
  */
-void GestorPartidos::nuevoResultado(Competencia comp, Partido part, Resultado$ res) {
+void GestorPartidos::nuevoResultado(Competencia comp, Partido part, Resultado res) {
 
 }
 

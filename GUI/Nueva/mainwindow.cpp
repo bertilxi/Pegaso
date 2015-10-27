@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 
 
-MainWindow::MainWindow(GUI guiP, GestorBaseDatos* gestorDBP, QWidget *parent):
+MainWindow::MainWindow(GUI* guiP, GestorBaseDatos* gestorDBP, QWidget *parent):
     QMainWindow(parent), gui(guiP), gestorDB(gestorDBP), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);

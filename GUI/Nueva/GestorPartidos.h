@@ -18,42 +18,41 @@ public:
     /**
      * @param comp
      */
-    virtual void generarFixture(Competencia *comp);
+    virtual void generarFixture(Competencia *comp){}
     
     /**
      * @param comp
      * @param part
      * @param res
      */
-    virtual void nuevoResultado(Competencia *comp, Partido *part, Resultado *res);
+    virtual void nuevoResultado(Competencia *comp, Partido *part, Resultado *res){}
     
     /**
      * @param part
      * @param comp
      */
 
-    bool virtual puedeModificar(Partido part, Competencia comp);
+    virtual bool  puedeModificar(Partido part, Competencia comp){}
+    virtual bool puedeModificar(Partido *part, Competencia *comp){}
     GestorPartidos(GestorBaseDatos * gestorDBP):
         gestorDB(gestorDBP) {}
-
-    virtual bool puedeModificar(Partido *part, Competencia *comp);
-
+    ~GestorPartidos(){}
 private: 
     GestorBaseDatos * gestorDB;
     /**
      * @param comp
      */
-    virtual void generarFixtureLiga(Competencia *comp);
+    virtual void generarFixtureLiga(Competencia *comp){}
     
     /**
      * @param comp
      */
-    virtual void generarFixtureElimSimple(Competencia *comp);
+    virtual void generarFixtureElimSimple(Competencia *comp){}
     
     /**
      * @param comp
      */
-    virtual void generarFixtureElimDoble(Competencia *comp);
+    virtual void generarFixtureElimDoble(Competencia *comp){}
 };
 
 #endif //_GESTORPARTIDOS_H

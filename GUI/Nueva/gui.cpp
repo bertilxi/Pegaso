@@ -2,6 +2,7 @@
 
 void GUI::show()
 {
-    mainWindow(this,gestorDB);
-    mainWindow->show();
+   MainWindow * m = new MainWindow(this,gestorDB);
+   m->show();
+
 }
