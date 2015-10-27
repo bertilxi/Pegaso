@@ -49,6 +49,8 @@ private:
     int id;
     QString estado;
     QString nombre;
+    QString fecha_y_horaB;
+    bool borrado;
     QVector<Disponibilidad *> disponibilidades;
     QVector<Participante *> participantes;
     Modalidad *modalidad;
