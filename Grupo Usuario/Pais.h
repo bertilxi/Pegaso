@@ -11,8 +11,12 @@
 
 class Pais {
 public: 
-    Vector<Provincia> provincias;
+	Vector<Provincia> getProvincias();
+	int getId();
+	QString getNombre();
+
 private: 
+    Vector<Provincia> provincias;
     int id;
     QString nombre;
 };

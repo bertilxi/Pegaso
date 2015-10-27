@@ -29,4 +29,4 @@ HEADERS += GestorBaseDatos.h \
     GestorPartidos.h \
     GestorUsuarios.h \
     GestorParticipantes.h \
-    dtos.h
+    GestorBaseDatosSaveEspeciales.h

@@ -3,6 +3,7 @@
  */
 
 #include <QVector>
+#include "../Grupo Competencia/Competencia.h"
 
 
 #ifndef _GESTORBASEDATOS_H
@@ -27,20 +28,50 @@ public:
     bool save(QVector<T1 *> objptrs);
 
     /**
+     * @brief persiste un objeto Competencia
+     * @param comp la competencia a persistir
+     * @return true si tuvo exito, false si fallo
+     */
+    bool saveCompetencia(Competencia *comp, int usuarioId);
+    //implementado en libreria "GestorBaseDatosSaveEspeciales.h"
+
+    bool saveResultado(Resultado *resultado, int partidoId);
+    //implementado en libreria "GestorBaseDatosSaveEspeciales.h"
+
+
+    /**
      * @param objs
      * @param id
      * @brief Guarda una lista de objetos que necesitan una fk pero el objeto no la conoce 
+     *
+     * objs.getCampos() retorna una lista que debe incluir como ULTIMO elemento el campo
+     * al que corresponde el parametro id.
      */
     template <class T2>
-    void save(QVector<T2> objs, int id);
+    bool save(QVector<T2 *> objptrs, int id);
+
+
+    /**
+     * @brief arma y ejecuta queries para guardar una lista de objetos
+     * @param objptrs punteros a objetos
+     * @param tabla nombre de la tabla de la BD donde guardar los objetos
+     * @param campos nombre de los campos donde guardar los datos
+     * @param valores valores de los datos a guardar
+     * @return true si tuvo exito, false si fallo
+     */
+    template <class Ta>
+    bool armarYEjecutar(QVector<Ta *> &objptrs, QString &tabla, QVector<QString> &campos, QVector<QString> &valores);
+
     
     /**
      * @param obj1
      * @param obj2
      * @brief Guarda una relacion n a n entre dos objetos
+     *
+     * obj1 debe conocer la tabla de la relacion
      */
     template <class T3,class T4>
-    void saveRelacion(T3 obj1, T4 obj2);
+    bool saveRelacion(T3 *obj1, T4 *obj2);
     
     /**
      * @param obj
@@ -54,5 +85,7 @@ public:
     
     void virtual commit();
 };
+
+#include "GestorBaseDatosSaveEspeciales.h"
 
 #endif //_GESTORBASEDATOS_H
