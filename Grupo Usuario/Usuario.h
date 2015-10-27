@@ -15,11 +15,27 @@
 
 class Usuario {
 public: 
-    Vector<Competencia> competencias;
-    Vector<Lugar> lugares;
-    Doc doc;
-    Localidad localidad;
-    Vector<Auditoria> auditorias;
+    QString getNombre();
+    QString getPassword();
+    QString getApellido();
+    QString getEmail();
+    int getNroDoc();
+    QVector<Competencia> getCompetencias();
+    QVector<Lugar> getLugares();
+    Doc getDoc();
+    Localidad getLocalidad();
+    QVector<Auditoria> getAuditorias();
+
+    void setNombre(QString);
+    void setPassword(QString);
+    void setApellido(QString);
+    void setEmail(QString);
+    void setNroDoc(QString);
+    void setCompetencias();
+    void setLugares();
+    void setDoc();
+    void setLocalidad();
+    void setAuditorias();
 private: 
     int id;
     QString password;
@@ -27,6 +43,11 @@ private:
     QString apellido;
     QString email;
     int nro_doc;
+    QVector<Competencia> competencias;
+    QVector<Lugar> lugares;
+    Doc doc;
+    Localidad localidad;
+    QVector<Auditoria> auditorias;
 };
 
 #endif //_USUARIO_H

@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui sql
+CONFIG += c++11
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -27,7 +28,8 @@ SOURCES += main.cpp\
     GestorLugares.cpp \
     GestorParticipantes.cpp \
     GestorPartidos.cpp \
-    GestorUsuarios.cpp
+    GestorUsuarios.cpp \
+    gui.cpp
 
 HEADERS  += mainwindow.h \
     listar_competencias.h \
@@ -43,7 +45,9 @@ HEADERS  += mainwindow.h \
     GestorLugares.h \
     GestorParticipantes.h \
     GestorPartidos.h \
-    GestorUsuarios.h
+    GestorUsuarios.h \
+    gui.h \
+    guiwindows.h
 
 FORMS    += mainwindow.ui \
     listar_competencias.ui \

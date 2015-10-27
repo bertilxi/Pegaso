@@ -45,10 +45,22 @@ public:
 
     bool operator==(const Competencia &other)const;
 
+    QString getFecha_y_horaB() const;
+    void setFecha_y_horaB(const QString &value);
+
+    bool getBorrado() const;
+    void setBorrado(bool value);
+
+    QString getReglamento() const;
+    void setReglamento(const QString &value);
+
 private:
     int id;
     QString estado;
     QString nombre;
+    QString fecha_y_horaB;
+    bool borrado;
+    QString reglamento;
     QVector<Disponibilidad *> disponibilidades;
     QVector<Participante *> participantes;
     Modalidad *modalidad;

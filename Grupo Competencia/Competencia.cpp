@@ -134,6 +134,24 @@ bool Competencia::operator==(const Competencia &other) const
     }
     return 1;
 }
+QString Competencia::getFecha_y_horaB() const
+{
+    return fecha_y_horaB;
+}
+
+void Competencia::setFecha_y_horaB(const QString &value)
+{
+    fecha_y_horaB = value;
+}
+bool Competencia::getBorrado() const
+{
+    return borrado;
+}
+
+void Competencia::setBorrado(bool value)
+{
+    borrado = value;
+}
 
 
 
@@ -141,3 +159,15 @@ bool Competencia::operator==(const Competencia &other) const
 
 
 
+
+
+
+QString Competencia::getReglamento() const
+{
+    return reglamento;
+}
+
+void Competencia::setReglamento(const QString &value)
+{
+    reglamento = value;
+}

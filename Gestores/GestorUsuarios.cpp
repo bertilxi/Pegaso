@@ -23,7 +23,7 @@ void GestorUsuarios::setActual(const Usuario &value)
 {
     actual = value;
 }
-void GestorUsuarios::altaUsuario(Datos datos) {
+void GestorUsuarios::altaUsuario(DtoUsuario datos) {
     
 }
 
@@ -31,7 +31,7 @@ void GestorUsuarios::altaUsuario(Datos datos) {
  * @param usuario
  * @param datos
  */
-void GestorUsuarios::modUsuario(Usuario$ usuario, Datos datos) {
+void GestorUsuarios::modUsuario(Usuario usuario, DtoUsuario datos) {
 
 }
 
@@ -40,6 +40,6 @@ void GestorUsuarios::modUsuario(Usuario$ usuario, Datos datos) {
  * @param password
  * @return Usuario$
  */
-Usuario$ GestorUsuarios::login(QString email, QString password) {
-    return null;
+Usuario GestorUsuarios::login(QString email, QString password) {
+    return NULL;
 }

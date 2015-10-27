@@ -8,3 +8,4 @@
 /**
  * Doc implementation
  */
+QString Doc::getTipo(){return tipo;}

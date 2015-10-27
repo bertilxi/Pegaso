@@ -12,7 +12,7 @@ class alta_competencia : public QDialog
     Q_OBJECT
 
 public:
-    explicit alta_competencia(QWidget *parent = 0);
+    //explicit alta_competencia(QWidget *parent = 0);
     ~alta_competencia();
 
 private slots:

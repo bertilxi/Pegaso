@@ -31,8 +31,8 @@ pantalla_usuario::~pantalla_usuario()
 void pantalla_usuario::on_pushButton_4_clicked()
 {
 
-    MainWindow * m = new MainWindow();
-    m->show();
+//    MainWindow * m = new MainWindow();
+//    m->show();
     this->close();
     qDebug()<<"Se abrio la ventana principal y se cerro la pantalla de usuario";
 }
