@@ -45,7 +45,8 @@ HEADERS  += mainwindow.h \
     GestorParticipantes.h \
     GestorPartidos.h \
     GestorUsuarios.h \
-    gui.h
+    gui.h \
+    guiwindows.h
 
 FORMS    += mainwindow.ui \
     listar_competencias.ui \

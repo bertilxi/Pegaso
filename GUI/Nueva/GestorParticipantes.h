@@ -7,8 +7,19 @@
 #define _GESTORPARTICIPANTES_H
 
 class GestorParticipantes {
-public:
-    GestorParticipantes(int);
+public: 
+    
+    void virtual alta();
+    
+    void virtual baja();
+    
+    void mod();
+    
+    void actualizarHistorial();
+    
+    void listar();
+    
+    void mod_puntos();
 };
 
 #endif //_GESTORPARTICIPANTES_H

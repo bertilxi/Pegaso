@@ -2,7 +2,7 @@
 #include <QApplication>
 #include "mainwindow.h"
 #include <QFile>
-#include "gui.h"
+#include "guiwindows.h"
 
 
 int main(int argc, char *argv[])

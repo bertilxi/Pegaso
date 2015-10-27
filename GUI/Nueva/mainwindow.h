@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QDebug>
-//#include "gui.h"
+#include "gui.h"
 #include "GestorBaseDatos.h"
 #include "ui_mainwindow.h"
 
