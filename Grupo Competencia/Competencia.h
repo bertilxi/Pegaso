@@ -45,6 +45,12 @@ public:
 
     bool operator==(const Competencia &other)const;
 
+    QString getFecha_y_horaB() const;
+    void setFecha_y_horaB(const QString &value);
+
+    bool getBorrado() const;
+    void setBorrado(bool value);
+
 private:
     int id;
     QString estado;
