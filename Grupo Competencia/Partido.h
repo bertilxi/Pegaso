@@ -33,7 +33,7 @@ public:
     Lugar *getLugar() const;
     void setLugar(const Lugar *value);
 
-    Partido *getSucesor() const;
+    QVector<Partido *> getSucesores() const;
     void setSucesor(const Partido *value);
 
     QVector<Resultado *> getModificado() const;
@@ -51,7 +51,7 @@ private:
     Participante *equipoA;
     Participante *equipoB;
     Lugar *lugar;
-    Partido *sucesor;
+    QVector<Partido *> sucesores;
     QVector<Resultado *> modificado;
     Resultado *actual;
 };
