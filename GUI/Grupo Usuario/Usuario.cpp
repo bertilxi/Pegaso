@@ -8,3 +8,4 @@
 /**
  * Usuario implementation
  */
+Usuario::getNombre(){ return nombre;}

@@ -17,6 +17,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    void toGUI();
     explicit MainWindow(GUI* guiP , GestorBaseDatos* gestorDBP, QWidget *parent = 0);
     ~MainWindow();
 

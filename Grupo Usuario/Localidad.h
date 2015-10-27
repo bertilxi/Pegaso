@@ -7,6 +7,9 @@
 #define _LOCALIDAD_H
 
 class Localidad {
+public:
+	int getId();
+	QString getNombre();
 private: 
     int id;
     QString nombre;
