@@ -3,6 +3,8 @@
 
 #include "guiwindows.h"
 
+namespace Ui { class MainWindow; }
+
 class GUI
 {
 private:
@@ -19,13 +21,14 @@ private:
     alta_competencia_liga * altaCompetenciaLiga;
     alta_participante * altaParticipante;
     listar_competencias * listarCompetencias;
-    MainWindow * mainWindow;
+    Ui::MainWindow * mainWindow;
     modificar_competencia * modificarCompetencia;
     pantalla_usuario * pantallaUsuario;
     ver_competencia * verCompetencia;
 
 public:
     void show();
+    GUI();
     GUI(GestorBaseDatos* gestorDBP, GestorCompetencias* gestorCompetenciasP, GestorLugares* gestorLugaresP, GestorParticipantes* gestorParticipantesP, GestorPartidos* gestorPartidosP, GestorUsuarios* gestorUsuariosP):
         gestorDB(gestorDBP), gestorCompetencias(gestorCompetenciasP), gestorLugares(gestorLugaresP), gestorParticipantes(gestorParticipantesP), gestorPartidos(gestorPartidosP), gestorUsuarios(gestorUsuariosP) {}
 };

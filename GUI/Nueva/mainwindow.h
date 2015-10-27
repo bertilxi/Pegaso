@@ -17,7 +17,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0, GUI guiP = NULL, GestorBaseDatos* gestorDBP = NULL);
+    explicit MainWindow(QWidget *parent = 0, GUI guiP = new GUI(), GestorBaseDatos* gestorDBP = new GestorBaseDatos());
     ~MainWindow();
 
 private slots:

@@ -2,7 +2,7 @@
 
 
 MainWindow::MainWindow(QWidget *parent, GUI guiP, GestorBaseDatos* gestorDBP):
-    QMainWindow(parent), gui(guiP), gestorDB(gestorDBP), ui(new Ui::MainWindow),
+    QMainWindow(parent), gui(guiP), gestorDB(gestorDBP), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 }

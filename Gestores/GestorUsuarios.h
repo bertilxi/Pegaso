@@ -7,6 +7,7 @@
 #define _GESTORUSUARIOS_H
 
 #include "../Grupo Usuario/Usuario.h"
+#include "GestorBaseDatos.h"
 #include "dtos.h"
 
 
@@ -30,8 +31,11 @@ public:
     Usuario virtual login(QString email, QString password);
     Usuario getActual() const;
     void setActual(const Usuario &value);
+    GestorUsuarios(GestorBaseDatos* gestorDBP):
+        gestorDB(gestorDBP) {}
 private:
     Usuario actual;
+    GestorBaseDatos* gestorDB;
 };
 
 #endif //_GESTORUSUARIOS_H

@@ -5,7 +5,7 @@
 
 #ifndef _GESTORPARTIDOS_H
 #define _GESTORPARTIDOS_H
-
+#include "GestorBaseDatos.h"
 #include "../Grupo Competencia/Competencia.h"
 #include "../Grupo Competencia/Puntaje.h"
 #include "../Grupo Competencia/Partido.h"
@@ -32,8 +32,10 @@ public:
      * @param comp
      */
     bool virtual puedeModificar(Partido part, Competencia comp);
+    GestorPartidos(GestorBaseDatos * gestorDBP):
+        gestorDB(gestorDBP) {}
 private: 
-    
+    GestorBaseDatos * gestorDB;
     /**
      * @param comp
      */

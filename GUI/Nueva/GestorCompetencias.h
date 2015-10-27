@@ -17,6 +17,7 @@
 #include "GestorPartidos.h"
 #include "GestorBaseDatos.h"
 #include "GestorUsuarios.h"
+#include "dtos.h"
 
 class GestorCompetencias {
 public:
@@ -28,7 +29,7 @@ public:
     /**
      * @param datos
      */
-    Competencia virtual crearCompetencia(Datos datos);
+    Competencia virtual crearCompetencia(DtoCompetencia datos);
     
     /**
      * @param comp
@@ -39,7 +40,7 @@ public:
      * @param comp
      * @param datos
      */
-    bool virtual modCompetencia(Competencia comp, Datos datos);
+    bool virtual modCompetencia(Competencia comp, DtoCompetencia datos);
     
     QVector<Competencia> virtual listarCompetencias();
     
@@ -47,7 +48,7 @@ public:
      * @param comp
      * @param datos
      */
-    bool virtual altaParticipante(Competencia comp, Datos datos);
+    bool virtual altaParticipante(Competencia comp, DtoParticipante datos);
     
     /**
      * @param comp
@@ -59,14 +60,14 @@ public:
      * @param part
      * @param datos
      */
-    bool virtual modParticipante(Participante part, Datos datos);
+    bool virtual modParticipante(Participante part, DtoParticipante datos);
     
     /**
      * @param comp
      * @param part
      * @param res
      */
-    void virtual nuevoResultado(Competencia comp, Partido$ part, Resultado res);
+    void virtual nuevoResultado(Competencia comp, Partido part, Resultado res);
     
     /**
      * @param id_comp
