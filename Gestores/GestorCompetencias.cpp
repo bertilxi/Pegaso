@@ -14,7 +14,7 @@
  * @param datos
  * @return Competencia$
  */
-Competencia$ GestorCompetencias::crearCompetencia(Datos datos) {
+Competencia GestorCompetencias::crearCompetencia(DtoCompetencia datos) {
     return null;
 }
 
@@ -22,7 +22,7 @@ Competencia$ GestorCompetencias::crearCompetencia(Datos datos) {
  * @param comp
  * @return bool
  */
-bool GestorCompetencias::bajaCompetencia(Competencia$ comp) {
+bool GestorCompetencias::bajaCompetencia(Competencia comp) {
     return false;
 }
 
@@ -31,7 +31,7 @@ bool GestorCompetencias::bajaCompetencia(Competencia$ comp) {
  * @param datos
  * @return bool
  */
-bool GestorCompetencias::modCompetencia(Competencia$ comp, Datos datos) {
+bool GestorCompetencias::modCompetencia(Competencia comp, DtoCompetencia datos) {
     return false;
 }
 
@@ -47,7 +47,7 @@ QVector<Competencia> GestorCompetencias::listarCompetencias() {
  * @param datos
  * @return bool
  */
-bool GestorCompetencias::altaParticipante(Competencia$ comp, Datos datos) {
+bool GestorCompetencias::altaParticipante(Competencia comp, DtoParticipante datos) {
     return false;
 }
 
@@ -56,7 +56,7 @@ bool GestorCompetencias::altaParticipante(Competencia$ comp, Datos datos) {
  * @param part
  * @return bool
  */
-bool GestorCompetencias::eliminarParticipante(Competencia$ comp, Partido$ part) {
+bool GestorCompetencias::eliminarParticipante(Competencia comp, Partido part) {
     return false;
 }
 
@@ -65,7 +65,7 @@ bool GestorCompetencias::eliminarParticipante(Competencia$ comp, Partido$ part) 
  * @param datos
  * @return bool
  */
-bool GestorCompetencias::modParticipante(Participante$ part, Datos datos) {
+bool GestorCompetencias::modParticipante(Participante part, DtoParticipante datos) {
     return false;
 }
 
@@ -74,7 +74,7 @@ bool GestorCompetencias::modParticipante(Participante$ part, Datos datos) {
  * @param part
  * @param res
  */
-void GestorCompetencias::nuevoResultado(Competencia$ comp, Partido$ part, Resultado$ res) {
+void GestorCompetencias::nuevoResultado(Competencia comp, Partido part, Resultado res) {
 
 }
 
@@ -99,7 +99,7 @@ QVector<Competencia> GestorCompetencias::getCompetenciasLazy(int id_usuario, QVe
  * @param comp
  * @return bool
  */
-bool GestorCompetencias::generarFixture(Competencia$ comp) {
+bool GestorCompetencias::generarFixture(Competencia comp) {
     return false;
 }
 
@@ -108,6 +108,6 @@ bool GestorCompetencias::generarFixture(Competencia$ comp) {
  * @param comp
  * @return bool
  */
-bool GestorCompetencias::puedeModificar(Partido$ part, Competencia$ comp) {
+bool GestorCompetencias::puedeModificar(Partido part, Competencia comp) {
     return false;
 }
