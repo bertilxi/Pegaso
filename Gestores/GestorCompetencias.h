@@ -41,10 +41,6 @@ public:
 
     virtual Competencia *crearCompetencia(DtoCompetencia* datos,bool operacionExitosa,QString error);
 
-
-    Competencia virtual crearCompetencia(DtoCompetencia datos);
-
-
     /**
      * @param comp
      */
@@ -58,10 +54,6 @@ public:
 
     virtual bool modCompetencia(Competencia* comp, DtoCompetencia* datos,QString error);
 
-
-    bool virtual modCompetencia(Competencia comp, DtoCompetencia datos);
-
-    
     QVector<Competencia*> virtual listarCompetencias();
     
     /**
@@ -71,9 +63,6 @@ public:
      */
 
     virtual bool altaParticipante(Competencia* comp, DtoParticipante* datos,QString error);
-
-
-    bool virtual altaParticipante(Competencia comp, DtoParticipante datos);
 
     /**
      * @param comp
@@ -90,10 +79,6 @@ public:
 
     virtual bool modParticipante(Participante* part,DtoParticipante* datos,QString error);
 
-
-    bool virtual modParticipante(Participante part, DtoParticipante datos);
-
-    
     /**
      * @param comp
      * @param part
@@ -101,10 +86,7 @@ public:
      */
 
     virtual void nuevoResultado(Competencia* comp, Partido* part, Resultado* res);
-
-    void virtual nuevoResultado(Competencia comp, Partido part, Resultado res);
-
-    
+  
     /**
      * @param id_comp
      */
