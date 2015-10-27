@@ -29,7 +29,7 @@ public:
      * @param datos
      */
     void virtual modLugar(Lugar lugar, DtoLugar datos);
-    GestorLugares(GestorBaseDatos gestorDBP):
+    GestorLugares(GestorBaseDatos* gestorDBP):
         gestorDB(gestorDBP) {}
 private:
     GestorBaseDatos* gestorDB;

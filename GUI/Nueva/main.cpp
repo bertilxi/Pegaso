@@ -11,11 +11,11 @@ int main(int argc, char *argv[])
     QFile pegasoDB("pegaso.sql");
     GestorBaseDatos * gestorBaseDeDatos = new GestorBaseDatos() ;
     //GestorBaseDatos * gestorBaseDeDatos = new GestorBaseDatos(pegasoDB) ;
-    GestorUsuarios* gestorUsuarios = new GestorUsuarios(NULL);
-    GestorPartidos* gestorPartidos = new GestorPartidos(NULL) ;
+    GestorUsuarios* gestorUsuarios = new GestorUsuarios(gestorBaseDeDatos);
+    GestorPartidos* gestorPartidos = new GestorPartidos(gestorBaseDeDatos) ;
     GestorCompetencias* gestorCompetencias = new GestorCompetencias(gestorBaseDeDatos,gestorPartidos,gestorUsuarios);
-    GestorLugares* gestorLugares = new GestorLugares(NULL);
-    GestorParticipantes* gestorParticipantes = new GestorParticipantes(NULL);
+    GestorLugares* gestorLugares = new GestorLugares(gestorBaseDeDatos);
+    GestorParticipantes* gestorParticipantes = new GestorParticipantes(gestorBaseDeDatos);
 
     GUI gui(gestorBaseDeDatos, gestorCompetencias, gestorLugares, gestorParticipantes, gestorPartidos, gestorUsuarios);
 

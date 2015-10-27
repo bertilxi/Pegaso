@@ -21,11 +21,8 @@
 #include "GestorPartidos.h"
 #include "GestorBaseDatos.h"
 #include "GestorUsuarios.h"
-<<<<<<< HEAD
-#include "../dto.cpp"
-=======
 #include "dtos.h"
->>>>>>> 94e80309d220c62de72b9d2e18695f732118ce2c
+
 
 class GestorCompetencias {
 public:
@@ -39,11 +36,11 @@ public:
      * @param error informacion sobre el error ocurrido o si fue exitosa la operacion
      * @param operacionExitosa true si es exitosa, false e.o.c.
      */
-<<<<<<< HEAD
+
     virtual Competencia *crearCompetencia(DtoCompetencia* datos,bool operacionExitosa,QString error);
-=======
+
     Competencia virtual crearCompetencia(DtoCompetencia datos);
->>>>>>> 94e80309d220c62de72b9d2e18695f732118ce2c
+
     
     /**
      * @param comp
@@ -55,11 +52,11 @@ public:
      * @param datos
      * @param error informacion sobre el error ocurrido o si fue exitosa la operacion
      */
-<<<<<<< HEAD
+
     virtual bool modCompetencia(Competencia* comp, DtoCompetencia* datos,QString error);
-=======
+
     bool virtual modCompetencia(Competencia comp, DtoCompetencia datos);
->>>>>>> 94e80309d220c62de72b9d2e18695f732118ce2c
+
     
     QVector<Competencia*> virtual listarCompetencias();
     
@@ -68,11 +65,11 @@ public:
      * @param datos
      * @param error informacion sobre el error ocurrido o si fue exitosa la operacion
      */
-<<<<<<< HEAD
+
     virtual bool altaParticipante(Competencia* comp, DtoParticipante* datos,QString error);
-=======
+
     bool virtual altaParticipante(Competencia comp, DtoParticipante datos);
->>>>>>> 94e80309d220c62de72b9d2e18695f732118ce2c
+
     
     /**
      * @param comp
@@ -86,22 +83,22 @@ public:
      * @param datos
      * @param error informacion sobre el error ocurrido o si fue exitosa la operacion
      */
-<<<<<<< HEAD
+
     virtual bool modParticipante(Participante* part,DtoParticipante* datos,QString error);
-=======
+
     bool virtual modParticipante(Participante part, DtoParticipante datos);
->>>>>>> 94e80309d220c62de72b9d2e18695f732118ce2c
+
     
     /**
      * @param comp
      * @param part
      * @param res
      */
-<<<<<<< HEAD
+
     virtual void nuevoResultado(Competencia* comp, Partido* part, Resultado* res);
-=======
+
     void virtual nuevoResultado(Competencia comp, Partido part, Resultado res);
->>>>>>> 94e80309d220c62de72b9d2e18695f732118ce2c
+
     
     /**
      * @param id_comp

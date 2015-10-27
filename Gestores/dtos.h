@@ -63,7 +63,7 @@ public:
     QString nombre;
     QString descripcion = NULL;
     QVector<Deporte*> Deportes;
-    DtoLugar(QString nombreP, QString descripcionP = NULL, QVector<Deporte*> DeportesP):
+    DtoLugar(QString nombreP, QString descripcionP, QVector<Deporte*> DeportesP):
         nombre(nombreP), descripcion(descripcionP), Deportes(DeportesP) {}
 };
 
