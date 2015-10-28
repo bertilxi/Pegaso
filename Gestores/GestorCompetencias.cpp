@@ -169,7 +169,19 @@ bool GestorCompetencias::modParticipante(Participante *part, DtoParticipante *da
 }
 void GestorCompetencias::nuevoResultado(Competencia *comp, Partido *part, Resultado *res)
 {
+    //Asigno el nuevo resultado al partido
     gestorPartidos->nuevoResultado(comp,part,res);
+    //Modifico el estado según corresponda
+    comp->setEstado("Finalizada");
+    QVector<Partido*> partidos=comp->getPartidos();
+    for (int i = 0; i < partidos.size(); ++i) {
+        if(partidos[i]->getActual()==null){
+            comp->setEstado("En disputa");
+            break;
+        }
+    }
+    //Guardo los cambios
+    gestorBaseDatos->saveCompetencia(comp);
 }
 
 Competencia *GestorCompetencias::getCompetenciaFull(int id_comp)

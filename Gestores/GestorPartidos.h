@@ -31,7 +31,7 @@ public:
      * @param comp
      */
 
-    virtual bool puedeModificar(Partido *part, Competencia *comp);
+    virtual bool puedeModificar(Partido *part, Competencia *comp, QString &error);
 
 private: 
     /**
