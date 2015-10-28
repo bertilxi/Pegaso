@@ -9,7 +9,10 @@
 #include "../Grupo Usuario/Usuario.h"
 #include "GestorBaseDatos.h"
 #include "dtos.h"
-
+#include <QString>
+#include <string>
+#include <QByteArray>
+#include <QCryptographicHash>
 
 class GestorUsuarios {
 public: 
@@ -34,7 +37,7 @@ public:
     GestorUsuarios(GestorBaseDatos* gestorDBP):
         gestorDB(gestorDBP) {}
 private:
-    Usuario actual;
+    Usuario* actual;
     GestorBaseDatos* gestorDB;
 };
 

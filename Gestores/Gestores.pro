@@ -27,4 +27,5 @@ HEADERS += GestorBaseDatos.h \
     GestorLugares.h \
     GestorPartidos.h \
     GestorUsuarios.h \
-    GestorBaseDatosSaveEspeciales.h
+    GestorBaseDatosSaveEspeciales.h \
+    dtos.h
