@@ -180,7 +180,66 @@ void GestorPartidos::generarFixtureLiga(Competencia *comp) {
 }
 
 void GestorPartidos::generarFixtureElimSimple(Competencia *comp) {
+    QVector<Participante*> participantes=comp->getParticipantes();
+    int n=participantes.size();
+    //Si el número de participantes no es potencia de 2 hay que hacer ajustes para saber la cantidad de partido en la primera fecha
+    dif=0;
+    if(!(n & (n-1))){
+        dif=(n&(-n)<<1)-n; //dif es la cantidad necesaria de participantes para que n sea potencia de 2
+    }
 
+    //Asigno los participantes al primer encuentro
+    QVector<Partido*> partidos;
+    int i;
+    //Primero hago que algunos participantes no juegen contra nadie para llegar a una cantidad de partidos potencia de 2
+    for (i = 0; i < dif; ++i) {
+        Partido part=new Partido;
+        part.setEquipoA(participantes[i]);
+        part.setEquipoB(new Participante);//Un participante dummy
+        part.setFecha(1);
+        partidos.push_back(part);
+    }
+    //Luego asigno los demás
+    for (;i < n; i+=2) {
+        Partido part=new Partido;
+        part.setEquipoA(participantes[i]);
+        part.setEquipoB(participantes[i+1]);
+        part.setFecha(1);
+        partidos.push_back(part);
+    }
+
+    //Creo el resto de los encuentros
+    int fecha=2;
+    //Itero sobre la cantidad necesaria de fechas y creo la cantidad necesaria de partidos en cada una
+    for (int j = (n+dif)>>2 ; j >0 ; j>>=1) {//>>1 equivale a dividir por dos; empiezo en >>2 porque la primer fecha ya se asignó
+        for (int k = 0; k < j; ++k) {
+            Partido part=new Partido;
+            part.setFecha(fecha);
+            partidos.push_back(part);
+        }
+        fecha++;
+    }
+
+    //Asigno los sucesores de cada encuentro
+    int l=0; //l es el índice del partido que estoy considerando actualmente
+    for (int j = (n+dif)>>1 ; j >0 ; j>>=1){
+         for (int k = 0; k < j; ++k) {
+             partidos[l]->setSucesor(partidos[l+j+k]);
+             l++;
+         }
+    }
+
+    //Por cada partido auxiliar que se creó para que sea potencia de dos, declaro como ganador al participante no dummy
+    for (int j = 0; j < dif; ++j) {
+        Resultado *res=new Resultado; //Creo un resultado genérico porque no importan los puntos o sets
+        res->setResultadoA("Ganó");
+        res->setResultadoB("Perdió");
+        partidos[i]->setActual(res);
+        if(partidos[i]->getSucesores()[0]->getEquipoA()==NULL)
+            partidos[i]->getSucesores()[0]->setEquipoA(partidos[i]->getEquipoA());
+        else
+            partidos[i]->getSucesores()[0]->setEquipoB(partidos[i]->getEquipoA());
+    }
 }
 
 
