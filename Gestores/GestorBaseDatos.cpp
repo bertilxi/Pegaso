@@ -95,10 +95,10 @@ bool GestorBaseDatos::save(QVector<T1 *> objptrs, Atributo *id_externo /* = NULL
  */
 template <class T2,class T3>
 bool GestorBaseDatos::saveRelacion(T2 *obj1, T3 *obj2){
-    QString tabla = obj1->getTable(obj2);
-    QVector<Atributo> atributos = obj1->getAtributos(obj2);
-    atributos[0].valor = obj1->getId;
-    atributos[1].valor = obj2->getId;
+    QString tabla = obj1->getTable(*obj2);
+    QVector<Atributo> atributos = obj1->getAtributos(*obj2);
+    atributos[0].valor = obj1->getId();
+    atributos[1].valor = obj2->getId();
 
     QString querystr = "insert or replace into " + tabla + " ( " ;
 

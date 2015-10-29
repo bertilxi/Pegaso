@@ -44,6 +44,20 @@ public:
 
     bool operator==(const Partido &other)const;
 
+    QString getTable() const;
+
+    QString getTable(Partido &sucesor) const;
+
+    /**
+     * @brief getAtributos
+     * @return una lista de los atributos de Partido con el correspondiente nombre
+     * de sus columnas en la tabla Partido de la Base de Datos. Los atributos
+     * retornados han sido casteados a QString's.
+     */
+    QVector<Atributo> getAtributos() const;
+
+    QVector<Atributo> getAtributos(const Partido &sucesor) const;
+
 private:
     int id;
     QString ronda;

@@ -8,6 +8,7 @@
 
 #include <QString>
 #include <QDebug>
+#include "../Gestores/Atributo.h"
 
 class HistorialParticipante {
 public:
@@ -24,6 +25,16 @@ public:
     void setImagen(const QString &value);
 
     bool operator==(const HistorialParticipante &other)const;
+
+    QString getTable();
+
+    /**
+     * @brief getAtributos
+     * @return una lista de los atributos de HistorialParticipante con el correspondiente nombre
+     * de sus columnas en la tabla Historial_participante de la Base de Datos. Los atributos
+     * retornados han sido casteados a QString's.
+     */
+    QVector<Atributo> getAtributos() const;
 
 private:
     int id;

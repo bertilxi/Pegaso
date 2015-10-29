@@ -171,3 +171,28 @@ void Competencia::setReglamento(const QString &value)
 {
     reglamento = value;
 }
+
+QString Competencia::getTable(){
+    return "Competencia";
+}
+
+/**
+ * @brief getAtributos
+ * @return una lista de los atributos de Competencia con el correspondiente nombre
+ * de sus columnas en la tabla Competencia de la Base de Datos. Los atributos
+ * retornados han sido casteados a QString's.
+ */
+QVector<Atributo> Competencia::getAtributos() const{
+    QVector<Atributo> result;
+    if(id != -1){
+        result.push_back(Atributo("id_competencia",QString::number(id)));
+    }
+    result.push_back(Atributo("nombre",nombre);
+    result.push_back(Atributo("fecha_y_horaB", fecha_y_horaB);
+    result.push_back(Atributo("borrado", QString::number((int)borrado)));
+    result.push_back(Atributo("estado", estado);
+    result.push_back(Atributo("id_modalidad", QString::number(modalidad->getId())));
+    result.push_back(Atributo("id_deporte", QString::number(deporte->getId())));
+
+    return result;
+}

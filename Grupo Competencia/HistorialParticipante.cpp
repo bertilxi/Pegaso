@@ -63,5 +63,25 @@ bool HistorialParticipante::operator==(const HistorialParticipante &other) const
     return 1;
 }
 
+QString HistorialParticipante::getTable(){
+    return "Historial_participante";
+}
 
+/**
+ * @brief getAtributos
+ * @return una lista de los atributos de HistorialParticipante con el correspondiente nombre
+ * de sus columnas en la tabla Historial_participante de la Base de Datos. Los atributos
+ * retornados han sido casteados a QString's.
+ */
+QVector<Atributo> HistorialParticipante::getAtributos() const{
+    QVector<Atributo> result;
+    if(id != -1){
+        result.push_back(Atributo("id_modificacion",QString::number(id)));
+    }
+    result.push_back(Atributo("imagen", imagen);
+    result.push_back(Atributo("nombre", nombre);
+    result.push_back(Atributo("correo", correo);
+
+    return result;
+}
 
