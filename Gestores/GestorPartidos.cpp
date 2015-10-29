@@ -59,11 +59,97 @@ void GestorPartidos::generarFixture(Competencia *comp) {
 
 void GestorPartidos::nuevoResultado(Competencia *comp, Partido *part, Resultado *res) {
 
+    //Si ya tiene un resultado hay que agregarlo al historial
+    if(part->getActual()!=null){
+        QVector<Partido*> historial=part->getModificado();
+        historial.push_back(new Partido(part->getActual()));
+        part->setModificado(historial);
+        //Si es de liga hay que modificar los puntos
+        if(comp->getModalidad()->getNombre()=="Liga"){
+            part->getEquipoA()->getPuntaje()->restar(part->getActual());
+            part->getEquipoB()->getPuntaje()->restar(part->getActual());
+        }
+    }
+    part->setActual(res);
+    //Si es de liga hay que modificar los puntos
+   if(comp->getModalidad()->getNombre()=="Liga"){
+       part->getEquipoA()->getPuntaje()->sumar(part->getActual());
+       part->getEquipoB()->getPuntaje()->sumar(part->getActual());
+       return;
+   }
+   //Si es eliminación simple o doble hay que asignar el ganador al sucesor
+   Participante* ganador;
+   if(comp->getModalidad()->getNombre()=="Simple"||comp->getModalidad()->getNombre()=="Doble"){
+       //Obtengo el ganador
+       if(res->getResultadoA()=="Ganó")
+           ganador=part->getEquipoA();
+       else ganador=part->getEquipoB();
+       //Si no es el último partido lo asigno al sucesor (sucesor de ronda ganadores si es elim. doble)
+       if(part->getSucesores()[0]!=null){
+           if(part->getSucesores()[0]->getEquipoA()==null)
+               part->getSucesores()[0]->setEquipoA(ganador);
+           else part->getSucesores()[0]->setEquipoB(ganador);
+       }
+       if(comp->getModalidad()->getNombre()=="Simple")
+           return;
+   }
+   //Si es eliminación doble hay que asignar el perdedor dependiendo si es ronda ganadores o perdedores, y si es el último partido hay que ver si ganó el participante de ronda perdedores para saber si hay que jugar otro partido
+   Participante* perdedor;
+   if(comp->getModalidad()->getNombre()=="Doble" && part->sucesores[1]!=null){
+       //Obtengo el perdedor
+       if(part->getEquipoA()==ganador)
+           perdedor=part->getEquipoB();
+       else perdedor=part->getEquipoA();
+       //Lo asigno
+       if(part->getSucesores()[1]->getEquipoA()==null)
+           part->getSucesores()[1]->setEquipoA(perdedor);
+       else part->getSucesores()[1]->setEquipoB(perdedor);
+   }
+   //Si es el último partido determino si se debe jugar uno más
+   //Uso la ronda ganadores o perdedores como bandera para saber si no es un partido final en el que ya gano el equipo de ronda perdedores anteriormente
+   if(part->getSucesores()[0]==null && part->getRonda()=="Ganadores"){
+       if(ganador==part->getEquipoB()){
+           //Creo un nuevo partido y lo asigno como sucesor
+           Partido* nuevo=new Partido;
+           nuevo->setEquipoA(part->getEquipoA());
+           nuevo->setEquipoB(part->getEquipoB());
+           nuevo->setFecha(part->getFecha()+1);
+           nuevo->setRonda("Perdedores");
+           nuevo->setLugar(comp->getDisponibilidades()[0]->getLugar());
+           QVector<Partido*> sucesor;
+           sucesor.push_back(nuevo);
+           part->setSucesor(sucesor);
+           //También tengo que agregarlo a los partidos de la competencia
+           QVector<Partido*> partidos=comp->getPartidos();
+           partidos.push_back(nuevo);
+           comp->setPartidos(partidos);
+       }
+   }
 }
-
-
-bool GestorPartidos::puedeModificar(Partido *part, Competencia *comp) {
-    return false;
+bool GestorPartidos::puedeModificar(Partido *part, Competencia *comp,QString &error) {
+    error="";
+    //Si la modalidad es de liga siempre se puede mofificar un resultado
+    if(comp->getModalidad()->getNombre()=="Liga")
+        return true;
+    else{
+        int fecha=part->getFecha();
+        //Me fijo si se registró un partido de la ronda posterior
+        QVector<Partido*> partidos=comp->getPartidos();
+        for (int i = 0; i < partidos.size(); ++i) {
+            if(partidos[i]->getFecha()>fecha && partidos[i]->getActual()!=null){
+                error="Ya se ha registrado un resultado para la siguiente ronda";
+                return false;
+            }
+        }
+        //Me fijo si no se registró un partido de la ronda anterior
+        for (int i = 0; i < partidos.size(); ++i) {
+            if(partidos[i]->getFecha()<fecha && partidos[i]->getActual()==null){
+                error="No se dispone de todos los resultados para la ronda anterior";
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
 

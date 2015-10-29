@@ -8,22 +8,113 @@
 /**
  * Usuario implementation
  */
-QString Usuario::getNombre(){ return nombre;}
 
-QString Usuario::getPassword(){return password;}
+int Usuario::getId() const
+{
+    return id;
+}
 
-QString Usuario::getApellido(){return apellido;}
+void Usuario::setId(int value)
+{
+    id = value;
+}
+QString Usuario::getPassword() const
+{
+    return password;
+}
 
-QString Usuario::getEmail(){return email;}
+void Usuario::setPassword(const QString &value)
+{
+    password = value;
+}
+QString Usuario::getNombre() const
+{
+    return nombre;
+}
 
-int Usuario::getNroDoc(){return nro_doc;}
+void Usuario::setNombre(const QString &value)
+{
+    nombre = value;
+}
+QString Usuario::getApellido() const
+{
+    return apellido;
+}
 
-QVector<Competencia> Usuario::getCompetencias(){return competencias;}
+void Usuario::setApellido(const QString &value)
+{
+    apellido = value;
+}
+QString Usuario::getEmail() const
+{
+    return email;
+}
 
-Doc Usuario::getDoc(){return doc;}
+void Usuario::setEmail(const QString &value)
+{
+    email = value;
+}
+int Usuario::getNro_doc() const
+{
+    return nro_doc;
+}
 
-Localidad Usuario::getLocalidad(){return localidad;}
+void Usuario::setNro_doc(int value)
+{
+    nro_doc = value;
+}
+QVector<Competencia *> Usuario::getCompetencias() const
+{
+    return competencias;
+}
 
-QVector<Auditoria> Usuario::getAuditorias(){return auditorias;}
+void Usuario::setCompetencias(const QVector<Competencia *> &value)
+{
+    competencias = value;
+}
+QVector<Lugar *> Usuario::getLugares() const
+{
+    return lugares;
+}
 
-QVector<Lugar> Usuario::getLugares(){return lugares;}
+void Usuario::setLugares(const QVector<Lugar *> &value)
+{
+    lugares = value;
+}
+Doc *Usuario::getDoc() const
+{
+    return doc;
+}
+
+void Usuario::setDoc(Doc *value)
+{
+    doc = value;
+}
+Localidad *Usuario::getLocalidad() const
+{
+    return localidad;
+}
+
+void Usuario::setLocalidad(Localidad *value)
+{
+    localidad = value;
+}
+QVector<Auditoria *> Usuario::getAuditorias() const
+{
+    return auditorias;
+}
+
+void Usuario::setAuditorias(const QVector<Auditoria *> &value)
+{
+    auditorias = value;
+}
+
+
+
+
+
+
+
+
+
+

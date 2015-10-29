@@ -11,43 +11,59 @@
 #include "Doc.h"
 #include "Localidad.h"
 #include "Auditoria.h"
+#include <QVector>
+#include <QString>
 
 
 class Usuario {
 public: 
-    QString getNombre();
-    QString getPassword();
-    QString getApellido();
-    QString getEmail();
-    int getNroDoc();
-    QVector<Competencia> getCompetencias();
-    QVector<Lugar> getLugares();
-    Doc getDoc();
-    Localidad getLocalidad();
-    QVector<Auditoria> getAuditorias();
 
-    void setNombre(QString);
-    void setPassword(QString);
-    void setApellido(QString);
-    void setEmail(QString);
-    void setNroDoc(QString);
-    void setCompetencias();
-    void setLugares();
-    void setDoc();
-    void setLocalidad();
-    void setAuditorias();
-private: 
+
+    int getId() const;
+    void setId(int value);
+
+    QString getPassword() const;
+    void setPassword(const QString &value);
+
+    QString getNombre() const;
+    void setNombre(const QString &value);
+
+    QString getApellido() const;
+    void setApellido(const QString &value);
+
+    QString getEmail() const;
+    void setEmail(const QString &value);
+
+    int getNro_doc() const;
+    void setNro_doc(int value);
+
+    QVector<Competencia *> getCompetencias() const;
+    void setCompetencias(const QVector<Competencia *> &value);
+
+    QVector<Lugar *> getLugares() const;
+    void setLugares(const QVector<Lugar *> &value);
+
+    Doc *getDoc() const;
+    void setDoc(Doc *value);
+
+    Localidad *getLocalidad() const;
+    void setLocalidad(Localidad *value);
+
+    QVector<Auditoria *> getAuditorias() const;
+    void setAuditorias(const QVector<Auditoria *> &value);
+
+private:
     int id;
     QString password;
     QString nombre;
     QString apellido;
     QString email;
     int nro_doc;
-    QVector<Competencia> competencias;
-    QVector<Lugar> lugares;
-    Doc doc;
-    Localidad localidad;
-    QVector<Auditoria> auditorias;
+    QVector<Competencia*> competencias;
+    QVector<Lugar*> lugares;
+    Doc* doc;
+    Localidad* localidad;
+    QVector<Auditoria*> auditorias;
 };
 
 #endif //_USUARIO_H
