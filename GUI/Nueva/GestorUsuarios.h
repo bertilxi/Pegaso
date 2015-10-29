@@ -9,32 +9,35 @@
 #include "../Grupo Usuario/Usuario.h"
 #include "GestorBaseDatos.h"
 #include "dtos.h"
-
+#include <QString>
+#include <string>
+#include <QByteArray>
+#include <QCryptographicHash>
 
 class GestorUsuarios {
 public: 
     /**
      * @param datos
      */
-    void virtual altaUsuario(DtoUsuario datos);
+    bool altaUsuario(DtoUsuario* datos, QString &error);
     
     /**
      * @param usuario
      * @param datos
      */
-    void virtual modUsuario(Usuario usuario, DtoUsuario datos);
+    void virtual modUsuario(Usuario* usuario, DtoUsuario* datos);
     
     /**
      * @param email
      * @param password
      */
-    Usuario virtual login(QString email, QString password);
+    Usuario *login(QString email, QString password);
     Usuario getActual() const;
     void setActual(const Usuario &value);
     GestorUsuarios(GestorBaseDatos* gestorDBP):
         gestorDB(gestorDBP) {}
 private:
-    Usuario actual;
+    Usuario* actual;
     GestorBaseDatos* gestorDB;
 };
 

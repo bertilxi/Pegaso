@@ -1,10 +1,5 @@
 #include "gui.h"
 
-constexpr unsigned int str2int(const char* str, int h = 0)
-{
-    return !str[h] ? 5381 : (str2int(str, h+1)*33) ^ str[h];
-}
-
 GUI::handleMain(QString b)
 {
     if (b == "pantallaUsuario")
@@ -128,7 +123,7 @@ void GUI::show()
 
 }
 
-void GUI::handle(QString control)
+void GUI::handle(QString a,QString b)
 {
     
     if (a == "main")

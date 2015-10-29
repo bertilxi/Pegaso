@@ -8,9 +8,14 @@
 
 class Auditoria {
 public:
-	QTime getFecha();
-	QString getPc();
-private: 
+
+    QTime getFecha() const;
+    void setFecha(const QTime &value);
+
+    QString getPc() const;
+    void setPc(const QString &value);
+
+private:
     QTime fecha;
     QString pc;
 };

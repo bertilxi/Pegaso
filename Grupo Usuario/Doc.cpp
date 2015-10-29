@@ -8,4 +8,12 @@
 /**
  * Doc implementation
  */
-QString Doc::getTipo(){return tipo;}
+QString Doc::getTipo() const
+{
+    return tipo;
+}
+
+void Doc::setTipo(const QString &value)
+{
+    tipo = value;
+}

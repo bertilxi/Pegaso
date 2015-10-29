@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 
-MainWindow::MainWindow(GUI* guiP, GestorBaseDatos* gestorDBP, QWidget *parent):
-    QMainWindow(parent), gui(guiP), gestorDB(gestorDBP), ui(new Ui::MainWindow)
+MainWindow::MainWindow(GUI* guiP, QWidget *parent):
+    QMainWindow(parent), gui(guiP), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 }
@@ -13,7 +13,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    gui->handle("main.pantallaUsuario");
+    gui->handle("main","pantallaUsuario");
     this->close();
 }
 

@@ -8,8 +8,11 @@
 
 class Doc {
 public:
-	QString getTipo();
-private: 
+
+    QString getTipo() const;
+    void setTipo(const QString &value);
+
+private:
     QString tipo;
 };
 

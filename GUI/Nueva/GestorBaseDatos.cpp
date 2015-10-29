@@ -6,6 +6,7 @@
 #include <QDebug>
 
 #include "GestorBaseDatos.h"
+#include "../Grupo Competencia/Competencia.h"
 
 /**
  * GestorBaseDatos implementation
@@ -43,70 +44,90 @@ T GestorBaseDatos::load(T obj, int id) {
     }
 }
 
+
+
+
 /**
  * @param objptrs es una lista de punteros a objetos
+ * @param id es la fk
+ * @brief Guarda una lista de objetos que necesitan una fk pero el objeto no la conoce
  * @return bool indica si la operacion fue exitosa
  */
 template <class T1>
-bool GestorBaseDatos::save(QVector<T1 *> objptrs) {
+bool GestorBaseDatos::save(QVector<T1 *> objptrs, Atributo *id_externo /* = NULL */){
 
-    QString tabla = objptrs[0]->getTable();
-    QVector<QString> campos = objptrs[0]->getCampos(); //incluido el id si ya estaba persistido (sino, no).
-    QVector<QString> valores = objptrs[0]->getValores();
-
-    QString querystr;
-
-    int i;
-    for(i = 0; i < objptrs.size(); i++)
+    QString tabla;
+    QVector<Atributo> atributos;
+    int ObjetoId;
+    for(int i = 0; i < objptrs.size(); i++)
     {
-        querystr = "insert or replace into " + tabla + " ( " ;
-
-        int j;
-        for (j = 0; j < campos.size()-1; ++j)
-        {
-            querystr += campos[j] + " , " ;
+        tabla = objptrs[i]->getTable();
+        atributos = objptrs[i]->getAtributos();
+        if(id_externo != NULL){
+            atributos.push_back(*id_externo);
         }
-        querystr += campos[j] + ") values ( " ;
 
-        for (j = 0; j < valores.size()-1; ++j)
-        {
-            querystr += "'" + valores[j] + "'" + " , ";
+        ObjetoId = this->armarQuery(tabla, atributos);
+        if(ObjetoId != -1){
+            objptrs[i]->setId(ObjetoId); //se agrega al objeto su id, asignado por la BD
         }
-        querystr += "'" + valores[j] + "' ) ";
-
-        QSqlQuery query;
-
-        // consulta
-        if(!query.exec(querystr)){
-            qDebug() << "La consulta " << i << " ha fallado";
+        else
+        {
             return false;
         }
-        else{
-            qDebug() << "Consulta " << i << " exitosa";
-        }
-
-        objptrs[i]->id = query.lastInsertId().toInt(); //se agrega a cada objeto su id, asignado por la BD
     }
 
     return true;
 }
 
-/**
- * @param objs
- * @param id
- */
-template <class T2> 
-void GestorBaseDatos::save(QVector<T2> objs, int id) {
 
-}
+
 
 /**
  * @param obj1
  * @param obj2
+ * @brief Guarda una relacion n a n entre dos objetos
+ *
+ * obj1.getTable(obj2) debe retornar la tabla de la relacion entre obj1 y obj2.
+ * obj1.getCampos(obj2) debe retornar los atributos id correspondientes a la relacion
+ * entre obj1 y obj2. En cada uno de ellos, campo debe estar seteado con el nombre
+ * correspondiente y valor debe ser la cadena vacia.
  */
-template <class T3,class T4>
-void GestorBaseDatos::saveRelacion(T3 obj1, T4 obj2) {
+template <class T2,class T3>
+bool GestorBaseDatos::saveRelacion(T2 *obj1, T3 *obj2){
+    QString tabla = obj1->getTable(*obj2);
+    QVector<Atributo> atributos = obj1->getAtributos(*obj2);
+    atributos[0].valor = obj1->getId();
+    atributos[1].valor = obj2->getId();
 
+    QString querystr = "insert or replace into " + tabla + " ( " ;
+
+    int j;
+    for (j = 0; j < atributos.size()-1; ++j)
+    {
+        querystr += atributos[j].campo + " , " ;
+    }
+    querystr += atributos[j].campo + ") values ( " ;
+
+    for (j = 0; j < atributos.size()-1; ++j)
+    {
+        querystr += "'" + atributos[j].valor + "'" + " , ";
+    }
+    querystr += "'" + atributos[j].valor + "' ) ";
+
+    QSqlQuery query;
+
+    // consulta(
+    if(!query.exec(querystr)){
+        qDebug() << "La consulta ha fallado";
+        qDebug() << "La consulta que dio error fue: " << querystr;
+        return false;
+    }
+    else{
+        qDebug() << "Consulta exitosa";
+    }
+
+    return true;
 }
 
 /**
@@ -114,8 +135,8 @@ void GestorBaseDatos::saveRelacion(T3 obj1, T4 obj2) {
  * @param filtros
  * @return QVector<T>
  */
-template <class T5>
-QVector<T5> GestorBaseDatos::query(T5 obj, QVector<QString> filtros) {
+template <class T4>
+QVector<T4> GestorBaseDatos::query(T4 obj, QVector<QString> filtros) {
     return NULL;
 }
 
@@ -125,4 +146,43 @@ void GestorBaseDatos::beginTransaction() {
 
 void GestorBaseDatos::commit() {
 
+}
+
+
+/**
+ * @brief utiliza el nombre de una tabla y conjuntos columna-valor (atributos)
+ * para armar un insert SQL y ejecutarlo en la BD.
+ * @param tabla
+ * @param atributos
+ * @return id del objeto que se acaba de guardar, asignado por la BD
+ */
+int armarQuery(QString tabla, const QVector<Atributo> &atributos){
+
+    QString querystr;
+
+    querystr = "insert or replace into " + tabla + " ( " ;
+
+    int j;
+    for (j = 0; j < atributos.size()-1; ++j)
+    {
+        querystr += atributos[j].campo + " , " ;
+    }
+    querystr += atributos[j].campo + ") values ( " ;
+
+    for (j = 0; j < atributos.size()-1; ++j)
+    {
+        querystr += "'" + atributos[j].valor + "'" + " , ";
+    }
+    querystr += "'" + atributos[j].valor + "' ) ";
+
+    QSqlQuery query;
+
+    // consulta
+    if(!query.exec(querystr)){
+        qDebug() << "La consulta ha fallado";
+        qDebug() << "La consulta que dio error fue: " << querystr;
+        return -1;
+    }
+
+    return query.lastInsertId().toInt();
 }

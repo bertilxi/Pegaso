@@ -8,6 +8,22 @@
 /**
  * Auditoria implementation
  */
+QTime Auditoria::getFecha() const
+{
+    return fecha;
+}
 
-QTime Auditoria::getFecha(){return fecha ;}
-QString Auditoria::getPc(){return pc ;}
+void Auditoria::setFecha(const QTime &value)
+{
+    fecha = value;
+}
+
+QString Auditoria::getPc() const
+{
+    return pc;
+}
+
+void Auditoria::setPc(const QString &value)
+{
+    pc = value;
+}
