@@ -1,15 +1,8 @@
 #ifndef DTOS
 #define DTOS
 
-#include "../Grupo Competencia/Competencia.h"
-#include "../Grupo Competencia/Modalidad.h"
-#include "../Grupo Competencia/Participante.h"
-#include "../Grupo Competencia/HistorialParticipante.h"
-#include "../Grupo Competencia/Lugar.h"
 #include "../Grupo Competencia/Deporte.h"
-#include "../Grupo Competencia/Disponibilidad.h"
-#include "../Grupo Competencia/Resultado.h"
-#include "../Grupo Competencia/Partido.h"
+#include "../Grupo Competencia/Modalidad.h"
 
 
 class DtoGetCompetencia

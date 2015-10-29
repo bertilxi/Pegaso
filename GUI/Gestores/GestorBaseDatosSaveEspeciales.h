@@ -4,7 +4,6 @@
 //recordar quitar esto
 #include "../Grupo Competencia/Puntos.h"
 #include "../Grupo Competencia/Sets.h"
-
 #include "GestorUsuarios.h"
 
 /**
@@ -12,9 +11,6 @@
  * @param comp la competencia a persistir
  * @return true si tuvo exito, false si fallo
  */
-
-class GestorBaseDatos;
-
 bool GestorBaseDatos::saveCompetencia(Competencia *comp, Atributo usuarioId){
 
     bool status = true;

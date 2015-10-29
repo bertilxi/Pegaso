@@ -35,7 +35,7 @@ void GestorPartidos::generarFixture(Competencia *comp) {
     bool seAsigno; //Bandera para saber si se asigno un lugar a un partido
     for (int i = 0; i < partidos.size(); ++i) {
         seAsigno=false;
-        for(j=0;j<disponibilidades.size();j++) //Compruebo en todos los lugares si tengo disponibilidad
+        for(int j=0;j<disponibilidades.size();j++) //Compruebo en todos los lugares si tengo disponibilidad
             //Voy asignando cíclicamente los lugares
             if(numeroDisponibles[(actual+j)%disponibilidades.size()]){
                 partidos[i]->setLugar(disponibilidades[actual+j]->getLugar());
@@ -60,23 +60,23 @@ void GestorPartidos::generarFixture(Competencia *comp) {
 void GestorPartidos::nuevoResultado(Competencia *comp, Partido *part, Resultado *res) {
 
     //Si ya tiene un resultado hay que agregarlo al historial
-    if(part->getActual()!=null){
-        QVector<Partido*> historial=part->getModificado();
-        historial.push_back(new Partido(part->getActual()));
-        part->setModificado(historial);
-        //Si es de liga hay que modificar los puntos
-        if(comp->getModalidad()->getNombre()=="Liga"){
-            part->getEquipoA()->getPuntaje()->restar(part->getActual());
-            part->getEquipoB()->getPuntaje()->restar(part->getActual());
-        }
-    }
-    part->setActual(res);
-    //Si es de liga hay que modificar los puntos
-   if(comp->getModalidad()->getNombre()=="Liga"){
-       part->getEquipoA()->getPuntaje()->sumar(part->getActual());
-       part->getEquipoB()->getPuntaje()->sumar(part->getActual());
-       return;
-   }
+//    if(part->getActual()!=NULL){
+//        QVector<Partido*> historial=part->getModificado();
+//        historial.push_back(new Partido(part->getActual()));
+//        part->setModificado(historial);
+//        //Si es de liga hay que modificar los puntos
+//        if(comp->getModalidad()->getNombre()=="Liga"){
+//            part->getEquipoA()->getPuntaje()->restar(part->getActual());
+//            part->getEquipoB()->getPuntaje()->restar(part->getActual());
+//        }
+//    }
+//    part->setActual(res);
+//    //Si es de liga hay que modificar los puntos
+//   if(comp->getModalidad()->getNombre()=="Liga"){
+//       part->getEquipoA()->getPuntaje()->sumar(part->getActual());
+//       part->getEquipoB()->getPuntaje()->sumar(part->getActual());
+//       return;
+//   }
    //Si es eliminación simple o doble hay que asignar el ganador al sucesor
    Participante* ganador;
    if(comp->getModalidad()->getNombre()=="Simple"||comp->getModalidad()->getNombre()=="Doble"){
@@ -85,8 +85,8 @@ void GestorPartidos::nuevoResultado(Competencia *comp, Partido *part, Resultado 
            ganador=part->getEquipoA();
        else ganador=part->getEquipoB();
        //Si no es el último partido lo asigno al sucesor (sucesor de ronda ganadores si es elim. doble)
-       if(part->getSucesores()[0]!=null){
-           if(part->getSucesores()[0]->getEquipoA()==null)
+       if(part->getSucesores()[0]!=NULL){
+           if(part->getSucesores()[0]->getEquipoA()==NULL)
                part->getSucesores()[0]->setEquipoA(ganador);
            else part->getSucesores()[0]->setEquipoB(ganador);
        }
@@ -95,19 +95,19 @@ void GestorPartidos::nuevoResultado(Competencia *comp, Partido *part, Resultado 
    }
    //Si es eliminación doble hay que asignar el perdedor dependiendo si es ronda ganadores o perdedores, y si es el último partido hay que ver si ganó el participante de ronda perdedores para saber si hay que jugar otro partido
    Participante* perdedor;
-   if(comp->getModalidad()->getNombre()=="Doble" && part->sucesores[1]!=null){
-       //Obtengo el perdedor
-       if(part->getEquipoA()==ganador)
-           perdedor=part->getEquipoB();
-       else perdedor=part->getEquipoA();
-       //Lo asigno
-       if(part->getSucesores()[1]->getEquipoA()==null)
-           part->getSucesores()[1]->setEquipoA(perdedor);
-       else part->getSucesores()[1]->setEquipoB(perdedor);
-   }
+//   if(comp->getModalidad()->getNombre()=="Doble" && part->sucesores[1]!=NULL){
+//       //Obtengo el perdedor
+//       if(part->getEquipoA()==ganador)
+//           perdedor=part->getEquipoB();
+//       else perdedor=part->getEquipoA();
+//       //Lo asigno
+//       if(part->getSucesores()[1]->getEquipoA()==NULL)
+//           part->getSucesores()[1]->setEquipoA(perdedor);
+//       else part->getSucesores()[1]->setEquipoB(perdedor);
+//   }
    //Si es el último partido determino si se debe jugar uno más
    //Uso la ronda ganadores o perdedores como bandera para saber si no es un partido final en el que ya gano el equipo de ronda perdedores anteriormente
-   if(part->getSucesores()[0]==null && part->getRonda()=="Ganadores"){
+   if(part->getSucesores()[0]==NULL && part->getRonda()=="Ganadores"){
        if(ganador==part->getEquipoB()){
            //Creo un nuevo partido y lo asigno como sucesor
            Partido* nuevo=new Partido;
@@ -118,7 +118,7 @@ void GestorPartidos::nuevoResultado(Competencia *comp, Partido *part, Resultado 
            nuevo->setLugar(comp->getDisponibilidades()[0]->getLugar());
            QVector<Partido*> sucesor;
            sucesor.push_back(nuevo);
-           part->setSucesor(sucesor);
+           //part->setSucesor(sucesor);
            //También tengo que agregarlo a los partidos de la competencia
            QVector<Partido*> partidos=comp->getPartidos();
            partidos.push_back(nuevo);
@@ -136,14 +136,14 @@ bool GestorPartidos::puedeModificar(Partido *part, Competencia *comp,QString &er
         //Me fijo si se registró un partido de la ronda posterior
         QVector<Partido*> partidos=comp->getPartidos();
         for (int i = 0; i < partidos.size(); ++i) {
-            if(partidos[i]->getFecha()>fecha && partidos[i]->getActual()!=null){
+            if(partidos[i]->getFecha()>fecha && partidos[i]->getActual()!=NULL){
                 error="Ya se ha registrado un resultado para la siguiente ronda";
                 return false;
             }
         }
         //Me fijo si no se registró un partido de la ronda anterior
         for (int i = 0; i < partidos.size(); ++i) {
-            if(partidos[i]->getFecha()<fecha && partidos[i]->getActual()==null){
+            if(partidos[i]->getFecha()<fecha && partidos[i]->getActual()==NULL){
                 error="No se dispone de todos los resultados para la ronda anterior";
                 return false;
             }
@@ -155,35 +155,35 @@ bool GestorPartidos::puedeModificar(Partido *part, Competencia *comp,QString &er
 
 void GestorPartidos::generarFixtureLiga(Competencia *comp) {
 
-    QVector<Participantes*> participantes=comp->getParticipantes();
-    QVector<Partidos*> partidos;
-    //Algoritmo Round Robin schedule de Édouard Lucas modificado
-    int n=participantes.size();
-        for (int i = 1; i < n; ++i) {
-            for (int j = 0; j < n - i - 1 + n&1 ; j++) { //Si son pares hago una iteración menos porque asigno especialmente al último
-                Partido *part = new Partido;
-                part->setEquipoA(participantes[i-1]);
-                part->setEquipoB(participantes[i+j]);
-                part->setFecha(((i<<1) + j - 1)%(n -1 + n&1 )+1); //La fecha la calculo por deducción de la matriz Round Robin
-                partidos.push_back(part);
-            }
+//    QVector<Participantes*> participantes=comp->getParticipantes();
+//    QVector<Partidos*> partidos;
+//    //Algoritmo Round Robin schedule de Édouard Lucas modificado
+//    int n=participantes.size();
+//        for (int i = 1; i < n; ++i) {
+//            for (int j = 0; j < n - i - 1 + n&1 ; j++) { //Si son pares hago una iteración menos porque asigno especialmente al último
+//                Partido *part = new Partido;
+//                part->setEquipoA(participantes[i-1]);
+//                part->setEquipoB(participantes[i+j]);
+//                part->setFecha(((i<<1) + j - 1)%(n -1 + n&1 )+1); //La fecha la calculo por deducción de la matriz Round Robin
+//                partidos.push_back(part);
+//            }
             //Si son pares asigno al último participante al partido que quedaría en la diagonal principal
-            if(!n&1){
-                Partido *part = new Partido;
-                part->setEquipoA(participantes[i-1]);
-                part->setEquipoB(participantes[n-1]);
-                part->setFecha(((i<<1)-2)%(n-1)+1);
-                partidos.push_back(part);
-            }
-        }
-    comp->setPartidos(partidos);
+//            if(!n&1){
+//                Partido *part = new Partido;
+//                part->setEquipoA(participantes[i-1]);
+//                part->setEquipoB(participantes[n-1]);
+//                part->setFecha(((i<<1)-2)%(n-1)+1);
+//                partidos.push_back(part);
+//            }
+//        }
+//    comp->setPartidos(partidos);
 }
 
 void GestorPartidos::generarFixtureElimSimple(Competencia *comp) {
     QVector<Participante*> participantes=comp->getParticipantes();
     int n=participantes.size();
     //Si el número de participantes no es potencia de 2 hay que hacer ajustes para saber la cantidad de partido en la primera fecha
-    dif=0;
+    int dif=0;
     if(!(n & (n-1))){
         dif=(n&(-n)<<1)-n; //dif es la cantidad necesaria de participantes para que n sea potencia de 2
     }
@@ -192,33 +192,33 @@ void GestorPartidos::generarFixtureElimSimple(Competencia *comp) {
     QVector<Partido*> partidos;
     int i;
     //Primero hago que algunos participantes no juegen contra nadie para llegar a una cantidad de partidos potencia de 2
-    for (i = 0; i < dif; ++i) {
-        Partido part=new Partido;
-        part.setEquipoA(participantes[i]);
-        part.setEquipoB(new Participante);//Un participante dummy
-        part.setFecha(1);
-        partidos.push_back(part);
-    }
+//    for (i = 0; i < dif; ++i) {
+//        Partido* part=new Partido();
+//        part.setEquipoA(participantes[i]);
+//        part.setEquipoB(new Participante);//Un participante dummy
+//        part.setFecha(1);
+//        partidos.push_back(part);
+//    }
     //Luego asigno los demás
-    for (;i < n; i+=2) {
-        Partido part=new Partido;
-        part.setEquipoA(participantes[i]);
-        part.setEquipoB(participantes[i+1]);
-        part.setFecha(1);
-        partidos.push_back(part);
-    }
+//    for (;i < n; i+=2) {
+//        Partido* part=new Partido();
+//        part.setEquipoA(participantes[i]);
+//        part.setEquipoB(participantes[i+1]);
+//        part.setFecha(1);
+//        partidos.push_back(part);
+//    }
 
     //Creo el resto de los encuentros
     int fecha=2;
     //Itero sobre la cantidad necesaria de fechas y creo la cantidad necesaria de partidos en cada una
-    for (int j = (n+dif)>>2 ; j >0 ; j>>=1) {//>>1 equivale a dividir por dos; empiezo en >>2 porque la primer fecha ya se asignó
-        for (int k = 0; k < j; ++k) {
-            Partido part=new Partido;
-            part.setFecha(fecha);
-            partidos.push_back(part);
-        }
-        fecha++;
-    }
+//    for (int j = (n+dif)>>2 ; j >0 ; j>>=1) {//>>1 equivale a dividir por dos; empiezo en >>2 porque la primer fecha ya se asignó
+//        for (int k = 0; k < j; ++k) {
+//            Partido* part=new Partido();
+//            part.setFecha(fecha);
+//            partidos.push_back(part);
+//        }
+//        fecha++;
+//    }
 
     //Asigno los sucesores de cada encuentro
     int l=0; //l es el índice del primer partido de la fecha considerada actualmente

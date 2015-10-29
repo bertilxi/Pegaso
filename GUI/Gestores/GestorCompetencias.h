@@ -96,7 +96,7 @@ public:
      * @param id_usuario
      * @param filtros
      */
-    virtual QVector<Competencia*> getCompetenciasLazy(DtoGetCompetencia*);
+    virtual QVector<Competencia*> getCompetenciasLazy(DtoGetCompetencia);
     
     /**
      * @param comp

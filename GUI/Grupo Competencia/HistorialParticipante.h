@@ -8,7 +8,7 @@
 
 #include <QString>
 #include <QDebug>
-#include "Atributo.h"
+#include "../Gestores/Atributo.h"
 
 class HistorialParticipante {
 public:

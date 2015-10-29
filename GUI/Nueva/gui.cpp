@@ -4,12 +4,13 @@ void GUI::handleMain(QMainWindow* a, QString b, QVector<QString> datos)
 {
     if (b == "pantallaUsuario")
     {
+        /*
         Usuario* u = gestorDB->loadUsuario(datos[0]});
 
         QString passwordDB = u.getPassword();
-
-        if(datos[1] == passwordDB){
-            pantallaUsuario = new pantallaUsuario();
+        */
+        if(1/*datos[1] == passwordDB*/){
+            pantallaUsuario = new pantalla_usuario();
             a->close();
             pantallaUsuario->show();
 
@@ -31,7 +32,7 @@ void GUI::handlePantallaUsuario(QMainWindow *a, QString b)
 {
     if (b == "listarCompetencia")
     {
-        listarCompetencias = new listarCompetencias();
+        listarCompetencias = new listar_competencias();
         listarCompetencias->show();
         a->close();
     }
@@ -49,7 +50,7 @@ void GUI::handleListarCompetencias(QMainWindow *a, QString b)
 {
     if (b == "altaCompetencia")
     {
-        altaCompetencia = new altaCompetencia();
+        altaCompetencia = new alta_competencia();
         altaCompetencia->show();
         a->close();
     }
@@ -79,7 +80,7 @@ void GUI::handleAltaCompetencia(QMainWindow *a, QString b)
 {
     if (b == "listarParticipantes")
     {
-        listarCompetencias = new listarCompetencias();
+        listarCompetencias = new listar_competencias();
         listarCompetencias->show();
         a->close();
     }
