@@ -9,6 +9,7 @@
 #include "../Grupo Competencia/Puntaje.h"
 #include "../Grupo Competencia/Partido.h"
 #include "../Grupo Competencia/Resultado.h"
+#include "GestorBaseDatos.h"
 
 
 class GestorPartidos {
@@ -33,7 +34,10 @@ public:
 
     virtual bool puedeModificar(Partido *part, Competencia *comp, QString &error);
 
-private: 
+    GestorPartidos(GestorBaseDatos* gestorDBP): gestorDB(gestorDBP) {}
+
+private:
+    GestorBaseDatos* gestorDB;
     /**
      * @param comp
      */

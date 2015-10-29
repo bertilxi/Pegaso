@@ -12,7 +12,7 @@
 void GestorCompetencias::eliminarFixture(Competencia *comp)
 {
     //Elimino el fixture si existiera
-    QVector<partidos*> partidos=comp->getPartidos();
+    QVector<Partido*> partidos=comp->getPartidos();
     for(int i=0;i<partidos.size();i++){
         delete partidos[i];
     }
@@ -25,7 +25,7 @@ Competencia *GestorCompetencias::crearCompetencia(DtoCompetencia *datos, bool op
 {
     error="";
     //Valido si existe una competencia con el mismo nombre
-    DtoGetCompetencia dto(datos->idUsuario,datos->nombreCompetencia,null,null,null);
+    DtoGetCompetencia dto(datos->usuarioId,datos->nombreCompetencia,NULL,NULL,NULL);
     QVector<Competencia*> auxComps=gestorBaseDatos->getCompetenciasLazy(dto);
     if(! auxComps.isEmpty()){
         operacionExitosa=false;
@@ -41,9 +41,9 @@ Competencia *GestorCompetencias::crearCompetencia(DtoCompetencia *datos, bool op
     comp->setReglamento(datos->reglamento);
     QVector<Disponibilidad*> disponibilidades;
     for(int i=0;i<datos->lugares.size();i++){
-        Disponibilidad disp = new Disponibilidad();
-        disp.setDisponibilidad(datos->disponibilidades[i]);
-        disp.setLugar(datos->lugares[i]);
+        Disponibilidad * disp = new Disponibilidad();
+        disp->setDisponibilidad(datos->disponibilidades[i]);
+        disp->setLugar(datos->lugares[i]);
         disponibilidades.push_back(disp);
     }
     comp->setDisponibilidades(disponibilidades);
@@ -90,9 +90,9 @@ void GestorCompetencias::modCompetencia(Competencia *comp, DtoCompetencia *datos
 
         //Creo y asigno las nuevas disponibilidades
         for(int i=0;i<datos->lugares.size();i++){
-            Disponibilidad disp = new Disponibilidad();
-            disp.setDisponibilidad(datos->disponibilidades[i]);
-            disp.setLugar(datos->lugares[i]);
+            Disponibilidad * disp = new Disponibilidad();
+            disp->setDisponibilidad(datos->disponibilidades[i]);
+            disp->setLugar(datos->lugares[i]);
             disponibilidades.push_back(disp);
         }
         comp->setDisponibilidades(disponibilidades);
@@ -109,7 +109,7 @@ bool GestorCompetencias::altaParticipante(Competencia *comp, DtoParticipante *da
 {
     error="";
     //Valido si existe un participante con el mismo nombre o correo
-    QVector<Participante*> participantes=comp.getParticipantes();
+    QVector<Participante*> participantes = comp->getParticipantes();
     for(int i=0;i<participantes.size();i++){
         if(datos->correo==participantes[i]->getCorreo()){
             error+="El correo ya existe.\n";
@@ -159,7 +159,7 @@ bool GestorCompetencias::modParticipante(Competencia *comp, Participante *part, 
 {
     error="";
     //Busco si ya existe un participante con el nuevo correo o nombre
-    QVector<Participante*> participantes=comp.getParticipantes();
+    QVector<Participante*> participantes = comp->getParticipantes();
     for(int i=0;i<participantes.size();i++){
         if(datos->correo==participantes[i]->getCorreo() && participantes[i]!=part){
             error+="El correo ya existe.\n";
@@ -173,7 +173,7 @@ bool GestorCompetencias::modParticipante(Competencia *comp, Participante *part, 
     }
 
     //Creo una nueva entrada en el historial y la asigno
-    HistorialParticipante *registro=new HistorialParticipante(part);
+    HistorialParticipante *registro = new HistorialParticipante(part);
     QVector<HistorialParticipante> *historial=part->getHistorial();
     historial->push_back(registro);
     part->setHistorial(historial);
@@ -195,7 +195,7 @@ void GestorCompetencias::nuevoResultado(Competencia *comp, Partido *part, Result
     comp->setEstado("Finalizada");
     QVector<Partido*> partidos=comp->getPartidos();
     for (int i = 0; i < partidos.size(); ++i) {
-        if(partidos[i]->getActual()==null){
+        if(partidos[i]->getActual()==NULL){
             comp->setEstado("En disputa");
             break;
         }

@@ -11,8 +11,18 @@
 
 class Pais {
 public: 
+
+    Vector<Provincia> getProvincias() const;
+    void setProvincias(const Vector<Provincia> &value);
+
+    int getId() const;
+    void setId(int value);
+
+    QString getNombre() const;
+    void setNombre(const QString &value);
+
+private:
     Vector<Provincia> provincias;
-private: 
     int id;
     QString nombre;
 };

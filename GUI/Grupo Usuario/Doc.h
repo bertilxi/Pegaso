@@ -7,7 +7,12 @@
 #define _DOC_H
 
 class Doc {
-private: 
+public:
+
+    QString getTipo() const;
+    void setTipo(const QString &value);
+
+private:
     QString tipo;
 };
 

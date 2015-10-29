@@ -58,3 +58,6 @@ bool Sets::operator==(const Sets &other) const
     return 1;
 }
 
+QString Sets::getTable() const{
+    return "Sets";
+}

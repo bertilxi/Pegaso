@@ -18,6 +18,7 @@
 #include "../Grupo Competencia/Deporte.h"
 #include "../Grupo Competencia/Disponibilidad.h"
 #include "../Grupo Competencia/Resultado.h"
+#include "../Grupo Competencia/Partido.h"
 #include "GestorPartidos.h"
 #include "GestorBaseDatos.h"
 #include "GestorUsuarios.h"
@@ -76,7 +77,7 @@ public:
      * @param error informacion sobre el error ocurrido o si fue exitosa la operacion
      */
 
-    virtual bool modParticipante(Competencia *comp,Participante* part, DtoParticipante* datos, QString &error);
+    virtual void modParticipante(Competencia *comp,Participante* part, DtoParticipante* datos, QString &error);
 
     /**
      * @param comp
@@ -101,7 +102,7 @@ public:
      * @param comp
      * @param error informacion sobre el error ocurrido o si fue exitosa la operacion
      */
-    virtual bool generarFixture(Competencia* comp,QString error);
+    virtual void generarFixture(Competencia* comp,QString error);
     
     /**
      * @param part

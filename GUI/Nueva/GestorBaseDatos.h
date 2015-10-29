@@ -5,7 +5,6 @@
 #include <QVector>
 #include "../Grupo Competencia/Competencia.h"
 #include "dtos.h"
-#include "Atributo.h"
 
 
 #ifndef _GESTORBASEDATOS_H

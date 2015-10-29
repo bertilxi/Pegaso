@@ -18,6 +18,7 @@
 #include "../Grupo Competencia/Deporte.h"
 #include "../Grupo Competencia/Disponibilidad.h"
 #include "../Grupo Competencia/Resultado.h"
+#include "../Grupo Competencia/Partido.h"
 #include "GestorPartidos.h"
 #include "GestorBaseDatos.h"
 #include "GestorUsuarios.h"

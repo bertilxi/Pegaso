@@ -1,6 +1,6 @@
 #include "gui.h"
 
-GUI::handleMain(QString b)
+void GUI::handleMain(QString b)
 {
     if (b == "pantallaUsuario")
     {
@@ -16,7 +16,7 @@ GUI::handleMain(QString b)
     }
 }
 
-GUI::handlePantallaUsuario(QString b)
+void GUI::handlePantallaUsuario(QString b)
 {
     if (b == "listarCompetencia")
     {
@@ -32,7 +32,7 @@ GUI::handlePantallaUsuario(QString b)
     }
 }
 
-GUI::handleListarCompetencias(QString b)
+void GUI::handleListarCompetencias(QString b)
 {
     if (b == "altaCompetencia")
     {
@@ -44,7 +44,7 @@ GUI::handleListarCompetencias(QString b)
     }
 }
 
-GUI::handleListarLugares(QString b)
+void GUI::handleListarLugares(QString b)
 {
     if (b == "altaLugar")
     {
@@ -60,7 +60,7 @@ GUI::handleListarLugares(QString b)
     }
 }
 
-GUI::handleAltaCompetencia(QString b)
+void GUI::handleAltaCompetencia(QString b)
 {
     if (b == "listarParticipantes")
     {
@@ -68,7 +68,7 @@ GUI::handleAltaCompetencia(QString b)
     }
 }
 
-GUI::handleListarParticipantes(QString b)
+void GUI::handleListarParticipantes(QString b)
 {
     if (b == "altaParticipante")
     {
@@ -84,7 +84,7 @@ GUI::handleListarParticipantes(QString b)
     }
 }
 
-GUI::handleVerCompetencia(QString b)
+void GUI::handleVerCompetencia(QString b)
 {
     if (b == "modificarCompetencia")
     {
@@ -108,7 +108,7 @@ GUI::handleVerCompetencia(QString b)
     }
 }
 
-GUI::handleMostrarFixture(QString b)
+void GUI::handleMostrarFixture(QString b)
 {
     if (b == "generarFixture")
     {

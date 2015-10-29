@@ -45,10 +45,32 @@ public:
 
     bool operator==(const Competencia &other)const;
 
+    QString getFecha_y_horaB() const;
+    void setFecha_y_horaB(const QString &value);
+
+    bool getBorrado() const;
+    void setBorrado(bool value);
+
+    QString getReglamento() const;
+    void setReglamento(const QString &value);
+
+    QString getTable();
+
+    /**
+     * @brief getAtributos
+     * @return una lista de los atributos de Competencia con el correspondiente nombre
+     * de sus columnas en la tabla Competencia de la Base de Datos. Los atributos
+     * retornados han sido casteados a QString's.
+     */
+    QVector<Atributo> getAtributos() const;
+
 private:
     int id;
     QString estado;
     QString nombre;
+    QString fecha_y_horaB;
+    bool borrado;
+    QString reglamento;
     QVector<Disponibilidad *> disponibilidades;
     QVector<Participante *> participantes;
     Modalidad *modalidad;

@@ -13,13 +13,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    gui->handle("main","pantallaUsuario");
+    gui->handle(QString("main"),QString("pantallaUsuario"));
     this->close();
 }
 
 void MainWindow::on_pushButton_4_clicked()
 {
-    gui->handle("cerrar");
+    gui->handle(QString("cerrar"),QString(""));
     this->close();
     qDebug()<<"se cerro el programa";
 }

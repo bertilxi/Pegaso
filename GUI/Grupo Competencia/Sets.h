@@ -23,6 +23,8 @@ public:
     QVector<Set *> getSets() const;
     void setSets(const QVector<Set *> &value);
 
+    QString getTable() const;
+
 private:
     int cant_sets;
     QVector<Set *> sets;

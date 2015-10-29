@@ -8,14 +8,22 @@
 
 #include <QString>
 #include <QDebug>
+#include <QVector>
+#include "Atributo.h"
 
 class Modalidad {
 public:
     int getId() const;
     void setId(int value);
 
+    int getId_nombre() const;
+    void setId_nombre(int value);
+
     QString getNombre() const;
     void setNombre(const QString &value);
+
+    int getId_tipo_resultado() const;
+    void setId_tipo_resultado(int value);
 
     QString getTipo_resultado() const;
     void setTipo_resultado(const QString &value);
@@ -37,9 +45,21 @@ public:
 
     bool operator==(const Modalidad &other)const;
 
+    QString getTable();
+
+    /**
+     * @brief getAtributos
+     * @return una lista de los atributos de Modalidad con el correspondiente nombre
+     * de sus columnas en la tabla Modalidad de la Base de Datos. Los atributos
+     * retornados han sido casteados a QString's.
+     */
+    QVector<Atributo> getAtributos() const;
+
 private:
     int id;
+    int id_nombre; ///de otra forma debo hacer una consulta por el id de nombre
     QString nombre;
+    int id_tipo_resultado; ///de otra forma debo hacer una consulta por el id de tipo_resultado
     QString tipo_resultado;
     int cant_max_sets;
     int puntos_presentarse;

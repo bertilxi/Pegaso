@@ -8,28 +8,28 @@
 class DtoGetCompetencia
 {
 public:
-    QString usuario;
+    int usuarioId;
     QString nombreCompetencia;
-    int deporteId;
-    int modalidadId;
+    Deporte* deporte;
+    Modalidad* modalidad;
     QString estado;
-    DtoGetCompetencia(QString usuarioP , QString nombreCompetenciaP = NULL, int deporteIdP = NULL, int modalidadIdP = NULL, QString estadoP = NULL ):
-        usuario(usuarioP), nombreCompetencia(nombreCompetenciaP), deporteId(deporteIdP), modalidadId(modalidadIdP), estado(estadoP) {}
+    DtoGetCompetencia(int usuarioIdP , QString nombreCompetenciaP = NULL, Deporte* deporteP = NULL, Modalidad* modalidadP = NULL, QString estadoP = NULL ):
+        usuarioId(usuarioIdP), nombreCompetencia(nombreCompetenciaP), deporte(deporteP), modalidad(modalidadP), estado(estadoP) {}
 
 };
 
 class DtoCompetencia
 {
 public:
-    int idUsuario;
+    int usuarioId;
     QString nombreCompetencia;
-    int deporteId;
+    Deporte* deporte;
     QVector<Lugar*> lugares;
     QVector<int> disponibilidades;
-    int modalidadId;
+    Modalidad* modalidad;
     QString reglamento;
-    DtoCompetencia(int idUsuarioP,QString nombreCompentenciaP, int deporteIdP, QVector<Lugar*> lugaresP, QVector<int> disponibilidadesP, int modalidadIdP, QString reglamentoP ):
-        idUsuario(idUsuarioP),nombreCompetencia(nombreCompentenciaP), deporteId(deporteIdP), lugares(lugaresP), disponibilidades(disponibilidadesP), modalidadId(modalidadIdP), reglamento(reglamentoP) {}
+    DtoCompetencia(int usuarioIdP,QString nombreCompentenciaP, Deporte* deporteP, QVector<Lugar*> lugaresP, QVector<int> disponibilidadesP, Modalidad*  modalidadP, QString reglamentoP ):
+        usuarioId(usuarioIdP),nombreCompetencia(nombreCompentenciaP), deporte(deporteP), lugares(lugaresP), disponibilidades(disponibilidadesP), modalidad(modalidadP), reglamento(reglamentoP) {}
 
 };
 
