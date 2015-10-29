@@ -4,6 +4,7 @@
 
 #include <QVector>
 #include "../Grupo Competencia/Competencia.h"
+#include "dtos.h"
 
 
 #ifndef _GESTORBASEDATOS_H
@@ -21,46 +22,26 @@ public:
     T load(T obj, int id);
     
     /**
-     * @param objs
-     * @brief Guarda una lista de objetos en su correspondiente tabla
+     * @brief guarda una lista de objetos
+     * @param objptrs punteros a objetos
+     * @param tabla nombre de la tabla de la BD donde guardar los objetos
+     * @param id_externo es un puntero a un atributo correspondiente a una fk.
+     * Su valor es NULL si no se la llama con tal argumento.
+     * @return true si tuvo exito, false si fallo
      */
     template <class T1>
-    bool save(QVector<T1 *> objptrs);
+    bool save(QVector<T1 *> objptrs, Atributo *id_externo = NULL);
 
     /**
      * @brief persiste un objeto Competencia
      * @param comp la competencia a persistir
      * @return true si tuvo exito, false si fallo
      */
-    bool saveCompetencia(Competencia *comp, int usuarioId);
+    bool saveCompetencia(Competencia *comp, Atributo usuarioId);
     //implementado en libreria "GestorBaseDatosSaveEspeciales.h"
 
-    bool saveResultado(Resultado *resultado, int partidoId);
+    bool saveResultado(Resultado *resultado, Atributo partidoId);
     //implementado en libreria "GestorBaseDatosSaveEspeciales.h"
-
-
-    /**
-     * @param objs
-     * @param id
-     * @brief Guarda una lista de objetos que necesitan una fk pero el objeto no la conoce 
-     *
-     * objs.getCampos() retorna una lista que debe incluir como ULTIMO elemento el campo
-     * al que corresponde el parametro id.
-     */
-    template <class T2>
-    bool save(QVector<T2 *> objptrs, int id);
-
-
-    /**
-     * @brief arma y ejecuta queries para guardar una lista de objetos
-     * @param objptrs punteros a objetos
-     * @param tabla nombre de la tabla de la BD donde guardar los objetos
-     * @param campos nombre de los campos donde guardar los datos
-     * @param valores valores de los datos a guardar
-     * @return true si tuvo exito, false si fallo
-     */
-    template <class Ta>
-    bool armarYEjecutar(QVector<Ta *> &objptrs, QString &tabla, QVector<QString> &campos, QVector<QString> &valores);
 
     
     /**
@@ -70,20 +51,31 @@ public:
      *
      * obj1 debe conocer la tabla de la relacion
      */
-    template <class T3,class T4>
-    bool saveRelacion(T3 *obj1, T4 *obj2);
+    template <class T2,class T3>
+    bool saveRelacion(T2 *obj1, T3 *obj2);
     
     /**
      * @param obj
      * @param filtros
      * @brief Ejecuta una consulta en la base de datos con filtros como parametros en select
      */
-    template <class T5>
-    QVector<T5> query(T5 obj, QVector<QString> filtros);
+    template <class T4>
+    QVector<T4> query(T4 obj, QVector<QString> filtros);
     
     void virtual beginTransaction();
     
     void virtual commit();
+
+private:
+
+    /**
+     * @brief utiliza el nombre de una tabla y conjuntos columna-valor (atributos)
+     * para armar un insert SQL y ejecutarlo en la BD.
+     * @param tabla
+     * @param atributos
+     * @return id del objeto que se acaba de guardar, asignado por la BD
+     */
+    int armarQuery(QString tabla, const QVector<Atributo> &atributos);
 };
 
 #include "GestorBaseDatosSaveEspeciales.h"
