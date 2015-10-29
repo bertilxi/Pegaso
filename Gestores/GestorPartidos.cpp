@@ -221,12 +221,12 @@ void GestorPartidos::generarFixtureElimSimple(Competencia *comp) {
     }
 
     //Asigno los sucesores de cada encuentro
-    int l=0; //l es el índice del partido que estoy considerando actualmente
+    int l=0; //l es el índice del primer partido de la fecha considerada actualmente
     for (int j = (n+dif)>>1 ; j >0 ; j>>=1){
          for (int k = 0; k < j; ++k) {
-             partidos[l]->setSucesor(partidos[l+j+k]);
-             l++;
+             partidos[l+k]->setSucesor(partidos[l+j+(k>>1)]);
          }
+         l+=j;
     }
 
     //Por cada partido auxiliar que se creó para que sea potencia de dos, declaro como ganador al participante no dummy
