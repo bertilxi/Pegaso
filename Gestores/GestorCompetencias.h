@@ -29,6 +29,7 @@ private:
     GestorPartidos* gestorPartidos;
     GestorBaseDatos* gestorBaseDatos;
     GestorUsuarios* gestorUsuarios;
+    void eliminarFixture(Competencia *comp);
 public:
     GestorCompetencias(GestorBaseDatos* gestb,GestorPartidos* gestp,GestorUsuarios* gestu)
         :gestorBaseDatos(gestb),gestorPartidos(gestp),gestorUsuarios(gestu){};
@@ -75,7 +76,7 @@ public:
      * @param error informacion sobre el error ocurrido o si fue exitosa la operacion
      */
 
-    virtual bool modParticipante(Participante* part, DtoParticipante* datos, QString &error);
+    virtual bool modParticipante(Competencia *comp,Participante* part, DtoParticipante* datos, QString &error);
 
     /**
      * @param comp

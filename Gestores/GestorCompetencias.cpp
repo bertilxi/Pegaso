@@ -9,6 +9,18 @@
  * GestorCompetencias implementation
  */
 
+void GestorCompetencias::eliminarFixture(Competencia *comp)
+{
+    //Elimino el fixture si existiera
+    QVector<partidos*> partidos=comp->getPartidos();
+    for(int i=0;i<partidos.size();i++){
+        delete partidos[i];
+    }
+    partidos.clear();
+    comp->setPartidos(partidos);
+    comp->setEstado("Creada");
+}
+
 Competencia *GestorCompetencias::crearCompetencia(DtoCompetencia *datos, bool operacionExitosa, QString &error)
 {
     error="";
@@ -35,7 +47,9 @@ Competencia *GestorCompetencias::crearCompetencia(DtoCompetencia *datos, bool op
         disponibilidades.push_back(disp);
     }
     comp->setDisponibilidades(disponibilidades);
-  //  gestorBaseDatos->saveCompetencia(comp);
+
+    //Guardo la nueva competencia y marco la operación como exitosa
+    gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual().getId());
     operacionExitosa=true;
     error="La operación ha culminado con éxito";
     return comp;
@@ -43,9 +57,10 @@ Competencia *GestorCompetencias::crearCompetencia(DtoCompetencia *datos, bool op
 
 void GestorCompetencias::bajaCompetencia(Competencia *comp)
 {
+    //Marco el campo borrado, la fecha y hora en la que se hizo y guardo los cambios
     comp->setBorrado(true);
     comp->setFecha_y_horaB(QDateTime::currentDateTime().toString(Qt::ISODate));
-    gestorBaseDatos->saveCompetencia(comp);
+    gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual().getId());
 
     //Envío un mail a los participantes de que se ha eliminado la competencia
     QString destinatarios;
@@ -62,6 +77,9 @@ void GestorCompetencias::modCompetencia(Competencia *comp, DtoCompetencia *datos
     if(comp->getEstado()=="Creada"||comp->getEstado()=="Planificada"){
         comp->setModalidad(datos->modalidad);
         comp->setDeporte(datos->deporte);
+
+        //Elimino el fixture si existiera
+        this->eliminarFixture(comp);
 
         //Elimino las antiguas disponibilidades para poder reemplazarlas
         QVector<Disponibilidad*> disponibilidades=comp->getDisponibilidades();
@@ -84,7 +102,7 @@ void GestorCompetencias::modCompetencia(Competencia *comp, DtoCompetencia *datos
     comp->setReglamento(datos->reglamento);
 
     //Guardo los cambios
-    gestorBaseDatos->saveCompetencia(comp);
+    gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual().getId());
 }
 
 bool GestorCompetencias::altaParticipante(Competencia *comp, DtoParticipante *datos, QString &error)
@@ -111,6 +129,13 @@ bool GestorCompetencias::altaParticipante(Competencia *comp, DtoParticipante *da
     part->setNombre(datos->nombre);
     participantes.push_back(part);
     comp->setParticipantes(participantes);
+
+    //Elimino el fixture si existiera
+    this->eliminarFixture();
+
+    //Guardo los cambios
+    gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual().getId());
+
     error="La operación ha culminado con éxito";
     return true;
 }
@@ -124,19 +149,13 @@ void GestorCompetencias::eliminarParticipante(Competencia *comp, Participante *p
     comp->setParticipantes(participantes);
 
     //Elimino el fixture si existiera
-    QVector<partidos*> partidos=comp->getPartidos();
-    for(int i=0;i<partidos.size();i++){
-        delete partidos[i];
-    }
-    partidos.clear();
-    comp->setPartidos(partidos);
+    this->eliminarFixture(comp);
 
-    //Seteo la competencia como "Creada" y la guardo
-    comp->setEstado("Creada");
-    gestorBaseDatos->saveCompetencia(comp);
+    //guardo los cambios
+    gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual().getId());
 }
 
-bool GestorCompetencias::modParticipante(Participante *part, DtoParticipante *datos, QString &error)
+bool GestorCompetencias::modParticipante(Competencia *comp, Participante *part, DtoParticipante *datos, QString &error)
 {
     error="";
     //Busco si ya existe un participante con el nuevo correo o nombre
@@ -165,12 +184,13 @@ bool GestorCompetencias::modParticipante(Participante *part, DtoParticipante *da
     part->setImg(datos->imgUrl);
 
     //Guardo los cambios
-    gestorBaseDatos->saveParticipante(part);
+    gestorBaseDatos->saveParticipante(part,comp->getId());
 }
 void GestorCompetencias::nuevoResultado(Competencia *comp, Partido *part, Resultado *res)
 {
     //Asigno el nuevo resultado al partido
     gestorPartidos->nuevoResultado(comp,part,res);
+
     //Modifico el estado según corresponda
     comp->setEstado("Finalizada");
     QVector<Partido*> partidos=comp->getPartidos();
@@ -180,8 +200,9 @@ void GestorCompetencias::nuevoResultado(Competencia *comp, Partido *part, Result
             break;
         }
     }
+
     //Guardo los cambios
-    gestorBaseDatos->saveCompetencia(comp);
+    gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual().getId());
 }
 
 Competencia *GestorCompetencias::getCompetenciaFull(int id_comp)
@@ -197,19 +218,14 @@ QVector<Competencia *> GestorCompetencias::getCompetenciasLazy(DtoGetCompetencia
 bool GestorCompetencias::generarFixture(Competencia *comp, QString error)
 {
     //Elimino el fixture si existiera
-    QVector<partidos*> partidos=comp->getPartidos();
-    for(int i=0;i<partidos.size();i++){
-        delete partidos[i];
-    }
-    partidos.clear();
-    comp->setPartidos(partidos);
+    this->eliminarFixture(comp);
 
     //Llamo a gestor partidos para que genere el fixture
     gestorPartidos->generarFixture(comp);
 
     //Seteo la competencia como "Planificada" y la guardo
     comp->setEstado("Planificada");
-    gestorBaseDatos->saveCompetencia(comp);
+    gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual().getId());
 }
 
 bool GestorCompetencias::puedeModificar(Partido *part, Competencia *comp, QString &error)
