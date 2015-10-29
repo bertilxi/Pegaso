@@ -26,6 +26,15 @@ private:
     pantalla_usuario * pantallaUsuario;
     ver_competencia * verCompetencia;
 
+    handleMain(QString b);
+    handlePantallaUsuario(QString b);
+    handleListarCompetencias(QString b);
+    handleListarLugares(QString b);
+    handleAltaCompetencia(QString b);
+    handleListarParticipantes(QString b);
+    handleVerCompetencia(QString b);
+    handleMostrarFixture(QString b);
+
 public:
     void show();
     void handle(char*);

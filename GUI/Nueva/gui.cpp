@@ -5,6 +5,122 @@ constexpr unsigned int str2int(const char* str, int h = 0)
     return !str[h] ? 5381 : (str2int(str, h+1)*33) ^ str[h];
 }
 
+GUI::handleMain(QString b)
+{
+    if (b == "pantallaUsuario")
+    {
+        /* code */
+    }
+    if (b == "registrarUsuario")
+    {
+        /* code */
+    }
+    if (b == "listarTodasCompetencias")
+    {
+        /* code */
+    }
+}
+
+GUI::handlePantallaUsuario(QString b)
+{
+    if (b == "listarCompetencia")
+    {
+        /* code */
+    }
+    if (b == "modificarUsuario")
+    {
+        /* code */
+    }
+    if (b == "listarLugares")
+    {
+        /* code */
+    }
+}
+
+GUI::handleListarCompetencias(QString b)
+{
+    if (b == "altaCompetencia")
+    {
+        /* code */
+    }
+    if (b == "verCompetencia")
+    {
+        /* code */
+    }
+}
+
+GUI::handleListarLugares(QString b)
+{
+    if (b == "altaLugar")
+    {
+        /* code */
+    }
+    if (b == "bajaLugar")
+    {
+        /* code */
+    }
+    if (b == "modificarLugar")
+    {
+        /* code */
+    }
+}
+
+GUI::handleAltaCompetencia(QString b)
+{
+    if (b == "listarParticipantes")
+    {
+        /* code */
+    }
+}
+
+GUI::handleListarParticipantes(QString b)
+{
+    if (b == "altaParticipante")
+    {
+        /* code */
+    }
+    if (b == "bajaParticipante")
+    {
+        /* code */
+    }
+    if (b == "modificarParticipante")
+    {
+        /* code */
+    }
+}
+
+GUI::handleVerCompetencia(QString b)
+{
+    if (b == "modificarCompetencia")
+    {
+        /* code */
+    }
+    if (b == "generarFixture")
+    {
+        /* code */
+    }
+    if (b == "bajaCompertencia")
+    {
+        /* code */
+    }
+    if (b == "mostrarFixture")
+    {
+        /* code */
+    }
+    if (b == "mostrarTablasPosiciones")
+    {
+        /* code */
+    }
+}
+
+GUI::handleMostrarFixture(QString b)
+{
+    if (b == "generarFixture")
+    {
+        /* code */
+    }
+}
+
 void GUI::show()
 {
     MainWindow * m = new MainWindow(this,gestorDB);
@@ -12,36 +128,43 @@ void GUI::show()
 
 }
 
-void GUI::handle(char* control)
+void GUI::handle(QString control)
 {
-    switch (str2int(control)) {
-    case str2int("main.pantallaUsuario"):
-
-        int i =0;
-        for(;i<3;i++){
-            // hacer funcion de validacion para el usuario de la db
-            bool valido = true;
-            Usuario u = gestorUsuarios->getActual();
-            if(){
-                // conseguir nombre del usuario del gestor de usuarios
-                QString user = gestorUsuarios->getActual().getNombre();
-                qDebug()<<"Usuario "<<user<<" se ha logeado";
-
-                //hacer auditoria del usuario
-                //
-
-                pantallaUsuario = new pantalla_usuario();
-                //pantallaUsuario->setModal(true);
-                pantallaUsuario->show();
-
-
-            }
-            else
-                //mostrar mensaje de error con numero de intentos y posibles errores
-                ;
-        }
-        break;
-    //default:
-        //break;
+    
+    if (a == "main")
+    {
+        this->handleMain(QString b);
+    }
+    else if (a == "pantallaUsuario")
+    {
+        this->handlePantallaUsuario(QString b);
+    }
+    else if (a == "listarCompetencias")
+    {
+        this->handleListarCompetencias(QString b);
+    }
+    else if (a == "listarLugares")
+    {
+        this->handleListarLugares(QString b);
+    }
+    else if (a == "altaCompetencia")
+    {
+        this->handleAltaCompetencia(QString b);
+    }
+    else if (a == "listarParticipantes")
+    {
+        this->handleListarParticipantes(QString b);
+    }
+    else if (a == "verCompetencia")
+    {
+        this->handleVerCompetencia(QString b);
+    }
+    else if (a == "mostrarFixture")
+    {
+        this->handleMostrarFixture(QString b);
+    }
+    else if (a == "cerrar")
+    {
+        /* code */
     }
 }

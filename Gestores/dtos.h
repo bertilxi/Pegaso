@@ -10,11 +10,11 @@ class DtoGetCompetencia
 public:
     QString usuario;
     QString nombreCompetencia;
-    Deporte * deporte;
-    QString modalidad;
+    int deporteId;
+    int modalidadId;
     QString estado;
-    DtoGetCompetencia(QString usuarioP , QString nombreCompetenciaP = NULL, Deporte * deporteP = NULL, QString modalidadP = NULL, QString estadoP = NULL ):
-        usuario(usuarioP), nombreCompetencia(nombreCompetenciaP), deporte(deporteP), modalidad(modalidadP), estado(estadoP) {}
+    DtoGetCompetencia(QString usuarioP , QString nombreCompetenciaP = NULL, int deporteIdP = NULL, int modalidadIdP = NULL, QString estadoP = NULL ):
+        usuario(usuarioP), nombreCompetencia(nombreCompetenciaP), deporteId(deporteIdP), modalidadId(modalidadIdP), estado(estadoP) {}
 
 };
 
@@ -23,13 +23,13 @@ class DtoCompetencia
 public:
     int idUsuario;
     QString nombreCompetencia;
-    Deporte * deporte;
+    int deporteId;
     QVector<Lugar*> lugares;
     QVector<int> disponibilidades;
-    Modalidad * modalidad;
+    int modalidadId;
     QString reglamento;
-    DtoCompetencia(int idUsuarioP,QString nombreCompentenciaP, Deporte * deporteP, QVector<Lugar*> lugaresP, QVector<int> disponibilidadesP, Modalidad * modalidadP, QString reglamentoP ):
-        idUsuario(idUsuarioP),nombreCompetencia(nombreCompentenciaP), deporte(deporteP), lugares(lugaresP), disponibilidades(disponibilidadesP), modalidad(modalidadP), reglamento(reglamentoP) {}
+    DtoCompetencia(int idUsuarioP,QString nombreCompentenciaP, int deporteIdP, QVector<Lugar*> lugaresP, QVector<int> disponibilidadesP, int * modalidadIdP, QString reglamentoP ):
+        idUsuario(idUsuarioP),nombreCompetencia(nombreCompentenciaP), deporteId(deporteIdP), lugares(lugaresP), disponibilidades(disponibilidadesP), modalidadId(modalidadIdP), reglamento(reglamentoP) {}
 
 };
 
@@ -66,9 +66,9 @@ class DtoLugar
 public:
     QString nombre;
     QString descripcion = NULL;
-    QVector<Deporte*> Deportes;
-    DtoLugar(QString nombreP, QString descripcionP, QVector<Deporte*> DeportesP):
-        nombre(nombreP), descripcion(descripcionP), Deportes(DeportesP) {}
+    QVector<int> DeportesId;
+    DtoLugar(QString nombreP, QString descripcionP, QVector<int> DeportesIdP):
+        nombre(nombreP), descripcion(descripcionP), DeportesId(DeportesIdP) {}
 };
 
 #endif // DTOS
