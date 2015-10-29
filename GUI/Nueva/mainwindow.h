@@ -6,6 +6,7 @@
 #include "gui.h"
 #include "GestorBaseDatos.h"
 #include "ui_mainwindow.h"
+#include <QCryptographicHash>
 
 class GUI;
 namespace Ui {
@@ -18,7 +19,7 @@ class MainWindow : public QMainWindow
 
 public:
     void toGUI();
-    explicit MainWindow(GUI* guiP , QWidget *parent = 0);
+    explicit MainWindow(GUI* guiP ,GestorBaseDatos* gestorDBP , QWidget *parent = 0);
     ~MainWindow();
 
 private slots:

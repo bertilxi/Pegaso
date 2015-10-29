@@ -1,10 +1,21 @@
 #include "gui.h"
 
-void GUI::handleMain(QString b)
+void GUI::handleMain(QMainWindow* a, QString b, QVector<QString> datos)
 {
     if (b == "pantallaUsuario")
     {
-        /* code */
+        Usuario* u = gestorDB->loadUsuario(datos[0]});
+
+        QString passwordDB = u.getPassword();
+
+        if(datos[1] == passwordDB){
+            pantallaUsuario = new pantallaUsuario();
+            a->close();
+            pantallaUsuario->show();
+
+        }
+
+
     }
     if (b == "registrarUsuario")
     {
@@ -16,11 +27,13 @@ void GUI::handleMain(QString b)
     }
 }
 
-void GUI::handlePantallaUsuario(QString b)
+void GUI::handlePantallaUsuario(QMainWindow *a, QString b)
 {
     if (b == "listarCompetencia")
     {
-        /* code */
+        listarCompetencias = new listarCompetencias();
+        listarCompetencias->show();
+        a->close();
     }
     if (b == "modificarUsuario")
     {
@@ -32,11 +45,13 @@ void GUI::handlePantallaUsuario(QString b)
     }
 }
 
-void GUI::handleListarCompetencias(QString b)
+void GUI::handleListarCompetencias(QMainWindow *a, QString b)
 {
     if (b == "altaCompetencia")
     {
-        /* code */
+        altaCompetencia = new altaCompetencia();
+        altaCompetencia->show();
+        a->close();
     }
     if (b == "verCompetencia")
     {
@@ -44,7 +59,7 @@ void GUI::handleListarCompetencias(QString b)
     }
 }
 
-void GUI::handleListarLugares(QString b)
+void GUI::handleListarLugares(QMainWindow *a, QString b)
 {
     if (b == "altaLugar")
     {
@@ -60,15 +75,17 @@ void GUI::handleListarLugares(QString b)
     }
 }
 
-void GUI::handleAltaCompetencia(QString b)
+void GUI::handleAltaCompetencia(QMainWindow *a, QString b)
 {
     if (b == "listarParticipantes")
     {
-        /* code */
+        listarCompetencias = new listarCompetencias();
+        listarCompetencias->show();
+        a->close();
     }
 }
 
-void GUI::handleListarParticipantes(QString b)
+void GUI::handleListarParticipantes(QMainWindow *a, QString b)
 {
     if (b == "altaParticipante")
     {
@@ -84,7 +101,7 @@ void GUI::handleListarParticipantes(QString b)
     }
 }
 
-void GUI::handleVerCompetencia(QString b)
+void GUI::handleVerCompetencia(QMainWindow *a, QString b)
 {
     if (b == "modificarCompetencia")
     {
@@ -108,7 +125,7 @@ void GUI::handleVerCompetencia(QString b)
     }
 }
 
-void GUI::handleMostrarFixture(QString b)
+void GUI::handleMostrarFixture(QMainWindow *a, QString b)
 {
     if (b == "generarFixture")
     {
@@ -123,43 +140,43 @@ void GUI::show()
 
 }
 
-void GUI::handle(QString a,QString b)
-{
+//void GUI::handle(QMainWindow* a, QString b, QVector<QString> args)
+//{
     
-    if (a == "main")
-    {
-        this->handleMain(QString b);
-    }
-    else if (a == "pantallaUsuario")
-    {
-        this->handlePantallaUsuario(QString b);
-    }
-    else if (a == "listarCompetencias")
-    {
-        this->handleListarCompetencias(QString b);
-    }
-    else if (a == "listarLugares")
-    {
-        this->handleListarLugares(QString b);
-    }
-    else if (a == "altaCompetencia")
-    {
-        this->handleAltaCompetencia(QString b);
-    }
-    else if (a == "listarParticipantes")
-    {
-        this->handleListarParticipantes(QString b);
-    }
-    else if (a == "verCompetencia")
-    {
-        this->handleVerCompetencia(QString b);
-    }
-    else if (a == "mostrarFixture")
-    {
-        this->handleMostrarFixture(QString b);
-    }
-    else if (a == "cerrar")
-    {
-        /* code */
-    }
-}
+//    if (a == "main")
+//    {
+//        this->handleMain(QString b);
+//    }
+//    else if (a == "pantallaUsuario")
+//    {
+//        this->handlePantallaUsuario(QString b);
+//    }
+//    else if (a == "listarCompetencias")
+//    {
+//        this->handleListarCompetencias(QString b);
+//    }
+//    else if (a == "listarLugares")
+//    {
+//        this->handleListarLugares(QString b);
+//    }
+//    else if (a == "altaCompetencia")
+//    {
+//        this->handleAltaCompetencia(QString b);
+//    }
+//    else if (a == "listarParticipantes")
+//    {
+//        this->handleListarParticipantes(QString b);
+//    }
+//    else if (a == "verCompetencia")
+//    {
+//        this->handleVerCompetencia(QString b);
+//    }
+//    else if (a == "mostrarFixture")
+//    {
+//        this->handleMostrarFixture(QString b);
+//    }
+//    else if (a == "cerrar")
+//    {
+//        /* code */
+//    }
+//}
