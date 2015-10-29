@@ -49,3 +49,20 @@ bool Puntos::operator==(const Puntos &other) const
     return 1;
 }
 
+QString Puntos::getTable() const{
+    return "Puntos";
+}
+
+/**
+ * @brief getAtributos
+ * @return una lista de los atributos de Puntos con el correspondiente nombre
+ * de sus columnas en la tabla Puntos de la Base de Datos. Los atributos
+ * retornados han sido casteados a QString's.
+ */
+QVector<Atributo> Puntos::getAtributos() const{
+    QVector<Atributo> result;
+    result.push_back(Atributo("puntosA", QString::number(puntosA)));
+    result.push_back(Atributo("puntosB", QString::number(puntosB)));
+
+    return result;
+}

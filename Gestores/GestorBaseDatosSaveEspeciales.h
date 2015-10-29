@@ -2,49 +2,54 @@
 #define GESTORBASEDATOSSAVEESPECIALES
 
 //recordar quitar esto
-#include "../Grupo Competencia/Competencia.h"
 #include "../Grupo Competencia/Puntos.h"
 #include "../Grupo Competencia/Sets.h"
 #include "GestorUsuarios.h"
-#include <QString>
-#include <QVector>
 
 /**
  * @brief persiste un objeto Competencia
  * @param comp la competencia a persistir
  * @return true si tuvo exito, false si fallo
  */
-bool GestorBaseDatos::saveCompetencia(Competencia *comp, int usuarioId){
+bool GestorBaseDatos::saveCompetencia(Competencia *comp, Atributo usuarioId){
 
     bool status = true;
 
+    //guardo modalidad
     Modalidad *mod = comp->getModalidad();
-    status &= this->save(QVector<Modalidad *>(1,mod));    //guardo modalidad
+    status &= this->save(QVector<Modalidad *>(1,mod));
 
-    status &= this->save(QVector<Competencia *>(1,comp), usuarioId);   //guardo los atributos simples de competencia
+    //guardo los atributos simples de competencia
+    status &= this->save(QVector<Competencia *>(1,comp), &usuarioId);
 
+    //guardo las disponibilidades
     QVector<Disponibilidad *> disps = comp->getDisponibilidades();
-    status &= this->save(disps, comp->getId());   //guardo las disponibilidades
+    Atributo competenciaId("id_competencia",QString::number(comp->getId()));
+    status &= this->save(disps, &competenciaId);
 
+    //guardo los participantes
     QVector<Participante *> participantes = comp->getParticipantes();
-    status &= this->save(participantes, comp->getId());   //guardo los participantes
+    status &= this->save(participantes, &competenciaId);
 
+    //guardo los historiales de cada participante
     for(int i = 0; i < participantes.size(); i++){
-        //guardo los historiales de cada participante
-        status &= this->save(participantes[i]->getHistorial(), participantes[i]->getId());
+        Atributo participanteId("id_participante",QString::number(participantes[i]->getId()));
+        status &= this->save(participantes[i]->getHistorial(), &participanteId);
     }
 
+    //guardo los partidos
     QVector<Partido *> partidos = comp->getPartidos();
-    status &= this->save(partidos, comp->getId());    //guardo los partidos
+    status &= this->save(partidos, &competenciaId);
 
     for(int i = 0; i < partidos.size(); i++){
+
         //guardo los resultados de cada partido
-        status &= this->saveResultado(partidos[i]->getActual(), partidos[i]->getId());
+        status &= this->saveResultado(partidos[i]->getActual(), Atributo("partido_actual",QString::number(partidos[i]->getId())));
 
         //guardo el historial de cada partido
         QVector<Resultado *> modificados = partidos[i]->getModificado();
         for(int j = 0; j < modificados.size(); j++){
-            status &= this->saveResultado(modificados[j], partidos[i]->getId());
+            status &= this->saveResultado(modificados[j], Atributo("partido_modificado",QString::number(partidos[i]->getId())));
         }
     }
 
@@ -57,27 +62,50 @@ bool GestorBaseDatos::saveCompetencia(Competencia *comp, int usuarioId){
     return status;
 }
 
-///esto necesita ser corregido para saber si es actual o modificado
-bool GestorBaseDatos::saveResultado(Resultado *resultado, int partidoId){
+bool GestorBaseDatos::saveResultado(Resultado *resultado, Atributo partidoId){
     bool status = true;
-    QString tabla = resultado->getTable();
 
+    Puntos *puntos = dynamic_cast<Puntos *>(resultado);
+    if(puntos != NULL)  //si es de clase Puntos
+    {
+        status &= this->save(QVector<Resultado *>(1,resultado), &partidoId);
+        Atributo resultadoId("id_resultado",QString::number(resultado->getId()));
+        status &= this->save(QVector<Puntos *>(1,puntos), &resultadoId);
+    }
+    else
+    {
+        Sets *sets = dynamic_cast<Sets *>(resultado);
+        if(sets != NULL)    //si es de clase Sets
+        {
+            status &= this->save(QVector<Resultado *>(1,resultado), &partidoId);
+            Atributo resultadoId("id_resultado",QString::number(resultado->getId()));
+            status &= this->save(sets->getSets(), &resultadoId);
+        }
+        else    //si es de clase Resultado
+        {
+            status &= this->save(QVector<Resultado *>(1,resultado), &partidoId);
+        }
+    }
+//-----------------------------------------------------------------------------------------------
+
+    ///Problema: getTable() no es virtual. Siempre devolverá "Resultado".
+/*
     switch(tabla[0].toLatin1()){
     case 'R': //"Resultado"
         status &= this->save(QVector<Resultado *>(1,resultado), partidoId);
         break;
     case 'P': //"Puntos"
         status &= this->save(QVector<Resultado *>(1,resultado), partidoId);
-        status &= this->save(QVector<Puntos *>(1,resultado), partidoId);
+        status &= this->save(QVector<Puntos *>(1,dynamic_cast<Puntos *>(resultado)), Atributo("id_resultado",resultado->getId()));
         break;
     case 'S': //"Sets"
         status &= this->save(QVector<Resultado *>(1,resultado), partidoId);
-        status &= this->save(QVector<Sets *>(1,resultado), partidoId);
+        QVector<Sets *> sets = dynamic_cast<Sets *>(resultado)->getSets();
+        status &= this->save(sets, Atributo("id_resultado",resultado->getId()));
         break;
-    }
+    }*/
     return status;
 }
-
 
 #endif // GESTORBASEDATOSSAVEESPECIALES
 
