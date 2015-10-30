@@ -9,10 +9,17 @@
 #include <QString>
 #include <QDebug>
 #include "Atributo.h"
+#include "Set.h"
 
 class Resultado {
 public:
-
+    virtual int getPuntosA(){return 0;}
+    virtual int getPuntosB(){return 0;}
+    virtual int getCant_Sets(){return 0;}
+    virtual QVector<Set*> getSets(){
+        QVector<Set*> a;
+        return a;
+    }
     int getId() const;
     void setId(int value);
 

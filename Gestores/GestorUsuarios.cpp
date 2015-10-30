@@ -14,7 +14,7 @@ Usuario GestorUsuarios::getActual() const
     return *actual;
 }
 
-void GestorUsuarios::setActual(const Usuario *value)
+void GestorUsuarios::setActual( Usuario *value)
 {
     actual = value;
 }
