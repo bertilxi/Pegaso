@@ -10,7 +10,6 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     QFile pegasoDB("pegaso.sql");
     GestorBaseDatos * gestorBaseDeDatos = new GestorBaseDatos() ;
-    //GestorBaseDatos * gestorBaseDeDatos = new GestorBaseDatos(pegasoDB) ;
     GestorUsuarios* gestorUsuarios = new GestorUsuarios(gestorBaseDeDatos);
     GestorPartidos* gestorPartidos = new GestorPartidos(gestorBaseDeDatos) ;
     GestorCompetencias* gestorCompetencias = new GestorCompetencias(gestorBaseDeDatos,gestorPartidos,gestorUsuarios);

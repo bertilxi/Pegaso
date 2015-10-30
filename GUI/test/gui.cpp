@@ -1,5 +1,39 @@
 #include "gui.h"
 
+MainWindow::MainWindow(GUI* guiP, GestorUsuarios *gestorUsuariosP, QWidget *parent):
+    QMainWindow(parent), gui(guiP), gestorUsuarios(gestorUsuariosP) ,ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    // se encripta la contraseña a penas se pide por seguridad
+    QString password = ui->lineEdit_2->text();
+    QCryptographicHash hash(QCryptographicHash::Md5);
+    hash.addData(password.toLatin1());
+    qDebug() << hash.result().toHex();
+    QString passwordEncriptada = hash.result().toHex();
+    QString email = ui->lineEdit->text();
+    QVector<QString> args;
+    args.append(email);
+    args.append(passwordEncriptada);
+    // se envian datos se pide la accion correspondiente
+    gui->handleMain(this,QString("pantallaUsuario"),args);
+}
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    this->close();
+    qDebug()<<"se cerro el programa";
+}
+
+
 void GUI::handleMain(QMainWindow* a, QString b, QVector<QString> datos)
 {
     if (b == "pantallaUsuario")
@@ -10,9 +44,9 @@ void GUI::handleMain(QMainWindow* a, QString b, QVector<QString> datos)
         QString passwordDB = u.getPassword();
         */
         if(1/*datos[1] == passwordDB*/){
-            pantallaUsuario = new pantalla_usuario();
+            pantalla_usuario * p  = new pantalla_usuario();
             a->close();
-            pantallaUsuario->show();
+            p->show();
 
         }
 
@@ -28,14 +62,17 @@ void GUI::handleMain(QMainWindow* a, QString b, QVector<QString> datos)
     }
 }
 
-void GUI::handlePantallaUsuario(QMainWindow *a, QString b)
+void GUI::handlePantallaUsuario(QDialog *a, QString b)
 {
-    if (b == "listarCompetencia")
-    {
-        listarCompetencias = new listar_competencias();
-        listarCompetencias->show();
+    if (b == "listarCompetencias"){
+
+        listar_competencias * l = new listar_competencias();
         a->close();
+
+        l->show();
+
     }
+
     if (b == "modificarUsuario")
     {
         /* code */
@@ -46,12 +83,12 @@ void GUI::handlePantallaUsuario(QMainWindow *a, QString b)
     }
 }
 
-void GUI::handleListarCompetencias(QMainWindow *a, QString b)
+void GUI::handleListarCompetencias(QDialog *a, QString b)
 {
     if (b == "altaCompetencia")
     {
-        altaCompetencia = new alta_competencia();
-        altaCompetencia->show();
+        alta_competencia * al = new alta_competencia();
+        al->show();
         a->close();
     }
     if (b == "verCompetencia")
@@ -60,7 +97,7 @@ void GUI::handleListarCompetencias(QMainWindow *a, QString b)
     }
 }
 
-void GUI::handleListarLugares(QMainWindow *a, QString b)
+void GUI::handleListarLugares(QDialog *a, QString b)
 {
     if (b == "altaLugar")
     {
@@ -76,17 +113,17 @@ void GUI::handleListarLugares(QMainWindow *a, QString b)
     }
 }
 
-void GUI::handleAltaCompetencia(QMainWindow *a, QString b)
+void GUI::handleAltaCompetencia(QDialog *a, QString b)
 {
     if (b == "listarParticipantes")
     {
-        listarCompetencias = new listar_competencias();
-        listarCompetencias->show();
+        listar_competencias * l = new listar_competencias();
+        l->show();
         a->close();
     }
 }
 
-void GUI::handleListarParticipantes(QMainWindow *a, QString b)
+void GUI::handleListarParticipantes(QDialog *a, QString b)
 {
     if (b == "altaParticipante")
     {
@@ -102,7 +139,7 @@ void GUI::handleListarParticipantes(QMainWindow *a, QString b)
     }
 }
 
-void GUI::handleVerCompetencia(QMainWindow *a, QString b)
+void GUI::handleVerCompetencia(QDialog *a, QString b)
 {
     if (b == "modificarCompetencia")
     {
@@ -126,7 +163,7 @@ void GUI::handleVerCompetencia(QMainWindow *a, QString b)
     }
 }
 
-void GUI::handleMostrarFixture(QMainWindow *a, QString b)
+void GUI::handleMostrarFixture(QDialog *a, QString b)
 {
     if (b == "generarFixture")
     {
@@ -134,9 +171,16 @@ void GUI::handleMostrarFixture(QMainWindow *a, QString b)
     }
 }
 
+void GUI::handleFiltrarCompetencias(DtoGetCompetencia *datos)
+{
+    QVector<QString> tabla;
+    tabla = gestorCompetencias->listarCompetencias(datos);
+
+}
+
 void GUI::show()
 {
-    MainWindow * m = new MainWindow(this,gestorDB);
+    MainWindow * m = new MainWindow(this,gestorUsuarios);
     m->show();
 
 }

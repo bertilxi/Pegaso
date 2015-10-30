@@ -2,10 +2,15 @@
 #define PANTALLA_USUARIO_H
 
 #include <QDialog>
+#include "ui_pantalla_usuario.h"
+#include "qpixmap.h"
+#include "gui.h"
 
 namespace Ui {
 class pantalla_usuario;
 }
+
+class GUI;
 
 class pantalla_usuario : public QDialog
 {
@@ -25,6 +30,7 @@ private slots:
 //    void on_pushButton_3_clicked();
 
 private:
+    GUI* gui;
     Ui::pantalla_usuario *ui;
 };
 
