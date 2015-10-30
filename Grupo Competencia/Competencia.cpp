@@ -90,7 +90,7 @@ bool Competencia::operator==(const Competencia &other) const
         qDebug()<<"Disponibilidades en competencia "<<id;
         return 0;
     }
-    for(int i=0;i<other.size();i++){
+    for(int i=0;i<otherDisponibilidades.size();i++){
         if(!(*otherDisponibilidades[i] == *disponibilidades[i])){
             qDebug()<<" en competencia "<<id;
             return 0;
@@ -114,7 +114,7 @@ bool Competencia::operator==(const Competencia &other) const
         qDebug()<<"Partidos en competencia "<<id;
         return 0;
     }
-    for(int i=0;i<other.size();i++){
+    for(int i=0;i<otherPartidos.size();i++){
         if(!(*otherPartidos[i] == *partidos[i])){
             qDebug()<<" en competencia "<<id;
             return 0;
