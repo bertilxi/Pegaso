@@ -34,7 +34,7 @@ public:
     void setHistorial(const QVector<HistorialParticipante *> &value);
 
     Puntaje *getPuntaje() const;
-    void setPuntaje(const Puntaje *value);
+    void setPuntaje(Puntaje *value);
 
     bool operator==(const Participante &other)const;
 

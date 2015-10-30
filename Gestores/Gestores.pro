@@ -10,12 +10,7 @@ QT       += sql
 QT       -= gui
 
 TARGET = Gestores
-<<<<<<< HEAD
 CONFIG   += console c++11
-=======
-CONFIG   += c++11
-CONFIG   += console
->>>>>>> 58d1a3ab3962db7c7a700e62942fd722e82c10a4
 CONFIG   -= app_bundle
 
 TEMPLATE = app
@@ -26,7 +21,6 @@ SOURCES += GestorBaseDatos.cpp \
     GestorLugares.cpp \
     GestorPartidos.cpp \
     GestorUsuarios.cpp \
-    GestorParticipantes.cpp \
     Usuario.cpp \
     Sets.cpp \
     Set.cpp \
@@ -52,7 +46,6 @@ HEADERS += GestorBaseDatos.h \
     GestorLugares.h \
     GestorPartidos.h \
     GestorUsuarios.h \
-    GestorParticipantes.h \
     GestorBaseDatosSaveEspeciales.h \
     Atributo.h \
     Usuario.h \

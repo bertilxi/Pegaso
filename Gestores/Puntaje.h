@@ -7,8 +7,9 @@
 
 #include <QDebug>
 #include "Resultado.h"
-#include "Partido.h"
 #include "Puntos.h"
+#include "Sets.h"
+#include "Modalidad.h"
 
 class Puntaje {
 public: 
@@ -16,12 +17,12 @@ public:
     /**
      * @param part
      */
-    void restar(Resultado part);
+    void restar(Resultado *res,Modalidad *mod,QString equipo);
     
     /**
      * @param part
      */
-    void sumar(Resultado part);
+    void sumar(Resultado *res, Modalidad *mod,QString equipo);
     int getPuntos() const;
     void setPuntos(int value);
 

@@ -213,7 +213,7 @@ void GestorCompetencias::nuevoResultado(Competencia *comp, Partido *part, Result
 
 Competencia *GestorCompetencias::getCompetenciaFull(int id_comp)
 {
-    return gestorBaseDatos->getCompetenciaFull(id_comp);
+    return NULL;//gestorBaseDatos->getCompetenciaFull(id_comp);
 }
 
 QVector<Competencia *> GestorCompetencias::getCompetenciasLazy(DtoGetCompetencia *datos)

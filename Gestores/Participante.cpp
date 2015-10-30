@@ -59,7 +59,7 @@ Puntaje *Participante::getPuntaje() const
     return puntaje;
 }
 
-void Participante::setPuntaje(const Puntaje *value)
+void Participante::setPuntaje(Puntaje *value)
 {
     puntaje = value;
 }

@@ -58,7 +58,6 @@ public:
 
     QVector<Partido *> getSucesores() const;
     void setSucesores(const QVector<Partido *> &value);
-    void setSucesor( Partido* &value);
 
 private:
     int id;

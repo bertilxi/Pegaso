@@ -61,20 +61,51 @@ void GestorPartidos::nuevoResultado(Competencia *comp, Partido *part, Resultado 
 
     //Si ya tiene un resultado hay que agregarlo al historial
     if(part->getActual()!=NULL){
-        QVector<Partido*> historial=part->getModificado();
-        historial.push_back(new Partido(part->getActual()));
+        QVector<Resultado*> historial=part->getModificado();
+        //Creo el nuevo resultado dependiendo el tipo de resultado
+        QString tipo_resultado=comp->getModalidad()->getTipo_resultado();
+        if(tipo_resultado=="Resultado"){
+            Resultado *resAux=new Resultado;
+            resAux->setResultadoA(part->getActual()->getResultadoA());
+            resAux->setResultadoB(part->getActual()->getResultadoB());
+            historial.push_back(resAux);
+        }
+        else if(tipo_resultado=="Puntos"){
+            Puntos *resAux=new Puntos;
+            resAux->setPuntosA(part->getActual()->getPuntosA());
+            resAux->setPuntosB(part->getActual()->getPuntosB());
+            resAux->setResultadoA(part->getActual()->getResultadoA());
+            resAux->setResultadoB(part->getActual()->getResultadoB());
+            historial.push_back(resAux);
+        }
+        else {
+            Sets *resAux=new Sets;
+            resAux->setCant_sets(part->getActual()->getCant_Sets());
+            resAux->setResultadoA(part->getActual()->getResultadoA());
+            resAux->setResultadoB(part->getActual()->getResultadoB());
+            QVector<Set*> setsAux;
+            for (int i = 0; i < resAux->getCant_sets(); ++i) {
+                Set *set=new Set;
+                set->setNro_set(part->getActual()->getSets()[i]->getNro_set());
+                set->setPuntosA(part->getActual()->getSets()[i]->getPuntosA());
+                set->setPuntosB(part->getActual()->getSets()[i]->getPuntosB());
+                setsAux.push_back(set);
+            }
+            resAux->setSets(setsAux);
+            historial.push_back(resAux);
+        }
         part->setModificado(historial);
         //Si es de liga hay que modificar los puntos
         if(comp->getModalidad()->getNombre()=="Liga"){
-            part->getEquipoA()->getPuntaje()->restar(part->getActual());
-            part->getEquipoB()->getPuntaje()->restar(part->getActual());
+            part->getEquipoA()->getPuntaje()->restar(part->getActual(),comp->getModalidad(),"EquipoA");
+            part->getEquipoB()->getPuntaje()->restar(part->getActual(),comp->getModalidad(),"EquipoB");
         }
     }
     part->setActual(res);
     //Si es de liga hay que modificar los puntos
    if(comp->getModalidad()->getNombre()=="Liga"){
-       part->getEquipoA()->getPuntaje()->sumar(part->getActual());
-       part->getEquipoB()->getPuntaje()->sumar(part->getActual());
+       part->getEquipoA()->getPuntaje()->sumar(part->getActual(),comp->getModalidad(),"EquipoA");
+       part->getEquipoB()->getPuntaje()->sumar(part->getActual(),comp->getModalidad(),"EquipoB");
        return;
    }
    //Si es eliminación simple o doble hay que asignar el ganador al sucesor
@@ -114,7 +145,8 @@ void GestorPartidos::nuevoResultado(Competencia *comp, Partido *part, Resultado 
            nuevo->setEquipoA(part->getEquipoA());
            nuevo->setEquipoB(part->getEquipoB());
            nuevo->setFecha(part->getFecha()+1);
-           nuevo->setRonda("Perdedores");
+           QString aux="Perdedores";
+           nuevo->setRonda(aux);
            nuevo->setLugar(comp->getDisponibilidades()[0]->getLugar());
            QVector<Partido*> sucesor;
            sucesor.push_back(nuevo);
@@ -160,11 +192,11 @@ void GestorPartidos::generarFixtureLiga(Competencia *comp) {
     //Algoritmo Round Robin schedule de Édouard Lucas modificado
     int n=participantes.size();
         for (int i = 1; i < n; ++i) {
-            for (int j = 0; j < n - i - 1 + n&1 ; j++) { //Si son pares hago una iteración menos porque asigno especialmente al último
+            for (int j = 0; j < n - i - 1 + (n&1) ; j++) { //Si son pares hago una iteración menos porque asigno especialmente al último
                 Partido *part = new Partido();
                 part->setEquipoA(participantes[i-1]);
                 part->setEquipoB(participantes[i+j]);
-                part->setFecha(((i<<1) + j - 1)%(n -1 + n&1 )+1); //La fecha la calculo por deducción de la matriz Round Robin
+                part->setFecha(((i<<1) + j - 1)%(n -1 + (n&1) )+1); //La fecha la calculo por deducción de la matriz Round Robin
                 partidos.push_back(part);
             }
             //Si son pares asigno al último participante al partido que quedaría en la diagonal principal
@@ -224,7 +256,9 @@ void GestorPartidos::generarFixtureElimSimple(Competencia *comp) {
     int l=0; //l es el índice del primer partido de la fecha considerada actualmente
     for (int j = (n+dif)>>1 ; j >0 ; j>>=1){
          for (int k = 0; k < j; ++k) {
-             partidos[l+k]->setSucesor(partidos[l+j+(k>>1)]);
+             QVector<Partido*> sucesoresAux;
+             sucesoresAux.push_back(partidos[l+j+(k>>1)]);
+             partidos[l+k]->setSucesores(sucesoresAux);
          }
          l+=j;
     }

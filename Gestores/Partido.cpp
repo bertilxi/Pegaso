@@ -63,10 +63,6 @@ void Partido::setLugar(Lugar *value)
 {
     lugar = value;
 }
-Partido *Partido::getSucesor() const
-{
-    return sucesor;
-}
 
 QVector<Resultado *> Partido::getModificado() const
 {
@@ -146,7 +142,7 @@ QString Partido::getTable() const{
     return "Partido";
 }
 
-QString Partido::getTable(const Partido &sucesor) const{
+QString Partido::getTable(Partido &sucesor) const{
     return "Sucesor";
 }
 

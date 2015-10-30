@@ -48,7 +48,7 @@ bool Lugar::operator==(const Lugar &other) const
         return 0;
     }
     if(other.getNombre()!=nombre){
-        qDebug()<<"Nombre: "<<other.nombre()<<" "<<nombre<<" en lugar"<<id;
+        qDebug()<<"Nombre: "<<other.getNombre()<<" "<<nombre<<" en lugar"<<id;
         return 0;
     }
     return 1;
