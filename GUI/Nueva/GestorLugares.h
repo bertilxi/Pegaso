@@ -6,7 +6,6 @@
 #ifndef _GESTORLUGARES_H
 #define _GESTORLUGARES_H
 
-#include "../Grupo Competencia/Lugar.h"
 #include "GestorBaseDatos.h"
 #include "dtos.h"
 

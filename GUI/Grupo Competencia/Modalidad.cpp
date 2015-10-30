@@ -18,6 +18,17 @@ void Modalidad::setId(int value)
 {
     id = value;
 }
+
+int getId_nombre() const
+{
+    return id_nombre;
+}
+
+void setId_nombre(int value)
+{
+    id_nombre = value;
+}
+
 QString Modalidad::getNombre() const
 {
     return nombre;
@@ -27,6 +38,17 @@ void Modalidad::setNombre(const QString &value)
 {
     nombre = value;
 }
+
+int getId_tipo_resultado() const
+{
+    return id_tipo_resultado;
+}
+
+void setId_tipo_resultado(int value)
+{
+    id_tipo_resultado = value;
+}
+
 QString Modalidad::getTipo_resultado() const
 {
     return tipo_resultado;
@@ -115,7 +137,31 @@ bool Modalidad::operator==(const Modalidad &other) const
     return 1;
 }
 
+QString Modalidad::getTable(){
+    return "Modalidad";
+}
 
+/**
+ * @brief getAtributos
+ * @return una lista de los atributos de Modalidad con el correspondiente nombre
+ * de sus columnas en la tabla Modalidad de la Base de Datos. Los atributos
+ * retornados han sido casteados a QString's.
+ */
+QVector<Atributo> Modalidad::getAtributos() const{
+    QVector<Atributo> result;
+    if(id != -1){
+        result.push_back(Atributo("id_modalidad",QString::number(id)));
+    }
+    result.push_back(Atributo("pto_partido_ganado",QString::number(puntos_ganar)));
+    result.push_back(Atributo("pto_presentarse", QString::number(puntos_presentarse)));
+    result.push_back(Atributo("pto_empate", QString::number(puntos_empate)));
+    result.push_back(Atributo("cant_max_sets", QString::number(cant_max_sets)));
+    result.push_back(Atributo("id_tipo_modalidad", QString::number(id_nombre)));
+    result.push_back(Atributo("id_tipo_resultado", QString::number(id_tipo_resultado)));
+    result.push_back(Atributo("empate", QString::number((int)empate)));
+
+    return result;
+}
 
 
 

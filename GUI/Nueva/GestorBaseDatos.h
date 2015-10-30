@@ -3,6 +3,21 @@
  */
 
 #include <QVector>
+#include "dtos.h"
+#include "../Grupo Competencia/Competencia.h"
+#include "../Grupo Competencia/Modalidad.h"
+#include "../Grupo Competencia/Participante.h"
+#include "../Grupo Competencia/HistorialParticipante.h"
+#include "../Grupo Competencia/Lugar.h"
+#include "../Grupo Competencia/Deporte.h"
+#include "../Grupo Competencia/Disponibilidad.h"
+#include "../Grupo Competencia/Resultado.h"
+#include "../Grupo Competencia/Partido.h"
+#include "../Grupo Competencia/Puntos.h"
+#include "../Grupo Competencia/Set.h"
+#include "../Grupo Competencia/Sets.h"
+
+//#include "GestorBaseDatosSaveEspeciales.h"
 
 
 #ifndef _GESTORBASEDATOS_H
@@ -11,48 +26,19 @@
 class GestorBaseDatos {
 public: 
     
-    /**
-     * @param obj
-     * @param id
-     * @brief Carga un objeto haciendo una consulta con el id en la tabla correspondiente
-     */
-    template <class T>
-    T load(T obj, int id);
-    
-    /**
-     * @param objs
-     * @brief Guarda una lista de objetos en su correspondiente tabla
-     */
-    template <class T1>
-    bool save(QVector<T1 *> objptrs);
+
+private:
 
     /**
-     * @param objs
-     * @param id
-     * @brief Guarda una lista de objetos que necesitan una fk pero el objeto no la conoce 
+     * @brief utiliza el nombre de una tabla y conjuntos columna-valor (atributos)
+     * para armar un insert SQL y ejecutarlo en la BD.
+     * @param tabla
+     * @param atributos
+     * @return id del objeto que se acaba de guardar, asignado por la BD
      */
-    template <class T2>
-    void save(QVector<T2> objs, int id);
-    
-    /**
-     * @param obj1
-     * @param obj2
-     * @brief Guarda una relacion n a n entre dos objetos
-     */
-    template <class T3,class T4>
-    void saveRelacion(T3 obj1, T4 obj2);
-    
-    /**
-     * @param obj
-     * @param filtros
-     * @brief Ejecuta una consulta en la base de datos con filtros como parametros en select
-     */
-    template <class T5>
-    QVector<T5> query(T5 obj, QVector<QString> filtros);
-    
-    void virtual beginTransaction();
-    
-    void virtual commit();
+    int armarQuery(QString tabla, const QVector<Atributo> &atributos);
 };
+
+
 
 #endif //_GESTORBASEDATOS_H

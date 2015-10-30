@@ -96,6 +96,34 @@ bool Participante::operator==(const Participante &other) const
     return 1;
 }
 
+QString Participante::getTable(){
+    return "Participante";
+}
+
+/**
+ * @brief getAtributos
+ * @return una lista de los atributos de Participante con el correspondiente nombre
+ * de sus columnas en la tabla Participante de la Base de Datos. Los atributos
+ * retornados han sido casteados a QString's.
+ */
+QVector<Atributo> Participante::getAtributos() const{
+    QVector<Atributo> result;
+    if(id != -1){
+        result.push_back(Atributo("id_participante",QString::number(id)));
+    }
+    result.push_back(Atributo("imagen", img);
+    result.push_back(Atributo("nombre", nombre);
+    result.push_back(Atributo("correo", correo);
+    result.push_back(Atributo("puntos", QString::number(puntaje->getPuntos())));
+    result.push_back(Atributo("pg", QString::number(puntaje->getPG())));
+    result.push_back(Atributo("pp", QString::number(puntaje->getPP())));
+    result.push_back(Atributo("pe", QString::number(puntaje->getPE())));
+    result.push_back(Atributo("tf", QString::number(puntaje->getTF())));
+    result.push_back(Atributo("tc", QString::number(puntaje->getTC())));
+    result.push_back(Atributo("dif", QString::number(puntaje->getDif())));
+
+    return result;
+}
 
 
 

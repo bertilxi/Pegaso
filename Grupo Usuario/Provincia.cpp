@@ -9,8 +9,32 @@
  * Provincia implementation
  */
 
-Vector<Localidad> Provincia::getLocalidades(){return localidades ;}
+Vector<Localidad> Provincia::getLocalidades() const
+{
+    return localidades;
+}
 
-int Provincia::getId(){return id ;}
+void Provincia::setLocalidades(const Vector<Localidad> &value)
+{
+    localidades = value;
+}
 
-QString Provincia::getNombre(){return nombre ;}
+int Provincia::getId() const
+{
+    return id;
+}
+
+void Provincia::setId(int value)
+{
+    id = value;
+}
+
+QString Provincia::getNombre() const
+{
+    return nombre;
+}
+
+void Provincia::setNombre(const QString &value)
+{
+    nombre = value;
+}

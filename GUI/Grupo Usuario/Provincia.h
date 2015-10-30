@@ -11,8 +11,18 @@
 
 class Provincia {
 public: 
+
+    Vector<Localidad> getLocalidades() const;
+    void setLocalidades(const Vector<Localidad> &value);
+
+    int getId() const;
+    void setId(int value);
+
+    QString getNombre() const;
+    void setNombre(const QString &value);
+
+private:
     Vector<Localidad> localidades;
-private: 
     int id;
     QString nombre;
 };

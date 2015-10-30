@@ -21,15 +21,15 @@ public:
 class DtoCompetencia
 {
 public:
-    int idUsuario;
+    int usuarioId;
     QString nombreCompetencia;
-    Deporte * deporte;
+    Deporte* deporte;
     QVector<Lugar*> lugares;
     QVector<int> disponibilidades;
-    Modalidad * modalidad;
+    Modalidad* modalidad;
     QString reglamento;
-    DtoCompetencia(int idUsuarioP,QString nombreCompentenciaP, Deporte * deporteP, QVector<Lugar*> lugaresP, QVector<int> disponibilidadesP, Modalidad * modalidadP, QString reglamentoP ):
-        idUsuario(idUsuarioP),nombreCompetencia(nombreCompentenciaP), deporte(deporteP), lugares(lugaresP), disponibilidades(disponibilidadesP), modalidad(modalidadP), reglamento(reglamentoP) {}
+    DtoCompetencia(int usuarioIdP,QString nombreCompentenciaP, Deporte* deporteP, QVector<Lugar*> lugaresP, QVector<int> disponibilidadesP, Modalidad*  modalidadP, QString reglamentoP ):
+        usuarioId(usuarioIdP),nombreCompetencia(nombreCompentenciaP), deporte(deporteP), lugares(lugaresP), disponibilidades(disponibilidadesP), modalidad(modalidadP), reglamento(reglamentoP) {}
 
 };
 
@@ -66,9 +66,9 @@ class DtoLugar
 public:
     QString nombre;
     QString descripcion = NULL;
-    QVector<Deporte*> Deportes;
-    DtoLugar(QString nombreP, QString descripcionP, QVector<Deporte*> DeportesP):
-        nombre(nombreP), descripcion(descripcionP), Deportes(DeportesP) {}
+    QVector<int> DeportesId;
+    DtoLugar(QString nombreP, QString descripcionP, QVector<int> DeportesIdP):
+        nombre(nombreP), descripcion(descripcionP), DeportesId(DeportesIdP) {}
 };
 
 #endif // DTOS

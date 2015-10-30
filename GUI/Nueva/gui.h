@@ -26,9 +26,19 @@ private:
     pantalla_usuario * pantallaUsuario;
     ver_competencia * verCompetencia;
 
+
+
 public:
     void show();
-    void handle(char*);
+    //void handle(QMainWindow* a, QString b, QVector<QString> args = NULL);
+    void handleMain(QMainWindow* a,QString b,QVector<QString> datos);
+    void handlePantallaUsuario(QMainWindow* a, QString b);
+    void handleListarCompetencias(QMainWindow* a, QString b);
+    void handleListarLugares(QMainWindow* a , QString b);
+    void handleAltaCompetencia(QMainWindow* a, QString b);
+    void handleListarParticipantes(QMainWindow* a, QString b);
+    void handleVerCompetencia(QMainWindow* a, QString b);
+    void handleMostrarFixture(QMainWindow* a, QString b);
     GUI();
     GUI(GestorBaseDatos* gestorDBP, GestorCompetencias* gestorCompetenciasP, GestorLugares* gestorLugaresP, GestorParticipantes* gestorParticipantesP, GestorPartidos* gestorPartidosP, GestorUsuarios* gestorUsuariosP):
         gestorDB(gestorDBP), gestorCompetencias(gestorCompetenciasP), gestorLugares(gestorLugaresP), gestorParticipantes(gestorParticipantesP), gestorPartidos(gestorPartidosP), gestorUsuarios(gestorUsuariosP) {}

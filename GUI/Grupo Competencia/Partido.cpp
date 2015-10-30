@@ -146,10 +146,39 @@ bool Partido::operator==(const Partido &other) const
     return 1;
 }
 
+QString Partido::getTable() const{
+    return "Partido";
+}
 
+QString Partido::getTable(const Partido &sucesor) const{
+    return "Sucesor";
+}
 
+/**
+ * @brief getAtributos
+ * @return una lista de los atributos de Modalidad con el correspondiente nombre
+ * de sus columnas en la tabla Modalidad de la Base de Datos. Los atributos
+ * retornados han sido casteados a QString's.
+ */
+QVector<Atributo> Partido::getAtributos() const{
+    QVector<Atributo> result;
+    if(id != -1){
+        result.push_back(Atributo("id_partido",QString::number(id)));
+    }
+    result.push_back(Atributo("fecha",QString::number(fecha)));
+    result.push_back(Atributo("ronda", ronda));
+    result.push_back(Atributo("id_lugar", QString::number(lugar->getId())));
+    result.push_back(Atributo("equipoA", QString::number(equipoA->getId())));
+    result.push_back(Atributo("equipoB", QString::number(equipoB->getId())));
 
+    return result;
+}
 
+QVector<Atributo> Partido::getAtributos(const Partido &sucesor) const{
+    QVector<Atributo> result(2);
+    result[0].campo = "partido_anterior";
+    result[1].campo = "partido_siguiente";
 
-
+    return result;
+}
 

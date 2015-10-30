@@ -36,6 +36,16 @@ public:
 
     bool operator==(const Participante &other)const;
 
+    QString getTable();
+
+    /**
+     * @brief getAtributos
+     * @return una lista de los atributos de Participante con el correspondiente nombre
+     * de sus columnas en la tabla Participante de la Base de Datos. Los atributos
+     * retornados han sido casteados a QString's.
+     */
+    QVector<Atributo> getAtributos() const;
+
 private:
     int id;
     QString nombre;

@@ -42,4 +42,23 @@ bool Disponibilidad::operator==(const Disponibilidad &other) const
     return 1;
 }
 
+QString Disponibilidad::getTable(){
+    return "Se_asignan";
+}
+
+/**
+ * @brief getAtributos
+ * @return una lista de los atributos de Disponibilidad con el correspondiente nombre
+ * de sus columnas en la tabla Se_asignan de la Base de Datos. Los atributos
+ * retornados han sido casteados a QString's.
+ */
+QVector<Atributo> Disponibilidad::getAtributos() const{
+    QVector<Atributo> result;
+
+    result.push_back(Atributo("id_lugar", QString::number(lugar->getId())));
+    result.push_back(Atributo("disponibilidad", QString::number(disponibilidad)));
+
+    return result;
+}
+
 

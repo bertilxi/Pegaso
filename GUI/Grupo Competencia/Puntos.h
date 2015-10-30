@@ -20,6 +20,10 @@ public:
 
     bool operator==(const Puntos &other)const;
 
+    QString getTable() const;
+
+    QVector<Atributo> getAtributos() const;
+
 private:
     int puntosA;
     int puntosB;
