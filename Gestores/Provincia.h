@@ -24,7 +24,7 @@ public:
     void setNombre(const QString &value);
 
 private:
-    Vector<Localidad> localidades;
+    QVector<Localidad> localidades;
     int id;
     QString nombre;
 };

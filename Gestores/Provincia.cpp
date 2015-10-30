@@ -9,12 +9,12 @@
  * Provincia implementation
  */
 
-Vector<Localidad> Provincia::getLocalidades() const
+QVector<Localidad> Provincia::getLocalidades() const
 {
     return localidades;
 }
 
-void Provincia::setLocalidades(const Vector<Localidad> &value)
+void Provincia::setLocalidades(const QVector<Localidad> &value)
 {
     localidades = value;
 }

@@ -95,7 +95,7 @@ void GestorPartidos::nuevoResultado(Competencia *comp, Partido *part, Resultado 
    }
    //Si es eliminación doble hay que asignar el perdedor dependiendo si es ronda ganadores o perdedores, y si es el último partido hay que ver si ganó el participante de ronda perdedores para saber si hay que jugar otro partido
    Participante* perdedor;
-   if(comp->getModalidad()->getNombre()=="Doble" && part->sucesores[1]!=NULL){
+   if(comp->getModalidad()->getNombre()=="Doble" && part->getSucesores()[1]!=NULL){
        //Obtengo el perdedor
        if(part->getEquipoA()==ganador)
            perdedor=part->getEquipoB();
@@ -118,7 +118,7 @@ void GestorPartidos::nuevoResultado(Competencia *comp, Partido *part, Resultado 
            nuevo->setLugar(comp->getDisponibilidades()[0]->getLugar());
            QVector<Partido*> sucesor;
            sucesor.push_back(nuevo);
-           part->setSucesor(sucesor);
+           part->setSucesores(sucesor);
            //También tengo que agregarlo a los partidos de la competencia
            QVector<Partido*> partidos=comp->getPartidos();
            partidos.push_back(nuevo);
@@ -155,13 +155,13 @@ bool GestorPartidos::puedeModificar(Partido *part, Competencia *comp,QString &er
 
 void GestorPartidos::generarFixtureLiga(Competencia *comp) {
 
-    QVector<Participantes*> participantes=comp->getParticipantes();
-    QVector<Partidos*> partidos;
+    QVector<Participante*> participantes=comp->getParticipantes();
+    QVector<Partido*> partidos;
     //Algoritmo Round Robin schedule de Édouard Lucas modificado
     int n=participantes.size();
         for (int i = 1; i < n; ++i) {
             for (int j = 0; j < n - i - 1 + n&1 ; j++) { //Si son pares hago una iteración menos porque asigno especialmente al último
-                Partido *part = new Partido;
+                Partido *part = new Partido();
                 part->setEquipoA(participantes[i-1]);
                 part->setEquipoB(participantes[i+j]);
                 part->setFecha(((i<<1) + j - 1)%(n -1 + n&1 )+1); //La fecha la calculo por deducción de la matriz Round Robin
@@ -169,7 +169,7 @@ void GestorPartidos::generarFixtureLiga(Competencia *comp) {
             }
             //Si son pares asigno al último participante al partido que quedaría en la diagonal principal
             if(!n&1){
-                Partido *part = new Partido;
+                Partido *part = new Partido();
                 part->setEquipoA(participantes[i-1]);
                 part->setEquipoB(participantes[n-1]);
                 part->setFecha(((i<<1)-2)%(n-1)+1);
@@ -194,17 +194,17 @@ void GestorPartidos::generarFixtureElimSimple(Competencia *comp) {
     //Primero hago que algunos participantes no juegen contra nadie para llegar a una cantidad de partidos potencia de 2
     for (i = 0; i < dif; ++i) {
         Partido* part=new Partido();
-        part.setEquipoA(participantes[i]);
-        part.setEquipoB(new Participante);//Un participante dummy
-        part.setFecha(1);
+        part->setEquipoA(participantes[i]);
+        part->setEquipoB(new Participante);//Un participante dummy
+        part->setFecha(1);
         partidos.push_back(part);
     }
     //Luego asigno los demás
     for (;i < n; i+=2) {
         Partido* part=new Partido();
-        part.setEquipoA(participantes[i]);
-        part.setEquipoB(participantes[i+1]);
-        part.setFecha(1);
+        part->setEquipoA(participantes[i]);
+        part->setEquipoB(participantes[i+1]);
+        part->setFecha(1);
         partidos.push_back(part);
     }
 
@@ -214,7 +214,7 @@ void GestorPartidos::generarFixtureElimSimple(Competencia *comp) {
     for (int j = (n+dif)>>2 ; j >0 ; j>>=1) {//>>1 equivale a dividir por dos; empiezo en >>2 porque la primer fecha ya se asignó
         for (int k = 0; k < j; ++k) {
             Partido* part=new Partido();
-            part.setFecha(fecha);
+            part->setFecha(fecha);
             partidos.push_back(part);
         }
         fecha++;

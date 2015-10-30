@@ -13,6 +13,8 @@
 #include <QVector>
 #include <QDebug>
 
+class Puntaje;
+
 class Participante {
 public: 
 

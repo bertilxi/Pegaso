@@ -39,7 +39,7 @@ void Resultado::setResultadoB(const QString &value)
     resultadoB = value;
 }
 
-bool virtual Resultado::operator==(const Resultado &other) const
+bool Resultado::operator==(const Resultado &other) const
 {
     if(other.getResultadoA()!=resultadoA){
         qDebug()<<"ResultadoA: "<<other.getResultadoA()<<" "<<resultadoA<<" en resultado";

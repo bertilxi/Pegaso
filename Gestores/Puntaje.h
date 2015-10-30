@@ -7,6 +7,8 @@
 
 #include <QDebug>
 #include "Resultado.h"
+#include "Partido.h"
+#include "Puntos.h"
 
 class Puntaje {
 public: 

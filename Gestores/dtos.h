@@ -3,6 +3,7 @@
 
 #include "Deporte.h"
 #include "Modalidad.h"
+#include "Lugar.h"
 
 
 class DtoGetCompetencia

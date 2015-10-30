@@ -23,7 +23,7 @@ public:
     void setNombre(const QString &value);
 
 private:
-    Vector<Provincia> provincias;
+    QVector<Provincia> provincias;
     int id;
     QString nombre;
 };

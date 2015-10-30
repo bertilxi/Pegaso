@@ -19,16 +19,6 @@ void Modalidad::setId(int value)
     id = value;
 }
 
-int getId_nombre() const
-{
-    return id_nombre;
-}
-
-void setId_nombre(int value)
-{
-    id_nombre = value;
-}
-
 QString Modalidad::getNombre() const
 {
     return nombre;
@@ -39,15 +29,6 @@ void Modalidad::setNombre(const QString &value)
     nombre = value;
 }
 
-int getId_tipo_resultado() const
-{
-    return id_tipo_resultado;
-}
-
-void setId_tipo_resultado(int value)
-{
-    id_tipo_resultado = value;
-}
 
 QString Modalidad::getTipo_resultado() const
 {
@@ -122,12 +103,12 @@ bool Modalidad::operator==(const Modalidad &other) const
         qDebug()<<"Puntos_empate: "<<other.getPuntos_empate()<<" "<<puntos_empate<<" en modalidad "<<id;
         return 0;
     }
-    if(other.puntos_ganar()!=puntos_ganar){
-        qDebug()<<"Puntos_ganar: "<<other.puntos_ganar()<<" "<<puntos_ganar<<" en modalidad "<<id;
+    if(other.getPuntos_ganar()!=puntos_ganar){
+        qDebug()<<"Puntos_ganar: "<<other.getPuntos_ganar()<<" "<<puntos_ganar<<" en modalidad "<<id;
         return 0;
     }
-    if(other.puntos_presentarse()!=puntos_presentarse){
-        qDebug()<<"Puntos_presentarse: "<<other.puntos_presentarse()<<" "<<puntos_presentarse<<" en modalidad "<<id;
+    if(other.getPuntos_presentarse()!=puntos_presentarse){
+        qDebug()<<"Puntos_presentarse: "<<other.getPuntos_presentarse()<<" "<<puntos_presentarse<<" en modalidad "<<id;
         return 0;
     }
     if(other.getTipo_resultado()!=tipo_resultado){
@@ -161,6 +142,26 @@ QVector<Atributo> Modalidad::getAtributos() const{
     result.push_back(Atributo("empate", QString::number((int)empate)));
 
     return result;
+}
+
+int Modalidad::getId_nombre() const
+{
+    return id_nombre;
+}
+
+void Modalidad::setId_nombre(int value)
+{
+    id_nombre = value;
+}
+
+int Modalidad::getId_tipo_resultado() const
+{
+    return id_tipo_resultado;
+}
+
+void Modalidad::setId_tipo_resultado(int value)
+{
+    id_tipo_resultado = value;
 }
 
 

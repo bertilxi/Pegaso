@@ -78,9 +78,9 @@ QVector<Atributo> HistorialParticipante::getAtributos() const{
     if(id != -1){
         result.push_back(Atributo("id_modificacion",QString::number(id)));
     }
-    result.push_back(Atributo("imagen", imagen);
-    result.push_back(Atributo("nombre", nombre);
-    result.push_back(Atributo("correo", correo);
+    result.push_back(Atributo("imagen", imagen));
+    result.push_back(Atributo("nombre", nombre));
+    result.push_back(Atributo("correo", correo));
 
     return result;
 }

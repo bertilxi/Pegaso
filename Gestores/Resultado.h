@@ -8,7 +8,7 @@
 #include <QVector>
 #include <QString>
 #include <QDebug>
-#include "../Gestores/Atributo.h"
+#include "Atributo.h"
 
 class Resultado {
 public:

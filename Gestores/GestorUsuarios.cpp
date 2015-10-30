@@ -14,7 +14,7 @@ Usuario GestorUsuarios::getActual() const
     return *actual;
 }
 
-void GestorUsuarios::setActual(Usuario &value)
+void GestorUsuarios::setActual(const Usuario *value)
 {
     actual = value;
 }
@@ -41,7 +41,7 @@ bool GestorUsuarios::altaUsuario(DtoUsuario *datos,QString &error) {
     QByteArray hash=QCryptographicHash::hash(QByteArray::fromStdString(pass.toStdString()),QCryptographicHash::Sha256);
     //Espero que no haya colisiones por pasar de QByteArray a Qstring (Qstring usa solo caracteres imprimibles)
     //Si queremos guardar directamente como QByteArray deberíamos cambiar la forma en como hacemos los querystr y no creo que merezca la pena
-    pass=QString::fromStdString(hash1.toStdString());
+    pass=QString::fromStdString(hash.toStdString());
     nuevo->setPassword(pass);
 
     //Guardo el nuevo usuario
@@ -72,9 +72,9 @@ void GestorUsuarios::modUsuario(Usuario *usuario, DtoUsuario *datos) {
  * @return Usuario
  */
 Usuario* GestorUsuarios::login(QString email, QString password) {
-    error="";
+    QString error="";
     //Obtengo el usuario con ese correo si no existe retorno NULL
-    Usuario *user=gestorDB->cargarUsuario(datos->correo);
+    Usuario *user=gestorDB->cargarUsuario(email);
     if(user==NULL){
         return NULL;
     }
@@ -82,7 +82,7 @@ Usuario* GestorUsuarios::login(QString email, QString password) {
     //Comparo las contraseñas
     QString pass=password+"nl3ildgsysxsñe{ñs-e}l}af4l5{.d";
     QByteArray hash=QCryptographicHash::hash(QByteArray::fromStdString(pass.toStdString()),QCryptographicHash::Sha256);
-    pass=QString::fromStdString(hash1.toStdString());
+    pass=QString::fromStdString(hash.toStdString());
 
     if(pass!=user->getPassword())
         return NULL;

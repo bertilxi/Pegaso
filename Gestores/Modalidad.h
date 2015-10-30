@@ -16,14 +16,10 @@ public:
     int getId() const;
     void setId(int value);
 
-    int getId_nombre() const;
-    void setId_nombre(int value);
 
     QString getNombre() const;
     void setNombre(const QString &value);
 
-    int getId_tipo_resultado() const;
-    void setId_tipo_resultado(int value);
 
     QString getTipo_resultado() const;
     void setTipo_resultado(const QString &value);
@@ -54,6 +50,12 @@ public:
      * retornados han sido casteados a QString's.
      */
     QVector<Atributo> getAtributos() const;
+
+    int getId_nombre() const;
+    void setId_nombre(int value);
+
+    int getId_tipo_resultado() const;
+    void setId_tipo_resultado(int value);
 
 private:
     int id;
