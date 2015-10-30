@@ -6,6 +6,8 @@
 #ifndef _DOC_H
 #define _DOC_H
 
+#include <QString>
+
 class Doc {
 public:
 

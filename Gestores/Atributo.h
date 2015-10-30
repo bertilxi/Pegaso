@@ -1,6 +1,8 @@
 #ifndef ATRIBUTO_H
 #define ATRIBUTO_H
 
+#include <QString>
+
 class Atributo
 {
 public:

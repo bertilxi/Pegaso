@@ -21,7 +21,15 @@ public:
     template <class T>
     T load(T obj, int id);
 
-    QVector<Competencia *> getCompetenciasLazy(const DtoGetCompetencia &dto) const;
+    /**
+     * @brief carga varias competencias inicializandolas parcialmente
+     * @param dto dto con los filtros para buscar competencias
+     * @return una lista de punteros a competencias
+     *
+     * Solo se carga el id y nombre de la competencia, su estado, el NOMBRE
+     * de su modalidad y el ID de su deporte.
+     */
+    QVector<Competencia *> getCompetenciasLazy(const DtoGetCompetencia *dto) const;
     
     //temporal hasta redefinir el save con template
     bool save(QVector<Participante *> participantes, int id_externo);

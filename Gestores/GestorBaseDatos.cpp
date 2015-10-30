@@ -44,10 +44,18 @@ T GestorBaseDatos::load(T obj, int id) {
     }
 }
 
+/**
+ * @brief carga varias competencias inicializandolas parcialmente
+ * @param dto dto con los filtros para buscar competencias
+ * @return una lista de punteros a competencias
+ *
+ * Solo se carga el id y nombre de la competencia, su estado, el NOMBRE
+ * de su modalidad y el ID de su deporte.
+ */
+QVector<Competencia *> GestorBaseDatos::getCompetenciasLazy(const DtoGetCompetencia *dto) const{
 
-QVector<Competencia *> getCompetenciasLazy(const DtoGetCompetencia &dto) const{
     /*
-    SELECT C.nombre, D.nombre, M.nombre, C.estado
+    SELECT C.id_competencia, C.nombre, D.id_deporte, M.nombre, C.estado
     FROM Competencia C, Deporte D, Tipo_modalidad M
     WHERE C.id_usuario = id_usuarioP
         C.id_modalidad = id_modalidadP AND C.id_modalidad = M.id_modalidad AND
@@ -55,11 +63,98 @@ QVector<Competencia *> getCompetenciasLazy(const DtoGetCompetencia &dto) const{
         C.estado = estadoP AND
         C.nombre LIKE '%nombreP%'
         */
+
+    QString querystr;
+
+    querystr += "SELECT C.id_competencia, C.nombre, D.id_deporte, M.nombre, C.estado ";
+    querystr += "FROM Competencia C, Deporte D, Tipo_modalidad M WHERE ";
+
+    bool primeraCondicion = true;
+    if(dto->usuarioId != -1)
+    {
+        querystr += "C.id_usuario = " + QString::number(dto->usuarioId);
+        primeraCondicion = false;
+    }
+
+    if(dto->tipoModalidadId != -1)
+    {
+        if(!primeraCondicion) {querystr += " AND ";}
+        querystr += "C.id_modalidad = " + QString::number(dto->tipoModalidadId);
+        primeraCondicion = false;
+    }
+
+    if(dto->deporte != NULL)
+    {
+        if(!primeraCondicion) {querystr += " AND ";}
+        querystr += "C.id_deporte = " + QString::number(dto->deporte->getId());
+        primeraCondicion = false;
+    }
+
+    if(!dto->estado.isNull())
+    {
+        if(!primeraCondicion) {querystr += " AND ";}
+        querystr += "C.estado = " + dto->estado;
+        primeraCondicion = false;
+    }
+
+    if(!dto->nombreCompetencia.isNull())
+    {
+        if(!primeraCondicion) {querystr += " AND ";}
+        querystr += "C.nombre LIKE '%" + dto->nombreCompetencia + "%'";
+        primeraCondicion = false;
+    }
+
+    querystr += " AND C.id_modalidad = M.id_modalidad";
+    querystr += " AND C.id_deporte = D.id_deporte";
+
+    QSqlQuery query;
+
+    if(!query.exec(querystr)){
+        qDebug() << "La consulta ha fallado";
+        qDebug() << "La consulta que dio error fue: " << querystr;
+    }
+
+    QVector<Competencia *> competencias;
+
+    while (query.next()) {
+
+        Competencia *comp = new (std::nothrow) Competencia;
+        if(comp == NULL){
+            qDebug() << "No se pudo alocar memoria para Competencia";
+            return QVector<Competencia *>();
+        }
+        comp->setId(query.value(0).toInt());
+        comp->setNombre(query.value(1).toString());
+
+        Deporte *deporte = new (std::nothrow) Deporte;
+        if(deporte == NULL){
+            qDebug() << "No se pudo alocar memoria para Deporte";
+            ///Es necesario destruir la competencia
+            return QVector<Competencia *>();
+        }
+        deporte->setId(query.value(2).toInt());
+        comp->setDeporte(deporte);
+
+        Modalidad *modalidad = new (std::nothrow) Modalidad;
+        if(modalidad == NULL){
+            qDebug() << "No se pudo alocar memoria para Modalidad";
+            ///Es necesario destruir la competencia
+            return QVector<Competencia *>();
+        }
+        modalidad->setNombre(query.value(3).toString());
+        comp->setModalidad(modalidad);
+
+        comp->setEstado(query.value(4).toString());
+
+        competencias.push_back(comp);
+
+    }
+
+    return competencias;
 }
 
-
 //temporal
-bool save(QVector<Participante *> participantes, int id_externo){
+bool GestorBaseDatos::save(QVector<Participante *> participantes, int id_externo){
     Atributo id_externoA("id_competencia",QString::number(id_externo));
     return this->save(participantes, &id_externoA);
 }
