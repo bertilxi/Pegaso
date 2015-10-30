@@ -9,9 +9,10 @@
 /**
  * @brief persiste un objeto Competencia
  * @param comp la competencia a persistir
+ * @param usuarioId id del usuario al que pertenece la competencia
  * @return true si tuvo exito, false si fallo
  */
-bool GestorBaseDatos::saveCompetencia(Competencia *comp, Atributo usuarioId){
+bool GestorBaseDatos::saveCompetencia(Competencia *comp, int usuarioId){
 
     bool status = true;
 
@@ -20,7 +21,8 @@ bool GestorBaseDatos::saveCompetencia(Competencia *comp, Atributo usuarioId){
     status &= this->save(QVector<Modalidad *>(1,mod));
 
     //guardo los atributos simples de competencia
-    status &= this->save(QVector<Competencia *>(1,comp), &usuarioId);
+    Atributo usuarioIdAtributo("id_usuario",QString::number(usuarioId));
+    status &= this->save(QVector<Competencia *>(1,comp), &usuarioIdAtributo);
 
     //guardo las disponibilidades
     QVector<Disponibilidad *> disps = comp->getDisponibilidades();

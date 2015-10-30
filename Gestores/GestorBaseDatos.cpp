@@ -45,6 +45,17 @@ T GestorBaseDatos::load(T obj, int id) {
 }
 
 
+QVector<Competencia *> getCompetenciasLazy(const DtoGetCompetencia &dto) const{
+    /*
+    SELECT C.nombre, D.nombre, M.nombre, C.estado
+    FROM Competencia C, Deporte D, Tipo_modalidad M
+    WHERE C.id_usuario = id_usuarioP
+        C.id_modalidad = id_modalidadP AND C.id_modalidad = M.id_modalidad AND
+        C.id_deporte = id_deporteP AND C.id_deporte = D.id_deporte AND
+        C.estado = estadoP AND
+        C.nombre LIKE '%nombreP%'
+        */
+}
 
 
 /**

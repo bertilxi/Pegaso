@@ -20,6 +20,9 @@ public:
      */
     template <class T>
     T load(T obj, int id);
+
+
+    QVector<Competencia *> getCompetenciasLazy(const DtoGetCompetencia &dto) const;
     
     /**
      * @brief guarda una lista de objetos
@@ -35,9 +38,10 @@ public:
     /**
      * @brief persiste un objeto Competencia
      * @param comp la competencia a persistir
+     * @param usuarioId id del usuario al que pertenece la competencia
      * @return true si tuvo exito, false si fallo
      */
-    bool saveCompetencia(Competencia *comp, Atributo usuarioId);
+    bool saveCompetencia(Competencia *comp, int usuarioId);
     //implementado en libreria "GestorBaseDatosSaveEspeciales.h"
 
     bool saveResultado(Resultado *resultado, Atributo partidoId);

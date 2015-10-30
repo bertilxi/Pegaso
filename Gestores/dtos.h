@@ -8,13 +8,13 @@
 class DtoGetCompetencia
 {
 public:
-    QString usuario;
+    int usuarioId;
     QString nombreCompetencia;
-    Deporte * deporte;
-    QString modalidad;
+    int deporteId;
+    int tipoModalidadId;
     QString estado;
-    DtoGetCompetencia(QString usuarioP , QString nombreCompetenciaP = NULL, Deporte * deporteP = NULL, QString modalidadP = NULL, QString estadoP = NULL ):
-        usuario(usuarioP), nombreCompetencia(nombreCompetenciaP), deporte(deporteP), modalidad(modalidadP), estado(estadoP) {}
+    DtoGetCompetencia(int usuarioIdP , QString nombreCompetenciaP = NULL, int deporteIdP = -1, int tipoModalidadIdP = -1, QString estadoP = NULL ):
+        usuarioId(usuarioIdP), nombreCompetencia(nombreCompetenciaP), deporteId(deporteIdP), tipoModalidadId(tipoModalidadIdP), estado(estadoP) {}
 
 };
 
