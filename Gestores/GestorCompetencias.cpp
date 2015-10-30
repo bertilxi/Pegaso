@@ -26,7 +26,7 @@ Competencia *GestorCompetencias::crearCompetencia(DtoCompetencia *datos, bool op
     error="";
     //Valido si existe una competencia con el mismo nombre
     DtoGetCompetencia dto(datos->usuarioId,datos->nombreCompetencia,NULL,NULL,NULL);
-    QVector<Competencia*> auxComps=gestorBaseDatos->getCompetenciasLazy(dto);
+    QVector<Competencia*> auxComps=gestorBaseDatos->getCompetenciasLazy(&dto);
     if(! auxComps.isEmpty()){
         operacionExitosa=false;
         error="Ya existe una competencia con el mismo nombre";
@@ -188,7 +188,9 @@ void GestorCompetencias::modParticipante(Competencia *comp, Participante *part, 
     part->setImg(datos->imgUrl);
 
     //Guardo los cambios
-    gestorBaseDatos->saveParticipante(part,comp->getId());
+    QVector<Participante *> partList;
+    partList.push_back(part);
+    gestorBaseDatos->save(partList,comp->getId());
 }
 void GestorCompetencias::nuevoResultado(Competencia *comp, Partido *part, Resultado *res)
 {
