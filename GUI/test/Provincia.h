@@ -7,9 +7,8 @@
 #define _PROVINCIA_H
 
 #include "Localidad.h"
-#include <QString>
- #include <QVector>
 
+#include <QVector>
 
 class Provincia {
 public: 
@@ -24,7 +23,7 @@ public:
     void setNombre(const QString &value);
 
 private:
-    Vector<Localidad> localidades;
+    QVector<Localidad> localidades;
     int id;
     QString nombre;
 };

@@ -5,6 +5,7 @@
 
 #include "Puntaje.h"
 
+
 /**
  * Puntaje implementation
  */
@@ -13,16 +14,16 @@
 /**
  * @param part
  */
-void Puntaje::restar(Partido part) {
+//void Puntaje::restar(Partido part) {
 
-}
+//}
 
 /**
  * @param part
  */
-void Puntaje::sumar(Partido part) {
+//void Puntaje::sumar(Partido part) {
 
-}
+//}
 int Puntaje::getPuntos() const
 {
     return puntos;
@@ -97,26 +98,26 @@ bool Puntaje::operator==(const Puntaje &other) const
         qDebug()<<"PE: "<<other.getPE()<<" "<<PE<<" en puntaje";
         return 0;
     }
-    if(other.getPG()!=){
-        qDebug()<<"PG: "<<other.getPG()<<" "<<PG<<" en puntaje";
-        return 0;
-    }
-    if(other.getPP()!=){
-        qDebug()<<"PP: "<<other.getPP()<<" "<<PP<<" en puntaje";
-        return 0;
-    }
-    if(other.getPuntos()!=){
-        qDebug()<<"Puntos: "<<other.getPuntos()<<" "<<Puntos<<" en puntaje";
-        return 0;
-    }
-    if(other.getTC()!=){
-        qDebug()<<"TC: "<<other.getTC()<<" "<<TC<<" en puntaje";
-        return 0;
-    }
-    if(other.getTF()!=){
-        qDebug()<<"TF: "<<other.getTF()<<" "<<TF<<" en puntaje";
-        return 0;
-    }
+//    if(other.getPG()!=){
+//        qDebug()<<"PG: "<<other.getPG()<<" "<<PG<<" en puntaje";
+//        return 0;
+//    }
+//    if(other.getPP()!=){
+//        qDebug()<<"PP: "<<other.getPP()<<" "<<PP<<" en puntaje";
+//        return 0;
+//    }
+//    if(other.getPuntos()!=){
+//        qDebug()<<"Puntos: "<<other.getPuntos()<<" "<<Puntos<<" en puntaje";
+//        return 0;
+//    }
+//    if(other.getTC()!=){
+//        qDebug()<<"TC: "<<other.getTC()<<" "<<TC<<" en puntaje";
+//        return 0;
+//    }
+//    if(other.getTF()!=){
+//        qDebug()<<"TF: "<<other.getTF()<<" "<<TF<<" en puntaje";
+//        return 0;
+//    }
     return 1;
 }
 
