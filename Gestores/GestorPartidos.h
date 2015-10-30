@@ -5,10 +5,10 @@
 
 #ifndef _GESTORPARTIDOS_H
 #define _GESTORPARTIDOS_H
-#include "../Grupo Competencia/Competencia.h"
-#include "../Grupo Competencia/Puntaje.h"
-#include "../Grupo Competencia/Partido.h"
-#include "../Grupo Competencia/Resultado.h"
+#include "Competencia.h"
+#include "Puntaje.h"
+#include "Partido.h"
+#include "Resultado.h"
 #include "GestorBaseDatos.h"
 
 

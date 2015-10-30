@@ -5,6 +5,7 @@
 
 #ifndef _LOCALIDAD_H
 #define _LOCALIDAD_H
+#include <QString>
 
 class Localidad {
 public:

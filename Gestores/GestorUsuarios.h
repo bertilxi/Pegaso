@@ -6,7 +6,7 @@
 #ifndef _GESTORUSUARIOS_H
 #define _GESTORUSUARIOS_H
 
-#include "../Grupo Usuario/Usuario.h"
+#include "Usuario.h"
 #include "GestorBaseDatos.h"
 #include "dtos.h"
 #include <QString>

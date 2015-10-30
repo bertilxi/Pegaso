@@ -2,8 +2,8 @@
 #define GESTORBASEDATOSSAVEESPECIALES
 
 //recordar quitar esto
-#include "../Grupo Competencia/Puntos.h"
-#include "../Grupo Competencia/Sets.h"
+#include "Puntos.h"
+#include "Sets.h"
 #include "GestorUsuarios.h"
 
 /**

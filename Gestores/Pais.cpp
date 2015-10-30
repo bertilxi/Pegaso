@@ -9,12 +9,12 @@
  * Pais implementation
  */
 
-Vector<Provincia> Pais::getProvincias() const
+QVector<Provincia> Pais::getProvincias() const
 {
     return provincias;
 }
 
-void Pais::setProvincias(const Vector<Provincia> &value)
+void Pais::setProvincias(const QVector<Provincia> &value)
 {
     provincias = value;
 }

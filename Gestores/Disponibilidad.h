@@ -7,7 +7,7 @@
 #define _DISPONIBILIDAD_H
 
 #include "Lugar.h"
-#include "../Gestores/Atributo.h"
+#include "Atributo.h"
 #include <QDebug>
 
 class Disponibilidad {

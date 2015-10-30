@@ -3,8 +3,10 @@
  */
 
 #include <QVector>
-#include "../Grupo Competencia/Competencia.h"
 #include "dtos.h"
+#include <QSqlQuery>
+#include <QDebug>
+#include "Competencia.h"
 
 
 #ifndef _GESTORBASEDATOS_H

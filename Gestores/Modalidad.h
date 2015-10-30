@@ -9,7 +9,7 @@
 #include <QString>
 #include <QDebug>
 #include <QVector>
-#include "../Gestores/Atributo.h"
+#include "Atributo.h"
 
 class Modalidad {
 public:

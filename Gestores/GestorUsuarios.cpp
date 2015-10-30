@@ -11,17 +11,17 @@
 
 Usuario GestorUsuarios::getActual() const
 {
-    return actual;
+    return *actual;
 }
 
-void GestorUsuarios::setActual(const Usuario &value)
+void GestorUsuarios::setActual(Usuario &value)
 {
     actual = value;
 }
 bool GestorUsuarios::altaUsuario(DtoUsuario *datos,QString &error) {
     error="";
     //Compruebo que no haya un usuario ya registrado con ese correo
-    if(gestorDB->cargarUsuario(datos->correo)!=null){
+    if(gestorDB->cargarUsuario(datos->correo)!=NULL){
         error="Ya existe un usuario con el mismo correo electrónico";
         return false;
     }
@@ -73,7 +73,7 @@ void GestorUsuarios::modUsuario(Usuario *usuario, DtoUsuario *datos) {
  */
 Usuario* GestorUsuarios::login(QString email, QString password) {
     error="";
-    //Obtengo el usuario con ese correo si no existe retorno null
+    //Obtengo el usuario con ese correo si no existe retorno NULL
     Usuario *user=gestorDB->cargarUsuario(datos->correo);
     if(user==NULL){
         return NULL;

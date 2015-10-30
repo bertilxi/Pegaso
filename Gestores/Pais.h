@@ -7,13 +7,14 @@
 #define _PAIS_H
 
 #include "Provincia.h"
+#include <QVector>
 
 
 class Pais {
 public: 
 
-    Vector<Provincia> getProvincias() const;
-    void setProvincias(const Vector<Provincia> &value);
+    QVector<Provincia> getProvincias() const;
+    void setProvincias(const QVector<Provincia> &value);
 
     int getId() const;
     void setId(int value);

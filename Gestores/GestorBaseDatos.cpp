@@ -2,11 +2,8 @@
  * Project Pegaso
  */
 
-#include <QSqlQuery>
-#include <QDebug>
 
 #include "GestorBaseDatos.h"
-#include "../Grupo Competencia/Competencia.h"
 
 /**
  * GestorBaseDatos implementation
