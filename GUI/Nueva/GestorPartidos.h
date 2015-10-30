@@ -7,6 +7,10 @@
 #define _GESTORPARTIDOS_H
 
 #include "GestorBaseDatos.h"
+#include "../Grupo Competencia/Competencia.h"
+#include "../Grupo Competencia/Modalidad.h"
+#include "../Grupo Competencia/Disponibilidad.h"
+#include "../Grupo Competencia/Partido.h"
 
 
 class GestorPartidos {

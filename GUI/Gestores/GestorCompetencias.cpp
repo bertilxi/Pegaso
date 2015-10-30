@@ -131,7 +131,7 @@ bool GestorCompetencias::altaParticipante(Competencia *comp, DtoParticipante *da
     comp->setParticipantes(participantes);
 
     //Elimino el fixture si existiera
-    this->eliminarFixture();
+    this->eliminarFixture(comp);
 
     //Guardo los cambios
     gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual().getId());
@@ -169,13 +169,17 @@ void GestorCompetencias::modParticipante(Competencia *comp, Participante *part, 
         }
     }
     if(error!=""){
-        return false;
+        return;
     }
 
     //Creo una nueva entrada en el historial y la asigno
-    HistorialParticipante *registro=new HistorialParticipante(part);
-    QVector<HistorialParticipante> *historial=part->getHistorial();
-    historial->push_back(registro);
+    HistorialParticipante *registro=new HistorialParticipante();
+    registro->setCorreo(part->getCorreo());
+    registro->setImagen(part->getImg());
+    registro->setNombre(part->getNombre());
+
+    QVector<HistorialParticipante*> historial=part->getHistorial();
+    historial.push_back(registro);
     part->setHistorial(historial);
 
     //Modifico los datos del participante
