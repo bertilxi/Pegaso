@@ -58,6 +58,13 @@ QVector<Competencia *> getCompetenciasLazy(const DtoGetCompetencia &dto) const{
 }
 
 
+//temporal
+bool save(QVector<Participante *> participantes, int id_externo){
+    Atributo id_externoA("id_competencia",QString::number(id_externo));
+    return this->save(participantes, &id_externoA);
+}
+
+
 /**
  * @param objptrs es una lista de punteros a objetos
  * @param id es la fk

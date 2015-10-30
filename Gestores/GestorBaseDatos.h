@@ -21,9 +21,11 @@ public:
     template <class T>
     T load(T obj, int id);
 
-
     QVector<Competencia *> getCompetenciasLazy(const DtoGetCompetencia &dto) const;
     
+    //temporal hasta redefinir el save con template
+    bool save(QVector<Participante *> participantes, int id_externo);
+
     /**
      * @brief guarda una lista de objetos
      * @param objptrs punteros a objetos
