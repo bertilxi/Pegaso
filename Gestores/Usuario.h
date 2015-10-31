@@ -34,8 +34,7 @@ public:
     QString getEmail() const;
     void setEmail(const QString &value);
 
-    int getNro_doc() const;
-    void setNro_doc(int value);
+
 
     QVector<Competencia *> getCompetencias() const;
     void setCompetencias(const QVector<Competencia *> &value);
@@ -44,13 +43,16 @@ public:
     void setLugares(const QVector<Lugar *> &value);
 
     Doc *getDoc() const;
-    void setDoc(Doc *value);
+    void setDoc(QString value);
 
     Localidad *getLocalidad() const;
-    void setLocalidad(Localidad *value);
+    void setLocalidad(QString value);
 
     QVector<Auditoria *> getAuditorias() const;
     void setAuditorias(const QVector<Auditoria *> &value);
+
+    QString getNro_doc() const;
+    void setNro_doc(const QString &value);
 
 private:
     int id;
@@ -58,7 +60,7 @@ private:
     QString nombre;
     QString apellido;
     QString email;
-    int nro_doc;
+    QString nro_doc;
     QVector<Competencia*> competencias;
     QVector<Lugar*> lugares;
     Doc* doc;

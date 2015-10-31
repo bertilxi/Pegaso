@@ -33,7 +33,7 @@ public:
      */
     Usuario *login(QString email, QString password);
     Usuario getActual() const;
-    void setActual(const Usuario &value);
+    void setActual( Usuario* value);
     GestorUsuarios(GestorBaseDatos* gestorDBP):
         gestorDB(gestorDBP) {}
 private:

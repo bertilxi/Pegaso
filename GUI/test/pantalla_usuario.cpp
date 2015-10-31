@@ -1,10 +1,6 @@
 #include "pantalla_usuario.h"
-#include "ui_pantalla_usuario.h"
-//#include "modificar_usuario.h"
-#include "listar_competencias.h"
-//#include "listar_lugares.h"
-#include "mainwindow.h"
-#include "qpixmap.h"
+
+
 
 pantalla_usuario::pantalla_usuario(QWidget *parent) :
     QDialog(parent),
@@ -39,12 +35,8 @@ void pantalla_usuario::on_pushButton_4_clicked()
 
 void pantalla_usuario::on_pushButton_2_clicked()
 {
+    gui->handlePantallaUsuario(this,QString("listarCompetencias"));
 
-    listar_competencias * l;
-    l= new listar_competencias();
-    l->setModal(true);
-    l->show();
-    qDebug()<<"Ventana de listar competencias abierta";
 }
 
 //void pantalla_usuario::on_pushButton_3_clicked()

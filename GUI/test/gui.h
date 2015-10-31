@@ -18,7 +18,19 @@
 #include "pantalla_usuario.h"
 #include "ver_competencia.h"
 
-namespace Ui { class MainWindow; }
+#include "dtos.h"
+#include <QMainWindow>
+#include <QDebug>
+#include "ui_mainwindow.h"
+#include <QCryptographicHash>
+
+namespace Ui {
+class MainWindow;
+}
+
+class MainWindow;
+class pantalla_usuario;
+class listar_competencias;
 
 class GUI
 {
@@ -30,30 +42,51 @@ private:
     GestorUsuarios* gestorUsuarios;
 
 
-    alta_competencia * altaCompetencia;
-    alta_competencia_eliminacion * altaCompetenciaEliminacion;
-    alta_competencia_liga * altaCompetenciaLiga;
-    alta_participante * altaParticipante;
-    listar_competencias * listarCompetencias;
-    Ui::MainWindow * mW;
-    modificar_competencia * modificarCompetencia;
-    pantalla_usuario * pantallaUsuario;
-    ver_competencia * verCompetencia;
+//    alta_competencia * altaCompetencia;
+//    alta_competencia_eliminacion * altaCompetenciaEliminacion;
+//    alta_competencia_liga * altaCompetenciaLiga;
+//    alta_participante * altaParticipante;
+//    listar_competencias * listarCompetencias;
+//    MainWindow * mW;
+//    modificar_competencia * modificarCompetencia;
+//    pantalla_usuario * pantallaUsuario;
+//    ver_competencia * verCompetencia;
 
 
 
 public:
     void show();
     void handleMain(QMainWindow* a,QString b,QVector<QString> datos);
-    void handlePantallaUsuario(QMainWindow* a, QString b);
-    void handleListarCompetencias(QMainWindow* a, QString b);
-    void handleListarLugares(QMainWindow* a , QString b);
-    void handleAltaCompetencia(QMainWindow* a, QString b);
-    void handleListarParticipantes(QMainWindow* a, QString b);
-    void handleVerCompetencia(QMainWindow* a, QString b);
-    void handleMostrarFixture(QMainWindow* a, QString b);
+    void handlePantallaUsuario(QDialog* a, QString b);
+    void handleListarCompetencias(QDialog* a, QString b);
+    void handleListarLugares(QDialog* a , QString b);
+    void handleAltaCompetencia(QDialog* a, QString b);
+    void handleListarParticipantes(QDialog* a, QString b);
+    void handleVerCompetencia(QDialog* a, QString b);
+    void handleMostrarFixture(QDialog* a, QString b);
+    void handleFiltrarCompetencias(DtoGetCompetencia* datos);
     GUI(GestorBaseDatos* gestorDBP, GestorCompetencias* gestorCompetenciasP, GestorLugares* gestorLugaresP, GestorPartidos* gestorPartidosP, GestorUsuarios* gestorUsuariosP):
         gestorDB(gestorDBP), gestorCompetencias(gestorCompetenciasP), gestorLugares(gestorLugaresP), gestorPartidos(gestorPartidosP), gestorUsuarios(gestorUsuariosP) {}
+};
+
+class MainWindow : public QMainWindow
+{
+    Q_OBJECT
+
+public:
+
+    explicit MainWindow(GUI* guiP , GestorUsuarios *gestorUsuariosP , QWidget *parent = 0);
+    ~MainWindow();
+
+private slots:
+    void on_pushButton_2_clicked();
+    void on_pushButton_4_clicked();
+
+private:
+    Ui::MainWindow *ui;
+    GUI* gui;
+    GestorUsuarios* gestorUsuarios;
+
 };
 
 #endif // GUI_H

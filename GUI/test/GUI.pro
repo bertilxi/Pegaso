@@ -13,7 +13,6 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
     Auditoria.cpp \
     Competencia.cpp \
     Deporte.cpp \
@@ -48,7 +47,7 @@ SOURCES += main.cpp\
     alta_competencia_eliminacion.cpp \
     alta_competencia.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += \
     Atributo.h \
     Auditoria.h \
     Competencia.h \

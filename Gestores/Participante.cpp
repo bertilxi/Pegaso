@@ -59,7 +59,7 @@ Puntaje *Participante::getPuntaje() const
     return puntaje;
 }
 
-void Participante::setPuntaje(const Puntaje *value)
+void Participante::setPuntaje(Puntaje *value)
 {
     puntaje = value;
 }
@@ -83,7 +83,7 @@ bool Participante::operator==(const Participante &other) const
         return 0;
     }
     QVector<HistorialParticipante *> otherHistorial(other.getHistorial());
-    if(otherHistorial.size()!=Historial.size()){
+    if(otherHistorial.size()!=historial.size()){
         qDebug()<<"Historial en participante "<<id;
         return 0;
     }
@@ -115,9 +115,9 @@ QVector<Atributo> Participante::getAtributos() const{
     if(id != -1){
         result.push_back(Atributo("id_participante",QString::number(id)));
     }
-    result.push_back(Atributo("imagen", img);
-    result.push_back(Atributo("nombre", nombre);
-    result.push_back(Atributo("correo", correo);
+    result.push_back(Atributo("imagen", img));
+    result.push_back(Atributo("nombre", nombre));
+    result.push_back(Atributo("correo", correo));
     result.push_back(Atributo("puntos", QString::number(puntaje->getPuntos())));
     result.push_back(Atributo("pg", QString::number(puntaje->getPG())));
     result.push_back(Atributo("pp", QString::number(puntaje->getPP())));

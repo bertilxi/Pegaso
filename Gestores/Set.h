@@ -7,7 +7,7 @@
 #define _SET_H
 
 #include <QDebug>
-#include "../Gestores/Atributo.h"
+#include "Atributo.h"
 
 class Set {
 public:

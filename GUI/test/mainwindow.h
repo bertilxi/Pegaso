@@ -8,29 +8,6 @@
 #include "ui_mainwindow.h"
 #include <QCryptographicHash>
 
-class GUI;
-namespace Ui {
-class MainWindow;
-}
 
-class MainWindow : public QMainWindow
-{
-    Q_OBJECT
-
-public:
-    void toGUI();
-    explicit MainWindow(GUI* guiP ,GestorBaseDatos* gestorDBP , QWidget *parent = 0);
-    ~MainWindow();
-
-private slots:
-    void on_pushButton_2_clicked();
-    void on_pushButton_4_clicked();
-
-private:
-    Ui::MainWindow *ui;
-    GUI* gui;
-    GestorBaseDatos* gestorDB;
-
-};
 
 #endif // MAINWINDOW_H
