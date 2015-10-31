@@ -32,6 +32,8 @@ public:
      * de su modalidad y el ID de su deporte.
      */
     QVector<Competencia *> getCompetenciasLazy(const DtoGetCompetencia *dto) const;
+
+    Competencia *getCompetenciaFull(int id_comp) const;
     
     //temporal hasta redefinir el save con template
     bool save(QVector<Participante *> participantes, int id_externo);
@@ -91,7 +93,31 @@ private:
      * @param atributos
      * @return id del objeto que se acaba de guardar, asignado por la BD
      */
-    int armarQuery(QString tabla, const QVector<Atributo> &atributos);
+    int armarQuerySave(QString tabla, const QVector<Atributo> &atributos);
+
+    /**
+     * @brief arma el query para cargar objetos Resultado
+     * @param partidoId string con el id del partido al que corresponden
+     * los objetos Resultado
+     * @return el query armado
+     */
+    QString generarQueryResultado(QString partidoId) const;
+
+    /**
+     * @brief arma el query para cargar un objeto Puntos
+     * @param partidoId string con el id del partido al que corresponden
+     * los objetos Puntos
+     * @return el query armado
+     */
+    QString generarQueryPuntos(QString partidoId) const;
+
+    /**
+     * @brief arma el query para cargar un objeto Sets
+     * @param partidoId string con el id del partido al que corresponden
+     * los objetos Sets
+     * @return el query armado
+     */
+    QString generarQuerySets(QString partidoId) const;
 };
 
 #include "GestorBaseDatosSaveEspeciales.h"

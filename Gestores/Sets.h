@@ -15,9 +15,6 @@
 class Sets: public Resultado {
 public: 
 
-    int getCant_sets() const;
-    void setCant_sets(int value);
-
     bool operator==(const Sets &other)const;
 
     QVector<Set *> getSets() const;
@@ -26,7 +23,6 @@ public:
     QString getTable() const;
 
 private:
-    int cant_sets;
     QVector<Set *> sets;
 };
 

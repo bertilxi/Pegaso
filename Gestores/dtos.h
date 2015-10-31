@@ -3,6 +3,7 @@
 
 #include "Deporte.h"
 #include "Modalidad.h"
+#include "Lugar.h"
 
 
 class DtoGetCompetencia
@@ -10,11 +11,11 @@ class DtoGetCompetencia
 public:
     int usuarioId;
     QString nombreCompetencia;
-    Deporte *deporte;
+    int deporteId;
     int tipoModalidadId;
     QString estado;
-    DtoGetCompetencia(int usuarioIdP , QString nombreCompetenciaP = NULL, Deporte *deporteP = NULL, int tipoModalidadIdP = -1, QString estadoP = NULL ):
-        usuarioId(usuarioIdP), nombreCompetencia(nombreCompetenciaP), deporte(deporteP), tipoModalidadId(tipoModalidadIdP), estado(estadoP) {}
+    DtoGetCompetencia(int usuarioIdP , QString nombreCompetenciaP = NULL, int deporteIdP = -1, int tipoModalidadIdP = -1, QString estadoP = NULL ):
+        usuarioId(usuarioIdP), nombreCompetencia(nombreCompetenciaP), deporteId(deporteIdP), tipoModalidadId(tipoModalidadIdP), estado(estadoP) {}
 
 };
 

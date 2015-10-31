@@ -60,6 +60,7 @@ private:
     int id_nombre; ///de otra forma debo hacer una consulta por el id de nombre
     QString nombre;
     int id_tipo_resultado; ///de otra forma debo hacer una consulta por el id de tipo_resultado
+    //"Resultado", "Puntos", o "Sets"
     QString tipo_resultado;
     int cant_max_sets;
     int puntos_presentarse;
