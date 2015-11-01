@@ -158,7 +158,10 @@ QVector<Atributo> Partido::getAtributos() const{
         result.push_back(Atributo("id_partido",QString::number(id)));
     }
     result.push_back(Atributo("fecha",QString::number(fecha)));
-    result.push_back(Atributo("ronda", ronda));
+
+    if(!ronda.isNull()){
+        result.push_back(Atributo("ronda", ronda));
+    }
     result.push_back(Atributo("id_lugar", QString::number(lugar->getId())));
     result.push_back(Atributo("equipoA", QString::number(equipoA->getId())));
     result.push_back(Atributo("equipoB", QString::number(equipoB->getId())));

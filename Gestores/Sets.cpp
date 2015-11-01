@@ -22,8 +22,8 @@ void Sets::setSets(const QVector<Set *> &value)
 
 bool Sets::operator==(const Sets &other) const
 {
-    if(other.getCant_sets()!=cant_sets){
-        qDebug()<<"Cant_sets: "<<other.getCant_sets()<<" "<<cant_sets<<" en resultado";
+    if(other.getSets().size()!=sets.size()){
+        qDebug()<<"Cant_sets: "<<other.getSets().size()<<" "<<sets.size()<<" en resultado";
         return 0;
     }
     if(other.getResultadoA()!=resultadoA){

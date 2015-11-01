@@ -189,6 +189,7 @@ QVector<Atributo> Competencia::getAtributos() const{
     }
     result.push_back(Atributo("nombre",nombre));
     result.push_back(Atributo("fecha_y_horaB", fecha_y_horaB));
+    result.push_back(Atributo("reglamento", reglamento));
     result.push_back(Atributo("borrado", QString::number((int)borrado)));
     result.push_back(Atributo("estado", estado));
     result.push_back(Atributo("id_modalidad", QString::number(modalidad->getId())));

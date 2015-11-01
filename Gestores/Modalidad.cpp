@@ -136,7 +136,9 @@ QVector<Atributo> Modalidad::getAtributos() const{
     result.push_back(Atributo("pto_partido_ganado",QString::number(puntos_ganar)));
     result.push_back(Atributo("pto_presentarse", QString::number(puntos_presentarse)));
     result.push_back(Atributo("pto_empate", QString::number(puntos_empate)));
-    result.push_back(Atributo("cant_max_sets", QString::number(cant_max_sets)));
+    if(cant_max_sets != 0){
+        result.push_back(Atributo("cant_max_sets", QString::number(cant_max_sets)));
+    }
     result.push_back(Atributo("id_tipo_modalidad", QString::number(id_nombre)));
     result.push_back(Atributo("id_tipo_resultado", QString::number(id_tipo_resultado)));
     result.push_back(Atributo("empate", QString::number((int)empate)));

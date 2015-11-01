@@ -96,7 +96,7 @@ bool Participante::operator==(const Participante &other) const
     return 1;
 }
 
-static bool LessThan(Participante *a, Participante *b){
+bool Participante::LessThan(Participante *a, Participante *b){
     return a->getId() < b->getId();
 }
 
