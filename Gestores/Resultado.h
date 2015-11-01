@@ -15,7 +15,6 @@ class Resultado {
 public:
     virtual int getPuntosA() const{}
     virtual int getPuntosB() const{}
-    virtual int getCant_Sets(){}
     virtual QVector<Set*> getSets(){
         QVector<Set*> a;
         return a;

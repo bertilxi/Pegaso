@@ -80,18 +80,9 @@ void GestorPartidos::nuevoResultado(Competencia *comp, Partido *part, Resultado 
         }
         else {
             Sets *resAux=new Sets;
-            resAux->setCant_sets(part->getActual()->getCant_Sets());
             resAux->setResultadoA(part->getActual()->getResultadoA());
             resAux->setResultadoB(part->getActual()->getResultadoB());
-            QVector<Set*> setsAux;
-            for (int i = 0; i < resAux->getCant_sets(); ++i) {
-                Set *set=new Set;
-                set->setNro_set(part->getActual()->getSets()[i]->getNro_set());
-                set->setPuntosA(part->getActual()->getSets()[i]->getPuntosA());
-                set->setPuntosB(part->getActual()->getSets()[i]->getPuntosB());
-                setsAux.push_back(set);
-            }
-            resAux->setSets(setsAux);
+            resAux->setSets(part->getActual()->getSets());
             historial.push_back(resAux);
         }
         part->setModificado(historial);
@@ -101,6 +92,7 @@ void GestorPartidos::nuevoResultado(Competencia *comp, Partido *part, Resultado 
             part->getEquipoB()->getPuntaje()->restar(part->getActual(),comp->getModalidad(),"EquipoB");
         }
     }
+    //Seteo el nuevo resultado como actual
     part->setActual(res);
     //Si es de liga hay que modificar los puntos
    if(comp->getModalidad()->getNombre()=="Liga"){
