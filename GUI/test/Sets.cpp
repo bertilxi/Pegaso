@@ -26,14 +26,14 @@ bool Sets::operator==(const Sets &other) const
         qDebug()<<"Cant_sets: "<<other.getSets().size()<<" "<<sets.size()<<" en resultado";
         return 0;
     }
-    if(other.getResultadoA()!=resultadoA){
-        qDebug()<<"ResultadoA: "<<other.getResultadoA()<<" "<<resultadoA<<" en resultado";
-        return 0;
-    }
-    if(other.getResultadoB()!=resultadoB){
-        qDebug()<<"ResultadoB: "<<other.getResultadoB()<<" "<<resultadoB<<" en resultado";
-        return 0;
-    }
+//    if(other.getResultadoA()!=resultadoA){
+//        qDebug()<<"ResultadoA: "<<other.getResultadoA()<<" "<<resultadoA<<" en resultado";
+//        return 0;
+//    }
+//    if(other.getResultadoB()!=resultadoB){
+//        qDebug()<<"ResultadoB: "<<other.getResultadoB()<<" "<<resultadoB<<" en resultado";
+//        return 0;
+//    }
     QVector<Set *> otherSets(other.getSets());
     if(otherSets.size()!=sets.size()){
         qDebug()<<"Sets";

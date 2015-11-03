@@ -4,33 +4,35 @@
 #include "Deporte.h"
 #include "Modalidad.h"
 #include "Lugar.h"
+#include "Usuario.h"
+#include "tipomodalidad.h"
 
 
 class DtoGetCompetencia
 {
 public:
-    int usuarioId;
+    Usuario* usuario;
     QString nombreCompetencia;
-    int deporteId;
-    int tipoModalidadId;
-    QString estado;
-    DtoGetCompetencia(int usuarioIdP , QString nombreCompetenciaP = NULL, int deporteIdP = -1, int tipoModalidadIdP = -1, QString estadoP = NULL ):
-        usuarioId(usuarioIdP), nombreCompetencia(nombreCompetenciaP), deporteId(deporteIdP), tipoModalidadId(tipoModalidadIdP), estado(estadoP) {}
+    Deporte* deporte;
+    TipoModalidad* tipoModalidad;
+    Estado* estado;
+    DtoGetCompetencia(Usuario* usuarioP , QString nombreCompetenciaP = NULL, Deporte* deporteP = NULL, TipoModalidad* tipoModalidadP = NULL, Estado* estadoP = NULL ):
+        usuario(usuarioP), nombreCompetencia(nombreCompetenciaP), deporte(deporteP), tipoModalidad(tipoModalidadP), estado(estadoP) {}
 
 };
 
 class DtoCompetencia
 {
 public:
-    int usuarioId;
+    Usuario* usuario;
     QString nombreCompetencia;
     Deporte* deporte;
     QVector<Lugar*> lugares;
     QVector<int> disponibilidades;
     Modalidad* modalidad;
     QString reglamento;
-    DtoCompetencia(int usuarioIdP,QString nombreCompentenciaP, Deporte* deporteP, QVector<Lugar*> lugaresP, QVector<int> disponibilidadesP, Modalidad*  modalidadP, QString reglamentoP ):
-        usuarioId(usuarioIdP),nombreCompetencia(nombreCompentenciaP), deporte(deporteP), lugares(lugaresP), disponibilidades(disponibilidadesP), modalidad(modalidadP), reglamento(reglamentoP) {}
+    DtoCompetencia(Usuario* usuarioP,QString nombreCompentenciaP, Deporte* deporteP, QVector<Lugar*> lugaresP, QVector<int> disponibilidadesP, Modalidad*  modalidadP, QString reglamentoP ):
+        usuario(usuarioP),nombreCompetencia(nombreCompentenciaP), deporte(deporteP), lugares(lugaresP), disponibilidades(disponibilidadesP), modalidad(modalidadP), reglamento(reglamentoP) {}
 
 };
 

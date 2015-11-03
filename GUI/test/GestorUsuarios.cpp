@@ -9,9 +9,9 @@
  * GestorUsuarios implementation
  */
 
-Usuario GestorUsuarios::getActual() const
+Usuario* GestorUsuarios::getActual() const
 {
-    return *actual;
+    return actual;
 }
 
 void GestorUsuarios::setActual( Usuario *value)
@@ -21,10 +21,10 @@ void GestorUsuarios::setActual( Usuario *value)
 bool GestorUsuarios::altaUsuario(DtoUsuario *datos,QString &error) {
     error="";
     //Compruebo que no haya un usuario ya registrado con ese correo
-    if(gestorDB->cargarUsuario(datos->correo)!=NULL){
-        error="Ya existe un usuario con el mismo correo electrónico";
-        return false;
-    }
+//    if(gestorDB->cargarUsuario(datos->correo)!=NULL){
+//        error="Ya existe un usuario con el mismo correo electrónico";
+//        return false;
+//    }
 
     //Creo el nuevo usuario
     Usuario *nuevo=new Usuario;
@@ -45,7 +45,7 @@ bool GestorUsuarios::altaUsuario(DtoUsuario *datos,QString &error) {
     nuevo->setPassword(pass);
 
     //Guardo el nuevo usuario
-    gestorDB->saveUsuario(nuevo);
+//    gestorDB->saveUsuario(nuevo);
     error="El usuario ha sido creado exitosamente";
     return true;
 }
@@ -63,7 +63,7 @@ void GestorUsuarios::modUsuario(Usuario *usuario, DtoUsuario *datos) {
     //El caso de uso no contempla la posibilidad de modificar la contraseña
 
     //Guardo los cambios
-    gestorDB->saveUsuario(usuario);
+//    gestorDB->saveUsuario(usuario);
 }
 
 /**
@@ -74,18 +74,18 @@ void GestorUsuarios::modUsuario(Usuario *usuario, DtoUsuario *datos) {
 Usuario* GestorUsuarios::login(QString email, QString password) {
     QString error="";
     //Obtengo el usuario con ese correo si no existe retorno NULL
-    Usuario *user=gestorDB->cargarUsuario(email);
-    if(user==NULL){
-        return NULL;
-    }
+//    Usuario *user=gestorDB->cargarUsuario(email);
+//    if(user==NULL){
+//        return NULL;
+//    }
 
     //Comparo las contraseñas
     QString pass=password+"nl3ildgsysxsñe{ñs-e}l}af4l5{.d";
     QByteArray hash=QCryptographicHash::hash(QByteArray::fromStdString(pass.toStdString()),QCryptographicHash::Sha256);
     pass=QString::fromStdString(hash.toStdString());
 
-    if(pass!=user->getPassword())
-        return NULL;
-    else
-        return user;
+//    if(pass!=user->getPassword())
+//        return NULL;
+//    else
+//        return user;
 }

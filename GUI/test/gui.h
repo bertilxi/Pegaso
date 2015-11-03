@@ -25,6 +25,8 @@
 #include <QDebug>
 #include "ui_mainwindow.h"
 #include <QCryptographicHash>
+#include <QValidator>
+#include <QRegExp>
 
 #include "Pais.h"
 #include "Provincia.h"
@@ -105,5 +107,23 @@ private:
     GestorUsuarios* gestorUsuarios;
 
 };
+
+QT_BEGIN_NAMESPACE
+class QRegExp;
+QT_END_NAMESPACE
+
+class EmailValidator : public QValidator
+{
+    Q_OBJECT
+public:
+    explicit EmailValidator(QObject *parent = 0);
+    State validate(QString &text, int &pos) const;
+    void fixup(QString &text) const;
+
+private:
+    const QRegExp m_validMailRegExp;
+    const QRegExp m_intermediateMailRegExp;
+};
+
 
 #endif // GUI_H

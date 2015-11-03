@@ -4,6 +4,15 @@ MainWindow::MainWindow(GUI* guiP, GestorUsuarios *gestorUsuariosP, QWidget *pare
     QMainWindow(parent), gui(guiP), gestorUsuarios(gestorUsuariosP) ,ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    // validadores de la interfaz
+
+    EmailValidator* emailValidator = new EmailValidator(this);
+    ui->lineEdit_2->setValidator(emailValidator);
+    QRegExp password("[a-z0-9.-]{4,}");
+    QValidator* passwordValidator = new QRegExpValidator(password,this);
+    ui->lineEdit->setValidator(passwordValidator);
+
 }
 
 MainWindow::~MainWindow()
@@ -232,43 +241,28 @@ void GUI::show()
 
 }
 
-//void GUI::handle(QMainWindow* a, QString b, QVector<QString> args)
-//{
+EmailValidator::EmailValidator(QObject *parent) :
+    QValidator(parent),
+      m_validMailRegExp("[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}"),
+      m_intermediateMailRegExp("[a-z0-9._%+-]*@?[a-z0-9.-]*\\.?[a-z]*")
+{
+}
 
-//    if (a == "main")
-//    {
-//        this->handleMain(QString b);
-//    }
-//    else if (a == "pantallaUsuario")
-//    {
-//        this->handlePantallaUsuario(QString b);
-//    }
-//    else if (a == "listarCompetencias")
-//    {
-//        this->handleListarCompetencias(QString b);
-//    }
-//    else if (a == "listarLugares")
-//    {
-//        this->handleListarLugares(QString b);
-//    }
-//    else if (a == "altaCompetencia")
-//    {
-//        this->handleAltaCompetencia(QString b);
-//    }
-//    else if (a == "listarParticipantes")
-//    {
-//        this->handleListarParticipantes(QString b);
-//    }
-//    else if (a == "verCompetencia")
-//    {
-//        this->handleVerCompetencia(QString b);
-//    }
-//    else if (a == "mostrarFixture")
-//    {
-//        this->handleMostrarFixture(QString b);
-//    }
-//    else if (a == "cerrar")
-//    {
-//        /* code */
-//    }
-//}
+QValidator::State EmailValidator::validate(QString &text, int &pos) const
+{
+    Q_UNUSED(pos)
+
+    fixup(text);
+
+    if (m_validMailRegExp.exactMatch(text))
+        return Acceptable;
+    if (m_intermediateMailRegExp.exactMatch(text))
+        return Intermediate;
+
+    return Invalid;
+}
+
+void EmailValidator::fixup(QString &text) const
+{
+    text = text.trimmed().toLower();
+}
