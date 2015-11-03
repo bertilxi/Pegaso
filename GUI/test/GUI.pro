@@ -45,7 +45,11 @@ SOURCES += main.cpp\
     alta_participante.cpp \
     alta_competencia_liga.cpp \
     alta_competencia_eliminacion.cpp \
-    alta_competencia.cpp
+    alta_competencia.cpp \
+    res.cpp \
+    tipomodalidad.cpp \
+    tiporesultado.cpp \
+    estado.cpp
 
 HEADERS  += \
     Atributo.h \
@@ -82,7 +86,11 @@ HEADERS  += \
     alta_participante.h \
     alta_competencia_liga.h \
     alta_competencia_eliminacion.h \
-    alta_competencia.h
+    alta_competencia.h \
+    res.h \
+    tipomodalidad.h \
+    tiporesultado.h \
+    estado.h
 
 FORMS    += mainwindow.ui \
     ver_competencia.ui \

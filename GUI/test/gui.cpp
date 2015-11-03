@@ -8,10 +8,11 @@ MainWindow::MainWindow(GUI* guiP, GestorUsuarios *gestorUsuariosP, QWidget *pare
     // validadores de la interfaz
 
     EmailValidator* emailValidator = new EmailValidator(this);
-    ui->lineEdit_2->setValidator(emailValidator);
-    QRegExp password("[a-z0-9.-]{4,}");
+    ui->lineEdit->setValidator(emailValidator);
+    QRegExp password("[a-zA-Z0-9.-]{4,200}");
     QValidator* passwordValidator = new QRegExpValidator(password,this);
-    ui->lineEdit->setValidator(passwordValidator);
+    ui->lineEdit_2->setEchoMode(QLineEdit::Password);
+    ui->lineEdit_2->setValidator(passwordValidator);
 
 }
 
@@ -24,16 +25,15 @@ void MainWindow::on_pushButton_2_clicked()
 {
     // se encripta la contraseña a penas se pide por seguridad
     QString password = ui->lineEdit_2->text();
-    QCryptographicHash hash(QCryptographicHash::Md5);
-    hash.addData(password.toLatin1());
-    qDebug() << hash.result().toHex();
-    QString passwordEncriptada = hash.result().toHex();
+
+    QByteArray passwordHash = QCryptographicHash::hash(QByteArray::fromStdString(password.toStdString()),QCryptographicHash::Sha256);
+
+    password.clear();
+
     QString email = ui->lineEdit->text();
-    QVector<QString> args;
-    args.append(email);
-    args.append(passwordEncriptada);
+
     // se envian datos se pide la accion correspondiente
-    gui->handleMain(this,QString("pantallaUsuario"),args);
+    gui->handleMain(this,QString("pantallaUsuario"),email,passwordHash);
 }
 
 void MainWindow::on_pushButton_4_clicked()
@@ -43,16 +43,11 @@ void MainWindow::on_pushButton_4_clicked()
 }
 
 
-void GUI::handleMain(QMainWindow* a, QString b, QVector<QString> datos)
+void GUI::handleMain(QMainWindow* a, QString b, QString email, QByteArray pass)
 {
     if (b == "pantallaUsuario")
     {
-        /*
-        Usuario* u = gestorDB->loadUsuario(datos[0]});
-
-        QString passwordDB = u.getPassword();
-        */
-        if(1/*datos[1] == passwordDB*/){
+        if(/*gestorUsuarios->login() != NULL*/ 1 ){
             pantalla_usuario * p  = new pantalla_usuario();
             a->close();
             p->show();
@@ -75,11 +70,8 @@ void GUI::handlePantallaUsuario(QDialog *a, QString b)
 {
     if (b == "listarCompetencias"){
 
-
-
         listar_competencias * l = new listar_competencias();
         a->close();
-
         l->show();
 
     }
@@ -94,7 +86,7 @@ void GUI::handlePantallaUsuario(QDialog *a, QString b)
     }
 }
 
-void GUI::handleListarCompetencias(QDialog *a, QString b)
+void GUI::handleListarCompetencias(QDialog *a, QString b, Competencia *comp)
 {
     if (b == "altaCompetencia")
     {
@@ -104,7 +96,9 @@ void GUI::handleListarCompetencias(QDialog *a, QString b)
     }
     if (b == "verCompetencia")
     {
-        /* code */
+        ver_competencia * v = new ver_competencia();
+        v->show();
+        a->close();
     }
 }
 
@@ -128,7 +122,7 @@ void GUI::handleAltaCompetencia(QDialog *a, QString b)
 {
     if (b == "listarParticipantes")
     {
-        listar_competencias * l = new listar_competencias();
+        listar_competencias * l = new listar_competencias(deportes,estados,tiposModalidad);
         l->show();
         a->close();
     }
@@ -193,9 +187,9 @@ QVector<Competencia*> GUI::handleFiltrarCompetencias(QStringList data)
     estado              =   data[2];
     tipoModalidad       =   data[3];
 
-    Estado* e = buscarEstado(estado);
-    Deporte* d = buscarDeporte(deporte);
-    TipoModalidad* tm = buscarTipoModalidad(tipoModalidad);
+    Estado* e = this->buscarEstado(estado);
+    Deporte* d = this->buscarDeporte(deporte);
+    TipoModalidad* tm = this->buscarTipoModalidad(tipoModalidad);
 
 
 //    QString usuarioQuery = "select id_usuario from Usuario where nombre = " + usuario;
@@ -217,10 +211,12 @@ QVector<Competencia*> GUI::handleFiltrarCompetencias(QStringList data)
 GUI::GUI(GestorBaseDatos *gestorDBP, GestorCompetencias *gestorCompetenciasP, GestorLugares *gestorLugaresP, GestorPartidos *gestorPartidosP, GestorUsuarios *gestorUsuariosP):
     gestorDB(gestorDBP), gestorCompetencias(gestorCompetenciasP), gestorLugares(gestorLugaresP), gestorPartidos(gestorPartidosP), gestorUsuarios(gestorUsuariosP)
 {
-    deportes /*= gestorDB->getDeportes()*/;
-    paises /*= gestorDB->getPaises()*/;
-    estados /*= gestorDB->getEstados()*/;
-    modalidades /*= gestorDB->getModalidades*/;
+//    deportes = /*gestorDB->getDeportes()*/ NULL;
+//    paises = /*gestorDB->getPaises()*/ NULL;
+//    estados = /*gestorDB->getEstados()*/ NULL;
+//    modalidades = /*gestorDB->getModalidades*/ NULL;
+//    tiposModalidad = NULL;
+
 
 }
 
@@ -232,6 +228,21 @@ QVector<Deporte *> GUI::getDeportes() const
 void GUI::setDeportes(const QVector<Deporte *> &value)
 {
     deportes = value;
+}
+
+Estado *GUI::buscarEstado(QString estado)
+{
+
+}
+
+Deporte *GUI::buscarDeporte(QString deporte)
+{
+
+}
+
+TipoModalidad *GUI::buscarTipoModalidad(QString tipoMod)
+{
+
 }
 
 void GUI::show()

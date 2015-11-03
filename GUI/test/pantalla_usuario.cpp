@@ -16,14 +16,6 @@ pantalla_usuario::~pantalla_usuario()
     delete ui;
 }
 
-//void pantalla_usuario::on_pushButton_clicked()
-//{
-//    modificar_usuario * m;
-//    m = new modificar_usuario();
-//    m->setModal(true);
-//    m->show();
-//}
-
 void pantalla_usuario::on_pushButton_4_clicked()
 {
 
@@ -38,11 +30,3 @@ void pantalla_usuario::on_pushButton_2_clicked()
     gui->handlePantallaUsuario(this,QString("listarCompetencias"));
 
 }
-
-//void pantalla_usuario::on_pushButton_3_clicked()
-//{
-//    listar_lugares * l;
-//    l= new listar_lugares();
-//    l->setModal(true);
-//    l->show();
-//}

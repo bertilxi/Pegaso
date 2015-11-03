@@ -55,6 +55,7 @@ private:
     GestorPartidos* gestorPartidos;
     GestorUsuarios* gestorUsuarios;
 
+
     QVector<Deporte*> deportes;
     QVector<Pais*> paises;
     // estados hardcodeados en el constructor por ahora
@@ -74,9 +75,9 @@ private:
 
 public:
     void show();
-    void handleMain(QMainWindow* a,QString b,QVector<QString> datos);
+    void handleMain(QMainWindow* a, QString b, QString email, QByteArray pass);
     void handlePantallaUsuario(QDialog* a, QString b);
-    void handleListarCompetencias(QDialog* a, QString b);
+    void handleListarCompetencias(QDialog* a, QString b, Competencia* comp = NULL);
     void handleListarLugares(QDialog* a , QString b);
     void handleAltaCompetencia(QDialog* a, QString b);
     void handleListarParticipantes(QDialog* a, QString b);

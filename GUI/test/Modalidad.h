@@ -52,16 +52,18 @@ public:
     int getId_nombre() const;
     void setId_nombre(int value);
 
-    TipoResultado *getTipoRes() const;
+    TipoResultado *getTipoRes() ;
     void setTipoRes(TipoResultado *value);
 
-    TipoResultado *getTipoMod() const;
-    void setTipoMod(TipoResultado *value);
+
+
+    TipoModalidad *getTipoMod() ;
+    void setTipoMod(TipoModalidad *value);
 
 private:
     int id;
-    TipoModalidad* tipoMod;
-    TipoResultado* tipoRes;
+    TipoModalidad *tipoMod;
+    TipoResultado *tipoRes;
     int cant_max_sets;
     int puntos_presentarse;
     int puntos_ganar;

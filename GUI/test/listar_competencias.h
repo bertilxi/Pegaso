@@ -17,7 +17,8 @@ class listar_competencias : public QDialog
     Q_OBJECT
 
 public:
-    explicit listar_competencias(QWidget *parent = 0);
+    explicit listar_competencias(QVector<Deporte*> deportes, QVector<Estado*> estados, QVector<TipoModalidad *> modalidades, QWidget *parent = 0);
+    listar_competencias(QWidget *parent = 0);
     ~listar_competencias();
 
 private slots:
@@ -33,7 +34,10 @@ private:
     GUI* gui;
     GestorBaseDatos* gestorDB;
     GestorUsuarios* gestorUsuarios;
+    QVector<Competencia*> comps;
     Ui::listar_competencias *ui;
+
+    void mostrarCompetencias();
 };
 
 #endif // LISTAR_COMPETENCIAS_H

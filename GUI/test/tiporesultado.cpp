@@ -1,10 +1,4 @@
-#include "Tiporesultado.h"
-
-TipoResultado::TipoResultado()
-{
-
-}
-
+#include "tiporesultado.h"
 
 int TipoResultado::getId() const
 {

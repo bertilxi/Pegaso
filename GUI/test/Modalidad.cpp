@@ -120,13 +120,13 @@ QVector<Atributo> Modalidad::getAtributos() const{
         result.push_back(Atributo("cant_max_sets", QString::number(cant_max_sets)));
     }
 //    result.push_back(Atributo("id_tipo_modalidad", QString::number(id_nombre)));
-    result.push_back(Atributo("id_tipo_resultado", QString::number(tipoRes->getId())));
+//    result.push_back(Atributo("id_tipo_resultado", QString::number(tipoRes->getId())));
     result.push_back(Atributo("empate", QString::number((int)empate)));
 
     return result;
 }
 
-TipoResultado *Modalidad::getTipoRes() const
+TipoResultado *Modalidad::getTipoRes()
 {
     return tipoRes;
 }
@@ -134,6 +134,16 @@ TipoResultado *Modalidad::getTipoRes() const
 void Modalidad::setTipoRes(TipoResultado *value)
 {
     tipoRes = value;
+}
+
+TipoModalidad *Modalidad::getTipoMod()
+{
+    return tipoMod;
+}
+
+void Modalidad::setTipoMod(TipoModalidad *value)
+{
+    tipoMod = value;
 }
 
 //TipoResultado *Modalidad::getTipoMod() const

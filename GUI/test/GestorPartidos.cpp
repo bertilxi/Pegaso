@@ -11,16 +11,16 @@
 
 void GestorPartidos::generarFixture(Competencia *comp) {
     //Llamo a la función adecuada según la modalidad de la competencia
-    QString modalidad=comp->getModalidad()->getNombre();
-    if(modalidad=="Liga"){
-        this->generarFixtureLiga(comp);
-    }
-    else{
-        if(modalidad=="Simple"){
-            this->generarFixtureElimSimple(comp);
-        }
-        else this->generarFixtureElimDoble(comp);
-    }
+//    QString modalidad=comp->getModalidad()->getNombre();
+//    if(modalidad=="Liga"){
+//        this->generarFixtureLiga(comp);
+//    }
+//    else{
+//        if(modalidad=="Simple"){
+//            this->generarFixtureElimSimple(comp);
+//        }
+//        else this->generarFixtureElimDoble(comp);
+//    }
 
 //Asigno lugares de realización a los partidos
 
@@ -153,26 +153,26 @@ void GestorPartidos::nuevoResultado(Competencia *comp, Partido *part, Resultado 
 bool GestorPartidos::puedeModificar(Partido *part, Competencia *comp,QString &error) {
     error="";
     //Si la modalidad es de liga siempre se puede mofificar un resultado
-    if(comp->getModalidad()->getNombre()=="Liga")
-        return true;
-    else{
-        int fecha=part->getFecha();
-        //Me fijo si se registró un partido de la ronda posterior
-        QVector<Partido*> partidos=comp->getPartidos();
-        for (int i = 0; i < partidos.size(); ++i) {
-            if(partidos[i]->getFecha()>fecha && partidos[i]->getActual()!=NULL){
-                error="Ya se ha registrado un resultado para la siguiente ronda";
-                return false;
-            }
-        }
-        //Me fijo si no se registró un partido de la ronda anterior
-        for (int i = 0; i < partidos.size(); ++i) {
-            if(partidos[i]->getFecha()<fecha && partidos[i]->getActual()==NULL){
-                error="No se dispone de todos los resultados para la ronda anterior";
-                return false;
-            }
-        }
-    }
+//    if(comp->getModalidad()->getNombre()=="Liga")
+//        return true;
+//    else{
+//        int fecha=part->getFecha();
+//        //Me fijo si se registró un partido de la ronda posterior
+//        QVector<Partido*> partidos=comp->getPartidos();
+//        for (int i = 0; i < partidos.size(); ++i) {
+//            if(partidos[i]->getFecha()>fecha && partidos[i]->getActual()!=NULL){
+//                error="Ya se ha registrado un resultado para la siguiente ronda";
+//                return false;
+//            }
+//        }
+//        //Me fijo si no se registró un partido de la ronda anterior
+//        for (int i = 0; i < partidos.size(); ++i) {
+//            if(partidos[i]->getFecha()<fecha && partidos[i]->getActual()==NULL){
+//                error="No se dispone de todos los resultados para la ronda anterior";
+//                return false;
+//            }
+//        }
+//    }
     return true;
 }
 

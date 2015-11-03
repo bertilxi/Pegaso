@@ -1,12 +1,7 @@
 #include "tipomodalidad.h"
 
-TipoModalidad::TipoModalidad()
-{
 
-}
-
-
-QString TipoModalidad::getNombre() const
+QString TipoModalidad::getNombre()
 {
     return nombre;
 }
