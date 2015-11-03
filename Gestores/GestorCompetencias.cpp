@@ -18,7 +18,16 @@ void GestorCompetencias::eliminarFixture(Competencia *comp)
     }
     partidos.clear();
     comp->setPartidos(partidos);
-    comp->setEstado("Creada");
+    comp->setEstado(this->obtenerEstado("Creada"));
+}
+
+Estado *GestorCompetencias::obtenerEstado(QString estado)
+{
+    for (int i = 0; i < estados.size(); ++i) {
+        if(estado==estados[i]->getNombre())
+            return estados[i];
+    }
+    return NULL;
 }
 
 Competencia *GestorCompetencias::crearCompetencia(DtoCompetencia *datos, bool operacionExitosa, QString &error)
@@ -35,7 +44,7 @@ Competencia *GestorCompetencias::crearCompetencia(DtoCompetencia *datos, bool op
 
     //Creo la competencia
     Competencia *comp=new Competencia;
-    comp->setEstado("Creada");
+    comp->setEstado(this->obtenerEstado("Creada"));
     comp->setModalidad(datos->modalidad);
     comp->setDeporte(datos->deporte);
     comp->setReglamento(datos->reglamento);
@@ -74,7 +83,7 @@ void GestorCompetencias::bajaCompetencia(Competencia *comp)
 void GestorCompetencias::modCompetencia(Competencia *comp, DtoCompetencia *datos)
 {
     //Si la competencia ya comenzó su disputa solo se permite modificar el nombre y el reglamento
-    if(comp->getEstado()=="Creada"||comp->getEstado()=="Planificada"){
+    if(comp->getEstado()->getNombre()=="Creada"||comp->getEstado()->getNombre()=="Planificada"){
         comp->setModalidad(datos->modalidad);
         comp->setDeporte(datos->deporte);
 
@@ -213,7 +222,7 @@ void GestorCompetencias::nuevoResultado(Competencia *comp, Partido *part, Result
 
 Competencia *GestorCompetencias::getCompetenciaFull(int id_comp)
 {
-    return NULL;//gestorBaseDatos->getCompetenciaFull(id_comp);
+    return gestorBaseDatos->getCompetenciaFull(id_comp);
 }
 
 QVector<Competencia *> GestorCompetencias::getCompetenciasLazy(DtoGetCompetencia *datos)
@@ -230,7 +239,7 @@ void GestorCompetencias::generarFixture(Competencia *comp, QString error)
     gestorPartidos->generarFixture(comp);
 
     //Seteo la competencia como "Planificada" y la guardo
-    comp->setEstado("Planificada");
+    comp->setEstado(this->obtenerEstado("Planificada"));
     gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual().getId());
 }
 
