@@ -10,6 +10,8 @@
 #include <QDebug>
 #include <QVector>
 #include "Atributo.h"
+#include "tiporesultado.h"
+#include "tipomodalidad.h"
 
 class Modalidad {
 public:
@@ -19,10 +21,6 @@ public:
 
     QString getNombre() const;
     void setNombre(const QString &value);
-
-
-    QString getTipo_resultado() const;
-    void setTipo_resultado(const QString &value);
 
     int getCant_max_sets() const;
     void setCant_max_sets(int value);
@@ -54,21 +52,22 @@ public:
     int getId_nombre() const;
     void setId_nombre(int value);
 
-    int getId_tipo_resultado() const;
-    void setId_tipo_resultado(int value);
+    TipoResultado *getTipoRes() const;
+    void setTipoRes(TipoResultado *value);
+
+    TipoResultado *getTipoMod() const;
+    void setTipoMod(TipoResultado *value);
 
 private:
     int id;
-    int id_nombre; ///de otra forma debo hacer una consulta por el id de nombre
-    QString nombre;
-    int id_tipo_resultado; ///de otra forma debo hacer una consulta por el id de tipo_resultado
-    //"Resultado", "Puntos", o "Sets"
-    QString tipo_resultado;
+    TipoModalidad* tipoMod;
+    TipoResultado* tipoRes;
     int cant_max_sets;
     int puntos_presentarse;
     int puntos_ganar;
     bool empate;
     int puntos_empate;
+
 };
 
 #endif //_MODALIDAD_H

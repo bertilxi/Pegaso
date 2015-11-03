@@ -59,9 +59,9 @@ Puntaje *Participante::getPuntaje() const
     return puntaje;
 }
 
-void Participante::setPuntaje(const Puntaje *value)
+void Participante::setPuntaje(Puntaje *value)
 {
-//    puntaje = value;
+    puntaje = value;
 }
 
 bool Participante::operator==(const Participante &other) const
@@ -83,10 +83,10 @@ bool Participante::operator==(const Participante &other) const
         return 0;
     }
     QVector<HistorialParticipante *> otherHistorial(other.getHistorial());
-//    if(otherHistorial.size()!=Historial.size()){
-//        qDebug()<<"Historial en participante "<<id;
-//        return 0;
-//    }
+    if(otherHistorial.size()!=historial.size()){
+        qDebug()<<"Historial en participante "<<id;
+        return 0;
+    }
     for(int i=0;i<otherHistorial.size();i++){
         if(!(*otherHistorial[i] == *historial[i])){
             qDebug()<<" en participante "<<id;
@@ -94,6 +94,10 @@ bool Participante::operator==(const Participante &other) const
         }
     }
     return 1;
+}
+
+bool Participante::LessThan(Participante *a, Participante *b){
+    return a->getId() < b->getId();
 }
 
 QString Participante::getTable(){

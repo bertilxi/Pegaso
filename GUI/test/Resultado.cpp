@@ -20,25 +20,6 @@ void Resultado::setId(int value)
     id = value;
 }
 
-QString Resultado::getResultadoA() const
-{
-    return resultadoA;
-}
-
-void Resultado::setResultadoA(const QString &value)
-{
-    resultadoA = value;
-}
-QString Resultado::getResultadoB() const
-{
-    return resultadoB;
-}
-
-void Resultado::setResultadoB(const QString &value)
-{
-    resultadoB = value;
-}
-
 bool Resultado::operator==(const Resultado &other) const
 {
     if(other.getResultadoA()!=resultadoA){
@@ -71,5 +52,25 @@ QVector<Atributo> Resultado::getAtributos() const{
     result.push_back(Atributo("resultadoB", resultadoB));
 
     return result;
+}
+
+Res *Resultado::getResultadoA()
+{
+    return resultadoA;
+}
+
+void Resultado::setResultadoA(Res *value)
+{
+    resultadoA = value;
+}
+
+Res *Resultado::getResultadoB()
+{
+    return resultadoB;
+}
+
+void Resultado::setResultadoB(Res *value)
+{
+    resultadoB = value;
 }
 

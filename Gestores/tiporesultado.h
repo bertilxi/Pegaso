@@ -1,13 +1,10 @@
-/**
- * Project Pegaso
- */
+#ifndef TIPORESULTADO_H
+#define TIPORESULTADO_H
 
-
-#ifndef _LOCALIDAD_H
-#define _LOCALIDAD_H
 #include <QString>
 
-class Localidad {
+class TipoResultado
+{
 public:
 
     int getId() const;
@@ -18,7 +15,8 @@ public:
 
 private:
     int id;
+    //"Resultado", "Puntos", o "Sets"
     QString nombre;
 };
 
-#endif //_LOCALIDAD_H
+#endif // TIPORESULTADO_H

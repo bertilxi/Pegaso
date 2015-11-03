@@ -41,7 +41,11 @@ SOURCES += GestorBaseDatos.cpp \
     Disponibilidad.cpp \
     Deporte.cpp \
     Competencia.cpp \
-    Auditoria.cpp
+    Auditoria.cpp \
+    estado.cpp \
+    tiporesultado.cpp \
+    tipomodalidad.cpp \
+    res.cpp
 
 HEADERS += GestorBaseDatos.h \
     GestorCompetencias.h \
@@ -70,4 +74,8 @@ HEADERS += GestorBaseDatos.h \
     Disponibilidad.h \
     Deporte.h \
     Competencia.h \
-    Auditoria.h
+    Auditoria.h \
+    estado.h \
+    tiporesultado.h \
+    tipomodalidad.h \
+    res.h

@@ -8,6 +8,7 @@
 
 #include "HistorialParticipante.h"
 #include "Puntaje.h"
+
 #include <QString>
 #include <QVector>
 #include <QDebug>
@@ -33,9 +34,12 @@ public:
     void setHistorial(const QVector<HistorialParticipante *> &value);
 
     Puntaje *getPuntaje() const;
-    void setPuntaje(const Puntaje *value);
+    void setPuntaje(Puntaje *value);
 
     bool operator==(const Participante &other)const;
+
+    //usado en GestorBaseDatos
+    static bool LessThan(Participante *a, Participante *b);
 
     QString getTable();
 

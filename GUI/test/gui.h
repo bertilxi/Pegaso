@@ -1,6 +1,8 @@
 #ifndef GUI_H
 #define GUI_H
 
+#include <QVector>
+
 #include "GestorBaseDatos.h"
 #include "GestorCompetencias.h"
 #include "GestorLugares.h"
@@ -24,6 +26,16 @@
 #include "ui_mainwindow.h"
 #include <QCryptographicHash>
 
+#include "Pais.h"
+#include "Provincia.h"
+#include "Localidad.h"
+#include "Doc.h"
+#include "estado.h"
+#include "res.h"
+#include "tipomodalidad.h"
+#include "tiporesultado.h"
+
+
 namespace Ui {
 class MainWindow;
 }
@@ -41,17 +53,21 @@ private:
     GestorPartidos* gestorPartidos;
     GestorUsuarios* gestorUsuarios;
 
+    QVector<Deporte*> deportes;
+    QVector<Pais*> paises;
+    // estados hardcodeados en el constructor por ahora
+    QVector<Estado*> estados;
+    QVector<Res*> res;
+    QVector<TipoModalidad*> tiposModalidad;
+    QVector<TipoResultado*> tiposResultado;
+    QVector<Modalidad*> modalidades;
+    QVector<Provincia*> provincias;
+    QVector<Localidad*> localidades;
+    QVector<Doc*> documentos;
 
-//    alta_competencia * altaCompetencia;
-//    alta_competencia_eliminacion * altaCompetenciaEliminacion;
-//    alta_competencia_liga * altaCompetenciaLiga;
-//    alta_participante * altaParticipante;
-//    listar_competencias * listarCompetencias;
-//    MainWindow * mW;
-//    modificar_competencia * modificarCompetencia;
-//    pantalla_usuario * pantallaUsuario;
-//    ver_competencia * verCompetencia;
-
+    Estado* buscarEstado(QString estado);
+    Deporte* buscarDeporte(QString deporte);
+    TipoModalidad* buscarTipoModalidad(QString tipoMod);
 
 
 public:
@@ -64,9 +80,10 @@ public:
     void handleListarParticipantes(QDialog* a, QString b);
     void handleVerCompetencia(QDialog* a, QString b);
     void handleMostrarFixture(QDialog* a, QString b);
-    void handleFiltrarCompetencias(DtoGetCompetencia* datos);
-    GUI(GestorBaseDatos* gestorDBP, GestorCompetencias* gestorCompetenciasP, GestorLugares* gestorLugaresP, GestorPartidos* gestorPartidosP, GestorUsuarios* gestorUsuariosP):
-        gestorDB(gestorDBP), gestorCompetencias(gestorCompetenciasP), gestorLugares(gestorLugaresP), gestorPartidos(gestorPartidosP), gestorUsuarios(gestorUsuariosP) {}
+    QVector<Competencia*> handleFiltrarCompetencias(QStringList datos);
+    GUI(GestorBaseDatos* gestorDBP, GestorCompetencias* gestorCompetenciasP, GestorLugares* gestorLugaresP, GestorPartidos* gestorPartidosP, GestorUsuarios* gestorUsuariosP);
+    QVector<Deporte *> getDeportes() const;
+    void setDeportes(const QVector<Deporte *> &value);
 };
 
 class MainWindow : public QMainWindow

@@ -7,6 +7,7 @@
 #define _PAIS_H
 
 #include "Provincia.h"
+#include <QVector>
 
 
 class Pais {

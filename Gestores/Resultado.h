@@ -10,6 +10,7 @@
 #include <QDebug>
 #include "Atributo.h"
 #include "Set.h"
+#include "res.h"
 
 class Resultado {
 public:
@@ -22,22 +23,22 @@ public:
     int getId() const;
     void setId(int value);
 
-    QString getResultadoA() const;
-    void setResultadoA(const QString &value);
-
-    QString getResultadoB() const;
-    void setResultadoB(const QString &value);
-
     bool virtual operator==(const Resultado &other) const;
 
     QString getTable() const;
 
     QVector<Atributo> getAtributos() const;
 
+    Res *getResultadoA() ;
+    void setResultadoA(Res *value);
+
+    Res *getResultadoB() ;
+    void setResultadoB(Res *value);
+
 protected:
     int id;
-    QString resultadoA;
-    QString resultadoB;
+    Res* resultadoA;
+    Res* resultadoB;
 };
 
 #endif //_RESULTADO_H

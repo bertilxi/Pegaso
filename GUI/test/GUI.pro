@@ -56,7 +56,6 @@ HEADERS  += \
     Doc.h \
     dtos.h \
     GestorBaseDatos.h \
-    GestorBaseDatosSaveEspeciales.h \
     GestorCompetencias.h \
     GestorLugares.h \
     GestorPartidos.h \

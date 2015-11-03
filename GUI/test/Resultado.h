@@ -9,18 +9,19 @@
 #include <QString>
 #include <QDebug>
 #include "Atributo.h"
+#include "Set.h"
+#include "res.h"
 
 class Resultado {
 public:
-
+    virtual int getPuntosA() const{}
+    virtual int getPuntosB() const{}
+    virtual QVector<Set*> getSets(){
+        QVector<Set*> a;
+        return a;
+    }
     int getId() const;
     void setId(int value);
-
-    QString getResultadoA() const;
-    void setResultadoA(const QString &value);
-
-    QString getResultadoB() const;
-    void setResultadoB(const QString &value);
 
     bool virtual operator==(const Resultado &other) const;
 
@@ -28,10 +29,16 @@ public:
 
     QVector<Atributo> getAtributos() const;
 
+    Res *getResultadoA() ;
+    void setResultadoA(Res *value);
+
+    Res *getResultadoB() ;
+    void setResultadoB(Res *value);
+
 protected:
     int id;
-    QString resultadoA;
-    QString resultadoB;
+    Res* resultadoA;
+    Res* resultadoB;
 };
 
 #endif //_RESULTADO_H

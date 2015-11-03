@@ -66,6 +66,8 @@ void GUI::handlePantallaUsuario(QDialog *a, QString b)
 {
     if (b == "listarCompetencias"){
 
+
+
         listar_competencias * l = new listar_competencias();
         a->close();
 
@@ -171,11 +173,56 @@ void GUI::handleMostrarFixture(QDialog *a, QString b)
     }
 }
 
-void GUI::handleFiltrarCompetencias(DtoGetCompetencia *datos)
+QVector<Competencia*> GUI::handleFiltrarCompetencias(QStringList data)
 {
-    QVector<QString> tabla;
-    tabla = gestorCompetencias->listarCompetencias(datos);
+    QString nombreComp, deporte, estado, tipoModalidad;
 
+
+    Usuario*  usuario   =   gestorUsuarios->getActual();
+    nombreComp          =   data[0];
+    deporte             =   data[1];
+    estado              =   data[2];
+    tipoModalidad       =   data[3];
+
+    Estado* e = buscarEstado(estado);
+    Deporte* d = buscarDeporte(deporte);
+    TipoModalidad* tm = buscarTipoModalidad(tipoModalidad);
+
+
+//    QString usuarioQuery = "select id_usuario from Usuario where nombre = " + usuario;
+//    int usuarioId = gestorDB->query(usuarioQuery);
+
+//    QString deporteQuery = "select id_deporte from Deporte where nombre = " + deporte;
+//    int deporteId = gestorDB->query(deporteQuery);
+
+//    QString tipoModalidadQuery = "select id_tipo_modalidad from Tipo_modalidad where nombre = " + tipoModalidad;
+//    int tipoModalidadId = gestorDB->query(tipoModalidad);
+    DtoGetCompetencia* datos = new DtoGetCompetencia(usuario,nombreComp,d,tm,e);
+
+    return gestorCompetencias->getCompetenciasLazy(datos);
+
+
+
+}
+
+GUI::GUI(GestorBaseDatos *gestorDBP, GestorCompetencias *gestorCompetenciasP, GestorLugares *gestorLugaresP, GestorPartidos *gestorPartidosP, GestorUsuarios *gestorUsuariosP):
+    gestorDB(gestorDBP), gestorCompetencias(gestorCompetenciasP), gestorLugares(gestorLugaresP), gestorPartidos(gestorPartidosP), gestorUsuarios(gestorUsuariosP)
+{
+    deportes /*= gestorDB->getDeportes()*/;
+    paises /*= gestorDB->getPaises()*/;
+    estados /*= gestorDB->getEstados()*/;
+    modalidades /*= gestorDB->getModalidades*/;
+
+}
+
+QVector<Deporte *> GUI::getDeportes() const
+{
+    return deportes;
+}
+
+void GUI::setDeportes(const QVector<Deporte *> &value)
+{
+    deportes = value;
 }
 
 void GUI::show()
@@ -187,7 +234,7 @@ void GUI::show()
 
 //void GUI::handle(QMainWindow* a, QString b, QVector<QString> args)
 //{
-    
+
 //    if (a == "main")
 //    {
 //        this->handleMain(QString b);

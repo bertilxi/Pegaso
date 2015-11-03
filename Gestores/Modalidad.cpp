@@ -19,26 +19,6 @@ void Modalidad::setId(int value)
     id = value;
 }
 
-QString Modalidad::getNombre() const
-{
-    return nombre;
-}
-
-void Modalidad::setNombre(const QString &value)
-{
-    nombre = value;
-}
-
-
-QString Modalidad::getTipo_resultado() const
-{
-    return tipo_resultado;
-}
-
-void Modalidad::setTipo_resultado(const QString &value)
-{
-    tipo_resultado = value;
-}
 int Modalidad::getCant_max_sets() const
 {
     return cant_max_sets;
@@ -140,31 +120,32 @@ QVector<Atributo> Modalidad::getAtributos() const{
         result.push_back(Atributo("cant_max_sets", QString::number(cant_max_sets)));
     }
     result.push_back(Atributo("id_tipo_modalidad", QString::number(id_nombre)));
-    result.push_back(Atributo("id_tipo_resultado", QString::number(id_tipo_resultado)));
+    result.push_back(Atributo("id_tipo_resultado", QString::number(tipoRes->getId())));
     result.push_back(Atributo("empate", QString::number((int)empate)));
 
     return result;
 }
 
-int Modalidad::getId_nombre() const
+TipoResultado *Modalidad::getTipoRes() const
 {
-    return id_nombre;
+    return tipoRes;
 }
 
-void Modalidad::setId_nombre(int value)
+void Modalidad::setTipoRes(TipoResultado *value)
 {
-    id_nombre = value;
+    tipoRes = value;
 }
 
-int Modalidad::getId_tipo_resultado() const
+TipoResultado *Modalidad::getTipoMod() const
 {
-    return id_tipo_resultado;
+    return tipoMod;
 }
 
-void Modalidad::setId_tipo_resultado(int value)
+void Modalidad::setTipoMod(TipoResultado *value)
 {
-    id_tipo_resultado = value;
+    tipoMod = value;
 }
+
 
 
 

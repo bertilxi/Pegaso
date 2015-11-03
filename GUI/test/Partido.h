@@ -26,28 +26,25 @@ public:
     void setFecha(int value);
 
     Participante *getEquipoA() const;
-    void setEquipoA(const Participante *value);
+    void setEquipoA(Participante *value);
 
     Participante *getEquipoB() const;
-    void setEquipoB(const Participante *value);
+    void setEquipoB(Participante *value);
 
     Lugar *getLugar() const;
-    void setLugar(const Lugar *value);
-
-    QVector<Partido *> getSucesores() const;
-    void setSucesor(const Partido *value);
+    void setLugar(Lugar *value);
 
     QVector<Resultado *> getModificado() const;
     void setModificado(const QVector<Resultado *> &value);
 
     Resultado *getActual() const;
-    void setActual(const Resultado *value);
+    void setActual( Resultado *value);
 
     bool operator==(const Partido &other)const;
 
     QString getTable() const;
 
-//    QString getTable(Partido &sucesor) const;
+    QString getTable(Partido &sucesor) const;
 
     /**
      * @brief getAtributos
@@ -58,6 +55,9 @@ public:
     QVector<Atributo> getAtributos() const;
 
     QVector<Atributo> getAtributos(const Partido &sucesor) const;
+
+    QVector<Partido *> getSucesores() const;
+    void setSucesores(const QVector<Partido *> &value);
 
 private:
     int id;

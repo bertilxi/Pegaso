@@ -1,15 +1,11 @@
-/**
- * Project Pegaso
- */
+#ifndef RES_H
+#define RES_H
 
-
-#ifndef _LOCALIDAD_H
-#define _LOCALIDAD_H
 #include <QString>
 
-class Localidad {
+class Res
+{
 public:
-
     int getId() const;
     void setId(int value);
 
@@ -18,7 +14,8 @@ public:
 
 private:
     int id;
+    // ganó, perdió, empató, no se presentó
     QString nombre;
 };
 
-#endif //_LOCALIDAD_H
+#endif // RES_H

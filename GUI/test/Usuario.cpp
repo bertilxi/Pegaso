@@ -54,15 +54,7 @@ void Usuario::setEmail(const QString &value)
 {
     email = value;
 }
-int Usuario::getNro_doc() const
-{
-    return nro_doc;
-}
 
-void Usuario::setNro_doc(int value)
-{
-    nro_doc = value;
-}
 QVector<Competencia *> Usuario::getCompetencias() const
 {
     return competencias;
@@ -86,18 +78,18 @@ Doc *Usuario::getDoc() const
     return doc;
 }
 
-void Usuario::setDoc(Doc *value)
+void Usuario::setDoc(QString value)
 {
-    doc = value;
+    doc->setTipo(value);
 }
 Localidad *Usuario::getLocalidad() const
 {
     return localidad;
 }
 
-void Usuario::setLocalidad(Localidad *value)
+void Usuario::setLocalidad(QString value)
 {
-    localidad = value;
+    localidad->setNombre(value);
 }
 QVector<Auditoria *> Usuario::getAuditorias() const
 {
@@ -107,6 +99,16 @@ QVector<Auditoria *> Usuario::getAuditorias() const
 void Usuario::setAuditorias(const QVector<Auditoria *> &value)
 {
     auditorias = value;
+}
+
+QString Usuario::getNro_doc() const
+{
+    return nro_doc;
+}
+
+void Usuario::setNro_doc(const QString &value)
+{
+    nro_doc = value;
 }
 
 

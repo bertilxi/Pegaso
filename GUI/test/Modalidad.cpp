@@ -19,45 +19,6 @@ void Modalidad::setId(int value)
     id = value;
 }
 
-int getId_nombre()
-{
-//    return id_nombre;
-}
-
-void setId_nombre(int value)
-{
-//    id_nombre = value;
-}
-
-QString Modalidad::getNombre() const
-{
-    return nombre;
-}
-
-void Modalidad::setNombre(const QString &value)
-{
-    nombre = value;
-}
-
-int getId_tipo_resultado()
-{
-//    return id_tipo_resultado;
-}
-
-void setId_tipo_resultado(int value)
-{
-//    id_tipo_resultado = value;
-}
-
-QString Modalidad::getTipo_resultado() const
-{
-    return tipo_resultado;
-}
-
-void Modalidad::setTipo_resultado(const QString &value)
-{
-    tipo_resultado = value;
-}
 int Modalidad::getCant_max_sets() const
 {
     return cant_max_sets;
@@ -122,14 +83,14 @@ bool Modalidad::operator==(const Modalidad &other) const
         qDebug()<<"Puntos_empate: "<<other.getPuntos_empate()<<" "<<puntos_empate<<" en modalidad "<<id;
         return 0;
     }
-//    if(other.puntos_ganar()!=puntos_ganar){
-//        qDebug()<<"Puntos_ganar: "<<other.puntos_ganar()<<" "<<puntos_ganar<<" en modalidad "<<id;
-//        return 0;
-//    }
-//    if(other.puntos_presentarse()!=puntos_presentarse){
-//        qDebug()<<"Puntos_presentarse: "<<other.puntos_presentarse()<<" "<<puntos_presentarse<<" en modalidad "<<id;
-//        return 0;
-//    }
+    if(other.getPuntos_ganar()!=puntos_ganar){
+        qDebug()<<"Puntos_ganar: "<<other.getPuntos_ganar()<<" "<<puntos_ganar<<" en modalidad "<<id;
+        return 0;
+    }
+    if(other.getPuntos_presentarse()!=puntos_presentarse){
+        qDebug()<<"Puntos_presentarse: "<<other.getPuntos_presentarse()<<" "<<puntos_presentarse<<" en modalidad "<<id;
+        return 0;
+    }
     if(other.getTipo_resultado()!=tipo_resultado){
         qDebug()<<"Tipo_Resultado: "<<other.getTipo_resultado()<<" "<<tipo_resultado<<" en modalidad "<<id;
         return 0;
@@ -155,13 +116,36 @@ QVector<Atributo> Modalidad::getAtributos() const{
     result.push_back(Atributo("pto_partido_ganado",QString::number(puntos_ganar)));
     result.push_back(Atributo("pto_presentarse", QString::number(puntos_presentarse)));
     result.push_back(Atributo("pto_empate", QString::number(puntos_empate)));
-    result.push_back(Atributo("cant_max_sets", QString::number(cant_max_sets)));
+    if(cant_max_sets != 0){
+        result.push_back(Atributo("cant_max_sets", QString::number(cant_max_sets)));
+    }
     result.push_back(Atributo("id_tipo_modalidad", QString::number(id_nombre)));
-    result.push_back(Atributo("id_tipo_resultado", QString::number(id_tipo_resultado)));
+    result.push_back(Atributo("id_tipo_resultado", QString::number(tipoRes->getId())));
     result.push_back(Atributo("empate", QString::number((int)empate)));
 
     return result;
 }
+
+TipoResultado *Modalidad::getTipoRes() const
+{
+    return tipoRes;
+}
+
+void Modalidad::setTipoRes(TipoResultado *value)
+{
+    tipoRes = value;
+}
+
+TipoResultado *Modalidad::getTipoMod() const
+{
+    return tipoMod;
+}
+
+void Modalidad::setTipoMod(TipoResultado *value)
+{
+    tipoMod = value;
+}
+
 
 
 

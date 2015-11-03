@@ -1,24 +1,20 @@
-/**
- * Project Pegaso
- */
+#ifndef ESTADO_H
+#define ESTADO_H
 
-
-#ifndef _LOCALIDAD_H
-#define _LOCALIDAD_H
 #include <QString>
 
-class Localidad {
+class Estado
+{
 public:
-
     int getId() const;
     void setId(int value);
-
     QString getNombre() const;
     void setNombre(const QString &value);
 
 private:
     int id;
     QString nombre;
+
 };
 
-#endif //_LOCALIDAD_H
+#endif // ESTADO_H

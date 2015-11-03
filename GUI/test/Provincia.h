@@ -7,8 +7,9 @@
 #define _PROVINCIA_H
 
 #include "Localidad.h"
+#include <QString>
+ #include <QVector>
 
-#include <QVector>
 
 class Provincia {
 public: 

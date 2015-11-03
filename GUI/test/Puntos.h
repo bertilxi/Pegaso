@@ -12,11 +12,7 @@
 
 class Puntos: public Resultado {
 public:
-    int getPuntosA() const;
-    void setPuntosA(int value);
 
-    int getPuntosB() const;
-    void setPuntosB(int value);
 
     bool operator==(const Puntos &other)const;
 
@@ -24,9 +20,18 @@ public:
 
     QVector<Atributo> getAtributos() const;
 
-private:
-    int puntosA;
+
+
+    int getPuntosA() const;
+    void setPuntosA(int value);
+
+    int getPuntosB() const;
+    void setPuntosB(int value);
+
     int puntosB;
+    int puntosA;
+
+private:
 };
 
 #endif //_PUNTOS_H

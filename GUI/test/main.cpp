@@ -15,6 +15,10 @@ int main(int argc, char *argv[])
     GestorCompetencias* gestorCompetencias = new GestorCompetencias(gestorBaseDeDatos,gestorPartidos,gestorUsuarios);
     GestorLugares* gestorLugares = new GestorLugares(gestorBaseDeDatos);
 
+    /*
+    Cargar Deportes, Localidad, Provincia, Pais
+    */
+
     GUI gui(gestorBaseDeDatos, gestorCompetencias, gestorLugares, gestorPartidos, gestorUsuarios);
 
     gui.show();

@@ -14,6 +14,7 @@
 #include "Modalidad.h"
 #include "Partido.h"
 #include "Deporte.h"
+#include "estado.h"
 
 
 class Competencia {
@@ -22,8 +23,7 @@ public:
     int getId() const;
     void setId(int value);
 
-    QString getEstado() const;
-    void setEstado(const QString &value);
+
 
     QString getNombre() const;
     void setNombre(const QString &value);
@@ -64,9 +64,12 @@ public:
      */
     QVector<Atributo> getAtributos() const;
 
+    Estado *getEstado() ;
+    void setEstado(Estado *value);
+
 private:
     int id;
-    QString estado;
+    Estado* estado;
     QString nombre;
     QString fecha_y_horaB;
     bool borrado;

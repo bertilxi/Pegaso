@@ -41,37 +41,29 @@ Participante *Partido::getEquipoA() const
     return equipoA;
 }
 
-void Partido::setEquipoA(const Participante *value)
+void Partido::setEquipoA(Participante *value)
 {
-//    equipoA = value;
+    equipoA = value;
 }
 Participante *Partido::getEquipoB() const
 {
     return equipoB;
 }
 
-void Partido::setEquipoB(const Participante *value)
+void Partido::setEquipoB(Participante *value)
 {
-//    equipoB = value;
+    equipoB = value;
 }
 Lugar *Partido::getLugar() const
 {
     return lugar;
 }
 
-void Partido::setLugar(const Lugar *value)
+void Partido::setLugar(Lugar *value)
 {
-//    lugar = value;
+    lugar = value;
 }
-//Partido *Partido::getSucesor() const
-//{
-//    return sucesor;
-//}
 
-void Partido::setSucesor(const Partido *value)
-{
-//    sucesor = value;
-}
 QVector<Resultado *> Partido::getModificado() const
 {
     return modificado;
@@ -86,9 +78,9 @@ Resultado *Partido::getActual() const
     return actual;
 }
 
-void Partido::setActual(const Resultado *value)
+void Partido::setActual(Resultado *value)
 {
-//    actual = value;
+    actual = value;
 }
 
 bool Partido::operator==(const Partido &other) const
@@ -132,17 +124,17 @@ bool Partido::operator==(const Partido &other) const
             return 0;
         }
     }
-//    QVector<Partido *> otherSucesor(other.getSucesor());
-//    if(otherSucesor.size()!=sucesor.size()){
-//        qDebug()<<"Sucesor en partido "<<id;
-//        return 0;
-//    }
-//    for(int i=0;i<otherSucesor.size();i++){
-//        if(!(*otherSucesor[i] == *sucesor[i])){
-//            qDebug()<<" en partido "<<id;
-//            return 0;
-//        }
-//    }
+    QVector<Partido *> otherSucesor(other.getSucesores());
+    if(otherSucesor.size()!=sucesores.size()){
+        qDebug()<<"Sucesor en partido "<<id;
+        return 0;
+    }
+    for(int i=0;i<otherSucesor.size();i++){
+        if(!(*otherSucesor[i] == *sucesores[i])){
+            qDebug()<<" en partido "<<id;
+            return 0;
+        }
+    }
     return 1;
 }
 
@@ -150,9 +142,9 @@ QString Partido::getTable() const{
     return "Partido";
 }
 
-//QString Partido::getTable(const Partido &sucesor) const{
-//    return "Sucesor";
-//}
+QString Partido::getTable(Partido &sucesor) const{
+    return "Sucesor";
+}
 
 /**
  * @brief getAtributos
@@ -166,7 +158,10 @@ QVector<Atributo> Partido::getAtributos() const{
         result.push_back(Atributo("id_partido",QString::number(id)));
     }
     result.push_back(Atributo("fecha",QString::number(fecha)));
-    result.push_back(Atributo("ronda", ronda));
+
+    if(!ronda.isNull()){
+        result.push_back(Atributo("ronda", ronda));
+    }
     result.push_back(Atributo("id_lugar", QString::number(lugar->getId())));
     result.push_back(Atributo("equipoA", QString::number(equipoA->getId())));
     result.push_back(Atributo("equipoB", QString::number(equipoB->getId())));
@@ -180,5 +175,15 @@ QVector<Atributo> Partido::getAtributos(const Partido &sucesor) const{
     result[1].campo = "partido_siguiente";
 
     return result;
+}
+
+QVector<Partido *> Partido::getSucesores() const
+{
+    return sucesores;
+}
+
+void Partido::setSucesores(const QVector<Partido *> &value)
+{
+    sucesores = value;
 }
 
