@@ -63,91 +63,91 @@ void GestorPartidos::nuevoResultado(Competencia *comp, Partido *part, Resultado 
     if(part->getActual()!=NULL){
         QVector<Resultado*> historial=part->getModificado();
         //Creo el nuevo resultado dependiendo el tipo de resultado
-        QString tipo_resultado=comp->getModalidad()->getTipo_resultado();
-        if(tipo_resultado=="Resultado"){
-            Resultado *resAux=new Resultado;
-            resAux->setResultadoA(part->getActual()->getResultadoA());
-            resAux->setResultadoB(part->getActual()->getResultadoB());
-            historial.push_back(resAux);
-        }
-        else if(tipo_resultado=="Puntos"){
-            Puntos *resAux=new Puntos;
-            resAux->setPuntosA(part->getActual()->getPuntosA());
-            resAux->setPuntosB(part->getActual()->getPuntosB());
-            resAux->setResultadoA(part->getActual()->getResultadoA());
-            resAux->setResultadoB(part->getActual()->getResultadoB());
-            historial.push_back(resAux);
-        }
-        else {
-            Sets *resAux=new Sets;
-            resAux->setResultadoA(part->getActual()->getResultadoA());
-            resAux->setResultadoB(part->getActual()->getResultadoB());
-            resAux->setSets(part->getActual()->getSets());
-            historial.push_back(resAux);
-        }
-        part->setModificado(historial);
-        //Si es de liga hay que modificar los puntos
-        if(comp->getModalidad()->getNombre()=="Liga"){
-            part->getEquipoA()->getPuntaje()->restar(part->getActual(),comp->getModalidad(),"EquipoA");
-            part->getEquipoB()->getPuntaje()->restar(part->getActual(),comp->getModalidad(),"EquipoB");
-        }
-    }
+//        QString tipo_resultado=comp->getModalidad()->getTipo_resultado();
+//        if(tipo_resultado=="Resultado"){
+//            Resultado *resAux=new Resultado;
+//            resAux->setResultadoA(part->getActual()->getResultadoA());
+//            resAux->setResultadoB(part->getActual()->getResultadoB());
+//            historial.push_back(resAux);
+//        }
+//        else if(tipo_resultado=="Puntos"){
+//            Puntos *resAux=new Puntos;
+//            resAux->setPuntosA(part->getActual()->getPuntosA());
+//            resAux->setPuntosB(part->getActual()->getPuntosB());
+//            resAux->setResultadoA(part->getActual()->getResultadoA());
+//            resAux->setResultadoB(part->getActual()->getResultadoB());
+//            historial.push_back(resAux);
+//        }
+//        else {
+//            Sets *resAux=new Sets;
+//            resAux->setResultadoA(part->getActual()->getResultadoA());
+//            resAux->setResultadoB(part->getActual()->getResultadoB());
+//            resAux->setSets(part->getActual()->getSets());
+//            historial.push_back(resAux);
+//        }
+//        part->setModificado(historial);
+//        //Si es de liga hay que modificar los puntos
+//        if(comp->getModalidad()->getNombre()=="Liga"){
+//            part->getEquipoA()->getPuntaje()->restar(part->getActual(),comp->getModalidad(),"EquipoA");
+//            part->getEquipoB()->getPuntaje()->restar(part->getActual(),comp->getModalidad(),"EquipoB");
+//        }
+//    }
     //Seteo el nuevo resultado como actual
-    part->setActual(res);
-    //Si es de liga hay que modificar los puntos
-   if(comp->getModalidad()->getNombre()=="Liga"){
-       part->getEquipoA()->getPuntaje()->sumar(part->getActual(),comp->getModalidad(),"EquipoA");
-       part->getEquipoB()->getPuntaje()->sumar(part->getActual(),comp->getModalidad(),"EquipoB");
-       return;
-   }
+//    part->setActual(res);
+//    //Si es de liga hay que modificar los puntos
+//   if(comp->getModalidad()->getNombre()=="Liga"){
+//       part->getEquipoA()->getPuntaje()->sumar(part->getActual(),comp->getModalidad(),"EquipoA");
+//       part->getEquipoB()->getPuntaje()->sumar(part->getActual(),comp->getModalidad(),"EquipoB");
+//       return;
+//   }
    //Si es eliminación simple o doble hay que asignar el ganador al sucesor
    Participante* ganador;
-   if(comp->getModalidad()->getNombre()=="Simple"||comp->getModalidad()->getNombre()=="Doble"){
-       //Obtengo el ganador
-       if(res->getResultadoA()=="Ganó")
-           ganador=part->getEquipoA();
-       else ganador=part->getEquipoB();
-       //Si no es el último partido lo asigno al sucesor (sucesor de ronda ganadores si es elim. doble)
-       if(part->getSucesores()[0]!=NULL){
-           if(part->getSucesores()[0]->getEquipoA()==NULL)
-               part->getSucesores()[0]->setEquipoA(ganador);
-           else part->getSucesores()[0]->setEquipoB(ganador);
-       }
-       if(comp->getModalidad()->getNombre()=="Simple")
-           return;
-   }
+//   if(comp->getModalidad()->getNombre()=="Simple"||comp->getModalidad()->getNombre()=="Doble"){
+//       //Obtengo el ganador
+////       if(res->getResultadoA()=="Ganó")
+//           ganador=part->getEquipoA();
+////       else ganador=part->getEquipoB();
+//       //Si no es el último partido lo asigno al sucesor (sucesor de ronda ganadores si es elim. doble)
+//       if(part->getSucesores()[0]!=NULL){
+//           if(part->getSucesores()[0]->getEquipoA()==NULL)
+//               part->getSucesores()[0]->setEquipoA(ganador);
+//           else part->getSucesores()[0]->setEquipoB(ganador);
+//       }
+//       if(comp->getModalidad()->getNombre()=="Simple")
+//           return;
+//   }
    //Si es eliminación doble hay que asignar el perdedor dependiendo si es ronda ganadores o perdedores, y si es el último partido hay que ver si ganó el participante de ronda perdedores para saber si hay que jugar otro partido
    Participante* perdedor;
-   if(comp->getModalidad()->getNombre()=="Doble" && part->getSucesores()[1]!=NULL){
-       //Obtengo el perdedor
-       if(part->getEquipoA()==ganador)
-           perdedor=part->getEquipoB();
-       else perdedor=part->getEquipoA();
-       //Lo asigno
-       if(part->getSucesores()[1]->getEquipoA()==NULL)
-           part->getSucesores()[1]->setEquipoA(perdedor);
-       else part->getSucesores()[1]->setEquipoB(perdedor);
-   }
+//   if(comp->getModalidad()->getNombre()=="Doble" && part->getSucesores()[1]!=NULL){
+//       //Obtengo el perdedor
+//       if(part->getEquipoA()==ganador)
+//           perdedor=part->getEquipoB();
+//       else perdedor=part->getEquipoA();
+//       //Lo asigno
+//       if(part->getSucesores()[1]->getEquipoA()==NULL)
+//           part->getSucesores()[1]->setEquipoA(perdedor);
+//       else part->getSucesores()[1]->setEquipoB(perdedor);
+//   }
    //Si es el último partido determino si se debe jugar uno más
    //Uso la ronda ganadores o perdedores como bandera para saber si no es un partido final en el que ya gano el equipo de ronda perdedores anteriormente
-   if(part->getSucesores()[0]==NULL && part->getRonda()=="Ganadores"){
-       if(ganador==part->getEquipoB()){
-           //Creo un nuevo partido y lo asigno como sucesor
-           Partido* nuevo=new Partido;
-           nuevo->setEquipoA(part->getEquipoA());
-           nuevo->setEquipoB(part->getEquipoB());
-           nuevo->setFecha(part->getFecha()+1);
-           QString aux="Perdedores";
-           nuevo->setRonda(aux);
-           nuevo->setLugar(comp->getDisponibilidades()[0]->getLugar());
-           QVector<Partido*> sucesor;
-           sucesor.push_back(nuevo);
-           part->setSucesores(sucesor);
-           //También tengo que agregarlo a los partidos de la competencia
-           QVector<Partido*> partidos=comp->getPartidos();
-           partidos.push_back(nuevo);
-           comp->setPartidos(partidos);
-       }
+//   if(part->getSucesores()[0]==NULL && part->getRonda()=="Ganadores"){
+//       if(ganador==part->getEquipoB()){
+//           //Creo un nuevo partido y lo asigno como sucesor
+//           Partido* nuevo=new Partido;
+//           nuevo->setEquipoA(part->getEquipoA());
+//           nuevo->setEquipoB(part->getEquipoB());
+//           nuevo->setFecha(part->getFecha()+1);
+//           QString aux="Perdedores";
+//           nuevo->setRonda(aux);
+//           nuevo->setLugar(comp->getDisponibilidades()[0]->getLugar());
+//           QVector<Partido*> sucesor;
+//           sucesor.push_back(nuevo);
+//           part->setSucesores(sucesor);
+//           //También tengo que agregarlo a los partidos de la competencia
+//           QVector<Partido*> partidos=comp->getPartidos();
+//           partidos.push_back(nuevo);
+//           comp->setPartidos(partidos);
+//       }
    }
 }
 bool GestorPartidos::puedeModificar(Partido *part, Competencia *comp,QString &error) {
@@ -258,8 +258,8 @@ void GestorPartidos::generarFixtureElimSimple(Competencia *comp) {
     //Por cada partido auxiliar que se creó para que sea potencia de dos, declaro como ganador al participante no dummy
     for (int j = 0; j < dif; ++j) {
         Resultado *res=new Resultado; //Creo un resultado genérico porque no importan los puntos o sets
-        res->setResultadoA("Ganó");
-        res->setResultadoB("Perdió");
+//        res->setResultadoA("Ganó");
+//        res->setResultadoB("Perdió");
         partidos[i]->setActual(res);
         if(partidos[i]->getSucesores()[0]->getEquipoA()==NULL)
             partidos[i]->getSucesores()[0]->setEquipoA(partidos[i]->getEquipoA());
