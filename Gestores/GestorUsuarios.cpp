@@ -34,15 +34,7 @@ bool GestorUsuarios::altaUsuario(DtoUsuario *datos,QString &error) {
     nuevo->setEmail(datos->correo);
     nuevo->setLocalidad(datos->localidad);
     nuevo->setNombre(datos->nombre);
-
-    //Guardo la contraseña encriptada (uso Sha2_256, pero se podría usar otro si queremos más seguridad)
-    //Deberíamos generar la sal aleatoriamente y que sea distinta para cada usuario pero implicaría cambiar las tablas para guardar cada una junto con su contraseña encriptada pero creo que no vale la pena
-    QString pass=datos->password+"nl3ildgsysxsñe{ñs-e}l}af4l5{.d";
-    QByteArray hash=QCryptographicHash::hash(QByteArray::fromStdString(pass.toStdString()),QCryptographicHash::Sha256);
-    //Espero que no haya colisiones por pasar de QByteArray a Qstring (Qstring usa solo caracteres imprimibles)
-    //Si queremos guardar directamente como QByteArray deberíamos cambiar la forma en como hacemos los querystr y no creo que merezca la pena
-    pass=QString::fromStdString(hash.toStdString());
-    nuevo->setPassword(pass);
+    nuevo->setPassword(datos->password);
 
     //Guardo el nuevo usuario
     gestorDB->saveUsuario(nuevo);
@@ -71,7 +63,7 @@ void GestorUsuarios::modUsuario(Usuario *usuario, DtoUsuario *datos) {
  * @param password
  * @return Usuario
  */
-Usuario* GestorUsuarios::login(QString email, QString password) {
+Usuario* GestorUsuarios::login(QString email, QByteArray password) {
     QString error="";
     //Obtengo el usuario con ese correo si no existe retorno NULL
     Usuario *user=gestorDB->cargarUsuario(email);
@@ -80,11 +72,8 @@ Usuario* GestorUsuarios::login(QString email, QString password) {
     }
 
     //Comparo las contraseñas
-    QString pass=password+"nl3ildgsysxsñe{ñs-e}l}af4l5{.d";
-    QByteArray hash=QCryptographicHash::hash(QByteArray::fromStdString(pass.toStdString()),QCryptographicHash::Sha256);
-    pass=QString::fromStdString(hash.toStdString());
 
-    if(pass!=user->getPassword())
+    if(password!=user->getPassword())
         return NULL;
     else
         return user;
