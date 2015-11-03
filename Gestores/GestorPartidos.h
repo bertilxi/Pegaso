@@ -9,8 +9,6 @@
 #include "Puntaje.h"
 #include "Partido.h"
 #include "Resultado.h"
-#include "GestorBaseDatos.h"
-
 
 class GestorPartidos {
 public: 
@@ -34,10 +32,11 @@ public:
 
     virtual bool puedeModificar(Partido *part, Competencia *comp, QString &error);
 
-    GestorPartidos(GestorBaseDatos* gestorDBP): gestorDB(gestorDBP) {}
+    GestorPartidos(QVector<Res*> ressP): ress(ressP) {}
 
 private:
-    GestorBaseDatos* gestorDB;
+    QVector<Res*> ress;
+    Res *buscarRes(QString res);
     /**
      * @param comp
      */
