@@ -23,13 +23,6 @@ class Participante;
 class GestorBaseDatos {
 public: 
     
-    /**
-     * @param obj
-     * @param id
-     * @brief Carga un objeto haciendo una consulta con el id en la tabla correspondiente
-     */
-    template <class T>
-    T load(T obj, int id);
 
     /**
      * @brief carga varias competencias inicializandolas parcialmente
@@ -102,24 +95,26 @@ public:
         {
             querystr += atributos[j].campo + " , " ;
         }
-        querystr += atributos[j].campo + ") values ( " ;
+        querystr += atributos[j].campo + ") values (" ;
 
         for (j = 0; j < atributos.size()-1; ++j)
         {
-            querystr += "'" + atributos[j].valor + "'" + " , ";
+            querystr += "?,";
         }
-        querystr += "'" + atributos[j].valor + "' ) ";
+        querystr += "?) ";
 
         QSqlQuery query;
+        query.prepare(querystr);
+        for(j = 0; j < atributos.size(); ++j){
+            query.addBindValue(atributos[j].valor);
+        }
 
-        // consulta(
-        if(!query.exec(querystr)){
+        // consulta
+        if(!query.exec()){
             qDebug() << "La consulta ha fallado";
+            qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
             qDebug() << "La consulta que dio error fue: " << querystr;
             return false;
-        }
-        else{
-            qDebug() << "Consulta exitosa";
         }
 
         return true;
@@ -182,7 +177,8 @@ public:
         }
         return status;
     }
-    //implementado en libreria "GestorBaseDatosSaveEspeciales.h"
+
+
 
     bool saveResultado(Resultado *resultado, Atributo partidoId){
         bool status = true;
@@ -211,7 +207,6 @@ public:
 
         return status;
     }
-    //implementado en libreria "GestorBaseDatosSaveEspeciales.h"
 
     
 
