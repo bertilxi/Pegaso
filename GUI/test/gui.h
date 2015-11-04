@@ -58,7 +58,6 @@ private:
 
     QVector<Deporte*> deportes;
     QVector<Pais*> paises;
-    // estados hardcodeados en el constructor por ahora
     QVector<Estado*> estados;
     QVector<Res*> res;
     QVector<TipoModalidad*> tiposModalidad;

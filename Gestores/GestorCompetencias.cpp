@@ -34,7 +34,7 @@ Competencia *GestorCompetencias::crearCompetencia(DtoCompetencia *datos, bool op
 {
     error="";
     //Valido si existe una competencia con el mismo nombre
-    DtoGetCompetencia dto(datos->usuarioId,datos->nombreCompetencia,NULL,NULL,NULL);
+    DtoGetCompetencia dto(datos->usuario,datos->nombreCompetencia,NULL,NULL,NULL);
     QVector<Competencia*> auxComps=gestorBaseDatos->getCompetenciasLazy(&dto);
     if(! auxComps.isEmpty()){
         operacionExitosa=false;
@@ -58,7 +58,7 @@ Competencia *GestorCompetencias::crearCompetencia(DtoCompetencia *datos, bool op
     comp->setDisponibilidades(disponibilidades);
 
     //Guardo la nueva competencia y marco la operación como exitosa
-    gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual().getId());
+    gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual()->getId());
     operacionExitosa=true;
     error="La operación ha culminado con éxito";
     return comp;
@@ -69,7 +69,7 @@ void GestorCompetencias::bajaCompetencia(Competencia *comp)
     //Marco el campo borrado, la fecha y hora en la que se hizo y guardo los cambios
     comp->setBorrado(true);
     comp->setFecha_y_horaB(QDateTime::currentDateTime().toString(Qt::ISODate));
-    gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual().getId());
+    gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual()->getId());
 
     //Envío un mail a los participantes de que se ha eliminado la competencia
     QString destinatarios;
@@ -111,7 +111,7 @@ void GestorCompetencias::modCompetencia(Competencia *comp, DtoCompetencia *datos
     comp->setReglamento(datos->reglamento);
 
     //Guardo los cambios
-    gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual().getId());
+    gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual()->getId());
 }
 
 bool GestorCompetencias::altaParticipante(Competencia *comp, DtoParticipante *datos, QString &error)
@@ -143,7 +143,7 @@ bool GestorCompetencias::altaParticipante(Competencia *comp, DtoParticipante *da
     this->eliminarFixture(comp);
 
     //Guardo los cambios
-    gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual().getId());
+    gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual()->getId());
 
     error="La operación ha culminado con éxito";
     return true;
@@ -161,7 +161,7 @@ void GestorCompetencias::eliminarParticipante(Competencia *comp, Participante *p
     this->eliminarFixture(comp);
 
     //guardo los cambios
-    gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual().getId());
+    gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual()->getId());
 }
 
 void GestorCompetencias::modParticipante(Competencia *comp, Participante *part, DtoParticipante *datos, QString &error)
@@ -207,17 +207,17 @@ void GestorCompetencias::nuevoResultado(Competencia *comp, Partido *part, Result
     gestorPartidos->nuevoResultado(comp,part,res);
 
     //Modifico el estado según corresponda
-    comp->setEstado("Finalizada");
+    comp->setEstado(this->obtenerEstado("Finalizada"));
     QVector<Partido*> partidos=comp->getPartidos();
     for (int i = 0; i < partidos.size(); ++i) {
         if(partidos[i]->getActual()==NULL){
-            comp->setEstado("En disputa");
+            comp->setEstado(this->obtenerEstado("En disputa"));
             break;
         }
     }
 
     //Guardo los cambios
-    gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual().getId());
+    gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual()->getId());
 }
 
 Competencia *GestorCompetencias::getCompetenciaFull(int id_comp)
@@ -240,7 +240,7 @@ void GestorCompetencias::generarFixture(Competencia *comp, QString error)
 
     //Seteo la competencia como "Planificada" y la guardo
     comp->setEstado(this->obtenerEstado("Planificada"));
-    gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual().getId());
+    gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual()->getId());
 }
 
 bool GestorCompetencias::puedeModificar(Partido *part, Competencia *comp, QString &error)

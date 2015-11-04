@@ -65,6 +65,23 @@ void Modalidad::setPuntos_empate(int value)
     puntos_empate = value;
 }
 
+
+
+void Modalidad::setTipoMod(TipoModalidad *value)
+{
+    tipoMod = value;
+}
+
+TipoResultado *Modalidad::getTipoRes() const
+{
+    return tipoRes;
+}
+
+TipoModalidad *Modalidad::getTipoMod() const
+{
+    return tipoMod;
+}
+
 bool Modalidad::operator==(const Modalidad &other) const
 {
     if(other.getCant_max_sets()!=cant_max_sets){
@@ -75,8 +92,8 @@ bool Modalidad::operator==(const Modalidad &other) const
         qDebug()<<"Empate: "<<other.getEmpate()<<" "<<empate<<" en modalidad "<<id;
         return 0;
     }
-    if(other.getNombre()!=nombre){
-        qDebug()<<"Nombre: "<<other.getNombre()<<" "<<nombre<<" en modalidad "<<id;
+    if(other.getTipoMod()->getNombre() != tipoMod->getNombre()){
+        qDebug()<<"Nombre: "<<other.getTipoMod()<<" "<<tipoMod->getNombre()<<" en modalidad "<<id;
         return 0;
     }
     if(other.getPuntos_empate()!=puntos_empate){
@@ -91,8 +108,8 @@ bool Modalidad::operator==(const Modalidad &other) const
         qDebug()<<"Puntos_presentarse: "<<other.getPuntos_presentarse()<<" "<<puntos_presentarse<<" en modalidad "<<id;
         return 0;
     }
-    if(other.getTipo_resultado()!=tipo_resultado){
-        qDebug()<<"Tipo_Resultado: "<<other.getTipo_resultado()<<" "<<tipo_resultado<<" en modalidad "<<id;
+    if(other.getTipoRes()->getNombre()!=tipoRes->getNombre()){
+        qDebug()<<"Tipo_Resultado: "<<other.getTipoRes()<<" "<<tipoRes->getNombre()<<" en modalidad "<<id;
         return 0;
     }
     return 1;
@@ -119,16 +136,11 @@ QVector<Atributo> Modalidad::getAtributos() const{
     if(cant_max_sets != 0){
         result.push_back(Atributo("cant_max_sets", QString::number(cant_max_sets)));
     }
-    result.push_back(Atributo("id_tipo_modalidad", QString::number(id_nombre)));
+    result.push_back(Atributo("id_tipo_modalidad", QString::number(tipoMod->getId())));
     result.push_back(Atributo("id_tipo_resultado", QString::number(tipoRes->getId())));
     result.push_back(Atributo("empate", QString::number((int)empate)));
 
     return result;
-}
-
-TipoResultado *Modalidad::getTipoRes() const
-{
-    return tipoRes;
 }
 
 void Modalidad::setTipoRes(TipoResultado *value)
@@ -136,15 +148,7 @@ void Modalidad::setTipoRes(TipoResultado *value)
     tipoRes = value;
 }
 
-TipoResultado *Modalidad::getTipoMod() const
-{
-    return tipoMod;
-}
 
-void Modalidad::setTipoMod(TipoResultado *value)
-{
-    tipoMod = value;
-}
 
 
 

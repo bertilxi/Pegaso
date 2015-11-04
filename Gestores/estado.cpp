@@ -1,12 +1,6 @@
 #include "estado.h"
 
-Estado::Estado()
-{
-
-}
-
-
-int Estado::getId() const
+int Estado::getId()
 {
     return id;
 }
@@ -16,7 +10,7 @@ void Estado::setId(int value)
     id = value;
 }
 
-QString Estado::getNombre() const
+QString Estado::getNombre()
 {
     return nombre;
 }

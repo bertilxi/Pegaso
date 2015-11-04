@@ -227,6 +227,8 @@ public:
     void virtual beginTransaction();
     
     void virtual commit();
+    Usuario* cargarUsuario(QString correo);
+    Usuario* saveUsuario(Usuario* usuario);
 
 private:
 

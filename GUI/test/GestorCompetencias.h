@@ -30,10 +30,12 @@ private:
     GestorPartidos* gestorPartidos;
     GestorBaseDatos* gestorBaseDatos;
     GestorUsuarios* gestorUsuarios;
+    QVector<Estado*> estados;
     void eliminarFixture(Competencia *comp);
+    Estado *obtenerEstado(QString estado);
 public:
-    GestorCompetencias(GestorBaseDatos* gestb,GestorPartidos* gestp,GestorUsuarios* gestu)
-        :gestorBaseDatos(gestb),gestorPartidos(gestp),gestorUsuarios(gestu){};
+    GestorCompetencias(GestorBaseDatos* gestb,GestorPartidos* gestp,GestorUsuarios* gestu,QVector<Estado*> est)
+        :gestorBaseDatos(gestb),gestorPartidos(gestp),gestorUsuarios(gestu),estados(est){};
 
     /**
      * @param datos

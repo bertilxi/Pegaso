@@ -9,15 +9,16 @@
  * GestorUsuarios implementation
  */
 
-Usuario GestorUsuarios::getActual() const
+Usuario *GestorUsuarios::getActual() const
 {
-    return *actual;
+    return actual;
 }
 
 void GestorUsuarios::setActual( Usuario *value)
 {
     actual = value;
 }
+
 bool GestorUsuarios::altaUsuario(DtoUsuario *datos,QString &error) {
     error="";
     //Compruebo que no haya un usuario ya registrado con ese correo

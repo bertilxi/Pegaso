@@ -9,7 +9,7 @@
  * GestorUsuarios implementation
  */
 
-Usuario* GestorUsuarios::getActual() const
+Usuario *GestorUsuarios::getActual() const
 {
     return actual;
 }
@@ -18,13 +18,14 @@ void GestorUsuarios::setActual( Usuario *value)
 {
     actual = value;
 }
+
 bool GestorUsuarios::altaUsuario(DtoUsuario *datos,QString &error) {
     error="";
     //Compruebo que no haya un usuario ya registrado con ese correo
-//    if(gestorDB->cargarUsuario(datos->correo)!=NULL){
-//        error="Ya existe un usuario con el mismo correo electrónico";
-//        return false;
-//    }
+    if(gestorDB->cargarUsuario(datos->correo)!=NULL){
+        error="Ya existe un usuario con el mismo correo electrónico";
+        return false;
+    }
 
     //Creo el nuevo usuario
     Usuario *nuevo=new Usuario;
@@ -34,18 +35,10 @@ bool GestorUsuarios::altaUsuario(DtoUsuario *datos,QString &error) {
     nuevo->setEmail(datos->correo);
     nuevo->setLocalidad(datos->localidad);
     nuevo->setNombre(datos->nombre);
-
-    //Guardo la contraseña encriptada (uso Sha2_256, pero se podría usar otro si queremos más seguridad)
-    //Deberíamos generar la sal aleatoriamente y que sea distinta para cada usuario pero implicaría cambiar las tablas para guardar cada una junto con su contraseña encriptada pero creo que no vale la pena
-    QString pass=datos->password+"nl3ildgsysxsñe{ñs-e}l}af4l5{.d";
-    QByteArray hash=QCryptographicHash::hash(QByteArray::fromStdString(pass.toStdString()),QCryptographicHash::Sha256);
-    //Espero que no haya colisiones por pasar de QByteArray a Qstring (Qstring usa solo caracteres imprimibles)
-    //Si queremos guardar directamente como QByteArray deberíamos cambiar la forma en como hacemos los querystr y no creo que merezca la pena
-    pass=QString::fromStdString(hash.toStdString());
-    nuevo->setPassword(pass);
+    nuevo->setPassword(datos->password);
 
     //Guardo el nuevo usuario
-//    gestorDB->saveUsuario(nuevo);
+    gestorDB->saveUsuario(nuevo);
     error="El usuario ha sido creado exitosamente";
     return true;
 }
@@ -63,7 +56,7 @@ void GestorUsuarios::modUsuario(Usuario *usuario, DtoUsuario *datos) {
     //El caso de uso no contempla la posibilidad de modificar la contraseña
 
     //Guardo los cambios
-//    gestorDB->saveUsuario(usuario);
+    gestorDB->saveUsuario(usuario);
 }
 
 /**
@@ -71,21 +64,18 @@ void GestorUsuarios::modUsuario(Usuario *usuario, DtoUsuario *datos) {
  * @param password
  * @return Usuario
  */
-Usuario* GestorUsuarios::login(QString email, QString password) {
+Usuario* GestorUsuarios::login(QString email, QByteArray password) {
     QString error="";
     //Obtengo el usuario con ese correo si no existe retorno NULL
-//    Usuario *user=gestorDB->cargarUsuario(email);
-//    if(user==NULL){
-//        return NULL;
-//    }
+    Usuario *user=gestorDB->cargarUsuario(email);
+    if(user==NULL){
+        return NULL;
+    }
 
     //Comparo las contraseñas
-    QString pass=password+"nl3ildgsysxsñe{ñs-e}l}af4l5{.d";
-    QByteArray hash=QCryptographicHash::hash(QByteArray::fromStdString(pass.toStdString()),QCryptographicHash::Sha256);
-    pass=QString::fromStdString(hash.toStdString());
 
-//    if(pass!=user->getPassword())
-//        return NULL;
-//    else
-//        return user;
+    if(password!=user->getPassword())
+        return NULL;
+    else
+        return user;
 }

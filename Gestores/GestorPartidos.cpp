@@ -97,7 +97,7 @@ void GestorPartidos::nuevoResultado(Competencia *comp, Partido *part, Resultado 
     //Seteo el nuevo resultado como actual
     part->setActual(res);
     //Si es de liga hay que modificar los puntos
-   if(comp->getModalidad()->getNombre()=="Liga"){
+   if(comp->getModalidad()->getTipoMod()->getNombre() == "Liga"){
        part->getEquipoA()->getPuntaje()->sumar(part->getActual(),comp->getModalidad(),"EquipoA");
        part->getEquipoB()->getPuntaje()->sumar(part->getActual(),comp->getModalidad(),"EquipoB");
        return;

@@ -18,10 +18,6 @@ public:
     int getId() const;
     void setId(int value);
 
-
-    QString getNombre() const;
-    void setNombre(const QString &value);
-
     int getCant_max_sets() const;
     void setCant_max_sets(int value);
 
@@ -52,13 +48,13 @@ public:
     int getId_nombre() const;
     void setId_nombre(int value);
 
-    TipoResultado *getTipoRes() ;
     void setTipoRes(TipoResultado *value);
 
-
-
-    TipoModalidad *getTipoMod() ;
+    TipoModalidad *getTipoMod() const;
     void setTipoMod(TipoModalidad *value);
+
+
+    TipoResultado *getTipoRes() const;
 
 private:
     int id;

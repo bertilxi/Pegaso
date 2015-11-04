@@ -1,6 +1,5 @@
 #include "tipomodalidad.h"
 
-
 QString TipoModalidad::getNombre()
 {
     return nombre;
@@ -11,7 +10,7 @@ void TipoModalidad::setNombre(const QString &value)
     nombre = value;
 }
 
-int TipoModalidad::getId() const
+int TipoModalidad::getId()
 {
     return id;
 }

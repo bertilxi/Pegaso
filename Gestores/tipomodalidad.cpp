@@ -1,12 +1,6 @@
 #include "tipomodalidad.h"
 
-TipoModalidad::TipoModalidad()
-{
-
-}
-
-
-QString TipoModalidad::getNombre() const
+QString TipoModalidad::getNombre()
 {
     return nombre;
 }
@@ -16,7 +10,7 @@ void TipoModalidad::setNombre(const QString &value)
     nombre = value;
 }
 
-int TipoModalidad::getId() const
+int TipoModalidad::getId()
 {
     return id;
 }

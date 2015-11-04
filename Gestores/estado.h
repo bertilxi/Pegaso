@@ -6,9 +6,9 @@
 class Estado
 {
 public:
-    int getId() const;
+    int getId() ;
     void setId(int value);
-    QString getNombre() const;
+    QString getNombre() ;
     void setNombre(const QString &value);
 
 private:

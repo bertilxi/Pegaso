@@ -10,9 +10,20 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     QFile pegasoDB("pegaso.sql");
     GestorBaseDatos * gestorBaseDeDatos = new GestorBaseDatos() ;
+
+    QVector<Deporte*> deportes;
+    QVector<Pais*> paises;
+    QVector<Estado*> estados;
+    QVector<Res*> res;
+    QVector<TipoModalidad*> tiposModalidad;
+    QVector<TipoResultado*> tiposResultado;
+    QVector<Provincia*> provincias;
+    QVector<Localidad*> localidades;
+    QVector<Doc*> documentos;
+
     GestorUsuarios* gestorUsuarios = new GestorUsuarios(gestorBaseDeDatos);
-    GestorPartidos* gestorPartidos = new GestorPartidos(gestorBaseDeDatos) ;
-    GestorCompetencias* gestorCompetencias = new GestorCompetencias(gestorBaseDeDatos,gestorPartidos,gestorUsuarios);
+    GestorPartidos* gestorPartidos = new GestorPartidos(res) ;
+    GestorCompetencias* gestorCompetencias = new GestorCompetencias(gestorBaseDeDatos,gestorPartidos,gestorUsuarios,estados);
     GestorLugares* gestorLugares = new GestorLugares(gestorBaseDeDatos);
 
     /*

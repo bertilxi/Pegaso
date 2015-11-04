@@ -32,7 +32,7 @@ public:
      * @param password
      */
     Usuario *login(QString email, QByteArray password);
-    Usuario getActual() const;
+    Usuario* getActual() const;
     void setActual( Usuario* value);
     GestorUsuarios(GestorBaseDatos* gestorDBP):
         gestorDB(gestorDBP) {}

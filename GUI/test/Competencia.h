@@ -43,7 +43,7 @@ public:
     Deporte *getDeporte() const;
     void setDeporte(Deporte *value);
 
-    bool operator==(const Competencia &other)const;
+    bool operator==(Competencia &other);
 
     QString getFecha_y_horaB() const;
     void setFecha_y_horaB(const QString &value);

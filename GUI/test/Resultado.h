@@ -29,11 +29,15 @@ public:
 
     QVector<Atributo> getAtributos() const;
 
-    Res *getResultadoA() ;
+
     void setResultadoA(Res *value);
 
-    Res *getResultadoB() ;
+
     void setResultadoB(Res *value);
+
+    Res *getResultadoA() const;
+
+    Res *getResultadoB() const;
 
 protected:
     int id;

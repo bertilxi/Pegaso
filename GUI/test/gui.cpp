@@ -24,11 +24,8 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_2_clicked()
 {
     // se encripta la contraseña a penas se pide por seguridad
-    QString password = ui->lineEdit_2->text();
 
-    QByteArray passwordHash = QCryptographicHash::hash(QByteArray::fromStdString(password.toStdString()),QCryptographicHash::Sha256);
-
-    password.clear();
+    QByteArray passwordHash = QCryptographicHash::hash(QByteArray::fromStdString(ui->lineEdit_2->text().toStdString()),QCryptographicHash::Sha256);
 
     QString email = ui->lineEdit->text();
 
@@ -122,9 +119,9 @@ void GUI::handleAltaCompetencia(QDialog *a, QString b)
 {
     if (b == "listarParticipantes")
     {
-        listar_competencias * l = new listar_competencias(deportes,estados,tiposModalidad);
-        l->show();
-        a->close();
+//        listar_competencias * l = new listar_competencias(deportes,estados,tiposModalidad);
+//        l->show();
+//        a->close();
     }
 }
 
@@ -200,6 +197,7 @@ QVector<Competencia*> GUI::handleFiltrarCompetencias(QStringList data)
 
 //    QString tipoModalidadQuery = "select id_tipo_modalidad from Tipo_modalidad where nombre = " + tipoModalidad;
 //    int tipoModalidadId = gestorDB->query(tipoModalidad);
+
     DtoGetCompetencia* datos = new DtoGetCompetencia(usuario,nombreComp,d,tm,e);
 
     return gestorCompetencias->getCompetenciasLazy(datos);

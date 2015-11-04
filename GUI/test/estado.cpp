@@ -1,6 +1,6 @@
 #include "estado.h"
 
-int Estado::getId() const
+int Estado::getId()
 {
     return id;
 }

@@ -75,7 +75,7 @@ void Competencia::setDeporte(Deporte *value)
     deporte = value;
 }
 
-bool Competencia::operator==(const Competencia &other) const
+bool Competencia::operator==( Competencia &other)
 {
     QVector<Disponibilidad *> otherDisponibilidades(other.getDisponibilidades());
     if(otherDisponibilidades.size()!=disponibilidades.size()){
@@ -120,8 +120,8 @@ bool Competencia::operator==(const Competencia &other) const
         qDebug()<<" en competencia"<<id;
         return 0;
     }
-    if(other.getEstado()!=estado){
-        qDebug()<<"Estado: "<<other.getEstado()<<" "<<estado<<" en competencia"<<id;
+    if(other.getEstado()->getNombre()!=estado->getNombre()){
+        qDebug()<<"Estado: "<<other.getEstado()->getNombre()<<" "<<estado->getNombre()<<" en competencia"<<id;
         return 0;
     }
     return 1;
@@ -174,7 +174,7 @@ QVector<Atributo> Competencia::getAtributos() const{
     result.push_back(Atributo("fecha_y_horaB", fecha_y_horaB));
     result.push_back(Atributo("reglamento", reglamento));
     result.push_back(Atributo("borrado", QString::number((int)borrado)));
-    result.push_back(Atributo("id_estado", estado->getId()));
+    result.push_back(Atributo("id_estado", QString::number(estado->getId())));
     result.push_back(Atributo("id_modalidad", QString::number(modalidad->getId())));
     result.push_back(Atributo("id_deporte", QString::number(deporte->getId())));
 

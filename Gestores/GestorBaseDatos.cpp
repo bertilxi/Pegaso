@@ -64,34 +64,34 @@ WHERE C.id_usuario = id_usuarioP
 
     QString querystr;
 
-    querystr += "SELECT C.id_competencia, C.nombre, D.id_deporte, M.nombre, C.estado ";
-    querystr += "FROM Competencia C, Deporte D, Tipo_modalidad M WHERE ";
+    querystr += "SELECT C.id_competencia, C.nombre, D.nombre, M.nombre, E.nombre ";
+    querystr += "FROM Competencia C, Deporte D, Tipo_modalidad M, Estado E WHERE ";
 
     bool primeraCondicion = true;
-    if(dto->usuarioId != -1)
+    if(dto->usuario != NULL)
     {
-        querystr += "C.id_usuario = " + QString::number(dto->usuarioId);
+        querystr += "C.id_usuario = " + QString::number(dto->usuario->getId());
         primeraCondicion = false;
     }
 
-    if(dto->tipoModalidadId != -1)
+    if(dto->tipoModalidad != NULL)
     {
         if(!primeraCondicion) {querystr += " AND ";}
-        querystr += "C.id_modalidad = " + QString::number(dto->tipoModalidadId);
+        querystr += "C.id_modalidad = " + QString::number(dto->tipoModalidad->getId());
         primeraCondicion = false;
     }
 
-    if(dto->deporteId != -1)
+    if(dto->deporte->getId() != -1)
     {
         if(!primeraCondicion) {querystr += " AND ";}
-        querystr += "C.id_deporte = " + QString::number(dto->deporteId);
+        querystr += "C.id_deporte = " + QString::number(dto->deporte->getId());
         primeraCondicion = false;
     }
 
-    if(!dto->estado.isNull())
+    if(dto->estado->getId() != -1)
     {
         if(!primeraCondicion) {querystr += " AND ";}
-        querystr += "C.estado = " + dto->estado;
+        querystr += "E.id_estado = " + dto->estado->getId();
         primeraCondicion = false;
     }
 
@@ -102,9 +102,13 @@ WHERE C.id_usuario = id_usuarioP
         primeraCondicion = false;
     }
 
-    querystr += " AND C.id_modalidad = M.id_modalidad";
+    if(!primeraCondicion){
+        querystr += " AND";
+    }
+    querystr += " C.id_modalidad = M.id_modalidad";
     querystr += " AND M.id_tipo_modalidad = TM.id_tipo_modalidad";
     querystr += " AND C.id_deporte = D.id_deporte";
+    querystr += " AND E.id_estado = C.estado";
 
     QSqlQuery query;
 
@@ -140,10 +144,21 @@ WHERE C.id_usuario = id_usuarioP
             ///Es necesario destruir la competencia
             return QVector<Competencia *>();
         }
-        modalidad->setNombre(query.value(3).toString());
+
+        TipoModalidad* tipoMod = new TipoModalidad();
+
+        tipoMod->setId(query.value(3).toInt());
+        tipoMod->setNombre(query.value(4).toString());
+
+        modalidad->setTipoMod(tipoMod);
         comp->setModalidad(modalidad);
 
-        comp->setEstado(query.value(4).toString());
+        Estado * est = new Estado();
+
+        est->setId(query.value(4).toInt());
+        est->setNombre(query.value(5).toString());
+
+        comp->setEstado(est);
 
         competencias.push_back(comp);
 
@@ -212,8 +227,9 @@ WHERE C.id_competencia = id_comp AND
 
     comp->setId(id_comp);
     comp->setNombre(query.value(0).toString());
-    est->getId(query.value(1).toInt());
-    est->getNombre(query.value(2).toString());
+
+    est->setId(query.value(1).toInt());
+    est->setNombre(query.value(2).toString());
 
     comp->setEstado(est);
 
@@ -528,7 +544,8 @@ WHERE id_competencia = id_comp
                 Res* resB = new Res();
                 resA->setId(query.value(1).toInt());
                 resA->setNombre(query.value(2).toString());
-                resB->setId(query.value(3).toString());
+
+                resB->setId(query.value(3).toInt());
                 resB->setNombre(query.value(4).toString());
 
                 puntos->setResultadoA(resA);
@@ -559,7 +576,7 @@ WHERE id_competencia = id_comp
 
         }
         //si el resultado es de tipo Sets:
-        else if(comp->getModalidad()->getTipoRes() == "Sets")
+        else if(comp->getModalidad()->getTipoRes()->getNombre() == "Sets")
         {
             querystr = generarQuerySets( QString::number(partidos[i]->getId()) );
 
@@ -605,7 +622,7 @@ WHERE id_competencia = id_comp
                         Res* resB = new Res();
                         resA->setId(query.value(1).toInt());
                         resA->setNombre(query.value(2).toString());
-                        resB->setId(query.value(3).toString());
+                        resB->setId(query.value(3).toInt());
                         resB->setNombre(query.value(4).toString());
 
                         sets->setResultadoA(resA);
@@ -654,7 +671,7 @@ WHERE id_competencia = id_comp
             Res* resB = new Res();
             resA->setId(query.value(1).toInt());
             resA->setNombre(query.value(2).toString());
-            resB->setId(query.value(3).toString());
+            resB->setId(query.value(3).toInt());
             resB->setNombre(query.value(4).toString());
 
             sets->setResultadoA(resA);
@@ -839,4 +856,14 @@ QString GestorBaseDatos::generarQuerySets(QString partidoId) const{
     querystr += " ORDER BY R.id_resultado, S.nro_set ASC";
 
     return querystr;
+}
+
+Usuario *GestorBaseDatos::cargarUsuario(QString correo)
+{
+
+}
+
+Usuario *GestorBaseDatos::saveUsuario(Usuario *usuario)
+{
+
 }

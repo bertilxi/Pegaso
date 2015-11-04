@@ -20,18 +20,16 @@ public:
 
     QVector<Atributo> getAtributos() const;
 
-
-
     int getPuntosA() const;
     void setPuntosA(int value);
 
     int getPuntosB() const;
     void setPuntosB(int value);
 
-    int puntosB;
-    int puntosA;
 
 private:
+    int puntosA;
+    int puntosB;
 };
 
 #endif //_PUNTOS_H

@@ -1,11 +1,5 @@
 #include "res.h"
 
-Res::Res()
-{
-
-}
-
-
 int Res::getId() const
 {
     return id;

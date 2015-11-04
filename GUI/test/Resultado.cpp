@@ -22,14 +22,14 @@ void Resultado::setId(int value)
 
 bool Resultado::operator==(const Resultado &other) const
 {
-//    if(other.getResultadoA()!=resultadoA){
-//        qDebug()<<"ResultadoA: "<<other.getResultadoA()<<" "<<resultadoA<<" en resultado";
-//        return 0;
-//    }
-//    if(other.getResultadoB()!=resultadoB){
-//        qDebug()<<"ResultadoB: "<<other.getResultadoB()<<" "<<resultadoB<<" en resultado";
-//        return 0;
-//    }
+    if(other.getResultadoA()->getNombre()!=resultadoA->getNombre()){
+        qDebug()<<"ResultadoA: "<<other.getResultadoA()->getNombre()<<" "<<resultadoA->getNombre()<<" en resultado";
+        return 0;
+    }
+    if(other.getResultadoB()->getNombre()!=resultadoB->getNombre()){
+        qDebug()<<"ResultadoB: "<<other.getResultadoB()->getNombre()<<" "<<resultadoB->getNombre()<<" en resultado";
+        return 0;
+    }
     return 1;
 }
 
@@ -48,29 +48,32 @@ QVector<Atributo> Resultado::getAtributos() const{
     if(id != -1){
         result.push_back(Atributo("id_resultado",QString::number(id)));
     }
-//    result.push_back(Atributo("resultadoA", resultadoA));
-//    result.push_back(Atributo("resultadoB", resultadoB));
+    result.push_back(Atributo("resultadoA", resultadoA->getNombre()));
+    result.push_back(Atributo("resultadoB", resultadoB->getNombre()));
 
     return result;
 }
 
-Res *Resultado::getResultadoA()
-{
-    return resultadoA;
-}
 
 void Resultado::setResultadoA(Res *value)
 {
     resultadoA = value;
 }
 
-Res *Resultado::getResultadoB()
-{
-    return resultadoB;
-}
+
 
 void Resultado::setResultadoB(Res *value)
 {
     resultadoB = value;
+}
+
+Res *Resultado::getResultadoA() const
+{
+    return resultadoA;
+}
+
+Res *Resultado::getResultadoB() const
+{
+    return resultadoB;
 }
 

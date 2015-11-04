@@ -57,7 +57,7 @@ public:
 
     virtual void modCompetencia(Competencia* comp, DtoCompetencia* datos);
 
-    QVector<Competencia*> virtual listarCompetencias(DtoGetCompetencia * datos);
+    QVector<Competencia*> virtual listarCompetencias(DtoGetCompetencia * datos){}
     
     /**
      * @param comp

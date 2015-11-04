@@ -1,6 +1,7 @@
 #ifndef TIPOMODALIDAD_H
 #define TIPOMODALIDAD_H
 
+#include <QString>
 
 class TipoModalidad
 {
@@ -9,9 +10,9 @@ private:
     QString nombre;
 public:
 
-    int getId() const;
+    int getId() ;
     void setId(int value);
-    QString getNombre() const;
+    QString getNombre() ;
     void setNombre(const QString &value);
 };
 

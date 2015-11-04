@@ -20,14 +20,14 @@ bool Puntos::operator==(const Puntos &other) const
         qDebug()<<"PuntosB: "<<other.getPuntosB()<<" "<<puntosB<<" en resultado";
         return 0;
     }
-//    if(other.getResultadoA()!=resultadoA){
-//        qDebug()<<"ResultadoA: "<<other.getResultadoA()<<" "<<resultadoA<<" en resultado";
-//        return 0;
-//    }
-//    if(other.getResultadoB()!=resultadoB){
-//        qDebug()<<"ResultadoB: "<<other.getResultadoB()<<" "<<resultadoB<<" en resultado";
-//        return 0;
-//    }
+    if(other.getResultadoA()->getNombre() != resultadoA->getNombre()){
+        qDebug()<<"ResultadoA: "<<other.getResultadoA()->getNombre()<<" "<<resultadoA->getNombre()<<" en resultado";
+        return 0;
+    }
+    if(other.getResultadoB()->getNombre() != resultadoB->getNombre()){
+        qDebug()<<"ResultadoB: "<<other.getResultadoB()->getNombre()<<" "<<resultadoB->getNombre()<<" en resultado";
+        return 0;
+    }
     return 1;
 }
 

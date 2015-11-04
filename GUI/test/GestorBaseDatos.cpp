@@ -64,36 +64,36 @@ WHERE C.id_usuario = id_usuarioP
 
     QString querystr;
 
-    querystr += "SELECT C.id_competencia, C.nombre, D.id_deporte, M.nombre, C.estado ";
-    querystr += "FROM Competencia C, Deporte D, Tipo_modalidad M WHERE ";
+    querystr += "SELECT C.id_competencia, C.nombre, D.nombre, M.nombre, E.nombre ";
+    querystr += "FROM Competencia C, Deporte D, Tipo_modalidad M, Estado E WHERE ";
 
     bool primeraCondicion = true;
-//    if(dto->usuarioId != -1)
-//    {
-//        querystr += "C.id_usuario = " + QString::number(dto->usuarioId);
-//        primeraCondicion = false;
-//    }
+    if(dto->usuario != NULL)
+    {
+        querystr += "C.id_usuario = " + QString::number(dto->usuario->getId());
+        primeraCondicion = false;
+    }
 
-//    if(dto->tipoModalidadId != -1)
-//    {
-//        if(!primeraCondicion) {querystr += " AND ";}
-//        querystr += "C.id_modalidad = " + QString::number(dto->tipoModalidadId);
-//        primeraCondicion = false;
-//    }
+    if(dto->tipoModalidad != NULL)
+    {
+        if(!primeraCondicion) {querystr += " AND ";}
+        querystr += "C.id_modalidad = " + QString::number(dto->tipoModalidad->getId());
+        primeraCondicion = false;
+    }
 
-//    if(dto->deporteId != -1)
-//    {
-//        if(!primeraCondicion) {querystr += " AND ";}
-//        querystr += "C.id_deporte = " + QString::number(dto->deporteId);
-//        primeraCondicion = false;
-//    }
+    if(dto->deporte->getId() != -1)
+    {
+        if(!primeraCondicion) {querystr += " AND ";}
+        querystr += "C.id_deporte = " + QString::number(dto->deporte->getId());
+        primeraCondicion = false;
+    }
 
-//    if(!dto->estado.isNull())
-//    {
-//        if(!primeraCondicion) {querystr += " AND ";}
-//        querystr += "C.estado = " + dto->estado;
-//        primeraCondicion = false;
-//    }
+    if(dto->estado->getId() != -1)
+    {
+        if(!primeraCondicion) {querystr += " AND ";}
+        querystr += "E.id_estado = " + dto->estado->getId();
+        primeraCondicion = false;
+    }
 
     if(!dto->nombreCompetencia.isNull())
     {
@@ -102,9 +102,13 @@ WHERE C.id_usuario = id_usuarioP
         primeraCondicion = false;
     }
 
-    querystr += " AND C.id_modalidad = M.id_modalidad";
+    if(!primeraCondicion){
+        querystr += " AND";
+    }
+    querystr += " C.id_modalidad = M.id_modalidad";
     querystr += " AND M.id_tipo_modalidad = TM.id_tipo_modalidad";
     querystr += " AND C.id_deporte = D.id_deporte";
+    querystr += " AND E.id_estado = C.estado";
 
     QSqlQuery query;
 
@@ -140,10 +144,21 @@ WHERE C.id_usuario = id_usuarioP
             ///Es necesario destruir la competencia
             return QVector<Competencia *>();
         }
-//        modalidad->setNombre(query.value(3).toString());
+
+        TipoModalidad* tipoMod = new TipoModalidad();
+
+        tipoMod->setId(query.value(3).toInt());
+        tipoMod->setNombre(query.value(4).toString());
+
+        modalidad->setTipoMod(tipoMod);
         comp->setModalidad(modalidad);
 
-//        comp->setEstado(query.value(4).toString());
+        Estado * est = new Estado();
+
+        est->setId(query.value(4).toInt());
+        est->setNombre(query.value(5).toString());
+
+        comp->setEstado(est);
 
         competencias.push_back(comp);
 
@@ -212,8 +227,9 @@ WHERE C.id_competencia = id_comp AND
 
     comp->setId(id_comp);
     comp->setNombre(query.value(0).toString());
-//    est->getId(query.value(1).toInt());
-//    est->getNombre(query.value(2).toString());
+
+    est->setId(query.value(1).toInt());
+    est->setNombre(query.value(2).toString());
 
     comp->setEstado(est);
 
@@ -238,15 +254,15 @@ WHERE C.id_competencia = id_comp AND
 
     TipoModalidad* tipoMod = new TipoModalidad();
 
-//    tipoMod->setId(query.value(14).toInt());
-//    tipoMod->setNombre(query.value(15).toString());
+    tipoMod->setId(query.value(14).toInt());
+    tipoMod->setNombre(query.value(15).toString());
 
-//    mod->setTipoMod(tipoMod);
+    mod->setTipoMod(tipoMod);
 
     TipoResultado* tipoRes = new TipoResultado();
 
-//    tipoRes->setId(query.value(16).toInt());
-//    tipoRes->setNombre(query.value(17).toString());
+    tipoRes->setId(query.value(16).toInt());
+    tipoRes->setNombre(query.value(17).toString());
 
     mod->setTipoRes(tipoRes);
 
@@ -444,131 +460,132 @@ WHERE id_competencia = id_comp
     for(int i = 0; i < partidos.size(); i++){
 
         //si el resultado es de tipo Resultado
-//        if(comp->getModalidad()->getTipoRes()->getNombre() == "Resultado")
+        if(comp->getModalidad()->getTipoRes()->getNombre() == "Resultado")
 
-//        {
-//            querystr = this->generarQueryResultado( QString::number(partidos[i]->getId()) );
+        {
+            querystr = this->generarQueryResultado( QString::number(partidos[i]->getId()) );
 
-//            // consulta
-//            if(!query.exec(querystr)){
-//                qDebug() << "La consulta ha fallado";
-//                qDebug() << "La consulta que dio error fue: " << querystr;
-//                return NULL;
-//            }
+            // consulta
+            if(!query.exec(querystr)){
+                qDebug() << "La consulta ha fallado";
+                qDebug() << "La consulta que dio error fue: " << querystr;
+                return NULL;
+            }
 
-//            QVector<Resultado *> resultadosModificados;
-//            while(query.next()){
-//                /*
-//                 * 0 id_resultado
-//                 * 1 resultadoA
-//                 * 2 resultadoB
-//                 * 3 partido_actual
-//                 * */
+            QVector<Resultado *> resultadosModificados;
+            while(query.next()){
+                /*
+                 * 0 id_resultado
+                 * 1 resultadoA
+                 * 2 resultadoB
+                 * 3 partido_actual
+                 * */
 
-//                Resultado *resultado = new Resultado;
-//                resultado->setId(query.value(0).toInt());
+                Resultado *resultado = new Resultado;
+                resultado->setId(query.value(0).toInt());
 
-//                Res* resA = new Res();
-//                Res* resB = new Res();
+                Res* resA = new Res();
+                Res* resB = new Res();
 
-//                resA->setId(query.value(1).toInt());
-//                resA->setNombre(query.value(2).toString());
-//                resB->setId(query.value(3).toInt());
-//                resB->setNombre(query.value(4).toString());
+                resA->setId(query.value(1).toInt());
+                resA->setNombre(query.value(2).toString());
+                resB->setId(query.value(3).toInt());
+                resB->setNombre(query.value(4).toString());
 
-//                resultado->setResultadoA(resA);
-//                resultado->setResultadoB(resB);
+                resultado->setResultadoA(resA);
+                resultado->setResultadoB(resB);
 
-//                //si no es el resultado actual, lo pongo en una lista de modificados
-//                if(query.value(3).isNull()){
-//                    resultadosModificados.push_back(resultado);
-//                }
+                //si no es el resultado actual, lo pongo en una lista de modificados
+                if(query.value(3).isNull()){
+                    resultadosModificados.push_back(resultado);
+                }
 
-//                //si es es resultado actual, seteo el partido con él
-//                else
-//                {
-//                    partidos[i]->setActual(resultado);
-//                }
-//            }
+                //si es es resultado actual, seteo el partido con él
+                else
+                {
+                    partidos[i]->setActual(resultado);
+                }
+            }
 
             //al final, seteo el partido con su lista de resultados modificados
-//            partidos[i]->setModificado(resultadosModificados);
+            partidos[i]->setModificado(resultadosModificados);
 
 
         }
         //si el resultado es de tipo Puntos
-//        else if(comp->getModalidad()->getTipoRes()->getNombre() == "Puntos")
-//        {
-//            querystr = this->generarQueryPuntos( QString::number(partidos[i]->getId()) );
+        else if(comp->getModalidad()->getTipoRes()->getNombre() == "Puntos")
+        {
+            querystr = this->generarQueryPuntos( QString::number(partidos[i]->getId()) );
 
-//            // consulta
-//            if(!query.exec(querystr)){
-//                qDebug() << "La consulta ha fallado";
-//                qDebug() << "La consulta que dio error fue: " << querystr;
-//                return NULL;
-//            }
-//            qDebug() << "Consulta: " << querystr;
-
-
-//            QVector<Resultado *> resultadosModificados;
-//            while(query.next()){
-//                /*
-//                 * 0 id_resultado
-//                 * 1 resultadoA
-//                 * 2 resultadoB
-//                 * 3 partido_actual
-//                 * 4 puntosA
-//                 * 5 puntosB
-//                 * */
-
-//                Puntos *puntos = new Puntos;
-//                puntos->setId(query.value(0).toInt());
-
-//                Res* resA = new Res();
-//                Res* resB = new Res();
-//                resA->setId(query.value(1).toInt());
-//                resA->setNombre(query.value(2).toString());
-////                resB->setId(query.value(3).toString());
-//                resB->setNombre(query.value(4).toString());
-
-//                puntos->setResultadoA(resA);
-//                puntos->setResultadoB(resB);
-
-//                puntos->setPuntosA(query.value(6).toInt());
-//                puntos->setPuntosB(query.value(7).toInt());
-//                qDebug() << "Puntos A: " << query.value(6).toInt();
-//                qDebug() << "getPuntos A: " << puntos->getPuntosA();
-//                qDebug() << "Puntos B: " << query.value(7).toInt();
-//                qDebug() << "getPuntos B: " << puntos->getPuntosB();
-
-//                //si no es el resultado actual, lo pongo en una lista de modificados
-//                if(query.value(5).isNull()){
-//                    resultadosModificados.push_back(puntos);
-//                }
-
-//                //si es es resultado actual, seteo el partido con él
-//                else
-//                {
-//                    partidos[i]->setActual(puntos);
-//                }
-//            }
-
-//            //al final, seteo el partido con su lista de resultados modificados
-//            partidos[i]->setModificado(resultadosModificados);
+            // consulta
+            if(!query.exec(querystr)){
+                qDebug() << "La consulta ha fallado";
+                qDebug() << "La consulta que dio error fue: " << querystr;
+                return NULL;
+            }
+            qDebug() << "Consulta: " << querystr;
 
 
-//        }
+            QVector<Resultado *> resultadosModificados;
+            while(query.next()){
+                /*
+                 * 0 id_resultado
+                 * 1 resultadoA
+                 * 2 resultadoB
+                 * 3 partido_actual
+                 * 4 puntosA
+                 * 5 puntosB
+                 * */
+
+                Puntos *puntos = new Puntos;
+                puntos->setId(query.value(0).toInt());
+
+                Res* resA = new Res();
+                Res* resB = new Res();
+                resA->setId(query.value(1).toInt());
+                resA->setNombre(query.value(2).toString());
+
+                resB->setId(query.value(3).toInt());
+                resB->setNombre(query.value(4).toString());
+
+                puntos->setResultadoA(resA);
+                puntos->setResultadoB(resB);
+
+                puntos->setPuntosA(query.value(6).toInt());
+                puntos->setPuntosB(query.value(7).toInt());
+                qDebug() << "Puntos A: " << query.value(6).toInt();
+                qDebug() << "getPuntos A: " << puntos->getPuntosA();
+                qDebug() << "Puntos B: " << query.value(7).toInt();
+                qDebug() << "getPuntos B: " << puntos->getPuntosB();
+
+                //si no es el resultado actual, lo pongo en una lista de modificados
+                if(query.value(5).isNull()){
+                    resultadosModificados.push_back(puntos);
+                }
+
+                //si es es resultado actual, seteo el partido con él
+                else
+                {
+                    partidos[i]->setActual(puntos);
+                }
+            }
+
+            //al final, seteo el partido con su lista de resultados modificados
+            partidos[i]->setModificado(resultadosModificados);
+
+
+        }
         //si el resultado es de tipo Sets:
-//        else if(comp->getModalidad()->getTipoRes() == "Sets")
-//        {
-//            querystr = generarQuerySets( QString::number(partidos[i]->getId()) );
+        else if(comp->getModalidad()->getTipoRes()->getNombre() == "Sets")
+        {
+            querystr = generarQuerySets( QString::number(partidos[i]->getId()) );
 
-//            // consulta
-//            if(!query.exec(querystr)){
-//                qDebug() << "La consulta ha fallado";
-//                qDebug() << "La consulta que dio error fue: " << querystr;
-//                return NULL;
-//            }
+            // consulta
+            if(!query.exec(querystr)){
+                qDebug() << "La consulta ha fallado";
+                qDebug() << "La consulta que dio error fue: " << querystr;
+                return NULL;
+            }
 
 
 
@@ -603,10 +620,10 @@ WHERE id_competencia = id_comp
 
                         Res* resA = new Res();
                         Res* resB = new Res();
-//                        resA->setId(query.value(1).toInt());
-//                        resA->setNombre(query.value(2).toString());
-////                        resB->setId(query.value(3).toString());
-//                        resB->setNombre(query.value(4).toString());
+                        resA->setId(query.value(1).toInt());
+                        resA->setNombre(query.value(2).toString());
+                        resB->setId(query.value(3).toInt());
+                        resB->setNombre(query.value(4).toString());
 
                         sets->setResultadoA(resA);
                         sets->setResultadoB(resB);
@@ -624,7 +641,7 @@ WHERE id_competencia = id_comp
                         //si es es resultado actual, seteo el partido con él
                         else
                         {
-//                            partidos[i]->setActual(sets);
+                            partidos[i]->setActual(sets);
                         }
                     }
 
@@ -652,10 +669,10 @@ WHERE id_competencia = id_comp
 
             Res* resA = new Res();
             Res* resB = new Res();
-//            resA->setId(query.value(1).toInt());
-//            resA->setNombre(query.value(2).toString());
-////            resB->setId(query.value(3).toString());
-//            resB->setNombre(query.value(4).toString());
+            resA->setId(query.value(1).toInt());
+            resA->setNombre(query.value(2).toString());
+            resB->setId(query.value(3).toInt());
+            resB->setNombre(query.value(4).toString());
 
             sets->setResultadoA(resA);
             sets->setResultadoB(resB);
@@ -671,29 +688,29 @@ WHERE id_competencia = id_comp
             //si es es resultado actual, seteo el partido con él
             else
             {
-//                partidos[i]->setActual(sets);
+                partidos[i]->setActual(sets);
             }
 
 
             //al final, seteo el partido con su lista de resultados modificados
-//            partidos[i]->setModificado(resultadosModificados);
+            partidos[i]->setModificado(resultadosModificados);
         }
-//        else
-//        {
-//            qDebug() << "El tipo de resultado no coincide con 'Resultado', 'Puntos' o 'Sets'";
-//        }
+        else
+        {
+            qDebug() << "El tipo de resultado no coincide con 'Resultado', 'Puntos' o 'Sets'";
+        }
 
 
         //fin for("para cada partido")
-//    }
+    }
 
 
     //seteo competencia con sus partidos y resultados
-//    comp->setPartidos(partidos);
+    comp->setPartidos(partidos);
 
 
-//    return comp}
-
+    return comp;
+}
 
 
 //temporal
@@ -839,4 +856,14 @@ QString GestorBaseDatos::generarQuerySets(QString partidoId) const{
     querystr += " ORDER BY R.id_resultado, S.nro_set ASC";
 
     return querystr;
+}
+
+Usuario *GestorBaseDatos::cargarUsuario(QString correo)
+{
+
+}
+
+Usuario *GestorBaseDatos::saveUsuario(Usuario *usuario)
+{
+
 }

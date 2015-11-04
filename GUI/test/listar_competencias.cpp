@@ -71,6 +71,8 @@ void listar_competencias::on_pushButton_2_clicked()
 
 void listar_competencias::on_pushButton_4_clicked()
 {
+    //validar fila seleccionada y tabla no vacia
+    // validar pos < comps.size()
     int pos = ui->tableWidget->currentRow() ;
     gui->handleListarCompetencias(this,"verCompetencia",comps[pos]);
 }
@@ -103,7 +105,7 @@ void listar_competencias::mostrarCompetencias()
 {
     ui->tableWidget->setRowCount(comps.size());
 
-    int i, j ;
+    int i;
     for(i=0;i<comps.size();i++){
 
             ui->tableWidget->setItem(i,0,new QTableWidgetItem(comps[i]->getNombre()));
