@@ -32,8 +32,6 @@ private slots:
 
 private:
     GUI* gui;
-    GestorBaseDatos* gestorDB;
-    GestorUsuarios* gestorUsuarios;
     QVector<Competencia*> comps;
     Ui::listar_competencias *ui;
 

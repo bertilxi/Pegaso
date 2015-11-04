@@ -8,7 +8,7 @@ alta_competencia_liga::alta_competencia_liga(QWidget *parent) :
 {
     ui->setupUi(this);
     QPixmap pix("/home/fer/Pegaso/Heros64.png");
-    ui->label_logo->setPixmap(pix);
+//    ui->label_logo->setPixmap(pix);
 }
 
 alta_competencia_liga::~alta_competencia_liga()

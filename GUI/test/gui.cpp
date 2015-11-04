@@ -115,13 +115,16 @@ void GUI::handleListarLugares(QDialog *a, QString b)
     }
 }
 
-void GUI::handleAltaCompetencia(QDialog *a, QString b)
+void GUI::handleAltaCompetencia(QDialog *a, QString b,QStringList data)
 {
-    if (b == "listarParticipantes")
+    if (b == "crearCompetencia")
     {
-//        listar_competencias * l = new listar_competencias(deportes,estados,tiposModalidad);
-//        l->show();
-//        a->close();
+
+
+
+        listar_competencias * l = new listar_competencias();
+        l->show();
+        a->close();
     }
 }
 
