@@ -217,6 +217,7 @@ public:
     QVector<Modalidad*> getModalidades();
     QVector<TipoModalidad*> getTipoModalidades();
 
+
 private:
 
     int armarQuerySave(QString tabla, const QVector<Atributo> &atributos);

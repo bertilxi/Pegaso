@@ -44,7 +44,8 @@ void GUI::handleMain(QMainWindow* a, QString b, QString email, QByteArray pass)
 {
     if (b == "pantallaUsuario")
     {
-        if(/*gestorUsuarios->login() != NULL*/ 1 ){
+//        if(gestorUsuarios->login(email,pass) != NULL){
+        if(1){
             pantalla_usuario * p  = new pantalla_usuario();
             a->close();
             p->show();
@@ -119,9 +120,6 @@ void GUI::handleAltaCompetencia(QDialog *a, QString b,QStringList data)
 {
     if (b == "crearCompetencia")
     {
-
-
-
         listar_competencias * l = new listar_competencias();
         l->show();
         a->close();
@@ -212,11 +210,11 @@ QVector<Competencia*> GUI::handleFiltrarCompetencias(QStringList data)
 GUI::GUI(GestorBaseDatos *gestorDBP, GestorCompetencias *gestorCompetenciasP, GestorLugares *gestorLugaresP, GestorPartidos *gestorPartidosP, GestorUsuarios *gestorUsuariosP):
     gestorDB(gestorDBP), gestorCompetencias(gestorCompetenciasP), gestorLugares(gestorLugaresP), gestorPartidos(gestorPartidosP), gestorUsuarios(gestorUsuariosP)
 {
-//    deportes = /*gestorDB->getDeportes()*/ NULL;
-//    paises = /*gestorDB->getPaises()*/ NULL;
-//    estados = /*gestorDB->getEstados()*/ NULL;
-//    modalidades = /*gestorDB->getModalidades*/ NULL;
-//    tiposModalidad = NULL;
+//    deportes = gestorDB->getDeportes();
+//    paises = gestorDB->getPaises();
+//    estados = gestorDB->getEstados();
+//    modalidades = gestorDB->getModalidades();
+//    tiposModalidad = gestorDB->getTipoModalidades();
 
 
 }
@@ -233,17 +231,29 @@ void GUI::setDeportes(const QVector<Deporte *> &value)
 
 Estado *GUI::buscarEstado(QString estado)
 {
-
+    for (int i = 0; i < estados.size(); ++i) {
+        if(estado == estados[i]->getNombre())
+            return estados[i];
+    }
+    return NULL;
 }
 
 Deporte *GUI::buscarDeporte(QString deporte)
 {
-
+    for (int i = 0; i < deportes.size(); ++i) {
+        if(deporte==deportes[i]->getNombre())
+            return deportes[i];
+    }
+    return NULL;
 }
 
 TipoModalidad *GUI::buscarTipoModalidad(QString tipoMod)
 {
-
+    for (int i = 0; i < tiposModalidad.size(); ++i) {
+        if(tipoMod==tiposModalidad[i]->getNombre())
+            return tiposModalidad[i];
+    }
+    return NULL;
 }
 
 void GUI::show()
