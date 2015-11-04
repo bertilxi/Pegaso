@@ -11,9 +11,10 @@
 #include "dtos.h"
 #include <QString>
 #include <string>
+#include <QDateTime>
 #include <QByteArray>
 #include <QCryptographicHash>
-
+#include <QHostInfo> //Incluir QT+=network en el .pro
 class GestorUsuarios {
 public: 
     /**
