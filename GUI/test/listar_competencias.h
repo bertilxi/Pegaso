@@ -6,6 +6,7 @@
 #include "qpixmap.h"
 #include <QDebug>
 #include "gui.h"
+#include <QMessageBox>
 
 namespace Ui {
 class listar_competencias;

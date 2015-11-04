@@ -73,6 +73,7 @@ void listar_competencias::on_pushButton_4_clicked()
 {
     //validar fila seleccionada y tabla no vacia
     // validar pos < comps.size()
+
     int pos = ui->tableWidget->currentRow() ;
     gui->handleListarCompetencias(this,"verCompetencia",comps[pos]);
 }

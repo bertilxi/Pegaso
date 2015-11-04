@@ -54,9 +54,9 @@ void alta_competencia::on_pushButton_clicked()
     data.append(tipoModalidad);
 
     if(nombreCompetencia.isEmpty() || deporte.isEmpty() || tipoModalidad.isEmpty()){
-        QMessageBox msg;
-        msg.setText("Por favor complete todos los datos");
-        msg.exec();
+        QMessageBox* msg = new QMessageBox(this);
+        msg->setText("Por favor complete todos los datos");
+        msg->exec();
     }
     else{
 
@@ -79,9 +79,9 @@ void alta_competencia::on_pushButton_3_clicked()
     int lugarPos = ui->comboBox_3->currentIndex();
     int disp = ui->lineEdit_2->text().toInt();
     if(disp == 0){
-        QMessageBox msg;
-        msg.setText("Por favor coloque una disponibilidad");
-        msg.exec();
+        QMessageBox* msg = new QMessageBox(this);
+        msg->setText("Por favor coloque una disponibilidad");
+        msg->exec();
     }
     else{
         ui->tableWidget->setItem(rowCount,0,new QTableWidgetItem(lugar[lugarPos]->getNombre()));
