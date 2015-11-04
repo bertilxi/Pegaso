@@ -73,6 +73,7 @@ void listar_competencias::on_pushButton_4_clicked()
 {
     //validar fila seleccionada y tabla no vacia
     // validar pos < comps.size()
+
     int pos = ui->tableWidget->currentRow() ;
     gui->handleListarCompetencias(this,"verCompetencia",comps[pos]);
 }
@@ -108,10 +109,9 @@ void listar_competencias::mostrarCompetencias()
     int i;
     for(i=0;i<comps.size();i++){
 
-            ui->tableWidget->setItem(i,0,new QTableWidgetItem(comps[i]->getNombre()));
-            ui->tableWidget->setItem(i,1,new QTableWidgetItem(comps[i]->getDeporte()->getNombre()));
-            ui->tableWidget->setItem(i,2,new QTableWidgetItem(comps[i]->getModalidad()->getTipoMod()->getNombre()));
-            ui->tableWidget->setItem(i,3,new QTableWidgetItem(comps[i]->getEstado()->getNombre()));
+        ui->tableWidget->setItem(i,1,new QTableWidgetItem(comps[i]->getDeporte()->getNombre()));
+        ui->tableWidget->setItem(i,2,new QTableWidgetItem(comps[i]->getModalidad()->getTipoMod()->getNombre()));
+        ui->tableWidget->setItem(i,3,new QTableWidgetItem(comps[i]->getEstado()->getNombre()));
 
     }
 }

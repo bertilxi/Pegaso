@@ -79,7 +79,7 @@ Usuario* GestorUsuarios::login(QString email, QByteArray password) {
     else{
      //Registro el inicio de sesión
         Auditoria* aud=new Auditoria();
-        aud->setFecha(QDateTime::currentDateTime().toString(Qt::ISODate);
+        aud->setFecha(QDateTime::currentDateTime().toString(Qt::ISODate));
         aud->setPc(QHostInfo::localHostName());
         QVector<Auditoria*> auditorias=user->getAuditorias();
         auditorias.push_back(aud);

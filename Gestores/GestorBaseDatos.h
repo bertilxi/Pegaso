@@ -11,6 +11,10 @@
 #include "Sets.h"
 #include <algorithm>
 #include "Participante.h"
+#include "Deporte.h"
+#include "Pais.h"
+#include "Provincia.h"
+#include "Localidad.h"
 #include <QSqlError>
 
 using namespace std;
@@ -24,14 +28,6 @@ class GestorBaseDatos {
 public: 
     
 
-    /**
-     * @brief carga varias competencias inicializandolas parcialmente
-     * @param dto dto con los filtros para buscar competencias
-     * @return una lista de punteros a competencias
-     *
-     * Solo se carga el id y nombre de la competencia, su estado, el NOMBRE
-     * de su modalidad y el ID de su deporte.
-     */
     QVector<Competencia *> getCompetenciasLazy(const DtoGetCompetencia *dto) const;
 
     Competencia *getCompetenciaFull(int id_comp) const;
@@ -46,8 +42,7 @@ public:
      * @param id_externo es un puntero a un atributo correspondiente a una fk.
      * Su valor es NULL si no se la llama con tal argumento.
      * @return true si tuvo exito, false si fallo
-     */
-    template <class T1>
+     */    template <class T1>
     bool save(QVector<T1 *> objptrs, Atributo *id_externo = NULL){
 
         QString tabla;
@@ -78,7 +73,6 @@ public:
      * @param obj1
      * @param obj2
      * @brief Guarda una relacion n a n entre dos objetos
-     *
      * obj1 debe conocer la tabla de la relacion
      */
     template <class T2,class T3>
@@ -206,16 +200,9 @@ public:
         }
 
         return status;
-    }
 
-    
 
-    
-    /**
-     * @param obj
-     * @param filtros
-     * @brief Ejecuta una consulta en la base de datos con filtros como parametros en select
-     */
+
     template <class T4>
     QVector<T4> query(T4 obj, QVector<QString> filtros);
     
@@ -225,39 +212,20 @@ public:
     Usuario* cargarUsuario(QString correo);
     Usuario* saveUsuario(Usuario* usuario);
 
+    QVector<Deporte*> getDeportes();
+    QVector<Pais*> getPaises();
+    QVector<Provincia*> getProvincias(Pais* pais);
+    QVector<Localidad*> getLocalidades(Provincia* provincia);
+    QVector<Estado*> getEstados();
+    QVector<Modalidad*> getModalidades();
+    QVector<TipoModalidad*> getTipoModalidades();
+
+
 private:
 
-    /**
-     * @brief utiliza el nombre de una tabla y conjuntos columna-valor (atributos)
-     * para armar un insert SQL y ejecutarlo en la BD.
-     * @param tabla
-     * @param atributos
-     * @return id del objeto que se acaba de guardar, asignado por la BD
-     */
     int armarQuerySave(QString tabla, const QVector<Atributo> &atributos);
-
-    /**
-     * @brief arma el query para cargar objetos Resultado
-     * @param partidoId string con el id del partido al que corresponden
-     * los objetos Resultado
-     * @return el query armado
-     */
     QString generarQueryResultado(QString partidoId) const;
-
-    /**
-     * @brief arma el query para cargar un objeto Puntos
-     * @param partidoId string con el id del partido al que corresponden
-     * los objetos Puntos
-     * @return el query armado
-     */
     QString generarQueryPuntos(QString partidoId) const;
-
-    /**
-     * @brief arma el query para cargar un objeto Sets
-     * @param partidoId string con el id del partido al que corresponden
-     * los objetos Sets
-     * @return el query armado
-     */
     QString generarQuerySets(QString partidoId) const;
 };
 

@@ -731,7 +731,7 @@ bool GestorBaseDatos::save(QVector<Participante *> participantes, int id_externo
 /**
  * @param obj
  * @param filtros
- * @return QVector<T>
+ * @brief Ejecuta una consulta en la base de datos con filtros como parametros en select
  */
 template <class T4>
 QVector<T4> GestorBaseDatos::query(T4 obj, QVector<QString> filtros) {
@@ -866,6 +866,41 @@ Usuario *GestorBaseDatos::cargarUsuario(QString correo)
 }
 
 Usuario *GestorBaseDatos::saveUsuario(Usuario *usuario)
+{
+
+}
+
+QVector<Deporte *> GestorBaseDatos::getDeportes()
+{
+
+}
+
+QVector<Pais *> GestorBaseDatos::getPaises()
+{
+
+}
+
+QVector<Provincia *> GestorBaseDatos::getProvincias(Pais *pais)
+{
+
+}
+
+QVector<Localidad *> GestorBaseDatos::getLocalidades(Provincia *provincia)
+{
+
+}
+
+QVector<Estado *> GestorBaseDatos::getEstados()
+{
+
+}
+
+QVector<Modalidad *> GestorBaseDatos::getModalidades()
+{
+
+}
+
+QVector<TipoModalidad *> GestorBaseDatos::getTipoModalidades()
 {
 
 }

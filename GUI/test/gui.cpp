@@ -1,7 +1,7 @@
 #include "gui.h"
 
-MainWindow::MainWindow(GUI* guiP, GestorUsuarios *gestorUsuariosP, QWidget *parent):
-    QMainWindow(parent), gui(guiP), gestorUsuarios(gestorUsuariosP) ,ui(new Ui::MainWindow)
+MainWindow::MainWindow(GUI* guiP, QWidget *parent):
+    QMainWindow(parent), gui(guiP), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
@@ -44,11 +44,11 @@ void GUI::handleMain(QMainWindow* a, QString b, QString email, QByteArray pass)
 {
     if (b == "pantallaUsuario")
     {
-        if(/*gestorUsuarios->login() != NULL*/ 1 ){
-            pantalla_usuario * p  = new pantalla_usuario();
+//        if(gestorUsuarios->login(email,pass) != NULL){
+        if(1){
+            pantalla_usuario* p = new pantalla_usuario(a);
             a->close();
             p->show();
-
         }
 
 
@@ -66,8 +66,7 @@ void GUI::handleMain(QMainWindow* a, QString b, QString email, QByteArray pass)
 void GUI::handlePantallaUsuario(QDialog *a, QString b)
 {
     if (b == "listarCompetencias"){
-
-        listar_competencias * l = new listar_competencias();
+        listar_competencias* l = new listar_competencias(a);
         a->close();
         l->show();
 
@@ -87,15 +86,18 @@ void GUI::handleListarCompetencias(QDialog *a, QString b, Competencia *comp)
 {
     if (b == "altaCompetencia")
     {
-        alta_competencia * al = new alta_competencia();
+        alta_competencia * al = new alta_competencia(a);
+        al->setModal(true);
         al->show();
-        a->close();
+
+
     }
     if (b == "verCompetencia")
     {
-        ver_competencia * v = new ver_competencia();
+//        ver_competencia * v = new ver_competencia(comp,a);
+        ver_competencia * v = new ver_competencia(a);
+        v->setModal(true);
         v->show();
-        a->close();
     }
 }
 
@@ -115,13 +117,13 @@ void GUI::handleListarLugares(QDialog *a, QString b)
     }
 }
 
-void GUI::handleAltaCompetencia(QDialog *a, QString b)
+void GUI::handleAltaCompetencia(QDialog *a, QString b,QStringList data)
 {
-    if (b == "listarParticipantes")
+    if (b == "crearCompetencia")
     {
-//        listar_competencias * l = new listar_competencias(deportes,estados,tiposModalidad);
-//        l->show();
-//        a->close();
+        listar_competencias * l = new listar_competencias(a);
+        a->close();
+        l->show();
     }
 }
 
@@ -177,7 +179,6 @@ QVector<Competencia*> GUI::handleFiltrarCompetencias(QStringList data)
 {
     QString nombreComp, deporte, estado, tipoModalidad;
 
-
     Usuario*  usuario   =   gestorUsuarios->getActual();
     nombreComp          =   data[0];
     deporte             =   data[1];
@@ -188,32 +189,20 @@ QVector<Competencia*> GUI::handleFiltrarCompetencias(QStringList data)
     Deporte* d = this->buscarDeporte(deporte);
     TipoModalidad* tm = this->buscarTipoModalidad(tipoModalidad);
 
-
-//    QString usuarioQuery = "select id_usuario from Usuario where nombre = " + usuario;
-//    int usuarioId = gestorDB->query(usuarioQuery);
-
-//    QString deporteQuery = "select id_deporte from Deporte where nombre = " + deporte;
-//    int deporteId = gestorDB->query(deporteQuery);
-
-//    QString tipoModalidadQuery = "select id_tipo_modalidad from Tipo_modalidad where nombre = " + tipoModalidad;
-//    int tipoModalidadId = gestorDB->query(tipoModalidad);
-
     DtoGetCompetencia* datos = new DtoGetCompetencia(usuario,nombreComp,d,tm,e);
 
     return gestorCompetencias->getCompetenciasLazy(datos);
-
-
 
 }
 
 GUI::GUI(GestorBaseDatos *gestorDBP, GestorCompetencias *gestorCompetenciasP, GestorLugares *gestorLugaresP, GestorPartidos *gestorPartidosP, GestorUsuarios *gestorUsuariosP):
     gestorDB(gestorDBP), gestorCompetencias(gestorCompetenciasP), gestorLugares(gestorLugaresP), gestorPartidos(gestorPartidosP), gestorUsuarios(gestorUsuariosP)
 {
-//    deportes = /*gestorDB->getDeportes()*/ NULL;
-//    paises = /*gestorDB->getPaises()*/ NULL;
-//    estados = /*gestorDB->getEstados()*/ NULL;
-//    modalidades = /*gestorDB->getModalidades*/ NULL;
-//    tiposModalidad = NULL;
+//    deportes = gestorDB->getDeportes();
+//    paises = gestorDB->getPaises();
+//    estados = gestorDB->getEstados();
+//    modalidades = gestorDB->getModalidades();
+//    tiposModalidad = gestorDB->getTipoModalidades();
 
 
 }
@@ -230,22 +219,34 @@ void GUI::setDeportes(const QVector<Deporte *> &value)
 
 Estado *GUI::buscarEstado(QString estado)
 {
-
+    for (int i = 0; i < estados.size(); ++i) {
+        if(estado == estados[i]->getNombre())
+            return estados[i];
+    }
+    return NULL;
 }
 
 Deporte *GUI::buscarDeporte(QString deporte)
 {
-
+    for (int i = 0; i < deportes.size(); ++i) {
+        if(deporte==deportes[i]->getNombre())
+            return deportes[i];
+    }
+    return NULL;
 }
 
 TipoModalidad *GUI::buscarTipoModalidad(QString tipoMod)
 {
-
+    for (int i = 0; i < tiposModalidad.size(); ++i) {
+        if(tipoMod==tiposModalidad[i]->getNombre())
+            return tiposModalidad[i];
+    }
+    return NULL;
 }
 
 void GUI::show()
 {
-    MainWindow * m = new MainWindow(this,gestorUsuarios);
+    MainWindow * m = new MainWindow(this);
     m->show();
 
 }
