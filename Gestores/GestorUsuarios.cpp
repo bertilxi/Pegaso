@@ -40,10 +40,14 @@ bool GestorUsuarios::altaUsuario(DtoUsuario *datos,QString &error) {
     //Creo el nuevo usuario
     Usuario *nuevo=new Usuario;
     nuevo->setApellido(datos->apellido);
-    nuevo->setDoc(datos->tipoDni);
+    Doc* doc = new Doc();
+    doc->setTipo(datos->tipoDni);
+    nuevo->setDoc(doc);
     nuevo->setNro_doc(datos->numeroDni);
     nuevo->setEmail(datos->correo);
-    nuevo->setLocalidad(datos->localidad);
+    Localidad* localidad = new Localidad();
+    localidad->setNombre(datos->localidad);
+    nuevo->setLocalidad(localidad);
     nuevo->setNombre(datos->nombre);
     nuevo->setPassword(datos->password);
 
@@ -60,9 +64,13 @@ bool GestorUsuarios::altaUsuario(DtoUsuario *datos,QString &error) {
 void GestorUsuarios::modUsuario(Usuario *usuario, DtoUsuario *datos) {
     usuario->setNombre(datos->nombre);
     usuario->setApellido(datos->apellido);
-    usuario->setDoc(datos->tipoDni);
+    Doc* doc = new Doc();
+    doc->setTipo(datos->tipoDni);
+    usuario->setDoc(doc);
     usuario->setNro_doc(datos->numeroDni);
-    usuario->setLocalidad(datos->localidad);
+    Localidad* localidad = new Localidad();
+    localidad->setNombre(datos->localidad);
+    usuario->setLocalidad(localidad);
     //El caso de uso no contempla la posibilidad de modificar la contraseña
 
     //Guardo los cambios

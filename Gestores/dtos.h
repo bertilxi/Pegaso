@@ -58,8 +58,8 @@ public:
     QString pais;
     QString provincia;
     QString localidad;
-    QString password;
-    DtoUsuario(QString correoP, QString nombreP, QString apellidoP, QString tipoDniP, QString numeroDniP, QString paisP, QString provinciaP, QString localidadP, QString passwordP):
+    QByteArray password;
+    DtoUsuario(QString correoP, QString nombreP, QString apellidoP, QString tipoDniP, QString numeroDniP, QString paisP, QString provinciaP, QString localidadP, QByteArray passwordP):
         correo(correoP), nombre(nombreP), apellido(apellidoP), tipoDni(tipoDniP), numeroDni(numeroDniP), pais(paisP), provincia(provinciaP), localidad(localidadP),password(passwordP) {}
 
 };

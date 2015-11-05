@@ -15,26 +15,20 @@
 #include <QByteArray>
 #include <QCryptographicHash>
 #include <QHostInfo> //Incluir QT+=network en el .pro
+#include <QVector>
+#include "Pais.h"
+#include "Provincia.h"
+
 class GestorUsuarios {
-public: 
-    /**
-     * @param datos
-     */
+public:
     bool altaUsuario(DtoUsuario* datos, QString &error);
-    
-    /**
-     * @param usuario
-     * @param datos
-     */
     void virtual modUsuario(Usuario* usuario, DtoUsuario* datos);
     
-    /**
-     * @param email
-     * @param password
-     */
     Usuario *login(QString email, QByteArray password);
     Usuario* getActual() const;
     void setActual( Usuario* value);
+    QVector<Provincia*> getProvincias(Pais* pais);
+    QVector<Localidad*> getLocalidades(Provincia* provincia);
     GestorUsuarios(GestorBaseDatos* gestorDBP):
         gestorDB(gestorDBP) {}
 private:

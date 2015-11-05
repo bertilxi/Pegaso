@@ -25,11 +25,15 @@ using namespace std;
 
 class Participante;
 class GestorBaseDatos {
+private:
+
+    int armarQuerySave(QString tabla, const QVector<Atributo> &atributos);
+    QString generarQueryResultado() const;
+    QString generarQueryPuntos() const;
+    QString generarQuerySets() const;
+
 public: 
     
-
-    template <class T>
-    T load(T obj, int id);
 
     QVector<Competencia *> getCompetenciasLazy(const DtoGetCompetencia *dto) const;
 
@@ -45,7 +49,10 @@ public:
      * @param id_externo es un puntero a un atributo correspondiente a una fk.
      * Su valor es NULL si no se la llama con tal argumento.
      * @return true si tuvo exito, false si fallo
-     */    template <class T1>
+     */
+
+
+    template <class T1>
     bool save(QVector<T1 *> objptrs, Atributo *id_externo = NULL){
 
         QString tabla;
@@ -92,24 +99,26 @@ public:
         {
             querystr += atributos[j].campo + " , " ;
         }
-        querystr += atributos[j].campo + ") values ( " ;
+        querystr += atributos[j].campo + ") values (" ;
 
         for (j = 0; j < atributos.size()-1; ++j)
         {
-            querystr += "'" + atributos[j].valor + "'" + " , ";
+            querystr += "?,";
         }
-        querystr += "'" + atributos[j].valor + "' ) ";
+        querystr += "?) ";
 
         QSqlQuery query;
+        query.prepare(querystr);
+        for(j = 0; j < atributos.size(); ++j){
+            query.addBindValue(atributos[j].valor);
+        }
 
-        // consulta(
-        if(!query.exec(querystr)){
+        // consulta
+        if(!query.exec()){
             qDebug() << "La consulta ha fallado";
+            qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
             qDebug() << "La consulta que dio error fue: " << querystr;
             return false;
-        }
-        else{
-            qDebug() << "Consulta exitosa";
         }
 
         return true;
@@ -172,6 +181,9 @@ public:
         }
         return status;
     }
+
+
+
     bool saveResultado(Resultado *resultado, Atributo partidoId){
         bool status = true;
 
@@ -198,6 +210,7 @@ public:
         }
 
         return status;
+
 }
 
     template <class T4>
@@ -217,12 +230,6 @@ public:
     QVector<Modalidad*> getModalidades();
     QVector<TipoModalidad*> getTipoModalidades();
 
-private:
-
-    int armarQuerySave(QString tabla, const QVector<Atributo> &atributos);
-    QString generarQueryResultado(QString partidoId) const;
-    QString generarQueryPuntos(QString partidoId) const;
-    QString generarQuerySets(QString partidoId) const;
 };
 
 

@@ -51,7 +51,7 @@ public:
     Pais *getPais() const;
     void setPais(Pais *value);
 
-    Doc *getDoc() const;
+    Doc *getDoc();
     void setDoc(Doc *value);
 
     QByteArray getPassword() const;

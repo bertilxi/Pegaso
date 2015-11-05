@@ -65,10 +65,6 @@ void Usuario::setLugares(const QVector<Lugar *> &value)
 {
     lugares = value;
 }
-Doc *Usuario::getDoc() const
-{
-    return doc;
-}
 
 QVector<Auditoria *> Usuario::getAuditorias() const
 {
@@ -107,7 +103,7 @@ void Usuario::setPais(Pais *value)
 {
     pais = value;
 }
-Doc *Usuario::getDoc() const
+Doc *Usuario::getDoc()
 {
     return doc;
 }
@@ -144,7 +140,7 @@ QVector<Atributo> Usuario::getAtributos() const
         result.push_back(Atributo("id_usuario",QString::number(id)));
     }
     result.push_back(Atributo("email",email));
-    result.push_back(Atributo("nro_doc",QString::number(nro_doc)));
+    result.push_back(Atributo("nro_doc",nro_doc));
     result.push_back(Atributo("id_tipo_doc", QString::number(doc->getId())));
     //result.push_back(Atributo("password",));
 

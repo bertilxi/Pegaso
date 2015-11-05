@@ -10,6 +10,8 @@
 #include "Lugar.h"
 #include "Doc.h"
 #include "Localidad.h"
+#include "Provincia.h"
+#include "Pais.h"
 #include "Auditoria.h"
 #include <QVector>
 #include <QString>
@@ -22,9 +24,6 @@ public:
     int getId() const;
     void setId(int value);
 
-    QString getPassword() const;
-    void setPassword(const QString &value);
-
     QString getNombre() const;
     void setNombre(const QString &value);
 
@@ -34,19 +33,11 @@ public:
     QString getEmail() const;
     void setEmail(const QString &value);
 
-
-
     QVector<Competencia *> getCompetencias() const;
     void setCompetencias(const QVector<Competencia *> &value);
 
     QVector<Lugar *> getLugares() const;
     void setLugares(const QVector<Lugar *> &value);
-
-    Doc *getDoc() const;
-    void setDoc(QString value);
-
-    Localidad *getLocalidad() const;
-    void setLocalidad(QString value);
 
     QVector<Auditoria *> getAuditorias() const;
     void setAuditorias(const QVector<Auditoria *> &value);
@@ -54,9 +45,26 @@ public:
     QString getNro_doc() const;
     void setNro_doc(const QString &value);
 
+    Provincia *getProvincia() const;
+    void setProvincia(Provincia *value);
+
+    Pais *getPais() const;
+    void setPais(Pais *value);
+
+    QByteArray getPassword() const;
+    void setPassword(const QByteArray &value);
+
+    Localidad *getLocalidad() const;
+    void setLocalidad(Localidad *value);
+
+    QVector<Atributo> getAtributos() const;
+
+    Doc *getDoc();
+    void setDoc(Doc *value);
+
 private:
     int id;
-    QString password;
+    QByteArray password;
     QString nombre;
     QString apellido;
     QString email;
@@ -65,6 +73,8 @@ private:
     QVector<Lugar*> lugares;
     Doc* doc;
     Localidad* localidad;
+    Provincia* provincia;
+    Pais* pais;
     QVector<Auditoria*> auditorias;
 };
 

@@ -25,6 +25,13 @@ using namespace std;
 
 class Participante;
 class GestorBaseDatos {
+private:
+
+    int armarQuerySave(QString tabla, const QVector<Atributo> &atributos);
+    QString generarQueryResultado() const;
+    QString generarQueryPuntos() const;
+    QString generarQuerySets() const;
+
 public: 
     
 
@@ -201,7 +208,7 @@ public:
 
         return status;
 
-
+}
 
     template <class T4>
     QVector<T4> query(T4 obj, QVector<QString> filtros);
@@ -220,14 +227,7 @@ public:
     QVector<Modalidad*> getModalidades();
     QVector<TipoModalidad*> getTipoModalidades();
 
-
-private:
-
-    int armarQuerySave(QString tabla, const QVector<Atributo> &atributos);
-    QString generarQueryResultado(QString partidoId) const;
-    QString generarQueryPuntos(QString partidoId) const;
-    QString generarQuerySets(QString partidoId) const;
-};
+    };
 
 
 #endif //_GESTORBASEDATOS_H

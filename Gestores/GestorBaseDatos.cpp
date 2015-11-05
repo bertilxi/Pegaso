@@ -914,8 +914,8 @@ WHERE U.email = correo AND
         user->setApellido(query.value(6).toString());
 
         Localidad *loc = new Localidad();
-        loc->setId(query.value(7));
-        loc->setNombre(query.value(8));
+        loc->setId(query.value(7).toInt());
+        loc->setNombre(query.value(8).toString());
 
         user->setLocalidad(loc);
 
@@ -949,7 +949,7 @@ WHERE L.id_usuario = userId AND
     querystr += " FROM Lugar L WHERE L.id_usuario = ? AND L.borrado = 0";
 
     query.prepare(querystr);
-    query.addBindValue(user);
+    query.addBindValue(user->getId());
 
     // consulta
     if(!query.exec()){
