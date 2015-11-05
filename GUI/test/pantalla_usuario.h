@@ -17,7 +17,7 @@ class pantalla_usuario : public QDialog
     Q_OBJECT
 
 public:
-    explicit pantalla_usuario(QWidget *parent = 0);
+    explicit pantalla_usuario(GUI* guiP, QWidget *parent = 0);
     ~pantalla_usuario();
 
 private slots:
