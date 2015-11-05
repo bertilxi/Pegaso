@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>reporte.xml</file>
+        <file>Heros256.png</file>
+    </qresource>
+</RCC>
