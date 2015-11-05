@@ -163,25 +163,25 @@ WHERE C.id_competencia = id_comp AND
 
 
     QString querystr;
-    querystr += "SELECT C.nombre, TE.id_estado, TE.nombre, C.fecha_y_horaB, C.reglamento";
+    querystr += "SELECT C.nombre, E.id_estado, E.nombre, C.fecha_y_horaB, C.reglamento";
     querystr += ", D.id_deporte, D.nombre, M.id_modalidad, M.pto_partido_ganado, M.pto_presentarse";
     querystr += ", M.pto_empate, M.empate, M.cant_max_sets, TM.id_tipo_modalidad, TM.nombre";
     querystr += ", TR.id_tipo_resultado, TR.nombre";
-    querystr += " FROM Competencia C, Modalidad M, Tipo_modalidad TM, Tipo_resultado TR, Deporte D, Tipo_estado TE";
-    querystr += " WHERE C.id_competencia = ?";
+    querystr += " FROM Competencia C, Modalidad M, Tipo_modalidad TM, Tipo_resultado TR, Deporte D, estado E";
+    querystr += " WHERE C.id_competencia = " + QString::number(id_comp);
     querystr += " AND C.id_modalidad = M.id_modalidad";
     querystr += " AND M.id_tipo_modalidad = TM.id_tipo_modalidad";
     querystr += " AND M.id_tipo_resultado = TR.id_tipo_resultado";
     querystr += " AND C.id_deporte = D.id_deporte";
-    querystr += " AND TE.id_estado = C.id_estado";
+    querystr += " AND E.id_estado = C.id_estado";
+    querystr += " AND C.borrado = 0";
 
     QSqlQuery query;
 
-    query.prepare(querystr);
-    query.addBindValue(id_comp);
+
 
     // consulta
-    if(!query.exec()){
+    if(!query.exec(querystr)){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
         qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
@@ -263,6 +263,8 @@ WHERE C.id_competencia = id_comp AND
     if(!query.exec()){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
+        qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
+
         return NULL;
     }
 
@@ -308,6 +310,8 @@ WHERE id_competencia = id_comp*/
     if(!query.exec()){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
+        qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
+
         return NULL;
     }
 
@@ -359,6 +363,8 @@ WHERE id_participante = id_part
         if(!query.exec()){
             qDebug() << "La consulta ha fallado";
             qDebug() << "La consulta que dio error fue: " << querystr;
+            qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
+
             return NULL;
         }
 
@@ -400,6 +406,8 @@ WHERE id_competencia = id_comp
     if(!query.exec()){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
+        qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
+
         return NULL;
     }
 
@@ -439,6 +447,7 @@ WHERE id_competencia = id_comp
         partido->setEquipoB(*index);
 
         partidos.push_back(partido);
+
     }
 
 ///______________________________________________________________________________________________________________________
@@ -459,6 +468,8 @@ WHERE id_competencia = id_comp
         qDebug() << "El tipo de resultado no coincide con 'Resultado', 'Puntos' o 'Sets'";
     }
 
+    if(!query.prepare(querystr))
+        qDebug() << "falla el prepare";
 
     for(int i = 0; i < partidos.size(); i++){
 
@@ -474,6 +485,8 @@ WHERE id_competencia = id_comp
             if(!query.exec()){
                 qDebug() << "La consulta ha fallado";
                 qDebug() << "La consulta que dio error fue: " << querystr;
+                qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
+
                 return NULL;
             }
 
@@ -531,9 +544,10 @@ WHERE id_competencia = id_comp
             if(!query.exec()){
                 qDebug() << "La consulta ha fallado";
                 qDebug() << "La consulta que dio error fue: " << querystr;
+                qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
+
                 return NULL;
             }
-            qDebug() << "Consulta: " << querystr;
 
 
             QVector<Resultado *> resultadosModificados;
@@ -599,6 +613,8 @@ WHERE id_competencia = id_comp
             if(!query.exec()){
                 qDebug() << "La consulta ha fallado";
                 qDebug() << "La consulta que dio error fue: " << querystr;
+                qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
+
                 return NULL;
             }
 
@@ -870,19 +886,6 @@ QString GestorBaseDatos::generarQuerySets() const{
     return querystr;
 }
 
-GestorBaseDatos::GestorBaseDatos(QString dbs)
-{
-    db = QSqlDatabase::addDatabase("QSQLITE");
-        db.setDatabaseName("pegaso.db");
-
-
-        if(db.open()){
-            qDebug()<<"Se ha conectado la Base de Datos";
-        }
-        else{
-            qDebug()<<"Error al conectar la Base de Datos";
-        }
-}
 
 Usuario *GestorBaseDatos::cargarUsuario(QString correo)
 {
@@ -1005,6 +1008,20 @@ WHERE L.id_usuario = userId AND
 Usuario *GestorBaseDatos::saveUsuario(Usuario *usuario)
 {
 
+}
+
+GestorBaseDatos::GestorBaseDatos(QString dbs)
+{
+    db = QSqlDatabase::addDatabase("QSQLITE");
+        db.setDatabaseName("pegaso.db");
+
+
+        if(db.open()){
+            qDebug()<<"Se ha conectado la Base de Datos";
+        }
+        else{
+            qDebug()<<"Error al conectar la Base de Datos";
+        }
 }
 
 QVector<Deporte *> GestorBaseDatos::getDeportes()
