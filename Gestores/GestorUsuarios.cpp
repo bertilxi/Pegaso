@@ -19,6 +19,16 @@ void GestorUsuarios::setActual( Usuario *value)
     actual = value;
 }
 
+QVector<Provincia *> GestorUsuarios::getProvincias(Pais *pais)
+{
+
+}
+
+QVector<Localidad *> GestorUsuarios::getLocalidades(Provincia *provincia)
+{
+
+}
+
 bool GestorUsuarios::altaUsuario(DtoUsuario *datos,QString &error) {
     error="";
     //Compruebo que no haya un usuario ya registrado con ese correo
@@ -79,7 +89,7 @@ Usuario* GestorUsuarios::login(QString email, QByteArray password) {
     else{
      //Registro el inicio de sesión
         Auditoria* aud=new Auditoria();
-        aud->setFecha(QDateTime::currentDateTime().toString(Qt::ISODate);
+        aud->setFecha(QDateTime::currentDateTime().toString(Qt::ISODate));
         aud->setPc(QHostInfo::localHostName());
         QVector<Auditoria*> auditorias=user->getAuditorias();
         auditorias.push_back(aud);

@@ -6,6 +6,7 @@
 #include "qpixmap.h"
 #include <QDebug>
 #include "gui.h"
+#include <QMessageBox>
 
 namespace Ui {
 class listar_competencias;
@@ -32,12 +33,18 @@ private slots:
 
 private:
     GUI* gui;
-    GestorBaseDatos* gestorDB;
-    GestorUsuarios* gestorUsuarios;
     QVector<Competencia*> comps;
     Ui::listar_competencias *ui;
 
     void mostrarCompetencias();
+};
+class UppercaseValidator : public QRegExpValidator { Q_OBJECT
+public:
+    UppercaseValidator(QObject *parent=0) :
+        QRegExpValidator(parent) { }
+    virtual void fixup(QString &input) {
+        input = input.toUpper();
+    }
 };
 
 #endif // LISTAR_COMPETENCIAS_H

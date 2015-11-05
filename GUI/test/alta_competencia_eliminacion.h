@@ -12,8 +12,11 @@ class alta_competencia_eliminacion : public QDialog
     Q_OBJECT
 
 public:
-    explicit alta_competencia_eliminacion(QWidget *parent = 0);
+    explicit alta_competencia_eliminacion(QString modo, QWidget *parent = 0);
     ~alta_competencia_eliminacion();
+
+private slots:
+    void on_comboBox_3_currentTextChanged(const QString &arg1);
 
 private:
     Ui::alta_competencia_eliminacion *ui;

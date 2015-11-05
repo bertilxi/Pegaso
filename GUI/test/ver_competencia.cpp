@@ -1,13 +1,17 @@
 #include "ver_competencia.h"
 #include "ui_ver_competencia.h"
-#include "modificar_competencia.h"
-//#include "baja_competencia.h"
-//#include "mostrar_fixture.h"
-//#include "tabla_posiciones.h"
-//#include "listar_participante.h"
 #include "qpixmap.h"
 
 ver_competencia::ver_competencia(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::ver_competencia)
+{
+    ui->setupUi(this);
+    QPixmap pix("/home/fer/Pegaso/Heros64.png");
+    ui->label_logo->setPixmap(pix);
+}
+
+ver_competencia::ver_competencia(Competencia *comp, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ver_competencia)
 {
@@ -28,10 +32,10 @@ void ver_competencia::on_pushButton_7_clicked()
 
 void ver_competencia::on_pushButton_2_clicked()
 {
-    modificar_competencia * m;
-    m= new modificar_competencia();
-    m->setModal(true);
-    m->show();
+//    modificar_competencia * m;
+//    m= new modificar_competencia();
+//    m->setModal(true);
+//    m->show();
 
 }
 

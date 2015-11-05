@@ -76,6 +76,17 @@ Usuario* GestorUsuarios::login(QString email, QByteArray password) {
 
     if(password!=user->getPassword())
         return NULL;
-    else
+    else{
+     //Registro el inicio de sesión
+        Auditoria* aud=new Auditoria();
+        aud->setFecha(QDateTime::currentDateTime().toString(Qt::ISODate));
+        aud->setPc(QHostInfo::localHostName());
+        QVector<Auditoria*> auditorias=user->getAuditorias();
+        auditorias.push_back(aud);
+        user->setAuditorias(auditorias);
+        //Guardo para que quede registrado el nuevo inicio de sesión
+        gestorDB->saveUsuario(user);
+        //retorno el usuario cargado
         return user;
+    }
 }

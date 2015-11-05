@@ -27,6 +27,7 @@
 #include <QCryptographicHash>
 #include <QValidator>
 #include <QRegExp>
+#include <QMessageBox>
 
 #include "Pais.h"
 #include "Provincia.h"
@@ -49,6 +50,9 @@ class listar_competencias;
 class GUI
 {
 private:
+    QWidget* ventanaActual;
+    QWidget* ventanaAnterior;
+
     GestorBaseDatos* gestorDB;
     GestorCompetencias* gestorCompetencias;
     GestorLugares* gestorLugares;
@@ -78,7 +82,7 @@ public:
     void handlePantallaUsuario(QDialog* a, QString b);
     void handleListarCompetencias(QDialog* a, QString b, Competencia* comp = NULL);
     void handleListarLugares(QDialog* a , QString b);
-    void handleAltaCompetencia(QDialog* a, QString b);
+    void handleAltaCompetencia(QDialog *a, QString b,QStringList data);
     void handleListarParticipantes(QDialog* a, QString b);
     void handleVerCompetencia(QDialog* a, QString b);
     void handleMostrarFixture(QDialog* a, QString b);
@@ -94,7 +98,7 @@ class MainWindow : public QMainWindow
 
 public:
 
-    explicit MainWindow(GUI* guiP , GestorUsuarios *gestorUsuariosP , QWidget *parent = 0);
+    explicit MainWindow(GUI* guiP , QWidget *parent = 0);
     ~MainWindow();
 
 private slots:
@@ -104,7 +108,6 @@ private slots:
 private:
     Ui::MainWindow *ui;
     GUI* gui;
-    GestorUsuarios* gestorUsuarios;
 
 };
 
