@@ -29,6 +29,7 @@ WHERE C.id_usuario = id_usuarioP
     M.id_tipo_modalidad = TM.id_tipo_modalidad AND
     C.id_deporte = id_deporteP AND C.id_deporte = D.id_deporte AND
     C.estado = estadoP AND
+    C.borrado = 0 AND
     C.nombre LIKE '%nombreP%'
         */
 
@@ -145,27 +146,29 @@ Competencia *GestorBaseDatos::getCompetenciaFull(int id_comp) const{
     //CARGA COMPETENCIA, MODALIDAD Y DEPORTE
 
 /*
-SELECT C.nombre, TE.id_estado, TE.nombre, C.fecha_y_horaB, C.borrado, C.reglamento,
-D.id_deporte, D.nombre, M.id_modalidad, M.pto_partido_ganado, M.pto_presentarse,
-M.pto_empate, M.empate ,M.cant_max_sets, TM.id_tipo_modalidad, TM.nombre,
-TR.id_tipo_resultado, TR.nombre
-FROM Competencia C, Modalidad M, Tipo_modalidad TM, Tipo_resultado TR, Deporte D, Tipo_estado TE
+SELECT C.nombre, E.id_estado, E.nombre, C.fecha_y_horaB, C.reglamento,
+    D.id_deporte, D.nombre, M.id_modalidad, M.pto_partido_ganado, M.pto_presentarse,
+    M.pto_empate, M.empate ,M.cant_max_sets, TM.id_tipo_modalidad, TM.nombre,
+    TR.id_tipo_resultado, TR.nombre
+FROM Competencia C, Modalidad M, Tipo_modalidad TM, Tipo_resultado TR,
+    Deporte D, estado E
 WHERE C.id_competencia = id_comp AND
     C.id_modalidad = M.id_modalidad AND
     M.id_tipo_modalidad = TM.id_tipo_modalidad AND
     C.id_tipo_resultado = TR.id_tipo_resultado AND
     C.id_deporte = D.id_deporte AND
-    TE.id_estado = C.id_estado
+    E.id_estado = C.id_estado AND
+    C.borrado = 0
 */
 
 
     QString querystr;
-    querystr += "SELECT C.nombre, TE.id_estado, TE.nombre, C.fecha_y_horaB, C.borrado, C.reglamento";
+    querystr += "SELECT C.nombre, TE.id_estado, TE.nombre, C.fecha_y_horaB, C.reglamento";
     querystr += ", D.id_deporte, D.nombre, M.id_modalidad, M.pto_partido_ganado, M.pto_presentarse";
     querystr += ", M.pto_empate, M.empate, M.cant_max_sets, TM.id_tipo_modalidad, TM.nombre";
     querystr += ", TR.id_tipo_resultado, TR.nombre";
     querystr += " FROM Competencia C, Modalidad M, Tipo_modalidad TM, Tipo_resultado TR, Deporte D, Tipo_estado TE";
-    querystr += " WHERE C.id_competencia = " + QString::number(id_comp);
+    querystr += " WHERE C.id_competencia = ?";
     querystr += " AND C.id_modalidad = M.id_modalidad";
     querystr += " AND M.id_tipo_modalidad = TM.id_tipo_modalidad";
     querystr += " AND M.id_tipo_resultado = TR.id_tipo_resultado";
@@ -174,10 +177,11 @@ WHERE C.id_competencia = id_comp AND
 
     QSqlQuery query;
 
-
+    query.prepare(querystr);
+    query.addBindValue(id_comp);
 
     // consulta
-    if(!query.exec(querystr)){
+    if(!query.exec()){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
         qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
@@ -204,35 +208,35 @@ WHERE C.id_competencia = id_comp AND
     comp->setEstado(est);
 
     comp->setFecha_y_horaB(query.value(3).toString());
-    comp->setBorrado((bool)query.value(4).toInt());
-    comp->setReglamento(query.value(5).toString());
+    comp->setBorrado(false);
+    comp->setReglamento(query.value(4).toString());
 
     Deporte *dep = new Deporte;
-    dep->setId(query.value(6).toInt());
-    dep->setNombre(query.value(7).toString());
+    dep->setId(query.value(5).toInt());
+    dep->setNombre(query.value(6).toString());
 
     comp->setDeporte(dep);
 
     Modalidad *mod = new Modalidad;
 
-    mod->setId(query.value(8).toInt());
-    mod->setPuntos_ganar(query.value(9).toInt());
-    mod->setPuntos_presentarse(query.value(10).toInt());
-    mod->setPuntos_empate(query.value(11).toInt());
-    mod->setEmpate((bool)query.value(12).toInt());
-    mod->setCant_max_sets(query.value(13).toInt());
+    mod->setId(query.value(7).toInt());
+    mod->setPuntos_ganar(query.value(8).toInt());
+    mod->setPuntos_presentarse(query.value(9).toInt());
+    mod->setPuntos_empate(query.value(10).toInt());
+    mod->setEmpate((bool)query.value(11).toInt());
+    mod->setCant_max_sets(query.value(12).toInt());
 
     TipoModalidad* tipoMod = new TipoModalidad();
 
-    tipoMod->setId(query.value(14).toInt());
-    tipoMod->setNombre(query.value(15).toString());
+    tipoMod->setId(query.value(13).toInt());
+    tipoMod->setNombre(query.value(14).toString());
 
     mod->setTipoMod(tipoMod);
 
     TipoResultado* tipoRes = new TipoResultado();
 
-    tipoRes->setId(query.value(16).toInt());
-    tipoRes->setNombre(query.value(17).toString());
+    tipoRes->setId(query.value(15).toInt());
+    tipoRes->setNombre(query.value(16).toString());
 
     mod->setTipoRes(tipoRes);
 
@@ -250,10 +254,13 @@ WHERE C.id_competencia = id_comp AND
     querystr.clear();
 
     querystr += "SELECT SA.disponibilidad, SA.id_lugar";
-    querystr += " FROM Se_asignan SA WHERE SA.id_competencia = " + QString::number(id_comp);
+    querystr += " FROM Se_asignan SA WHERE SA.id_competencia = ?";
+
+    query.prepare(querystr);
+    query.addBindValue(id_comp);
 
     // consulta
-    if(!query.exec(querystr)){
+    if(!query.exec()){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
         return NULL;
@@ -291,11 +298,14 @@ WHERE id_competencia = id_comp*/
     querystr.clear();
 
     querystr += "SELECT id_participante, imagen, nombre, correo, puntos, pg, pp, pe, tf, tc, dif";
-    querystr += " FROM Participante WHERE id_competencia = " + QString::number(id_comp);
+    querystr += " FROM Participante WHERE id_competencia = ?";
     querystr += " ORDER BY id_participante ASC";
 
+    query.prepare(querystr);
+    query.addBindValue(id_comp);
+
     // consulta
-    if(!query.exec(querystr)){
+    if(!query.exec()){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
         return NULL;
@@ -381,10 +391,13 @@ WHERE id_competencia = id_comp
     querystr.clear();
 
     querystr += "SELECT id_partido, fecha, ronda, id_lugar, equipoA, equipoB";
-    querystr += " FROM Partido WHERE id_competencia = " + QString::number(id_comp);
+    querystr += " FROM Partido WHERE id_competencia = ?";
+
+    query.prepare(querystr);
+    query.addBindValue(id_comp);
 
     // consulta
-    if(!query.exec(querystr)){
+    if(!query.exec()){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
         return NULL;
