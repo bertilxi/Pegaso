@@ -2,17 +2,22 @@
 #include "ui_alta_competencia.h"
 
 
+
 alta_competencia::alta_competencia(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::alta_competencia)
 {
     ui->setupUi(this);
     ui->plainTextEdit->hide();
+    QRegExp compRegex("[-a-zA-Z0-9_ ]*");
+    QValidator* compValidator = new QRegExpValidator(compRegex,this);
+    ui->lineEdit->setValidator(compValidator);
+    ui->comboBox_2->setCurrentIndex(-1);
 
 }
 
  alta_competencia::alta_competencia(QVector<Deporte*> deportes, QVector<Lugar *> lugares, QVector<TipoModalidad*> modalidades, QWidget *parent):
-     QDialog(parent), lugar(lugares), ui(new Ui::alta_competencia)
+     QDialog(parent), lugar(lugares), ui(new Ui::alta_competencia), tiposModalidades(modalidades)
 
  {
      ui->setupUi(this);
@@ -46,16 +51,17 @@ void alta_competencia::on_pushButton_clicked()
 {
 
     QStringList data;
-    QString nombreCompetencia = ui->lineEdit->text();
+    QString nombreCompetencia = ui->lineEdit->text().toUpper();
     data.append(nombreCompetencia);
-    QString deporte = ui->comboBox->currentText();
+    QString deporte = ui->comboBox->currentText().toUpper();
     data.append(deporte);
-    QString tipoModalidad = ui->comboBox_3->currentText();
+    QString tipoModalidad = ui->comboBox_3->currentText().toUpper();
     data.append(tipoModalidad);
 
     if(nombreCompetencia.isEmpty() || deporte.isEmpty() || tipoModalidad.isEmpty()){
         QMessageBox* msg = new QMessageBox(this);
         msg->setText("Por favor complete todos los datos");
+        msg->setModal(true);
         msg->exec();
     }
     else{
@@ -81,6 +87,7 @@ void alta_competencia::on_pushButton_3_clicked()
     if(disp == 0){
         QMessageBox* msg = new QMessageBox(this);
         msg->setText("Por favor coloque una disponibilidad");
+        msg->setModal(true);
         msg->exec();
     }
     else{
@@ -104,5 +111,24 @@ void alta_competencia::on_checkBox_stateChanged(int arg1)
     }
     else{
         ui->plainTextEdit->hide();
+    }
+}
+
+void alta_competencia::on_comboBox_2_currentTextChanged(const QString &arg1)
+{
+    qDebug()<< arg1;
+
+    if(arg1.toLower() == "eliminación simple" ){
+        alta_competencia_eliminacion* ae = new alta_competencia_eliminacion("simple",this);
+        ae->setModal(true);
+        ae->show();
+    }
+    else if(arg1.toLower() == "eliminación doble"){
+        alta_competencia_eliminacion* ae = new alta_competencia_eliminacion("simple",this);
+        ae->setModal(true);
+        ae->show();
+    }
+    else{
+
     }
 }

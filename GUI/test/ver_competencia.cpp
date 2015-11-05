@@ -32,10 +32,10 @@ void ver_competencia::on_pushButton_7_clicked()
 
 void ver_competencia::on_pushButton_2_clicked()
 {
-    modificar_competencia * m;
-    m= new modificar_competencia();
-    m->setModal(true);
-    m->show();
+//    modificar_competencia * m;
+//    m= new modificar_competencia();
+//    m->setModal(true);
+//    m->show();
 
 }
 

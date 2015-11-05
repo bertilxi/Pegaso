@@ -38,5 +38,13 @@ private:
 
     void mostrarCompetencias();
 };
+class UppercaseValidator : public QRegExpValidator { Q_OBJECT
+public:
+    UppercaseValidator(QObject *parent=0) :
+        QRegExpValidator(parent) { }
+    virtual void fixup(QString &input) {
+        input = input.toUpper();
+    }
+};
 
 #endif // LISTAR_COMPETENCIAS_H

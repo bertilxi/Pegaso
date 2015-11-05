@@ -27,6 +27,7 @@
 #include <QCryptographicHash>
 #include <QValidator>
 #include <QRegExp>
+#include <QMessageBox>
 
 #include "Pais.h"
 #include "Provincia.h"

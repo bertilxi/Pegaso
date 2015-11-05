@@ -8,6 +8,8 @@
 #include "Deporte.h"
 #include "Disponibilidad.h"
 #include "gui.h"
+#include "alta_competencia_eliminacion.h"
+#include "alta_competencia_liga.h"
 
 
 class GUI;
@@ -35,9 +37,14 @@ private slots:
 
     void on_checkBox_stateChanged(int arg1);
 
+
+
+    void on_comboBox_2_currentTextChanged(const QString &arg1);
+
 private:
     GUI* gui;
     QVector<Lugar*> lugar;
+    QVector<TipoModalidad*> tiposModalidades;
     Ui::alta_competencia *ui;
 };
 
