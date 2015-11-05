@@ -180,11 +180,8 @@ WHERE C.id_competencia = id_comp AND
     if(!query.exec(querystr)){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
-        if (query.next())
-        {
-        } else {
-            qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
-        }
+        qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
+
         return NULL;
     }
 
@@ -862,7 +859,120 @@ QString GestorBaseDatos::generarQuerySets() const{
 
 Usuario *GestorBaseDatos::cargarUsuario(QString correo)
 {
+    /*SELECT U.id_usuario, U.nro_doc, D.id_tipo_doc, D.nombre, U.password, U.nombre,
+    U.apellido, L.id_localidad, L.nombre, PR.id_provincia, PR.nombre,
+    PA.id_pais, PA.nombre
+FROM Usuario U, Tipo_doc D, Localidad L, Provincia PR, Pais PA
+WHERE U.email = correo AND
+    U.id_tipo_doc = D.id_tipo_doc AND
+    U.id_localidad = U.id_localidad AND
+    L.id_provincia = PR.id_provincia AND
+    PR.id_pais = PA.id_pais*/
 
+    QString querystr;
+    querystr += "SELECT U.id_usuario, U.nro_doc, D.id_tipo_doc, D.nombre, U.password, U.nombre, U.apellido";
+    querystr += ", L.id_localidad, L.nombre, PR.id_provincia, PR.nombre, PA.id_pais, PA.nombre";
+    querystr += " FROM Usuario U, Tipo_doc D, Localidad L, Provincia PR, Pais PA";
+    querystr += " WHERE U.email = ?";
+    querystr += " AND U.id_tipo_doc = D.id_tipo_doc";
+    querystr += " AND U.id_localidad = U.id_localidad";
+    querystr += " AND L.id_provincia = PR.id_provincia";
+    querystr += " AND PR.id_pais = PA.id_pais";
+
+    QSqlQuery query;
+
+    query.prepare(querystr);
+    query.addBindValue(correo);
+
+    // consulta
+    if(!query.exec(querystr)){
+        qDebug() << "La consulta ha fallado";
+        qDebug() << "La consulta que dio error fue: " << querystr;
+        qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
+
+        return NULL;
+    }
+
+    Usuario *user;
+
+    if(query.next())
+    {
+        user = new Usuario();
+
+        user->setEmail(correo);
+        user->setId(query.value(0).toInt());
+        user->setNro_doc(query.value(1).toString());
+
+        Doc *doc = new Doc();
+        doc->setId(query.value(2).toInt());
+        doc->setTipo(query.value(3).toString());
+
+        user->setDoc(doc);
+
+        user->setPassword(query.value(4).toByteArray());
+        user->setNombre(query.value(5).toString());
+        user->setApellido(query.value(6).toString());
+
+        Localidad *loc = new Localidad();
+        loc->setId(query.value(7));
+        loc->setNombre(query.value(8));
+
+        user->setLocalidad(loc);
+
+        Provincia *prov = new Provincia();
+        prov->setId(query.value(9).toInt());
+        prov->setNombre(query.value(10).toString());
+
+        user->setProvincia(prov);
+
+        Pais *pais = new Pais();
+        pais->setId(query.value(11).toInt());
+        pais->setNombre(query.value(12).toString());
+
+        user->setPais(pais);
+    }
+    else
+    {
+        qDebug() << "Error: no hay usuario con correo: " << correo;
+
+        return NULL;
+    }
+
+    /*SELECT L.id_lugar, L.nombre, L.descripcion
+FROM Lugar L
+WHERE L.id_usuario = userId AND
+    L.borrado = 0*/
+
+    querystr.clear();
+
+    querystr += "SELECT L.id_lugar, L.nombre, L.descripcion";
+    querystr += " FROM Lugar L WHERE L.id_usuario = ? AND L.borrado = 0";
+
+    query.prepare(querystr);
+    query.addBindValue(user);
+
+    // consulta
+    if(!query.exec()){
+        qDebug() << "La consulta ha fallado";
+        qDebug() << "La consulta que dio error fue: " << querystr;
+        qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
+
+        return user;
+    }
+
+    QVector<Lugar *> lugares;
+    while(query.next())
+    {
+        Lugar *lugar = new Lugar();
+        lugar->setId(query.value(0).toInt());
+        lugar->setNombre(query.value(1).toString());
+
+        lugares.push_back(lugar);
+    }
+
+    user->setLugares(lugares);
+
+    return user;
 }
 
 Usuario *GestorBaseDatos::saveUsuario(Usuario *usuario)
@@ -872,35 +982,207 @@ Usuario *GestorBaseDatos::saveUsuario(Usuario *usuario)
 
 QVector<Deporte *> GestorBaseDatos::getDeportes()
 {
+    /*SELECT D.id_deporte, D.nombre
+FROM Deporte D*/
 
+    QString querystr;
+    querystr += "SELECT D.id_deporte, D.nombre FROM Deporte D";
+
+    QSqlQuery query;
+
+    if(!query.exec(querystr)){
+        qDebug() << "La consulta ha fallado";
+        qDebug() << "La consulta que dio error fue: " << querystr;
+        qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
+
+        return QVector<Deporte *>();
+    }
+
+    QVector<Deporte *> deportes;
+
+    while(query.next())
+    {
+        Deporte *dep = new Deporte();
+        dep->setId(query.value(0).toInt());
+        dep->setNombre(query.value(1).toString());
+
+        deportes.push_back(dep);
+    }
+
+    return deportes;
 }
 
 QVector<Pais *> GestorBaseDatos::getPaises()
 {
+    /*SELECT P.id_pais, P.nombre
+FROM Pais P*/
 
+    QString querystr;
+    querystr += "SELECT P.id_pais, P.nombre FROM Pais P";
+
+    QSqlQuery query;
+
+    if(!query.exec(querystr)){
+        qDebug() << "La consulta ha fallado";
+        qDebug() << "La consulta que dio error fue: " << querystr;
+        qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
+
+        return QVector<Pais *>();
+    }
+
+    QVector<Pais *> paises;
+
+    while(query.next())
+    {
+        Pais *pais = new Pais;
+        pais->setId(query.value(0).toInt());
+        pais->setNombre(query.value(1).toString());
+
+        paises.push_back(pais);
+    }
+
+    return paises;
 }
 
 QVector<Provincia *> GestorBaseDatos::getProvincias(Pais *pais)
 {
+    /*SELECT PR.id_provincia, PR.nombre
+FROM Provincia PR
+WHERE PR.id_pais = paisId*/
 
+    QString querystr;
+    querystr += "SELECT PR.id_provincia, PR.nombre FROM Provincia PR WHERE PR.id_pais = ?";
+
+    QSqlQuery query;
+    query.prepare(querystr);
+    query.addBindValue(pais->getId());
+
+    if(!query.exec()){
+        qDebug() << "La consulta ha fallado";
+        qDebug() << "La consulta que dio error fue: " << querystr;
+        qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
+
+        return QVector<Provincia *>();
+    }
+
+    QVector<Provincia *> provincias;
+
+    while(query.next())
+    {
+        Provincia *prov = new Provincia();
+
+        prov->setId(query.value(0).toInt());
+        prov->setNombre(query.value(1).toString());
+
+        provincias.push_back(prov);
+    }
+
+    return provincias;
 }
 
 QVector<Localidad *> GestorBaseDatos::getLocalidades(Provincia *provincia)
 {
+    /*SELECT L.id_localidad, L.nombre
+FROM Localidad L
+WHERE L.id_provincia = provinciaId*/
 
+    QString querystr;
+    querystr += "SELECT L.id_localidad, L.nombre FROM Localidad L WHERE L.id_provincia = ?";
+
+    QSqlQuery query;
+    query.prepare(querystr);
+    query.addBindValue(provincia->getId());
+
+    if(!query.exec()){
+        qDebug() << "La consulta ha fallado";
+        qDebug() << "La consulta que dio error fue: " << querystr;
+        qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
+
+        return QVector<Localidad *>();
+    }
+
+    QVector<Localidad *> localidades;
+
+    while(query.next())
+    {
+        Localidad *loc = new Localidad();
+
+        loc->setId(query.value(0).toInt());
+        loc->setNombre(query.value(1).toString());
+
+        localidades.push_back(loc);
+    }
+
+    return localidades;
 }
 
 QVector<Estado *> GestorBaseDatos::getEstados()
 {
+    /*SELECT E.id_estado, E.nombre
+FROM Estado E*/
 
+    QString querystr;
+    querystr += "SELECT E.id_estado, E.nombre FROM Estado E";
+
+    QSqlQuery query;
+
+    if(!query.exec(querystr)){
+        qDebug() << "La consulta ha fallado";
+        qDebug() << "La consulta que dio error fue: " << querystr;
+        qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
+
+        return QVector<Estado *>();
+    }
+
+    QVector<Estado *> estados;
+
+    while(query.next())
+    {
+        Estado *est = new Estado;
+
+        est->setId(query.value(0).toInt());
+        est->setNombre(query.value(1).toString());
+
+        estados.push_back(est);
+    }
+
+    return estados;
 }
 
 QVector<Modalidad *> GestorBaseDatos::getModalidades()
 {
-
+    //para que?
 }
 
 QVector<TipoModalidad *> GestorBaseDatos::getTipoModalidades()
 {
+    /*SELECT TM.id_tipo_modalidad, TM.nombre
+FROM Tipo_modalidad TM*/
 
+    QString querystr;
+    querystr += "TM.id_tipo_modalidad, TM.nombre FROM Tipo_modalidad TM";
+
+    QSqlQuery query;
+
+    if(!query.exec(querystr)){
+        qDebug() << "La consulta ha fallado";
+        qDebug() << "La consulta que dio error fue: " << querystr;
+        qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
+
+        return QVector<TipoModalidad *>();
+    }
+
+    QVector<TipoModalidad *> tmodalidades;
+
+    while(query.next())
+    {
+        TipoModalidad *tmod = new TipoModalidad();
+
+        tmod->setId(query.value(0).toInt());
+        tmod->setNombre(query.value(1).toString());
+
+        tmodalidades.push_back(tmod);
+    }
+
+    return tmodalidades;
 }
