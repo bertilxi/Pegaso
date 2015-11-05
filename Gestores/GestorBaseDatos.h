@@ -16,6 +16,7 @@
 #include "Provincia.h"
 #include "Localidad.h"
 #include <QSqlError>
+#include <QFile>
 
 using namespace std;
 
@@ -27,6 +28,8 @@ class Participante;
 class GestorBaseDatos {
 private:
 
+    QSqlDatabase db;
+
     int armarQuerySave(QString tabla, const QVector<Atributo> &atributos);
     QString generarQueryResultado() const;
     QString generarQueryPuntos() const;
@@ -34,6 +37,7 @@ private:
 
 public: 
     
+    GestorBaseDatos(QString dbs);
 
     QVector<Competencia *> getCompetenciasLazy(const DtoGetCompetencia *dto) const;
 

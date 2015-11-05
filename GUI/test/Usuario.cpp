@@ -103,7 +103,15 @@ void Usuario::setPais(Pais *value)
 {
     pais = value;
 }
+Doc *Usuario::getDoc()
+{
+    return doc;
+}
 
+void Usuario::setDoc(Doc *value)
+{
+    doc = value;
+}
 QByteArray Usuario::getPassword() const
 {
     return password;
@@ -137,16 +145,6 @@ QVector<Atributo> Usuario::getAtributos() const
     //result.push_back(Atributo("password",));
 
     return QVector<Atributo>(); //temporal
-}
-
-Doc *Usuario::getDoc()
-{
-    return doc;
-}
-
-void Usuario::setDoc(Doc *value)
-{
-    doc = value;
 }
 
 

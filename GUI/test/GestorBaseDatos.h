@@ -16,6 +16,7 @@
 #include "Provincia.h"
 #include "Localidad.h"
 #include <QSqlError>
+#include <QFile>
 
 using namespace std;
 
@@ -27,6 +28,8 @@ class Participante;
 class GestorBaseDatos {
 private:
 
+    QSqlDatabase db;
+
     int armarQuerySave(QString tabla, const QVector<Atributo> &atributos);
     QString generarQueryResultado() const;
     QString generarQueryPuntos() const;
@@ -34,6 +37,7 @@ private:
 
 public: 
     
+    GestorBaseDatos(QString dbs);
 
     QVector<Competencia *> getCompetenciasLazy(const DtoGetCompetencia *dto) const;
 
@@ -49,10 +53,7 @@ public:
      * @param id_externo es un puntero a un atributo correspondiente a una fk.
      * Su valor es NULL si no se la llama con tal argumento.
      * @return true si tuvo exito, false si fallo
-     */
-
-
-    template <class T1>
+     */    template <class T1>
     bool save(QVector<T1 *> objptrs, Atributo *id_externo = NULL){
 
         QString tabla;
@@ -230,7 +231,7 @@ public:
     QVector<Modalidad*> getModalidades();
     QVector<TipoModalidad*> getTipoModalidades();
 
-};
+    };
 
 
 #endif //_GESTORBASEDATOS_H

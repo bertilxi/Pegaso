@@ -51,6 +51,9 @@ public:
     Pais *getPais() const;
     void setPais(Pais *value);
 
+    Doc *getDoc();
+    void setDoc(Doc *value);
+
     QByteArray getPassword() const;
     void setPassword(const QByteArray &value);
 
@@ -58,9 +61,6 @@ public:
     void setLocalidad(Localidad *value);
 
     QVector<Atributo> getAtributos() const;
-
-    Doc *getDoc();
-    void setDoc(Doc *value);
 
 private:
     int id;

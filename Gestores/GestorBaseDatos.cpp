@@ -857,6 +857,20 @@ QString GestorBaseDatos::generarQuerySets() const{
     return querystr;
 }
 
+GestorBaseDatos::GestorBaseDatos(QString dbs)
+{
+    db = QSqlDatabase::addDatabase("QSQLITE");
+        db.setDatabaseName("pegaso.db");
+
+
+        if(db.open()){
+            qDebug()<<"Se ha conectado la Base de Datos";
+        }
+        else{
+            qDebug()<<"Error al conectar la Base de Datos";
+        }
+}
+
 Usuario *GestorBaseDatos::cargarUsuario(QString correo)
 {
     /*SELECT U.id_usuario, U.nro_doc, D.id_tipo_doc, D.nombre, U.password, U.nombre,
