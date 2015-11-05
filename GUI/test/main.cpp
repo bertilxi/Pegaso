@@ -29,6 +29,13 @@ int main(int argc, char *argv[])
     /*
     Cargar Deportes, Localidad, Provincia, Pais
     */
+    //    deportes = gestorDB->getDeportes();
+    //    paises = gestorDB->getPaises();
+    //    estados = gestorDB->getEstados();
+    //    modalidades = gestorDB->getModalidades();
+    //    tiposModalidad = gestorDB->getTipoModalidades();
+//    QVector<Doc*> doc = gestorBaseDeDatos->getDocs();
+
 
     GUI gui(gestorBaseDeDatos, gestorCompetencias, gestorLugares, gestorPartidos, gestorUsuarios);
 

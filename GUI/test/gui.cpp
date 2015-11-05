@@ -9,7 +9,7 @@ MainWindow::MainWindow(GUI* guiP, QWidget *parent):
 
     EmailValidator* emailValidator = new EmailValidator(this);
     ui->lineEdit->setValidator(emailValidator);
-    QRegExp password("[a-zA-Z0-9.-]{4,200}");
+    QRegExp password("[a-zA-Z0-9.-]*");
     QValidator* passwordValidator = new QRegExpValidator(password,this);
     ui->lineEdit_2->setEchoMode(QLineEdit::Password);
     ui->lineEdit_2->setValidator(passwordValidator);
@@ -30,7 +30,15 @@ void MainWindow::on_pushButton_2_clicked()
     QString email = ui->lineEdit->text();
 
     // se envian datos se pide la accion correspondiente
-    gui->handleMain(this,QString("pantallaUsuario"),email,passwordHash);
+    if(ui->lineEdit_2->text().size() < 4){
+        QMessageBox* msg = new QMessageBox(this);
+        msg->setText("Por favor coloque una contraseña de más de 6 caracteres");
+        msg->setModal(true);
+        msg->exec();
+    }
+    else{
+        gui->handleMain(this,QString("pantallaUsuario"),email,passwordHash);
+    }
 }
 
 void MainWindow::on_pushButton_4_clicked()
@@ -198,12 +206,6 @@ QVector<Competencia*> GUI::handleFiltrarCompetencias(QStringList data)
 GUI::GUI(GestorBaseDatos *gestorDBP, GestorCompetencias *gestorCompetenciasP, GestorLugares *gestorLugaresP, GestorPartidos *gestorPartidosP, GestorUsuarios *gestorUsuariosP):
     gestorDB(gestorDBP), gestorCompetencias(gestorCompetenciasP), gestorLugares(gestorLugaresP), gestorPartidos(gestorPartidosP), gestorUsuarios(gestorUsuariosP)
 {
-//    deportes = gestorDB->getDeportes();
-//    paises = gestorDB->getPaises();
-//    estados = gestorDB->getEstados();
-//    modalidades = gestorDB->getModalidades();
-//    tiposModalidad = gestorDB->getTipoModalidades();
-
 
 }
 

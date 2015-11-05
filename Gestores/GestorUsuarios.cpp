@@ -19,6 +19,16 @@ void GestorUsuarios::setActual( Usuario *value)
     actual = value;
 }
 
+QVector<Provincia *> GestorUsuarios::getProvincias(Pais *pais)
+{
+
+}
+
+QVector<Localidad *> GestorUsuarios::getLocalidades(Provincia *provincia)
+{
+
+}
+
 bool GestorUsuarios::altaUsuario(DtoUsuario *datos,QString &error) {
     error="";
     //Compruebo que no haya un usuario ya registrado con ese correo

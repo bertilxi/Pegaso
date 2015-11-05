@@ -39,11 +39,15 @@ listar_competencias::listar_competencias(QWidget *parent) :
     ui->setupUi(this);
     //QPixmap pix("/home/fer/Pegaso/Heros64.png");
     //ui->label_logo->setPixmap(pix);
-    int i;
+
     // Carga de comboBox con los datos posibles inyectados desde la base de datos
     ui->comboBox->clear();
     ui->comboBox_2->clear();
     ui->comboBox_3->clear();
+
+    QRegExp compRegex("[-a-zA-Z0-9_ ]*");
+    QValidator* compValidator = new QRegExpValidator(compRegex,this);
+    ui->lineEdit->setValidator(compValidator);
 
     // columnas para nombre, deporte, modalidad, estado
     ui->tableWidget->setColumnCount(4);
@@ -80,7 +84,7 @@ void listar_competencias::on_pushButton_4_clicked()
 
 void listar_competencias::on_pushButton_clicked()
 {
-    QString nombre = ui->lineEdit->text();
+    QString nombre = ui->lineEdit->text().toUpper();
     QString deporte = ui->comboBox->currentText();
     QString estado = ui->comboBox_3->currentText();
     QString tipoModalidad = ui->comboBox_2->currentText();
@@ -115,3 +119,4 @@ void listar_competencias::mostrarCompetencias()
 
     }
 }
+

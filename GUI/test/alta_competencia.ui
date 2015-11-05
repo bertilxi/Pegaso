@@ -248,17 +248,17 @@
         </property>
         <item>
          <property name="text">
-          <string>Eliminacion Simple</string>
+          <string>Eliminación Simple</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>Sistema de Liga</string>
+          <string>Liga</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>Eliminacion Doble</string>
+          <string>Eliminación Doble</string>
          </property>
         </item>
        </widget>
