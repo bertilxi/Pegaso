@@ -1,8 +1,8 @@
 #include "listar_competencias.h"
 
 
-listar_competencias::listar_competencias(QVector<Deporte*> deportes,QVector<Estado*> estados, QVector<TipoModalidad*> modalidades, QWidget *parent) :
-    QDialog(parent),
+listar_competencias::listar_competencias(GUI *guiP, QVector<Deporte*> deportes, QVector<Estado*> estados, QVector<TipoModalidad*> modalidades, QWidget *parent) :
+    QDialog(parent), gui(guiP),
     ui(new Ui::listar_competencias)
 {
     ui->setupUi(this);

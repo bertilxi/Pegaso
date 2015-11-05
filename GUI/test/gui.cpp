@@ -62,7 +62,7 @@ void GUI::handleMain(QMainWindow* a, QString b, QString email, QByteArray pass)
     {
 //        if(gestorUsuarios->login(email,pass) != NULL){
         if(1){
-            pantalla_usuario* p = new pantalla_usuario(a);
+            pantalla_usuario* p = new pantalla_usuario(this,a);
             a->close();
             p->show();
              qDebug()<<deportes.size();
@@ -82,18 +82,11 @@ void GUI::handleMain(QMainWindow* a, QString b, QString email, QByteArray pass)
 
 void GUI::handlePantallaUsuario(QDialog *a, QString b)
 {
-    qDebug()<<deportes.size();
     if (b == "listarCompetencias"){
-        qDebug()<<"hola";
-        qDebug()<<estados.size();
-        qDebug()<<modalidades.isEmpty();
-        qDebug()<<"hola";
+        listar_competencias* l = new listar_competencias(this,deportes,estados,modalidades,a);
 
-//        listar_competencias* l = new listar_competencias(deportes,estados,modalidades,a);
-        listar_competencias* l = new listar_competencias();
         a->close();
         l->show();
-
     }
 
     if (b == "modificarUsuario")
@@ -204,6 +197,9 @@ QVector<Competencia*> GUI::handleFiltrarCompetencias(QStringList data)
     QString nombreComp, deporte, estado, tipoModalidad;
 
     Usuario*  usuario   =   gestorUsuarios->getActual();
+
+    qDebug()<<usuario->getEmail();
+
     nombreComp          =   data[0];
     deporte             =   data[1];
     estado              =   data[2];
@@ -215,8 +211,23 @@ QVector<Competencia*> GUI::handleFiltrarCompetencias(QStringList data)
 
     DtoGetCompetencia* datos = new DtoGetCompetencia(usuario,nombreComp,d,tm,e);
 
-    return gestorCompetencias->getCompetenciasLazy(datos);
+//    return gestorCompetencias->getCompetenciasLazy(datos);
+    QVector<Competencia*> compsAux;
+    Competencia *compAux = new Competencia();
+    Deporte * de = new Deporte();
+    de->setNombre("voley");
+    compAux->setDeporte(de);
+    Modalidad * m = new Modalidad();
+    TipoModalidad* tmi = new TipoModalidad();
+    tmi->setNombre("modalidad x");
+    m->setTipoMod(tmi);
+    compAux->setModalidad(m);
+    Estado *es = new Estado();
+    es->setNombre("creada");
+    compAux->setEstado(es);
+    compsAux.push_back(compAux);
 
+    return compsAux;
 }
 
 

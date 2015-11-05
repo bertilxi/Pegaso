@@ -2,8 +2,8 @@
 
 
 
-pantalla_usuario::pantalla_usuario(QWidget *parent) :
-    QDialog(parent),
+pantalla_usuario::pantalla_usuario(GUI *guiP, QWidget *parent) :
+    QDialog(parent), gui(guiP),
     ui(new Ui::pantalla_usuario)
 {
     ui->setupUi(this);
