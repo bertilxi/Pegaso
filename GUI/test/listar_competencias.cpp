@@ -14,6 +14,10 @@ listar_competencias::listar_competencias(QVector<Deporte*> deportes,QVector<Esta
     ui->comboBox_2->clear();
     ui->comboBox_3->clear();
 
+    QRegExp compRegex("[-a-zA-Z0-9_ ]*");
+    QValidator* compValidator = new QRegExpValidator(compRegex,this);
+    ui->lineEdit->setValidator(compValidator);
+
     // columnas para nombre, deporte, modalidad, estado
     ui->tableWidget->setColumnCount(4);
 //    QHeaderView* header;

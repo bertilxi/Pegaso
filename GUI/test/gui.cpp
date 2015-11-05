@@ -16,6 +16,14 @@ MainWindow::MainWindow(GUI* guiP, QWidget *parent):
 
 }
 
+GUI::GUI(GestorBaseDatos *gestorDBP, GestorCompetencias *gestorCompetenciasP, GestorLugares *gestorLugaresP,
+         GestorPartidos *gestorPartidosP, GestorUsuarios *gestorUsuariosP, QVector<Deporte *> deportesP,
+         QVector<Pais *> paisesP, QVector<Estado *> estadosP, QVector<TipoModalidad *> modalidadesP):
+    gestorDB(gestorDBP), gestorCompetencias(gestorCompetenciasP), gestorLugares(gestorLugaresP),
+    gestorPartidos(gestorPartidosP), gestorUsuarios(gestorUsuariosP), deportes(deportesP),
+    paises(paisesP), estados(estadosP), modalidades(modalidadesP)
+{}
+
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -57,6 +65,7 @@ void GUI::handleMain(QMainWindow* a, QString b, QString email, QByteArray pass)
             pantalla_usuario* p = new pantalla_usuario(a);
             a->close();
             p->show();
+             qDebug()<<deportes.size();
         }
 
 
@@ -73,8 +82,15 @@ void GUI::handleMain(QMainWindow* a, QString b, QString email, QByteArray pass)
 
 void GUI::handlePantallaUsuario(QDialog *a, QString b)
 {
+    qDebug()<<deportes.size();
     if (b == "listarCompetencias"){
-        listar_competencias* l = new listar_competencias(a);
+        qDebug()<<"hola";
+        qDebug()<<estados.size();
+        qDebug()<<modalidades.isEmpty();
+        qDebug()<<"hola";
+
+//        listar_competencias* l = new listar_competencias(deportes,estados,modalidades,a);
+        listar_competencias* l = new listar_competencias();
         a->close();
         l->show();
 
@@ -203,11 +219,6 @@ QVector<Competencia*> GUI::handleFiltrarCompetencias(QStringList data)
 
 }
 
-GUI::GUI(GestorBaseDatos *gestorDBP, GestorCompetencias *gestorCompetenciasP, GestorLugares *gestorLugaresP, GestorPartidos *gestorPartidosP, GestorUsuarios *gestorUsuariosP):
-    gestorDB(gestorDBP), gestorCompetencias(gestorCompetenciasP), gestorLugares(gestorLugaresP), gestorPartidos(gestorPartidosP), gestorUsuarios(gestorUsuariosP)
-{
-
-}
 
 QVector<Deporte *> GUI::getDeportes() const
 {
@@ -239,9 +250,9 @@ Deporte *GUI::buscarDeporte(QString deporte)
 
 TipoModalidad *GUI::buscarTipoModalidad(QString tipoMod)
 {
-    for (int i = 0; i < tiposModalidad.size(); ++i) {
-        if(tipoMod==tiposModalidad[i]->getNombre())
-            return tiposModalidad[i];
+    for (int i = 0; i < modalidades.size(); ++i) {
+        if(tipoMod==modalidades[i]->getNombre())
+            return modalidades[i];
     }
     return NULL;
 }

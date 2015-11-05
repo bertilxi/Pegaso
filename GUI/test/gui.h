@@ -64,9 +64,9 @@ private:
     QVector<Pais*> paises;
     QVector<Estado*> estados;
     QVector<Res*> res;
-    QVector<TipoModalidad*> tiposModalidad;
+    QVector<TipoModalidad*> modalidades;
     QVector<TipoResultado*> tiposResultado;
-    QVector<Modalidad*> modalidades;
+//    QVector<Modalidad*> modalidades;
     QVector<Provincia*> provincias;
     QVector<Localidad*> localidades;
     QVector<Doc*> documentos;
@@ -87,7 +87,10 @@ public:
     void handleVerCompetencia(QDialog* a, QString b);
     void handleMostrarFixture(QDialog* a, QString b);
     QVector<Competencia*> handleFiltrarCompetencias(QStringList datos);
-    GUI(GestorBaseDatos* gestorDBP, GestorCompetencias* gestorCompetenciasP, GestorLugares* gestorLugaresP, GestorPartidos* gestorPartidosP, GestorUsuarios* gestorUsuariosP);
+    GUI(GestorBaseDatos* gestorDBP, GestorCompetencias* gestorCompetenciasP,
+        GestorLugares* gestorLugaresP, GestorPartidos* gestorPartidosP, GestorUsuarios* gestorUsuariosP,
+        QVector<Deporte*> deportesP, QVector<Pais*> paisesP, QVector<Estado*> estadosP, QVector<TipoModalidad*> modalidadesP
+        );
     QVector<Deporte *> getDeportes() const;
     void setDeportes(const QVector<Deporte *> &value);
 };

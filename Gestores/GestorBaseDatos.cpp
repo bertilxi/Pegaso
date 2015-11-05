@@ -1174,7 +1174,7 @@ QVector<TipoModalidad *> GestorBaseDatos::getTipoModalidades()
 FROM Tipo_modalidad TM*/
 
     QString querystr;
-    querystr += "TM.id_tipo_modalidad, TM.nombre FROM Tipo_modalidad TM";
+    querystr += "SELECT TM.id_tipo_modalidad, TM.nombre FROM Tipo_modalidad TM";
 
     QSqlQuery query;
 
