@@ -83,6 +83,7 @@ void GUI::handleMain(QMainWindow* a, QString b, QString email, QByteArray pass)
 void GUI::handlePantallaUsuario(QDialog *a, QString b)
 {
     if (b == "listarCompetencias"){
+//          QVector<Lugar*> lugares = gestorUsuarios->
         listar_competencias* l = new listar_competencias(this,deportes,estados,modalidades,a);
 
         a->close();
@@ -103,7 +104,7 @@ void GUI::handleListarCompetencias(QDialog *a, QString b, Competencia *comp)
 {
     if (b == "altaCompetencia")
     {
-        alta_competencia * al = new alta_competencia(a);
+        alta_competencia * al = new alta_competencia(this,deportes,lugares,modalidades,a);
         al->setModal(true);
         al->show();
 
@@ -112,9 +113,9 @@ void GUI::handleListarCompetencias(QDialog *a, QString b, Competencia *comp)
     if (b == "verCompetencia")
     {
 //        ver_competencia * v = new ver_competencia(comp,a);
-        ver_competencia * v = new ver_competencia(a);
-        v->setModal(true);
-        v->show();
+//        ver_competencia * v = new ver_competencia(a);
+//        v->setModal(true);
+//        v->show();
     }
 }
 

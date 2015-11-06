@@ -33,10 +33,12 @@ int main(int argc, char *argv[])
 //    QVector<Doc*> documentos;
 
 //    QVector<Doc*> doc = gestorBaseDeDatos->getDocs();
+
     QVector<Modalidad*>    modalidades = gestorBaseDeDatos->getModalidades();
 
     QVector<Deporte*>    deportes = gestorBaseDeDatos->getDeportes();
     QVector<Res*> res;
+
     QVector<Pais*>    paises = gestorBaseDeDatos->getPaises();
     QVector<Estado*>    estados = gestorBaseDeDatos->getEstados();
     QVector<TipoModalidad*> tiposModalidad = gestorBaseDeDatos->getTipoModalidades();

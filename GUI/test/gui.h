@@ -63,10 +63,10 @@ private:
     QVector<Deporte*> deportes;
     QVector<Pais*> paises;
     QVector<Estado*> estados;
+    QVector<Lugar*> lugares;
     QVector<Res*> res;
     QVector<TipoModalidad*> modalidades;
     QVector<TipoResultado*> tiposResultado;
-//    QVector<Modalidad*> modalidades;
     QVector<Provincia*> provincias;
     QVector<Localidad*> localidades;
     QVector<Doc*> documentos;

@@ -14,27 +14,62 @@ alta_competencia::alta_competencia(QWidget *parent) :
     ui->lineEdit->setValidator(compValidator);
     ui->comboBox_2->setCurrentIndex(-1);
 
+
+
 }
 
- alta_competencia::alta_competencia(QVector<Deporte*> deportes, QVector<Lugar *> lugares, QVector<TipoModalidad*> modalidades, QWidget *parent):
-     QDialog(parent), lugar(lugares), ui(new Ui::alta_competencia), tiposModalidades(modalidades)
+ alta_competencia::alta_competencia(GUI *guiP, QVector<Deporte*> deportesP, QVector<Lugar *> lugaresP, QVector<TipoModalidad*> modalidadesP, QWidget *parent):
+     QDialog(parent), lugar(lugaresP), ui(new Ui::alta_competencia), tiposModalidades(modalidadesP)
 
  {
      ui->setupUi(this);
      ui->plainTextEdit->hide();
+     ui->comboBox->clear();
+     ui->comboBox_2->clear();
+     ui->comboBox_3->clear();
 
      // crear validadores para nombre y para reglamento
 
      int i;
-     for(i=0;i<deportes.size();i++){
-         ui->comboBox->addItem(deportes[i]->getNombre());
+     for(i=0;i<deportesP.size();i++){
+         ui->comboBox->addItem(deportesP[i]->getNombre());
      }
-     for(i=0;i<lugares.size();i++){
-         ui->comboBox_3->addItem(lugares[i]->getNombre());
+     for(i=0;i<lugaresP.size();i++){
+         ui->comboBox_3->addItem(lugaresP[i]->getNombre());
      }
-     for(i=0;i<modalidades.size();i++){
-         ui->comboBox_2->addItem(modalidades[i]->getNombre());
+     for(i=0;i<modalidadesP.size();i++){
+         ui->comboBox_2->addItem(modalidadesP[i]->getNombre());
      }
+     QRegExp compRegex("[-a-zA-Z0-9_ ]*");
+     QValidator* compValidator = new QRegExpValidator(compRegex,this);
+     ui->lineEdit->setValidator(compValidator);
+     ui->comboBox->setCurrentIndex(-1);
+     ui->comboBox_2->setCurrentIndex(-1);
+     ui->comboBox_3->setCurrentIndex(-1);
+     ui->comboBox_4->setCurrentIndex(-1);
+
+     ui->pushButton_11->hide();
+     ui->pushButton_10->hide();
+     ui->pushButton_9->hide();
+     ui->pushButton_8->hide();
+     ui->pushButton_5->hide();
+     ui->label_11->hide();
+     ui->label_6->hide();
+     ui->lineEdit_4->hide();
+     ui->radioButton->hide();
+     ui->radioButton_2->hide();
+     ui->label_7->hide();
+     ui->lineEdit_5->hide();
+     ui->label_5->hide();
+     ui->lineEdit_3->hide();
+     this->resize(500,600);
+
+     QRegExp numRegex("[0-9]{0,5}");
+     QValidator* numValidator = new QRegExpValidator(compRegex,this);
+     ui->lineEdit_4->setValidator(numValidator);
+     ui->lineEdit_5->setValidator(numValidator);
+     ui->lineEdit_2->setValidator(numValidator);
+
  }
 
 alta_competencia::~alta_competencia()
@@ -84,9 +119,14 @@ void alta_competencia::on_pushButton_3_clicked()
     static int rowCount=0;
     int lugarPos = ui->comboBox_3->currentIndex();
     int disp = ui->lineEdit_2->text().toInt();
-    if(disp == 0){
+
+    QString nombreCompetencia = ui->lineEdit->text().toUpper();
+    QString deporte = ui->comboBox->currentText().toUpper();
+    QString tipoModalidad = ui->comboBox_3->currentText().toUpper();
+
+    if(nombreCompetencia.isEmpty() || deporte.isEmpty() || tipoModalidad.isEmpty() || disp ==0 ){
         QMessageBox* msg = new QMessageBox(this);
-        msg->setText("Por favor coloque una disponibilidad");
+        msg->setText("Por favor complete los datos y coloque una disponibilidad");
         msg->setModal(true);
         msg->exec();
     }
@@ -116,19 +156,68 @@ void alta_competencia::on_checkBox_stateChanged(int arg1)
 
 void alta_competencia::on_comboBox_2_currentTextChanged(const QString &arg1)
 {
-    qDebug()<< arg1;
+    if(arg1.toLower() == "torneo"){
 
-    if(arg1.toLower() == "eliminación simple" ){
-        alta_competencia_eliminacion* ae = new alta_competencia_eliminacion("simple",this);
-        ae->setModal(true);
-        ae->show();
-    }
-    else if(arg1.toLower() == "eliminación doble"){
-        alta_competencia_eliminacion* ae = new alta_competencia_eliminacion("simple",this);
-        ae->setModal(true);
-        ae->show();
-    }
-    else{
+        ui->label_6->show();
+        ui->lineEdit_4->show();
+        ui->radioButton->show();
+        ui->radioButton_2->show();
 
+        if(ui->comboBox_4->currentText().toLower() == "por puntos"){
+        }
     }
+    else if (arg1.toLower() == "eliminación simple"){
+        ui->label_6->hide();
+        ui->lineEdit_4->hide();
+        ui->radioButton->hide();
+        ui->radioButton_2->hide();
+    }
+    else if (arg1.toLower() == "eliminación doble"){
+        ui->label_6->hide();
+        ui->lineEdit_4->hide();
+        ui->radioButton->hide();
+        ui->radioButton_2->hide();
+    }
+
+}
+
+void alta_competencia::on_comboBox_4_currentTextChanged(const QString &arg1)
+{
+    if(arg1.toLower() == "por sets"){
+        ui->pushButton_11->show();
+        ui->pushButton_10->show();
+        ui->pushButton_9->show();
+        ui->pushButton_8->show();
+        ui->pushButton_5->show();
+        ui->label_11->show();
+        ui->label_7->hide();
+        ui->lineEdit_5->hide();
+    }
+    else if(arg1.toLower() == "por puntos"){
+        ui->pushButton_11->hide();
+        ui->pushButton_10->hide();
+        ui->pushButton_9->hide();
+        ui->pushButton_8->hide();
+        ui->pushButton_5->hide();
+        ui->label_11->hide();
+        ui->label_7->show();
+        ui->lineEdit_5->show();
+        if(ui->comboBox_2->currentText().toLower() == "torneo"){
+
+        }
+    }
+
+}
+
+void alta_competencia::on_radioButton_toggled(bool checked)
+{
+    ui->label_5->show();
+    ui->lineEdit_3->show();
+
+}
+
+void alta_competencia::on_radioButton_2_toggled(bool checked)
+{
+    ui->label_5->hide();
+    ui->lineEdit_3->hide();
 }

@@ -15,6 +15,13 @@ public:
     explicit alta_competencia_liga(QWidget *parent = 0);
     ~alta_competencia_liga();
 
+private slots:
+    void on_radioButton_toggled(bool checked);
+
+    void on_radioButton_2_clicked();
+
+    void on_comboBox_3_currentTextChanged(const QString &arg1);
+
 private:
     Ui::alta_competencia_liga *ui;
 };
