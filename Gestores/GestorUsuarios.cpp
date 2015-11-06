@@ -21,12 +21,12 @@ void GestorUsuarios::setActual( Usuario *value)
 
 QVector<Provincia *> GestorUsuarios::getProvincias(Pais *pais)
 {
-
+    return gestorDB->getProvincias(pais);
 }
 
 QVector<Localidad *> GestorUsuarios::getLocalidades(Provincia *provincia)
 {
-
+    return gestorDB->getLocalidades(provincia);
 }
 
 bool GestorUsuarios::altaUsuario(DtoUsuario *datos,QString &error) {
