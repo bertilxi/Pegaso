@@ -8,8 +8,6 @@ listar_competencias::listar_competencias(GUI *guiP, QVector<Deporte*> deportes, 
     ui->setupUi(this);
     //QPixmap pix("/home/fer/Pegaso/Heros64.png");
     //ui->label_logo->setPixmap(pix);
-    int i;
-    // Carga de comboBox con los datos posibles inyectados desde la base de datos
     ui->comboBox->clear();
     ui->comboBox_2->clear();
     ui->comboBox_3->clear();
@@ -18,12 +16,9 @@ listar_competencias::listar_competencias(GUI *guiP, QVector<Deporte*> deportes, 
     QValidator* compValidator = new QRegExpValidator(compRegex,this);
     ui->lineEdit->setValidator(compValidator);
 
-    // columnas para nombre, deporte, modalidad, estado
-    ui->tableWidget->setColumnCount(4);
-//    QHeaderView* header;
-//    header->add<<"Nombre"<<"Deporte"<<"Modalidad"<<"Estado";
-//    ui->tableWidget->setHorizontalHeader(header);
 
+    int i;
+    // Carga de comboBox con los datos posibles inyectados desde la base de datos
     for(i=0;i<deportes.size();i++){
         ui->comboBox->addItem(deportes[i]->getNombre());
     }
@@ -33,6 +28,10 @@ listar_competencias::listar_competencias(GUI *guiP, QVector<Deporte*> deportes, 
     for(i=0;i<modalidades.size();i++){
         ui->comboBox_2->addItem(modalidades[i]->getNombre());
     }
+
+    ui->comboBox->setCurrentIndex(-1);
+    ui->comboBox_2->setCurrentIndex(-1);
+    ui->comboBox_3->setCurrentIndex(-1);
 
 }
 
@@ -117,9 +116,15 @@ void listar_competencias::mostrarCompetencias()
     int i;
     for(i=0;i<comps.size();i++){
 
+        ui->tableWidget->setItem(i,0,new QTableWidgetItem(comps[i]->getNombre()));
         ui->tableWidget->setItem(i,1,new QTableWidgetItem(comps[i]->getDeporte()->getNombre()));
         ui->tableWidget->setItem(i,2,new QTableWidgetItem(comps[i]->getModalidad()->getTipoMod()->getNombre()));
         ui->tableWidget->setItem(i,3,new QTableWidgetItem(comps[i]->getEstado()->getNombre()));
+
+        qDebug()<<comps[i]->getNombre();
+        qDebug()<<comps[i]->getDeporte()->getNombre();
+        qDebug()<<comps[i]->getModalidad()->getTipoMod()->getNombre();
+        qDebug()<<comps[i]->getEstado()->getNombre();
 
     }
 }

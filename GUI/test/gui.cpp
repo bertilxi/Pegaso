@@ -104,6 +104,7 @@ void GUI::handleListarCompetencias(QDialog *a, QString b, Competencia *comp)
 {
     if (b == "altaCompetencia")
     {
+        QVector<Lugar*> lugares = gestorLugares->getLugares();
         alta_competencia * al = new alta_competencia(this,deportes,lugares,modalidades,a);
         al->setModal(true);
         al->show();
@@ -207,28 +208,33 @@ QVector<Competencia*> GUI::handleFiltrarCompetencias(QStringList data)
     tipoModalidad       =   data[3];
 
     Estado* e = this->buscarEstado(estado);
+
     Deporte* d = this->buscarDeporte(deporte);
+
     TipoModalidad* tm = this->buscarTipoModalidad(tipoModalidad);
+
+
 
     DtoGetCompetencia* datos = new DtoGetCompetencia(usuario,nombreComp,d,tm,e);
 
-//    return gestorCompetencias->getCompetenciasLazy(datos);
-    QVector<Competencia*> compsAux;
-    Competencia *compAux = new Competencia();
-    Deporte * de = new Deporte();
-    de->setNombre("voley");
-    compAux->setDeporte(de);
-    Modalidad * m = new Modalidad();
-    TipoModalidad* tmi = new TipoModalidad();
-    tmi->setNombre("modalidad x");
-    m->setTipoMod(tmi);
-    compAux->setModalidad(m);
-    Estado *es = new Estado();
-    es->setNombre("creada");
-    compAux->setEstado(es);
-    compsAux.push_back(compAux);
+    return gestorCompetencias->getCompetenciasLazy(datos);
 
-    return compsAux;
+//    QVector<Competencia*> compsAux;
+//    Competencia *compAux = new Competencia();
+//    Deporte * de = new Deporte();
+//    de->setNombre("voley");
+//    compAux->setDeporte(de);
+//    Modalidad * m = new Modalidad();
+//    TipoModalidad* tmi = new TipoModalidad();
+//    tmi->setNombre("modalidad x");
+//    m->setTipoMod(tmi);
+//    compAux->setModalidad(m);
+//    Estado *es = new Estado();
+//    es->setNombre("creada");
+//    compAux->setEstado(es);
+//    compsAux.push_back(compAux);
+
+//    return compsAux;
 }
 
 
@@ -245,7 +251,7 @@ void GUI::setDeportes(const QVector<Deporte *> &value)
 Estado *GUI::buscarEstado(QString estado)
 {
     for (int i = 0; i < estados.size(); ++i) {
-        if(estado == estados[i]->getNombre())
+        if(estado.toLower() == estados[i]->getNombre().toLower())
             return estados[i];
     }
     return NULL;
@@ -254,7 +260,7 @@ Estado *GUI::buscarEstado(QString estado)
 Deporte *GUI::buscarDeporte(QString deporte)
 {
     for (int i = 0; i < deportes.size(); ++i) {
-        if(deporte==deportes[i]->getNombre())
+        if(deporte.toLower()==deportes[i]->getNombre().toLower())
             return deportes[i];
     }
     return NULL;
@@ -263,7 +269,7 @@ Deporte *GUI::buscarDeporte(QString deporte)
 TipoModalidad *GUI::buscarTipoModalidad(QString tipoMod)
 {
     for (int i = 0; i < modalidades.size(); ++i) {
-        if(tipoMod==modalidades[i]->getNombre())
+        if(tipoMod.toLower()==modalidades[i]->getNombre().toLower())
             return modalidades[i];
     }
     return NULL;
