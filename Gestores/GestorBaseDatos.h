@@ -230,6 +230,7 @@ public:
     QVector<Estado*> getEstados();
     QVector<Modalidad*> getModalidades();
     QVector<TipoModalidad*> getTipoModalidades();
+    QVector<Lugar *> GestorBaseDatos::getLugares(Usuario *user);
 
     };
 
