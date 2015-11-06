@@ -36,10 +36,12 @@ Competencia *GestorCompetencias::crearCompetencia(DtoCompetencia *datos, bool op
     //Valido si existe una competencia con el mismo nombre
     DtoGetCompetencia dto(datos->usuario,datos->nombreCompetencia,NULL,NULL,NULL);
     QVector<Competencia*> auxComps=gestorBaseDatos->getCompetenciasLazy(&dto);
-    if(! auxComps.isEmpty()){
-        operacionExitosa=false;
-        error="Ya existe una competencia con el mismo nombre";
-        return (new Competencia);
+    for (int i = 0; i < auxComps.size(); ++i) {
+        if(auxComps[i]->getNombre()==datos->nombreCompetencia){
+            operacionExitosa=false;
+            error="Ya existe una competencia con el mismo nombre";
+            return (new Competencia);
+        }
     }
 
     //Creo la competencia

@@ -22,7 +22,6 @@ SOURCES += GestorBaseDatos.cpp \
     GestorLugares.cpp \
     GestorPartidos.cpp \
     GestorUsuarios.cpp \
-    GestorParticipantes.cpp \
     Usuario.cpp \
     Sets.cpp \
     Set.cpp \
@@ -52,7 +51,6 @@ HEADERS += GestorBaseDatos.h \
     GestorLugares.h \
     GestorPartidos.h \
     GestorUsuarios.h \
-    GestorParticipantes.h \
     GestorBaseDatosSaveEspeciales.h \
     Atributo.h \
     Usuario.h \
