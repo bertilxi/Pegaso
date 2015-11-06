@@ -31,7 +31,7 @@ alta_competencia::alta_competencia(QWidget *parent) :
      ui->comboBox_3->clear();
      ui->comboBox_4->clear();
      ui->radioButton_2->setChecked(true);
-
+     rowCount = 0;
      // crear validadores para nombre y para reglamento
 
      int i;
@@ -168,7 +168,6 @@ void alta_competencia::on_pushButton_clicked()
 
 void alta_competencia::on_pushButton_3_clicked()
 {
-    static int rowCount=0;
     int lugarPos = ui->comboBox_3->currentIndex();
     int disp = ui->lineEdit_2->text().toInt();
 
@@ -184,17 +183,14 @@ void alta_competencia::on_pushButton_3_clicked()
     }
     else{
         bool esta = false;
+        int i;
         if(rowCount > 0){
-           for (int i = 0; i < rowCount; ++i) {
-
+           for ( i = 0; i < rowCount; ++i) {
                 if (ui->tableWidget->item(i,0)->text().toLower() == lugar[lugarPos]->getNombre().toLower()){
-                    int ant = ui->tableWidget->item(i,1)->text().toInt();
-                    ant += disp;
-                    qDebug()<<ant;
-                    ui->tableWidget->item(i,1)->setText(QString::number(ant));
                     esta = true;
                     break;
                 }
+
 
             }
 
@@ -208,13 +204,22 @@ void alta_competencia::on_pushButton_3_clicked()
         rowCount++;
         qDebug()<<"rowCount "<<rowCount;
         }
+        else{
+            ui->tableWidget->item(i,1)->setText(QString::number(disp));
+        }
+
     }
 }
 
 void alta_competencia::on_pushButton_4_clicked()
 {
     int lugarPos = ui->comboBox_3->currentIndex();
-    ui->tableWidget->removeRow(lugarPos);
+
+    ui->tableWidget->removeRow(rowCount);
+    if(rowCount>0){
+        rowCount--;
+    }
+
 }
 
 void alta_competencia::on_checkBox_stateChanged(int arg1)
@@ -273,6 +278,11 @@ void alta_competencia::on_comboBox_4_currentTextChanged(const QString &arg1)
         ui->label_9->show();
         ui->label_7->hide();
         ui->lineEdit_5->hide();
+        if(ui->comboBox_2->currentText().toLower() == "torneo"){
+
+            ui->label_6->show();
+            ui->lineEdit_4->show();
+        }
     }
     else if(arg1.toLower() == "puntos"){
         ui->pushButton_11->hide();
@@ -306,6 +316,11 @@ void alta_competencia::on_comboBox_4_currentTextChanged(const QString &arg1)
         ui->label_9->hide();
         ui->label_7->hide();
         ui->lineEdit_5->hide();
+        if(ui->comboBox_2->currentText().toLower() == "torneo"){
+
+            ui->label_6->show();
+            ui->lineEdit_4->show();
+        }
     }
 
 }

@@ -60,6 +60,7 @@ private slots:
 
 private:
     GUI* gui;
+    int rowCount;
     QVector<Lugar*> lugar;
     QVector<Deporte*> deportes;
     QVector<TipoModalidad*> modalidades;

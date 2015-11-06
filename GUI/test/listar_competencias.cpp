@@ -21,12 +21,14 @@ listar_competencias::listar_competencias(GUI *guiP, QVector<Deporte*> deportes, 
     // Carga de comboBox con los datos posibles inyectados desde la base de datos
     for(i=0;i<deportes.size();i++){
         ui->comboBox->addItem(deportes[i]->getNombre());
+
     }
     for(i=0;i<estados.size();i++){
         ui->comboBox_3->addItem(estados[i]->getNombre());
     }
     for(i=0;i<modalidades.size();i++){
         ui->comboBox_2->addItem(modalidades[i]->getNombre());
+        qDebug()<<modalidades[i]->getId()<<" "<<modalidades[i]->getNombre();
     }
 
     ui->comboBox->setCurrentIndex(-1);
@@ -94,7 +96,7 @@ void listar_competencias::on_pushButton_clicked()
 
     qDebug()<< nombre;
     qDebug()<< deporte;
-    qDebug()<< estado;
+    qDebug()<< "modalidad";
     qDebug()<< tipoModalidad;
 
     QStringList data;

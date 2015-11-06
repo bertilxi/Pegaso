@@ -35,7 +35,7 @@ WHERE C.id_usuario = id_usuarioP
 
     QString querystr;
 
-    querystr += "SELECT C.id_competencia, C.nombre, D.nombre, TM.nombre, E.nombre ";
+    querystr += "SELECT C.id_competencia, C.nombre, D.nombre, D.id_deporte, TM.nombre, TM.id_tipo_modalidad, E.nombre, E.id_estado ";
     querystr += "FROM Competencia C, Deporte D, Modalidad M, Tipo_modalidad TM, Estado E, Usuario U WHERE ";
 
     bool primeraCondicion = true;
@@ -45,24 +45,24 @@ WHERE C.id_usuario = id_usuarioP
         primeraCondicion = false;
     }
 
-//    if(dto->tipoModalidad != NULL)
-//    {
-//        if(!primeraCondicion) {querystr += " AND ";}
-//        querystr += "C.id_modalidad = " + QString::number(dto->tipoModalidad->getId());
-//        primeraCondicion = false;
-//    }
+    if(dto->tipoModalidad != NULL)
+    {
+        if(!primeraCondicion) {querystr += " AND ";}
+        querystr += "C.id_modalidad = " + QString::number(dto->tipoModalidad->getId());
+        primeraCondicion = false;
+    }
 
     if(dto->deporte != NULL)
     {
         if(!primeraCondicion) {querystr += " AND ";}
-        querystr += "D.id_deporte = " + dto->deporte->getNombre();
+        querystr += "D.id_deporte = " + QString::number(dto->deporte->getId());
         primeraCondicion = false;
     }
 
     if(dto->estado != NULL)
     {
         if(!primeraCondicion) {querystr += " AND ";}
-        querystr += "E.nombre = " + dto->estado->getNombre();
+        querystr += "E.id_estado = " + QString::number(dto->estado->getId());
         primeraCondicion = false;
     }
 
@@ -110,6 +110,7 @@ int debug =0;
             return QVector<Competencia *>();
         }
         deporte->setNombre(query.value(2).toString());
+        deporte->setId(query.value(3).toInt());
         comp->setDeporte(deporte);
 
         Modalidad *modalidad = new (std::nothrow) Modalidad;
@@ -121,8 +122,12 @@ int debug =0;
 
         TipoModalidad* tipoMod = new TipoModalidad();
 
-//        tipoMod->setId(query.value(3).toInt());
-        tipoMod->setNombre(query.value(3).toString());
+        tipoMod->setNombre(query.value(4).toString());
+        tipoMod->setId(query.value(5).toInt());
+        qDebug() << "modalidad 3";
+        qDebug() <<tipoMod->getId();
+        qDebug() <<tipoMod->getNombre();
+
 
         modalidad->setTipoMod(tipoMod);
         comp->setModalidad(modalidad);
@@ -130,7 +135,8 @@ int debug =0;
         Estado * est = new Estado();
 
 //        est->setId(query.value(4).toInt());
-        est->setNombre(query.value(4).toString());
+        est->setNombre(query.value(6).toString());
+        est->setId(query.value(7).toInt());
 
         comp->setEstado(est);
 

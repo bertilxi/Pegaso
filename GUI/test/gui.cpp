@@ -67,6 +67,9 @@ void GUI::handleMain(QMainWindow* a, QString b, QString email, QByteArray pass)
             p->show();
              qDebug()<<deportes.size();
         }
+        else{
+            // mensaje de error
+        }
 
 
     }
@@ -110,6 +113,7 @@ void GUI::handleListarCompetencias(QDialog *a, QString b, Competencia *comp)
 
         QVector<Lugar*> lugares = gestorLugares->getLugares();
         qDebug()<<lugares.size();
+
         QVector<TipoResultado*> resultados = gestorCompetencias->getTiposResultado();
 //        alta_competencia * al = new alta_competencia(this,deportes,lugares,modalidades,a);
         alta_competencia * al = new alta_competencia(this,deportes,lugares,modalidades, resultados, a);
@@ -233,7 +237,13 @@ QVector<Competencia*> GUI::handleFiltrarCompetencias(QStringList data)
 
     Deporte* d = this->buscarDeporte(deporte);
 
+    qDebug()<<deporte;
+
     TipoModalidad* tm = this->buscarTipoModalidad(tipoModalidad);
+
+    qDebug()<<"Modalidad 2";
+//    qDebug()<<tm->getId();
+//    qDebug()<<tm->getNombre();
 
 
 
@@ -291,7 +301,7 @@ Deporte *GUI::buscarDeporte(QString deporte)
 TipoModalidad *GUI::buscarTipoModalidad(QString tipoMod)
 {
     for (int i = 0; i < modalidades.size(); ++i) {
-        if(tipoMod.toLower()==modalidades[i]->getNombre().toLower())
+        if(tipoMod.toLower() == modalidades[i]->getNombre().toLower())
             return modalidades[i];
     }
     return NULL;
