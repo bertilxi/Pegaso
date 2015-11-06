@@ -23,7 +23,8 @@ class alta_competencia : public QDialog
 
 public:
     explicit alta_competencia(QWidget *parent = 0);
-    explicit alta_competencia(GUI* guiP,QVector<Deporte*> deportesP, QVector<Lugar *> lugaresP, QVector<TipoModalidad*> modalidadesP, QWidget *parent = 0);
+    explicit alta_competencia(GUI* guiP,QVector<Deporte*> deportesP, QVector<Lugar *> lugaresP,
+        QVector<TipoModalidad*> modalidadesP, QVector<TipoResultado*> resultadosP, QWidget *parent = 0);
     ~alta_competencia();
 
 private slots:
@@ -47,9 +48,21 @@ private slots:
 
     void on_radioButton_2_toggled(bool checked);
 
+    void on_pushButton_5_clicked();
+
+    void on_pushButton_8_clicked();
+
+    void on_pushButton_9_clicked();
+
+    void on_pushButton_10_clicked();
+
+    void on_pushButton_11_clicked();
+
 private:
     GUI* gui;
     QVector<Lugar*> lugar;
+    int maxSet;
+    bool conEmpate;
     QVector<TipoModalidad*> tiposModalidades;
     Ui::alta_competencia *ui;
 };

@@ -138,25 +138,29 @@ public:
         Modalidad *mod = comp->getModalidad();
         status &= this->save(QVector<Modalidad *>(1,mod));
 
+
+// Aca falla el guardar competencia
+
+
         //guardo los atributos simples de competencia
         Atributo usuarioIdAtributo("id_usuario",QString::number(usuarioId));
         status &= this->save(QVector<Competencia *>(1,comp), &usuarioIdAtributo);
-
+       qDebug()<<"AQUI";
         //guardo las disponibilidades
         QVector<Disponibilidad *> disps = comp->getDisponibilidades();
         Atributo competenciaId("id_competencia",QString::number(comp->getId()));
         status &= this->save(disps, &competenciaId);
-
+   qDebug()<<"AQUI";
         //guardo los participantes
         QVector<Participante *> participantes = comp->getParticipantes();
         status &= this->save(participantes, &competenciaId);
-
+   qDebug()<<"AQUI";
         //guardo los historiales de cada participante
         for(int i = 0; i < participantes.size(); i++){
             Atributo participanteId("id_participante",QString::number(participantes[i]->getId()));
             status &= this->save(participantes[i]->getHistorial(), &participanteId);
         }
-
+   qDebug()<<"AQUI";
         //guardo los partidos
         QVector<Partido *> partidos = comp->getPartidos();
         status &= this->save(partidos, &competenciaId);

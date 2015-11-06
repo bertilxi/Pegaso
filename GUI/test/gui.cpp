@@ -104,8 +104,16 @@ void GUI::handleListarCompetencias(QDialog *a, QString b, Competencia *comp)
 {
     if (b == "altaCompetencia")
     {
+
+        Usuario* user = gestorUsuarios->getActual();
+        qDebug()<<user->getNombre();
+
+
         QVector<Lugar*> lugares = gestorLugares->getLugares();
-        alta_competencia * al = new alta_competencia(this,deportes,lugares,modalidades,a);
+        qDebug()<<lugares.size();
+        QVector<TipoResultado*> resultados = gestorCompetencias->getTiposResultado();
+//        alta_competencia * al = new alta_competencia(this,deportes,lugares,modalidades,a);
+        alta_competencia * al = new alta_competencia(this,deportes,lugares,modalidades, resultados, a);
         al->setModal(true);
         al->show();
 
@@ -136,13 +144,22 @@ void GUI::handleListarLugares(QDialog *a, QString b)
     }
 }
 
-void GUI::handleAltaCompetencia(QDialog *a, QString b,QStringList data)
+void GUI::handleAltaCompetencia(QDialog *a, QString b, QString nombreComp, Deporte* dep,
+                                QVector<Lugar *> lugs, QVector<int> disps, Modalidad* mod, QString reglamento)
 {
     if (b == "crearCompetencia")
     {
-        listar_competencias * l = new listar_competencias(a);
-        a->close();
-        l->show();
+        bool op;
+        QString error;
+        Usuario* user = gestorUsuarios->getActual();
+        qDebug()<<user->getNombre();
+        DtoCompetencia* dtoC = new DtoCompetencia(user,nombreComp,dep,lugs,disps,mod,reglamento);
+        if(gestorCompetencias->crearCompetencia(dtoC,op,error) != NULL){
+
+            listar_competencias * l = new listar_competencias(a);
+            a->close();
+            l->show();
+        }
     }
 }
 

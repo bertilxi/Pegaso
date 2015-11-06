@@ -82,7 +82,8 @@ public:
     void handlePantallaUsuario(QDialog* a, QString b);
     void handleListarCompetencias(QDialog* a, QString b, Competencia* comp = NULL);
     void handleListarLugares(QDialog* a , QString b);
-    void handleAltaCompetencia(QDialog *a, QString b,QStringList data);
+    void handleAltaCompetencia(QDialog *a, QString b, QString nombreComp, Deporte *dep, QVector<Lugar *> lugs,
+                               QVector<int> disps, Modalidad *mod, QString reglamento);
     void handleListarParticipantes(QDialog* a, QString b);
     void handleVerCompetencia(QDialog* a, QString b);
     void handleMostrarFixture(QDialog* a, QString b);

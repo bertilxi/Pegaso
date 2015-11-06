@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>380</width>
-    <height>676</height>
+    <height>682</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -258,7 +258,7 @@
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
-     <item alignment="Qt::AlignLeft">
+     <item alignment="Qt::AlignHCenter">
       <widget class="QTableWidget" name="tableWidget">
        <property name="sizePolicy">
         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
@@ -268,7 +268,7 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>202</width>
+         <width>400</width>
          <height>16777215</height>
         </size>
        </property>
@@ -648,6 +648,13 @@
      </item>
     </layout>
    </item>
+   <item alignment="Qt::AlignRight">
+    <widget class="QLabel" name="label_9">
+     <property name="text">
+      <string>Toque dos veces para seleccionar y deseleccionar</string>
+     </property>
+    </widget>
+   </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_11">
      <item>
@@ -775,14 +782,9 @@
   <zorder>verticalSpacer_2</zorder>
   <zorder>verticalSpacer_3</zorder>
   <zorder>plainTextEdit</zorder>
-  <zorder>layoutWidget</zorder>
-  <zorder>layoutWidget_2</zorder>
-  <zorder>horizontalLayoutWidget_2</zorder>
-  <zorder>layoutWidget_3</zorder>
-  <zorder>horizontalLayoutWidget_3</zorder>
   <zorder>verticalSpacer_4</zorder>
-  <zorder>horizontalLayoutWidget_5</zorder>
   <zorder>verticalSpacer_5</zorder>
+  <zorder>label_9</zorder>
  </widget>
  <tabstops>
   <tabstop>lineEdit</tabstop>

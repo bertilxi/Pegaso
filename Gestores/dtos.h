@@ -16,8 +16,10 @@ public:
     Deporte* deporte;
     TipoModalidad* tipoModalidad;
     Estado* estado;
-    DtoGetCompetencia(Usuario* usuarioP , QString nombreCompetenciaP = NULL, Deporte* deporteP = NULL, TipoModalidad* tipoModalidadP = NULL, Estado* estadoP = NULL ):
-        usuario(usuarioP), nombreCompetencia(nombreCompetenciaP), deporte(deporteP), tipoModalidad(tipoModalidadP), estado(estadoP) {}
+    DtoGetCompetencia(Usuario* usuarioP , QString nombreCompetenciaP = NULL, Deporte* deporteP = NULL, 
+        TipoModalidad* tipoModalidadP = NULL, Estado* estadoP = NULL ):
+        usuario(usuarioP), nombreCompetencia(nombreCompetenciaP), deporte(deporteP), 
+        tipoModalidad(tipoModalidadP), estado(estadoP) {}
 
 };
 
@@ -31,8 +33,10 @@ public:
     QVector<int> disponibilidades;
     Modalidad* modalidad;
     QString reglamento;
-    DtoCompetencia(Usuario* usuarioP,QString nombreCompentenciaP, Deporte* deporteP, QVector<Lugar*> lugaresP, QVector<int> disponibilidadesP, Modalidad*  modalidadP, QString reglamentoP ):
-        usuario(usuarioP),nombreCompetencia(nombreCompentenciaP), deporte(deporteP), lugares(lugaresP), disponibilidades(disponibilidadesP), modalidad(modalidadP), reglamento(reglamentoP) {}
+    DtoCompetencia(Usuario* usuarioP,QString nombreCompentenciaP, Deporte* deporteP, 
+        QVector<Lugar*> lugaresP, QVector<int> disponibilidadesP, Modalidad*  modalidadP, QString reglamentoP ):
+        usuario(usuarioP),nombreCompetencia(nombreCompentenciaP), deporte(deporteP), 
+        lugares(lugaresP), disponibilidades(disponibilidadesP), modalidad(modalidadP), reglamento(reglamentoP) {}
 
 };
 

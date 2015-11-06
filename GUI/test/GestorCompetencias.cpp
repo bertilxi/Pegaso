@@ -247,3 +247,8 @@ bool GestorCompetencias::puedeModificar(Partido *part, Competencia *comp, QStrin
 {
     return gestorPartidos->puedeModificar(part,comp,error);
 }
+
+QVector<TipoResultado *> GestorCompetencias::getTiposResultado()
+{
+    return gestorBaseDatos->getTiposResultado();
+}
