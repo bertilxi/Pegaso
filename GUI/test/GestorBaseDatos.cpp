@@ -48,7 +48,7 @@ WHERE C.id_usuario = id_usuarioP
     if(dto->tipoModalidad != NULL)
     {
         if(!primeraCondicion) {querystr += " AND ";}
-        querystr += "C.id_modalidad = " + QString::number(dto->tipoModalidad->getId());
+        querystr += "M.id_tipo_modalidad = " + QString::number(dto->tipoModalidad->getId());
         primeraCondicion = false;
     }
 

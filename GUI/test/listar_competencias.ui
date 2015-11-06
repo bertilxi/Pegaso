@@ -182,6 +182,13 @@
         </spacer>
        </item>
        <item>
+        <widget class="QPushButton" name="pushButton_5">
+         <property name="text">
+          <string>Limpiar filtros</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="pushButton">
          <property name="text">
           <string>Listar</string>

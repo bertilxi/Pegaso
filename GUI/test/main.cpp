@@ -41,12 +41,6 @@ int main(int argc, char *argv[])
     QVector<Estado*>    estados = gestorBaseDeDatos->getEstados();
     QVector<TipoModalidad*> tiposModalidad = gestorBaseDeDatos->getTipoModalidades();
 
-    for (int i = 0; i < tiposModalidad.size(); ++i) {
-
-        qDebug()<<tiposModalidad[i]->getId()<<" "<<tiposModalidad[i]->getNombre();
-    }
-
-
     GestorUsuarios* gestorUsuarios = new GestorUsuarios(gestorBaseDeDatos);
     GestorPartidos* gestorPartidos = new GestorPartidos(res) ;
     GestorCompetencias* gestorCompetencias = new GestorCompetencias(gestorBaseDeDatos,

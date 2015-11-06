@@ -94,11 +94,6 @@ void listar_competencias::on_pushButton_clicked()
     QString estado = ui->comboBox_3->currentText();
     QString tipoModalidad = ui->comboBox_2->currentText();
 
-    qDebug()<< nombre;
-    qDebug()<< deporte;
-    qDebug()<< "modalidad";
-    qDebug()<< tipoModalidad;
-
     QStringList data;
     data.append(nombre);
     data.append(deporte);
@@ -123,11 +118,13 @@ void listar_competencias::mostrarCompetencias()
         ui->tableWidget->setItem(i,2,new QTableWidgetItem(comps[i]->getModalidad()->getTipoMod()->getNombre()));
         ui->tableWidget->setItem(i,3,new QTableWidgetItem(comps[i]->getEstado()->getNombre()));
 
-        qDebug()<<comps[i]->getNombre();
-        qDebug()<<comps[i]->getDeporte()->getNombre();
-        qDebug()<<comps[i]->getModalidad()->getTipoMod()->getNombre();
-        qDebug()<<comps[i]->getEstado()->getNombre();
-
     }
 }
 
+
+void listar_competencias::on_pushButton_5_clicked()
+{
+    ui->comboBox->setCurrentIndex(-1);
+    ui->comboBox_2->setCurrentIndex(-1);
+    ui->comboBox_3->setCurrentIndex(-1);
+}
