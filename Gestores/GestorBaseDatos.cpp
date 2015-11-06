@@ -1193,11 +1193,6 @@ FROM Estado E*/
     return estados;
 }
 
-QVector<Modalidad *> GestorBaseDatos::getModalidades()
-{
-    //para que?
-}
-
 QVector<TipoModalidad *> GestorBaseDatos::getTipoModalidades()
 {
     /*SELECT TM.id_tipo_modalidad, TM.nombre
@@ -1271,4 +1266,37 @@ WHERE L.id_usuario = userId AND
     }
 
     return lugares;
+}
+
+QVector<TipoResultado *> GestorBaseDatos::getTiposResultado()
+{
+    /*SELECT TR.id_tipo_resultado, TR.nombre
+FROM Tipo_resultado TR*/
+
+    QString querystr;
+    querystr += "SELECT TR.id_tipo_resultado, TR.nombre FROM Tipo_resultado TR";
+
+    QSqlQuery query;
+
+    if(!query.exec(querystr)){
+        qDebug() << "La consulta ha fallado";
+        qDebug() << "La consulta que dio error fue: " << querystr;
+        qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
+
+        return QVector<TipoResultado *>();
+    }
+
+    QVector<TipoResultado *> tiposRes;
+
+    while(query.next())
+    {
+        TipoResultado *tipo = new TipoResultado();
+
+        tipo->setId(query.value(0).toInt());
+        tipo->setNombre(query.value(1).toString());
+
+        tiposRes.push_back(tipo);
+    }
+
+    return tiposRes;
 }
