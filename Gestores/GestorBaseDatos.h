@@ -228,8 +228,9 @@ public:
     QVector<Provincia*> getProvincias(Pais* pais);
     QVector<Localidad*> getLocalidades(Provincia* provincia);
     QVector<Estado*> getEstados();
-    QVector<Modalidad*> getModalidades();
     QVector<TipoModalidad*> getTipoModalidades();
+    QVector<Lugar *> getLugares(Usuario *user);
+    QVector<TipoResultado *> getTiposResultado();
 
     };
 
