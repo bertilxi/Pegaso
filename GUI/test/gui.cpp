@@ -108,7 +108,6 @@ void GUI::handleListarCompetencias(QDialog *a, QString b, Competencia *comp)
         Usuario* user = gestorUsuarios->getActual();
         qDebug()<<user->getNombre();
 
-
         QVector<Lugar*> lugares = gestorLugares->getLugares();
         qDebug()<<lugares.size();
         QVector<TipoResultado*> resultados = gestorCompetencias->getTiposResultado();
@@ -116,6 +115,7 @@ void GUI::handleListarCompetencias(QDialog *a, QString b, Competencia *comp)
         alta_competencia * al = new alta_competencia(this,deportes,lugares,modalidades, resultados, a);
         al->setModal(true);
         al->show();
+
 
 
     }
@@ -153,13 +153,18 @@ void GUI::handleAltaCompetencia(QDialog *a, QString b, QString nombreComp, Depor
         QString error;
         Usuario* user = gestorUsuarios->getActual();
         qDebug()<<user->getNombre();
+
+
         DtoCompetencia* dtoC = new DtoCompetencia(user,nombreComp,dep,lugs,disps,mod,reglamento);
         if(gestorCompetencias->crearCompetencia(dtoC,op,error) != NULL){
 
-            listar_competencias * l = new listar_competencias(a);
             a->close();
-            l->show();
+            // QMessageBox exito
         }
+        else{
+            // QMessageBox fracaso
+        }
+
     }
 }
 

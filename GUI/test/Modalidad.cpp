@@ -127,7 +127,7 @@ QString Modalidad::getTable(){
  */
 QVector<Atributo> Modalidad::getAtributos() const{
     QVector<Atributo> result;
-    if(id != -1){
+    if(id != -1){        
         result.push_back(Atributo("id_modalidad",QString::number(id)));
     }
     result.push_back(Atributo("pto_partido_ganado",QString::number(puntos_ganar)));

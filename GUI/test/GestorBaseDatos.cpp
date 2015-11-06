@@ -781,6 +781,25 @@ void GestorBaseDatos::commit() {
  * @param atributos
  * @return id del objeto que se acaba de guardar, asignado por la BD
  */
+int GestorBaseDatos::lastCompId()
+{
+    QString str = "select seq from sqlite_sequence where name = Competencia";
+    QSqlQuery query;
+    query.exec(str);
+    while(query.next()){
+        return query.value(0).toInt();
+    }
+}
+int GestorBaseDatos::lastModId()
+{
+    QString str = "select seq from sqlite_sequence where name = Modalidad";
+    QSqlQuery query;
+    query.exec(str);
+    while(query.next()){
+        return query.value(0).toInt();
+    }
+}
+
 int GestorBaseDatos::armarQuerySave(QString tabla, const QVector<Atributo> &atributos){
 
     QString querystr;

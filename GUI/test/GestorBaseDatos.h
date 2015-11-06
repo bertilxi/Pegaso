@@ -29,14 +29,13 @@ class GestorBaseDatos {
 private:
 
     QSqlDatabase db;
-
     int armarQuerySave(QString tabla, const QVector<Atributo> &atributos);
     QString generarQueryResultado() const;
     QString generarQueryPuntos() const;
     QString generarQuerySets() const;
 
 public: 
-    
+    int lastCompId();
     GestorBaseDatos(QString dbs);
 
     QVector<Competencia *> getCompetenciasLazy(const DtoGetCompetencia *dto) const;
@@ -139,12 +138,14 @@ public:
         status &= this->save(QVector<Modalidad *>(1,mod));
 
 
-// Aca falla el guardar competencia
 
 
         //guardo los atributos simples de competencia
         Atributo usuarioIdAtributo("id_usuario",QString::number(usuarioId));
-        status &= this->save(QVector<Competencia *>(1,comp), &usuarioIdAtributo);
+// Aca falla el guardar competencia
+        QVector<Competencia*> compAux;
+        compAux.push_back(comp);
+        status &= this->save(compAux, &usuarioIdAtributo);
        qDebug()<<"AQUI";
         //guardo las disponibilidades
         QVector<Disponibilidad *> disps = comp->getDisponibilidades();
@@ -236,7 +237,8 @@ public:
     QVector<Lugar *> getLugares(Usuario *user);
     QVector<TipoResultado *> getTiposResultado();
 
-    };
+    int lastModId();
+};
 
 
 #endif //_GESTORBASEDATOS_H

@@ -1,15 +1,5 @@
 #include "estado.h"
 
-int Estado::getId()
-{
-    return id;
-}
-
-void Estado::setId(int value)
-{
-    id = value;
-}
-
 QString Estado::getNombre()
 {
     return nombre;
@@ -18,4 +8,14 @@ QString Estado::getNombre()
 void Estado::setNombre(const QString &value)
 {
     nombre = value;
+}
+
+int Estado::getId() const
+{
+    return id;
+}
+
+void Estado::setId(int value)
+{
+    id = value;
 }

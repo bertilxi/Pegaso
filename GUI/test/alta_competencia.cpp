@@ -20,7 +20,8 @@ alta_competencia::alta_competencia(QWidget *parent) :
 
  alta_competencia::alta_competencia(GUI *guiP, QVector<Deporte*> deportesP, QVector<Lugar *> lugaresP,
     QVector<TipoModalidad*> modalidadesP, QVector<TipoResultado*> resultadosP, QWidget *parent):
-     QDialog(parent), lugar(lugaresP), ui(new Ui::alta_competencia), tiposModalidades(modalidadesP), gui(guiP)
+     QDialog(parent), lugar(lugaresP), ui(new Ui::alta_competencia), tiposModalidades(modalidadesP),
+     gui(guiP), deportes(deportesP), modalidades(modalidadesP)
 
  {
      ui->setupUi(this);
@@ -113,9 +114,15 @@ void alta_competencia::on_pushButton_clicked()
     else{
         Deporte* deporteP = new Deporte();
         deporteP->setNombre(deporte);
+        int depId = this->buscarDeporte(deporte);
+        deporteP->setId(depId);
+
         Modalidad* mod = new Modalidad();
         TipoModalidad* tipoMod = new TipoModalidad();
         tipoMod->setNombre(tipoModalidad);
+        int tipoModId = this->buscarTipoMod(tipoModalidad);
+        tipoMod->setId(tipoModId);
+
         TipoResultado* tipoRes = new TipoResultado();
         tipoRes->setNombre(tipoPuntos);
         mod->setTipoMod(tipoMod);
@@ -403,6 +410,24 @@ void alta_competencia::on_pushButton_11_clicked()
         ui->pushButton_10->setDisabled(true);
         ui->pushButton_5->setDisabled(true);
     }
+}
+
+int alta_competencia::buscarDeporte(QString deporte)
+{
+    for (int i = 0; i < deportes.size(); ++i) {
+        if(deporte == deportes[i]->getNombre())
+            return deportes[i]->getId();
+    }
+    return 0;
+}
+
+int alta_competencia::buscarTipoMod(QString modalidad)
+{
+    for (int i = 0; i < modalidades.size(); ++i) {
+        if(modalidad == modalidades[i]->getNombre())
+            return modalidades[i]->getId();
+    }
+    return 0;
 }
 
 
