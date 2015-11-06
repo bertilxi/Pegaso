@@ -85,16 +85,22 @@ void GestorUsuarios::modUsuario(Usuario *usuario, DtoUsuario *datos) {
 Usuario* GestorUsuarios::login(QString email, QByteArray password) {
     QString error="";
     //Obtengo el usuario con ese correo si no existe retorno NULL
-    Usuario *user=gestorDB->cargarUsuario(email);
+    Usuario *user = gestorDB->cargarUsuario(email);
+
     if(user==NULL){
         return NULL;
     }
+    qDebug()<<password;
+    qDebug()<<user->getPassword();
 
     //Comparo las contraseñas
 
-    if(password!=user->getPassword())
+    if(password != user->getPassword()){
         return NULL;
+        qDebug()<<"hola2";
+    }
     else{
+        qDebug()<<"hola3";
      //Registro el inicio de sesión
         Auditoria* aud=new Auditoria();
         aud->setFecha(QDateTime::currentDateTime().toString(Qt::ISODate));

@@ -860,7 +860,7 @@ QString GestorBaseDatos::generarQuerySets() const{
 GestorBaseDatos::GestorBaseDatos(QString dbs)
 {
     db = QSqlDatabase::addDatabase("QSQLITE");
-        db.setDatabaseName("pegaso.db");
+        db.setDatabaseName(dbs);
 
 
         if(db.open()){
@@ -883,23 +883,27 @@ WHERE U.email = correo AND
     L.id_provincia = PR.id_provincia AND
     PR.id_pais = PA.id_pais*/
 
+    QSqlQuery query;
     QString querystr;
-    querystr += "SELECT U.id_usuario, U.nro_doc, D.id_tipo_doc, D.nombre, U.password, U.nombre, U.apellido";
+
+//    QString correoA = "'";
+//    correoA += correo + correoA;
+
+    querystr += "SELECT U.id_usuario, U.nro_doc, D.id_tipo_doc, D.nombre, U.password, U.nombre, U.apellido ";
     querystr += ", L.id_localidad, L.nombre, PR.id_provincia, PR.nombre, PA.id_pais, PA.nombre";
     querystr += " FROM Usuario U, Tipo_doc D, Localidad L, Provincia PR, Pais PA";
-    querystr += " WHERE U.email = ?";
+    querystr += " WHERE U.email = ? ";
     querystr += " AND U.id_tipo_doc = D.id_tipo_doc";
-    querystr += " AND U.id_localidad = U.id_localidad";
+    querystr += " AND U.id_localidad = L.id_localidad";
     querystr += " AND L.id_provincia = PR.id_provincia";
     querystr += " AND PR.id_pais = PA.id_pais";
 
-    QSqlQuery query;
 
     query.prepare(querystr);
     query.addBindValue(correo);
 
     // consulta
-    if(!query.exec(querystr)){
+    if(!query.exec()){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
         qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
@@ -923,6 +927,7 @@ WHERE U.email = correo AND
 
         user->setDoc(doc);
 
+//        user->setPassword(query.value(4).toByteArray());
         user->setPassword(query.value(4).toByteArray());
         user->setNombre(query.value(5).toString());
         user->setApellido(query.value(6).toString());
@@ -932,6 +937,7 @@ WHERE U.email = correo AND
         loc->setNombre(query.value(8).toString());
 
         user->setLocalidad(loc);
+
 
         Provincia *prov = new Provincia();
         prov->setId(query.value(9).toInt());
@@ -944,6 +950,8 @@ WHERE U.email = correo AND
         pais->setNombre(query.value(12).toString());
 
         user->setPais(pais);
+
+
     }
     else
     {
@@ -961,6 +969,8 @@ WHERE L.id_usuario = userId AND
 
     querystr += "SELECT L.id_lugar, L.nombre, L.descripcion";
     querystr += " FROM Lugar L WHERE L.id_usuario = ? AND L.borrado = 0";
+
+    qDebug()<<user->getId();
 
     query.prepare(querystr);
     query.addBindValue(user->getId());
@@ -984,7 +994,10 @@ WHERE L.id_usuario = userId AND
         lugares.push_back(lugar);
     }
 
+
     user->setLugares(lugares);
+
+    qDebug()<<"hola";
 
     return user;
 }

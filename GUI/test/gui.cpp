@@ -60,8 +60,8 @@ void GUI::handleMain(QMainWindow* a, QString b, QString email, QByteArray pass)
 {
     if (b == "pantallaUsuario")
     {
-//        if(gestorUsuarios->login(email,pass) != NULL){
-        if(1){
+        if(gestorUsuarios->login(email,pass) != NULL){
+//        if(1){
             pantalla_usuario* p = new pantalla_usuario(this,a);
             a->close();
             p->show();
