@@ -70,7 +70,7 @@ listar_competencias::~listar_competencias()
 
 void listar_competencias::on_pushButton_3_clicked()
 {
-    this->close();
+    gui->handleListarCompetencias(this,QString("cerrar"));
 }
 
 void listar_competencias::on_pushButton_2_clicked()

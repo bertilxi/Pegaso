@@ -175,7 +175,7 @@ void alta_competencia::on_pushButton_3_clicked()
     QString deporte = ui->comboBox->currentText().toUpper();
     QString tipoModalidad = ui->comboBox_3->currentText().toUpper();
 
-    if(disp == 0 ){
+    if(disp <= 0 ){
         QMessageBox* msg = new QMessageBox(this);
         msg->setText("Por favor coloque una disponibilidad");
         msg->setModal(true);
@@ -190,19 +190,15 @@ void alta_competencia::on_pushButton_3_clicked()
                     esta = true;
                     break;
                 }
-
-
-            }
-
-           qDebug()<<"esta ?"<<esta;
+            }          
         }
         if(!esta || rowCount == 0){
-            qDebug()<<"esta ??"<<esta;
+
         ui->tableWidget->insertRow(rowCount);
         ui->tableWidget->setItem(rowCount,0,new QTableWidgetItem(lugar[lugarPos]->getNombre()));
         ui->tableWidget->setItem(rowCount,1,new QTableWidgetItem(QString::number(disp)));
         rowCount++;
-        qDebug()<<"rowCount "<<rowCount;
+
         }
         else{
             ui->tableWidget->item(i,1)->setText(QString::number(disp));
@@ -224,7 +220,6 @@ void alta_competencia::on_pushButton_4_clicked()
 
 void alta_competencia::on_checkBox_stateChanged(int arg1)
 {
-    qDebug()<<arg1;
     if(arg1 == 2){
         ui->plainTextEdit->show();
     }

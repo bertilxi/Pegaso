@@ -39,7 +39,7 @@ Competencia *GestorCompetencias::crearCompetencia(DtoCompetencia *datos, bool op
     if(! auxComps.isEmpty()){
         operacionExitosa=false;
         error="Ya existe una competencia con el mismo nombre";
-        return (new Competencia);
+        return NULL;
     }
 
     //Creo la competencia

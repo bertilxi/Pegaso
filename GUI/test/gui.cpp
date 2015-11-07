@@ -69,6 +69,10 @@ void GUI::handleMain(QMainWindow* a, QString b, QString email, QByteArray pass)
         }
         else{
             // mensaje de error
+            QMessageBox* msg = new QMessageBox(a);
+            msg->setText("Nombre o contraseña incorrecta");
+            msg->setModal(true);
+            msg->exec();
         }
 
 
@@ -93,13 +97,18 @@ void GUI::handlePantallaUsuario(QDialog *a, QString b)
         l->show();
     }
 
-    if (b == "modificarUsuario")
+    else if (b == "modificarUsuario")
     {
         /* code */
     }
-    if (b == "listarLugares")
+    else if (b == "listarLugares")
     {
         /* code */
+    }
+    else if(b == "cerrar"){
+        MainWindow * m = new MainWindow(this);
+        m->show();
+        a->close();
     }
 }
 
@@ -123,12 +132,17 @@ void GUI::handleListarCompetencias(QDialog *a, QString b, Competencia *comp)
 
 
     }
-    if (b == "verCompetencia")
+    else if (b == "verCompetencia")
     {
 //        ver_competencia * v = new ver_competencia(comp,a);
 //        ver_competencia * v = new ver_competencia(a);
 //        v->setModal(true);
 //        v->show();
+    }
+    if(b == "cerrar"){
+        pantalla_usuario* p = new pantalla_usuario(this);
+        p->show();
+        a->close();
     }
 }
 
@@ -162,12 +176,20 @@ void GUI::handleAltaCompetencia(QDialog *a, QString b, QString nombreComp, Depor
         DtoCompetencia* dtoC = new DtoCompetencia(user,nombreComp,dep,lugs,disps,mod,reglamento);
         if(gestorCompetencias->crearCompetencia(dtoC,op,error) != NULL){
 
-            a->close();
-            // QMessageBox exito
+            QMessageBox* msg = new QMessageBox(a);
+            msg->setText("Competencia creada correctamente");
+            msg->setModal(true);
+            msg->exec();
         }
         else{
             // QMessageBox fracaso
+            QMessageBox* msg = new QMessageBox(a);
+            QString error1 = "Error al crear la competencia. \n" + error;
+            msg->setText(error1);
+            msg->setModal(true);
+            msg->exec();
         }
+        a->close();
 
     }
 }

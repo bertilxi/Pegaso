@@ -2,7 +2,7 @@
 #define GUI_H
 
 #include <QVector>
-
+#include <QMessageBox>
 #include "GestorBaseDatos.h"
 #include "GestorCompetencias.h"
 #include "GestorLugares.h"

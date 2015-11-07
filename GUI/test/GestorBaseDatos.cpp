@@ -789,16 +789,18 @@ void GestorBaseDatos::commit() {
  */
 int GestorBaseDatos::lastCompId()
 {
-    QString str = "select seq from sqlite_sequence where name = Competencia";
+    QString str = "select seq from sqlite_sequence where name = 'Competencia'";
     QSqlQuery query;
     query.exec(str);
     while(query.next()){
+        qDebug()<<"id competencia";
+        qDebug()<<query.value(0).toInt();
         return query.value(0).toInt();
     }
 }
 int GestorBaseDatos::lastModId()
 {
-    QString str = "select seq from sqlite_sequence where name = Modalidad";
+    QString str = "select seq from sqlite_sequence where name = 'Modalidad'";
     QSqlQuery query;
     query.exec(str);
     while(query.next()){
