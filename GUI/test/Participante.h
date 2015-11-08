@@ -38,9 +38,6 @@ public:
 
     bool operator==(const Participante &other)const;
 
-    //usado en GestorBaseDatos
-    static bool LessThan(Participante *a, Participante *b);
-
     QString getTable();
 
     /**

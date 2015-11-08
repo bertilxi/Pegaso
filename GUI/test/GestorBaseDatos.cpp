@@ -148,6 +148,11 @@ int debug =0;
     return competencias;
 }
 
+
+
+template bool GestorBaseDatos::LessThan(Participante *a, Participante *b);
+template bool GestorBaseDatos::LessThan(Partido *a, Partido *b);
+
 Competencia *GestorBaseDatos::getCompetenciaFull(int id_comp) const{
 
     //CARGA COMPETENCIA, MODALIDAD Y DEPORTE
@@ -302,7 +307,9 @@ WHERE C.id_competencia = id_comp AND
 SELECT id_participante, imagen, nombre, correo, puntos, pg, pp, pe, tf,
 tc, dif
 FROM Participante
-WHERE id_competencia = id_comp*/
+WHERE id_competencia = id_comp
+ORDER BY id_participante ASC
+*/
 
     querystr.clear();
 
@@ -399,12 +406,14 @@ WHERE id_participante = id_part
 SELECT id_partido, fecha, ronda, id_lugar, equipoA, equipoB
 FROM Partido
 WHERE id_competencia = id_comp
+ORDER BY id_partido ASC
 */
 
     querystr.clear();
 
     querystr += "SELECT id_partido, fecha, ronda, id_lugar, equipoA, equipoB";
     querystr += " FROM Partido WHERE id_competencia = ?";
+    querystr += " ORDER BY id_partido ASC";
 
     query.prepare(querystr);
     query.addBindValue(id_comp);
@@ -444,13 +453,13 @@ WHERE id_competencia = id_comp
 
         particAuxPtr->setId(equipoA);
 
-        index = lower_bound(partics.begin(),partics.end(),particAuxPtr, Participante::LessThan);
+        index = lower_bound(partics.begin(),partics.end(),particAuxPtr, GestorBaseDatos::LessThan<Participante>);
 
         partido->setEquipoA(*index);
 
         //Busco el equipoB entre los participantes de la Compentencia y lo relaciono al partido
         particAuxPtr->setId(equipoB);
-        index = lower_bound(partics.begin(),partics.end(),particAuxPtr,Participante::LessThan);
+        index = lower_bound(partics.begin(),partics.end(),particAuxPtr, GestorBaseDatos::LessThan<Participante>);
         partido->setEquipoB(*index);
 
         partidos.push_back(partido);
@@ -748,9 +757,65 @@ WHERE id_competencia = id_comp
     //seteo competencia con sus partidos y resultados
     comp->setPartidos(partidos);
 
+///______________________________________________________________________________________________________________________
+    //CARGA SUCESORES
+
+/*
+SELECT S.partido_anterior, S.partido_siguiente
+FROM Sucesor S, Partido P
+WHERE S.partido_anterior = P.id_partido AND
+    P.id_competencia = compId
+    */
+
+    querystr.clear();
+
+    querystr += "SELECT S.partido_anterior, S.partido_siguiente FROM Sucesor S, Partido P";
+    querystr += " WHERE S.partido_anterior = P.id_partido AND P.id_competencia = ?";
+
+    if(!query.prepare(querystr))
+    qDebug() << "falla el prepare";
+
+    query.addBindValue(comp->getId());
+
+    // consulta
+    if(!query.exec()){
+        qDebug() << "La consulta ha fallado";
+        qDebug() << "La consulta que dio error fue: " << querystr;
+        qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
+
+        return NULL;
+    }
+
+
+    Partido partidoAux;
+    Partido *partidoAuxPtr = &partidoAux;
+    Partido *partido_anterior;
+    QVector<Partido *>::iterator index;
+
+    while(query.next())
+    {
+        int partido_anterior_id = query.value(0).toInt();
+        int partido_siguiente_id = query.value(1).toInt();
+
+        //Busco el primer partido de la relacion Sucesor, entre los partidos de la Compentencia
+        partidoAuxPtr->setId(partido_anterior_id);
+        index = lower_bound(partidos.begin(),partidos.end(),partidoAuxPtr, GestorBaseDatos::LessThan<Partido>);
+        partido_anterior = *index;
+
+        //Busco el segundo partido de la relacion Sucesor, entre los partidos de la Compentencia
+        //y lo relaciono al partido primer partido como su sucesor
+        partidoAuxPtr->setId(partido_siguiente_id);
+        index = lower_bound(partidos.begin(),partidos.end(),partidoAuxPtr, GestorBaseDatos::LessThan<Partido>);
+        partido_anterior->addSucesor(*index);
+    }
+
+
 
     return comp;
 }
+
+
+
 
 
 //temporal

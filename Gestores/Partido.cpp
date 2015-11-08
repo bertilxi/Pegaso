@@ -187,3 +187,8 @@ void Partido::setSucesores(const QVector<Partido *> &value)
     sucesores = value;
 }
 
+void Partido::addSucesor(Partido *partido_sucesor)
+{
+    sucesores.push_back(partido_sucesor);
+}
+
