@@ -148,11 +148,6 @@ int debug =0;
     return competencias;
 }
 
-
-
-template bool GestorBaseDatos::LessThan(Participante *a, Participante *b);
-template bool GestorBaseDatos::LessThan(Partido *a, Partido *b);
-
 Competencia *GestorBaseDatos::getCompetenciaFull(int id_comp) const{
 
     //CARGA COMPETENCIA, MODALIDAD Y DEPORTE
@@ -453,13 +448,13 @@ ORDER BY id_partido ASC
 
         particAuxPtr->setId(equipoA);
 
-        index = lower_bound(partics.begin(),partics.end(),particAuxPtr, GestorBaseDatos::LessThan<Participante>);
+        index = lower_bound(partics.begin(),partics.end(),particAuxPtr, GestorBaseDatos::LessThan);
 
         partido->setEquipoA(*index);
 
         //Busco el equipoB entre los participantes de la Compentencia y lo relaciono al partido
         particAuxPtr->setId(equipoB);
-        index = lower_bound(partics.begin(),partics.end(),particAuxPtr, GestorBaseDatos::LessThan<Participante>);
+        index = lower_bound(partics.begin(),partics.end(),particAuxPtr, GestorBaseDatos::LessThan);
         partido->setEquipoB(*index);
 
         partidos.push_back(partido);
@@ -799,13 +794,13 @@ WHERE S.partido_anterior = P.id_partido AND
 
         //Busco el primer partido de la relacion Sucesor, entre los partidos de la Compentencia
         partidoAuxPtr->setId(partido_anterior_id);
-        index = lower_bound(partidos.begin(),partidos.end(),partidoAuxPtr, GestorBaseDatos::LessThan<Partido>);
+        index = lower_bound(partidos.begin(),partidos.end(),partidoAuxPtr, GestorBaseDatos::LessThan);
         partido_anterior = *index;
 
         //Busco el segundo partido de la relacion Sucesor, entre los partidos de la Compentencia
         //y lo relaciono al partido primer partido como su sucesor
         partidoAuxPtr->setId(partido_siguiente_id);
-        index = lower_bound(partidos.begin(),partidos.end(),partidoAuxPtr, GestorBaseDatos::LessThan<Partido>);
+        index = lower_bound(partidos.begin(),partidos.end(),partidoAuxPtr, GestorBaseDatos::LessThan);
         partido_anterior->addSucesor(*index);
     }
 

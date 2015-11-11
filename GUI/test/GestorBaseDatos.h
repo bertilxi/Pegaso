@@ -35,6 +35,15 @@ private:
     QString generarQuerySets() const;
 
 public: 
+
+    bool LessThan(Participante *a, Participante *b){
+        return a->getId() < b->getId();
+    }
+
+    bool LessThan(Partido *a, Partido *b){
+        return a->getId() < b->getId();
+    }
+
     int lastCompId();
     GestorBaseDatos(QString dbs);
 
