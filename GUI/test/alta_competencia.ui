@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>380</width>
-    <height>682</height>
+    <width>384</width>
+    <height>704</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -651,7 +651,7 @@
    <item alignment="Qt::AlignRight">
     <widget class="QLabel" name="label_9">
      <property name="text">
-      <string>Toque dos veces para seleccionar y deseleccionar</string>
+      <string>Toque dos veces para deseleccionar</string>
      </property>
     </widget>
    </item>

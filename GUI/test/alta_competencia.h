@@ -60,11 +60,17 @@ private slots:
 
 private:
     GUI* gui;
+    int rowCount;
     QVector<Lugar*> lugar;
+    QVector<Deporte*> deportes;
+    QVector<TipoModalidad*> modalidades;
     int maxSet;
     bool conEmpate;
     QVector<TipoModalidad*> tiposModalidades;
     Ui::alta_competencia *ui;
+
+    int buscarDeporte(QString deporte);
+    int buscarTipoMod(QString modalidad);
 };
 
 #endif // ALTA_COMPETENCIA_H

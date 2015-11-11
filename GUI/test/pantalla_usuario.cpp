@@ -18,7 +18,7 @@ pantalla_usuario::~pantalla_usuario()
 
 void pantalla_usuario::on_pushButton_4_clicked()
 {
-    this->close();
+    gui->handlePantallaUsuario(this,QString("cerrar"));
 }
 
 void pantalla_usuario::on_pushButton_2_clicked()

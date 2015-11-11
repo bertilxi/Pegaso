@@ -216,6 +216,11 @@ public:
 
     template <class T4>
     QVector<T4> query(T4 obj, QVector<QString> filtros);
+
+    template <class T5>
+    static bool LessThan(T5 *obj1, T5 *obj2){
+        return obj1->getId() < obj2->getId();
+    }
     
     void virtual beginTransaction();
     

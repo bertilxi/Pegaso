@@ -67,6 +67,13 @@ void GUI::handleMain(QMainWindow* a, QString b, QString email, QByteArray pass)
             p->show();
              qDebug()<<deportes.size();
         }
+        else{
+            // mensaje de error
+            QMessageBox* msg = new QMessageBox(a);
+            msg->setText("Nombre o contraseña incorrecta");
+            msg->setModal(true);
+            msg->exec();
+        }
 
 
     }
@@ -90,13 +97,18 @@ void GUI::handlePantallaUsuario(QDialog *a, QString b)
         l->show();
     }
 
-    if (b == "modificarUsuario")
+    else if (b == "modificarUsuario")
     {
         /* code */
     }
-    if (b == "listarLugares")
+    else if (b == "listarLugares")
     {
         /* code */
+    }
+    else if(b == "cerrar"){
+        MainWindow * m = new MainWindow(this);
+        m->show();
+        a->close();
     }
 }
 
@@ -108,9 +120,9 @@ void GUI::handleListarCompetencias(QDialog *a, QString b, Competencia *comp)
         Usuario* user = gestorUsuarios->getActual();
         qDebug()<<user->getNombre();
 
-
         QVector<Lugar*> lugares = gestorLugares->getLugares();
         qDebug()<<lugares.size();
+
         QVector<TipoResultado*> resultados = gestorCompetencias->getTiposResultado();
 //        alta_competencia * al = new alta_competencia(this,deportes,lugares,modalidades,a);
         alta_competencia * al = new alta_competencia(this,deportes,lugares,modalidades, resultados, a);
@@ -118,13 +130,19 @@ void GUI::handleListarCompetencias(QDialog *a, QString b, Competencia *comp)
         al->show();
 
 
+
     }
-    if (b == "verCompetencia")
+    else if (b == "verCompetencia")
     {
 //        ver_competencia * v = new ver_competencia(comp,a);
 //        ver_competencia * v = new ver_competencia(a);
 //        v->setModal(true);
 //        v->show();
+    }
+    if(b == "cerrar"){
+        pantalla_usuario* p = new pantalla_usuario(this);
+        p->show();
+        a->close();
     }
 }
 
@@ -153,13 +171,26 @@ void GUI::handleAltaCompetencia(QDialog *a, QString b, QString nombreComp, Depor
         QString error;
         Usuario* user = gestorUsuarios->getActual();
         qDebug()<<user->getNombre();
+
+
         DtoCompetencia* dtoC = new DtoCompetencia(user,nombreComp,dep,lugs,disps,mod,reglamento);
         if(gestorCompetencias->crearCompetencia(dtoC,op,error) != NULL){
 
-            listar_competencias * l = new listar_competencias(a);
-            a->close();
-            l->show();
+            QMessageBox* msg = new QMessageBox(a);
+            msg->setText("Competencia creada correctamente");
+            msg->setModal(true);
+            msg->exec();
         }
+        else{
+            // QMessageBox fracaso
+            QMessageBox* msg = new QMessageBox(a);
+            QString error1 = "Error al crear la competencia. \n" + error;
+            msg->setText(error1);
+            msg->setModal(true);
+            msg->exec();
+        }
+        a->close();
+
     }
 }
 
@@ -228,7 +259,13 @@ QVector<Competencia*> GUI::handleFiltrarCompetencias(QStringList data)
 
     Deporte* d = this->buscarDeporte(deporte);
 
+    qDebug()<<deporte;
+
     TipoModalidad* tm = this->buscarTipoModalidad(tipoModalidad);
+
+    qDebug()<<"Modalidad 2";
+//    qDebug()<<tm->getId();
+//    qDebug()<<tm->getNombre();
 
 
 
@@ -286,7 +323,7 @@ Deporte *GUI::buscarDeporte(QString deporte)
 TipoModalidad *GUI::buscarTipoModalidad(QString tipoMod)
 {
     for (int i = 0; i < modalidades.size(); ++i) {
-        if(tipoMod.toLower()==modalidades[i]->getNombre().toLower())
+        if(tipoMod.toLower() == modalidades[i]->getNombre().toLower())
             return modalidades[i];
     }
     return NULL;

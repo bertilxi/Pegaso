@@ -141,6 +141,11 @@ WHERE C.id_usuario = id_usuarioP
     return competencias;
 }
 
+
+
+template bool GestorBaseDatos::LessThan(Participante *a, Participante *b);
+template bool GestorBaseDatos::LessThan(Partido *a, Partido *b);
+
 Competencia *GestorBaseDatos::getCompetenciaFull(int id_comp) const{
 
     //CARGA COMPETENCIA, MODALIDAD Y DEPORTE
@@ -168,7 +173,7 @@ WHERE C.id_competencia = id_comp AND
     querystr += ", M.pto_empate, M.empate, M.cant_max_sets, TM.id_tipo_modalidad, TM.nombre";
     querystr += ", TR.id_tipo_resultado, TR.nombre";
     querystr += " FROM Competencia C, Modalidad M, Tipo_modalidad TM, Tipo_resultado TR, Deporte D, estado E";
-    querystr += " WHERE C.id_competencia = " + QString::number(id_comp);
+    querystr += " WHERE C.id_competencia = ?";
     querystr += " AND C.id_modalidad = M.id_modalidad";
     querystr += " AND M.id_tipo_modalidad = TM.id_tipo_modalidad";
     querystr += " AND M.id_tipo_resultado = TR.id_tipo_resultado";
@@ -178,10 +183,13 @@ WHERE C.id_competencia = id_comp AND
 
     QSqlQuery query;
 
+    if(!query.prepare(querystr))
+        qDebug() << "no anda el prepare";
 
+    query.addBindValue(id_comp);
 
     // consulta
-    if(!query.exec(querystr)){
+    if(!query.exec()){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
         qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
@@ -246,15 +254,17 @@ WHERE C.id_competencia = id_comp AND
     //CARGA DISPONIBILIDADES
 
     /*
-    SELECT SA.disponibilidad, SA.id_lugar
-    FROM Se_asignan SA
-    WHERE SA.id_competencia = id_comp
+    SELECT SA.disponibilidad, L.id_lugar, L.nombre, L.descripcion
+    FROM Se_asignan SA, Lugar L
+    WHERE SA.id_competencia = id_comp AND
+        SA.id_lugar = L.id_lugar
             */
 
     querystr.clear();
 
-    querystr += "SELECT SA.disponibilidad, SA.id_lugar";
-    querystr += " FROM Se_asignan SA WHERE SA.id_competencia = ?";
+    querystr += "SELECT SA.disponibilidad, L.id_lugar, L.nombre, L.descripcion";
+    querystr += " FROM Se_asignan SA, Lugar L WHERE SA.id_competencia = ?";
+    querystr += " AND SA.id_lugar = L.id_lugar";
 
     query.prepare(querystr);
     query.addBindValue(id_comp);
@@ -277,9 +287,9 @@ WHERE C.id_competencia = id_comp AND
 
         Lugar *lugar = new Lugar;
 
-        //solo seteo el id de lugar. debera usarse ese id para reemplazar este lugar
-        //temporal por el real objeto lugar.
         lugar->setId(query.value(1).toInt());
+        lugar->setNombre(query.value(2).toString());
+        lugar->setDescripcion(query.value(3).toString());
 
         disp->setLugar(lugar);
 
@@ -295,7 +305,9 @@ WHERE C.id_competencia = id_comp AND
 SELECT id_participante, imagen, nombre, correo, puntos, pg, pp, pe, tf,
 tc, dif
 FROM Participante
-WHERE id_competencia = id_comp*/
+WHERE id_competencia = id_comp
+ORDER BY id_participante ASC
+*/
 
     querystr.clear();
 
@@ -392,12 +404,14 @@ WHERE id_participante = id_part
 SELECT id_partido, fecha, ronda, id_lugar, equipoA, equipoB
 FROM Partido
 WHERE id_competencia = id_comp
+ORDER BY id_partido ASC
 */
 
     querystr.clear();
 
     querystr += "SELECT id_partido, fecha, ronda, id_lugar, equipoA, equipoB";
     querystr += " FROM Partido WHERE id_competencia = ?";
+    querystr += " ORDER BY id_partido ASC";
 
     query.prepare(querystr);
     query.addBindValue(id_comp);
@@ -437,13 +451,13 @@ WHERE id_competencia = id_comp
 
         particAuxPtr->setId(equipoA);
 
-        index = lower_bound(partics.begin(),partics.end(),particAuxPtr, Participante::LessThan);
+        index = lower_bound(partics.begin(),partics.end(),particAuxPtr, GestorBaseDatos::LessThan<Participante>);
 
         partido->setEquipoA(*index);
 
         //Busco el equipoB entre los participantes de la Compentencia y lo relaciono al partido
         particAuxPtr->setId(equipoB);
-        index = lower_bound(partics.begin(),partics.end(),particAuxPtr,Participante::LessThan);
+        index = lower_bound(partics.begin(),partics.end(),particAuxPtr, GestorBaseDatos::LessThan<Participante>);
         partido->setEquipoB(*index);
 
         partidos.push_back(partido);
@@ -579,10 +593,6 @@ WHERE id_competencia = id_comp
 
                 puntos->setPuntosA(query.value(6).toInt());
                 puntos->setPuntosB(query.value(7).toInt());
-                qDebug() << "Puntos A: " << query.value(6).toInt();
-                qDebug() << "getPuntos A: " << puntos->getPuntosA();
-                qDebug() << "Puntos B: " << query.value(7).toInt();
-                qDebug() << "getPuntos B: " << puntos->getPuntosB();
 
                 //si no es el resultado actual, lo pongo en una lista de modificados
                 if(query.value(5).isNull()){
@@ -741,9 +751,65 @@ WHERE id_competencia = id_comp
     //seteo competencia con sus partidos y resultados
     comp->setPartidos(partidos);
 
+///______________________________________________________________________________________________________________________
+    //CARGA SUCESORES
+
+    /*
+SELECT S.partido_anterior, S.partido_siguiente
+FROM Sucesor S, Partido P
+WHERE S.partido_anterior = P.id_partido AND
+    P.id_competencia = compId
+*/
+
+    querystr.clear();
+
+    querystr += "SELECT S.partido_anterior, S.partido_siguiente FROM Sucesor S, Partido P";
+    querystr += " WHERE S.partido_anterior = P.id_partido AND P.id_competencia = ?";
+
+    if(!query.prepare(querystr))
+        qDebug() << "falla el prepare";
+
+    query.addBindValue(comp->getId());
+
+    // consulta
+    if(!query.exec()){
+        qDebug() << "La consulta ha fallado";
+        qDebug() << "La consulta que dio error fue: " << querystr;
+        qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
+
+        return NULL;
+    }
+
+
+    Partido partidoAux;
+    Partido *partidoAuxPtr = &partidoAux;
+    Partido *partido_anterior;
+    QVector<Partido *>::iterator index;
+
+    while(query.next())
+    {
+        int partido_anterior_id = query.value(0).toInt();
+        int partido_siguiente_id = query.value(1).toInt();
+
+        //Busco el primer partido de la relacion Sucesor, entre los partidos de la Compentencia
+        partidoAuxPtr->setId(partido_anterior_id);
+        index = lower_bound(partidos.begin(),partidos.end(),partidoAuxPtr, GestorBaseDatos::LessThan<Partido>);
+        partido_anterior = *index;
+
+        //Busco el segundo partido de la relacion Sucesor, entre los partidos de la Compentencia
+        //y lo relaciono al partido primer partido como su sucesor
+        partidoAuxPtr->setId(partido_siguiente_id);
+        index = lower_bound(partidos.begin(),partidos.end(),partidoAuxPtr, GestorBaseDatos::LessThan<Partido>);
+        partido_anterior->addSucesor(*index);
+    }
+
+
 
     return comp;
 }
+
+
+
 
 
 //temporal
@@ -819,12 +885,12 @@ int GestorBaseDatos::armarQuerySave(QString tabla, const QVector<Atributo> &atri
 
 QString GestorBaseDatos::generarQueryResultado() const{
     /**
-    SELECT R.id_resultado, TRA.id_tipo_resultado, TRA.nombre, TRB.id_tipo_resultado, TRB.nombre, R.partido_actual
+    SELECT R.id_resultado, TRA.id_res, TRA.nombre, TRB.id_res, TRB.nombre, R.partido_actual
     FROM Resultado R, Tipo_resultado TRA, Tipo_resultado TRB
     WHERE   (R.partido_actual = id_partido OR
             R.partido_modificado = id_partido) AND
-            TRA.id_tipo_resultado = R.ResultadoA AND
-            TRB.id_tipo_resultado = R.ResultadoB
+            TRA.id_res = R.resultadoA AND
+            TRB.id_res = R.resultadoB
 
 */
 
@@ -832,8 +898,8 @@ QString GestorBaseDatos::generarQueryResultado() const{
     querystr += "SELECT R.id_resultado, RA.id_res, RA.nombre, RB.id_res, RB.nombre, R.partido_actual";
     querystr += " FROM Resultado R, res RA, res RB ";
     querystr += " WHERE  (R.partido_actual = ? OR R.partido_modificado = ?)";
-    querystr += " AND RA.id_tipo_resultado = R.ResultadoA";
-    querystr += " AND RB.id_tipo_resultado = R.ResultadoB ";
+    querystr += " AND RA.id_res = R.resultadoA";
+    querystr += " AND RB.id_res = R.resultadoB ";
 
     return querystr;
 }
@@ -841,13 +907,13 @@ QString GestorBaseDatos::generarQueryResultado() const{
 
 QString GestorBaseDatos::generarQueryPuntos() const{
     /**
-    SELECT R.id_resultado, TRA.id_tipo_resultado, TRA.nombre, TRB.id_tipo_resultado, TRB.nombre, R.partido_actual, P.puntosA, P.puntosB
+    SELECT R.id_resultado, TRA.id_res, TRA.nombre, TRB.id_res, TRB.nombre, R.partido_actual, P.puntosA, P.puntosB
     FROM Resultado R, Puntos P, Tipo_resultado TRA, Tipo_resultado TRB
     WHERE   (R.partido_actual = id_partido OR
             R.partido_modificado = id_partido) AND
             R.id_resultado = P.id_resultado AND
-            TRA.id_tipo_resultado = R.ResultadoA AND
-            TRB.id_tipo_resultado = R.ResultadoB
+            TRA.id_res = R.resultadoA AND
+            TRB.id_res = R.resultadoB
 
 */
 
@@ -856,8 +922,8 @@ QString GestorBaseDatos::generarQueryPuntos() const{
     querystr += " FROM Resultado R, Puntos P, res RA, res RB ";
     querystr += " WHERE  (R.partido_actual = ? OR R.partido_modificado = ?)";
     querystr += " AND R.id_resultado = P.id_resultado";
-    querystr += " AND RA.id_tipo_resultado = R.ResultadoA";
-    querystr += " AND RB.id_tipo_resultado = R.ResultadoB ";
+    querystr += " AND RA.id_res = R.resultadoA";
+    querystr += " AND RB.id_res = R.resultadoB ";
 
     return querystr;
 }
@@ -865,13 +931,13 @@ QString GestorBaseDatos::generarQueryPuntos() const{
 
 QString GestorBaseDatos::generarQuerySets() const{
     /**
-    SELECT R.id_resultado, TRA.id_tipo_resultado, TRA.nombre, TRB.id_tipo_resultado, TRB.nombre, R.partido_actual, S.nro_set, S.puntosA, S.puntosB
+    SELECT R.id_resultado, TRA.id_res, TRA.nombre, TRB.id_res, TRB.nombre, R.partido_actual, S.nro_set, S.puntosA, S.puntosB
     FROM Resultado R, Sets S, Tipo_resultado TRA, Tipo_resultado TRB
     WHERE   (R.partido_actual = id_partido OR
             R.partido_modificado = id_partido) AND
             R.id_resultado = S.id_resultado AND
-            TRA.id_tipo_resultado = R.ResultadoA AND
-            TRB.id_tipo_resultado = R.ResultadoB
+            TRA.id_res = R.resultadoA AND
+            TRB.id_res = R.resultadoB
     ORDER BY R.id_resultado, S.nro_set ASC*/
 
     QString querystr;
@@ -879,8 +945,8 @@ QString GestorBaseDatos::generarQuerySets() const{
     querystr += " FROM Resultado R, Sets S, res RA, res RB ";
     querystr += " WHERE  (R.partido_actual = ? OR R.partido_modificado = ?)";
     querystr += " AND R.id_resultado = S.id_resultado";
-    querystr += " AND RA.id_tipo_resultado = R.ResultadoA";
-    querystr += " AND RB.id_tipo_resultado = R.ResultadoB ";
+    querystr += " AND RA.id_res = R.resultadoA";
+    querystr += " AND RB.id_res = R.resultadoB ";
     querystr += " ORDER BY R.id_resultado, S.nro_set ASC";
 
     return querystr;

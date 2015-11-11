@@ -96,10 +96,6 @@ bool Participante::operator==(const Participante &other) const
     return 1;
 }
 
-bool Participante::LessThan(Participante *a, Participante *b){
-    return a->getId() < b->getId();
-}
-
 QString Participante::getTable(){
     return "Participante";
 }

@@ -20,7 +20,8 @@ alta_competencia::alta_competencia(QWidget *parent) :
 
  alta_competencia::alta_competencia(GUI *guiP, QVector<Deporte*> deportesP, QVector<Lugar *> lugaresP,
     QVector<TipoModalidad*> modalidadesP, QVector<TipoResultado*> resultadosP, QWidget *parent):
-     QDialog(parent), lugar(lugaresP), ui(new Ui::alta_competencia), tiposModalidades(modalidadesP), gui(guiP)
+     QDialog(parent), lugar(lugaresP), ui(new Ui::alta_competencia), tiposModalidades(modalidadesP),
+     gui(guiP), deportes(deportesP), modalidades(modalidadesP)
 
  {
      ui->setupUi(this);
@@ -30,7 +31,7 @@ alta_competencia::alta_competencia(QWidget *parent) :
      ui->comboBox_3->clear();
      ui->comboBox_4->clear();
      ui->radioButton_2->setChecked(true);
-
+     rowCount = 0;
      // crear validadores para nombre y para reglamento
 
      int i;
@@ -113,9 +114,15 @@ void alta_competencia::on_pushButton_clicked()
     else{
         Deporte* deporteP = new Deporte();
         deporteP->setNombre(deporte);
+        int depId = this->buscarDeporte(deporte);
+        deporteP->setId(depId);
+
         Modalidad* mod = new Modalidad();
         TipoModalidad* tipoMod = new TipoModalidad();
         tipoMod->setNombre(tipoModalidad);
+        int tipoModId = this->buscarTipoMod(tipoModalidad);
+        tipoMod->setId(tipoModId);
+
         TipoResultado* tipoRes = new TipoResultado();
         tipoRes->setNombre(tipoPuntos);
         mod->setTipoMod(tipoMod);
@@ -161,7 +168,6 @@ void alta_competencia::on_pushButton_clicked()
 
 void alta_competencia::on_pushButton_3_clicked()
 {
-    static int rowCount=0;
     int lugarPos = ui->comboBox_3->currentIndex();
     int disp = ui->lineEdit_2->text().toInt();
 
@@ -169,7 +175,7 @@ void alta_competencia::on_pushButton_3_clicked()
     QString deporte = ui->comboBox->currentText().toUpper();
     QString tipoModalidad = ui->comboBox_3->currentText().toUpper();
 
-    if(disp == 0 ){
+    if(disp <= 0 ){
         QMessageBox* msg = new QMessageBox(this);
         msg->setText("Por favor coloque una disponibilidad");
         msg->setModal(true);
@@ -177,42 +183,43 @@ void alta_competencia::on_pushButton_3_clicked()
     }
     else{
         bool esta = false;
+        int i;
         if(rowCount > 0){
-           for (int i = 0; i < rowCount; ++i) {
-
+           for ( i = 0; i < rowCount; ++i) {
                 if (ui->tableWidget->item(i,0)->text().toLower() == lugar[lugarPos]->getNombre().toLower()){
-                    int ant = ui->tableWidget->item(i,1)->text().toInt();
-                    ant += disp;
-                    qDebug()<<ant;
-                    ui->tableWidget->item(i,1)->setText(QString::number(ant));
                     esta = true;
                     break;
                 }
-
-            }
-
-           qDebug()<<"esta ?"<<esta;
+            }          
         }
         if(!esta || rowCount == 0){
-            qDebug()<<"esta ??"<<esta;
+
         ui->tableWidget->insertRow(rowCount);
         ui->tableWidget->setItem(rowCount,0,new QTableWidgetItem(lugar[lugarPos]->getNombre()));
         ui->tableWidget->setItem(rowCount,1,new QTableWidgetItem(QString::number(disp)));
         rowCount++;
-        qDebug()<<"rowCount "<<rowCount;
+
         }
+        else{
+            ui->tableWidget->item(i,1)->setText(QString::number(disp));
+        }
+
     }
 }
 
 void alta_competencia::on_pushButton_4_clicked()
 {
     int lugarPos = ui->comboBox_3->currentIndex();
-    ui->tableWidget->removeRow(lugarPos);
+
+    ui->tableWidget->removeRow(rowCount);
+    if(rowCount>0){
+        rowCount--;
+    }
+
 }
 
 void alta_competencia::on_checkBox_stateChanged(int arg1)
 {
-    qDebug()<<arg1;
     if(arg1 == 2){
         ui->plainTextEdit->show();
     }
@@ -266,6 +273,11 @@ void alta_competencia::on_comboBox_4_currentTextChanged(const QString &arg1)
         ui->label_9->show();
         ui->label_7->hide();
         ui->lineEdit_5->hide();
+        if(ui->comboBox_2->currentText().toLower() == "torneo"){
+
+            ui->label_6->show();
+            ui->lineEdit_4->show();
+        }
     }
     else if(arg1.toLower() == "puntos"){
         ui->pushButton_11->hide();
@@ -299,6 +311,11 @@ void alta_competencia::on_comboBox_4_currentTextChanged(const QString &arg1)
         ui->label_9->hide();
         ui->label_7->hide();
         ui->lineEdit_5->hide();
+        if(ui->comboBox_2->currentText().toLower() == "torneo"){
+
+            ui->label_6->show();
+            ui->lineEdit_4->show();
+        }
     }
 
 }
@@ -403,6 +420,24 @@ void alta_competencia::on_pushButton_11_clicked()
         ui->pushButton_10->setDisabled(true);
         ui->pushButton_5->setDisabled(true);
     }
+}
+
+int alta_competencia::buscarDeporte(QString deporte)
+{
+    for (int i = 0; i < deportes.size(); ++i) {
+        if(deporte == deportes[i]->getNombre())
+            return deportes[i]->getId();
+    }
+    return 0;
+}
+
+int alta_competencia::buscarTipoMod(QString modalidad)
+{
+    for (int i = 0; i < modalidades.size(); ++i) {
+        if(modalidad == modalidades[i]->getNombre())
+            return modalidades[i]->getId();
+    }
+    return 0;
 }
 
 

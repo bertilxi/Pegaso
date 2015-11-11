@@ -37,21 +37,19 @@ int main(int argc, char *argv[])
 
     QVector<Deporte*>    deportes = gestorBaseDeDatos->getDeportes();
     QVector<Res*> res;
-
     QVector<Pais*>    paises = gestorBaseDeDatos->getPaises();
     QVector<Estado*>    estados = gestorBaseDeDatos->getEstados();
     QVector<TipoModalidad*> tiposModalidad = gestorBaseDeDatos->getTipoModalidades();
 
-
     GestorUsuarios* gestorUsuarios = new GestorUsuarios(gestorBaseDeDatos);
     GestorPartidos* gestorPartidos = new GestorPartidos(res) ;
-    GestorCompetencias* gestorCompetencias = new GestorCompetencias(gestorBaseDeDatos,gestorPartidos,gestorUsuarios,estados);
+    GestorCompetencias* gestorCompetencias = new GestorCompetencias(gestorBaseDeDatos,
+                                                                    gestorPartidos,gestorUsuarios,estados);
     GestorLugares* gestorLugares = new GestorLugares(gestorBaseDeDatos, gestorUsuarios);
 
     GUI * gui = new GUI(gestorBaseDeDatos, gestorCompetencias, gestorLugares, gestorPartidos, gestorUsuarios,
                         deportes, paises, estados, tiposModalidad);
 
-    qDebug()<<gui->getDeportes().size();
     gui->show();
 
     return a.exec();
