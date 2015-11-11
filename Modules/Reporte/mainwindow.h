@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include "generadorreporte.h"
+#include "../../Gestores/Competencia.h"
+
 namespace Ui {
 class MainWindow;
 }
