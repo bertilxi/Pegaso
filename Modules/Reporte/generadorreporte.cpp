@@ -2,16 +2,34 @@
 
 void generadorReporte::generar(Competencia *comp) {
     //Creo el reporte
-    QString fileName = ":/reporte.xml";
+
     QtRPT* report = new QtRPT();
+
     //Obtengo los participante para después obtener el puntaje de cada uno
     QVector<Participante*> participantes=comp->getParticipantes();
+
     //Seteo la cantidad de filas que tendrá el reporte
     report->recordCount << participantes.size();
-    //Abro el template del reporte
+
+    //Abro el template del reporte dependiendo la modalidad de la competencia
+    QString fileName;
+    if(comp->getModalidad()->getTipoRes()->getNombre().toLower()=="puntuación"){
+        if(comp->getModalidad()->getEmpate()==true)
+            fileName = ":/reporte.xml";
+        else
+            fileName = ":/reporte_sin_empate.xml";
+    }
+    else{
+        if(comp->getModalidad()->getEmpate()==true)
+            fileName = ":/reporte_no_puntuacion.xml";
+        else
+            fileName = ":/reporte_no_puntuacion_sin_empate.xml";
+    }
+
     if (report->loadReport(fileName) == false) {
         qDebug()<<"Report file not found";
     }
+
     //Comienzo a llenar los valores
     //Se usa un functor para simplificar
     QObject::connect(report,&QtRPT::setValue,[&](const int recNo,const QString paramName,

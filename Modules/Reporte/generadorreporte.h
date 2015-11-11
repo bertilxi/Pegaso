@@ -4,6 +4,7 @@
 #include <QString>
 #include <QVariant>
 #include "../../Gestores/Competencia.h"
+
 class generadorReporte
 {
 public:
