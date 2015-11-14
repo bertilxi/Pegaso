@@ -36,26 +36,20 @@ Competencia *GestorCompetencias::crearCompetencia(DtoCompetencia *datos, bool op
     //Valido si existe una competencia con el mismo nombre
     DtoGetCompetencia dto(datos->usuario,datos->nombreCompetencia,NULL,NULL,NULL);
     QVector<Competencia*> auxComps=gestorBaseDatos->getCompetenciasLazy(&dto);
-    if(! auxComps.isEmpty()){
-        operacionExitosa=false;
-        error="Ya existe una competencia con el mismo nombre";
-        return NULL;
+    for (int i = 0; i < auxComps.size(); ++i) {
+        if(auxComps[i]->getNombre()==datos->nombreCompetencia){
+            operacionExitosa=false;
+            error="Ya existe una competencia con el mismo nombre";
+            return (new Competencia);
+        }
     }
 
     //Creo la competencia
     Competencia *comp=new Competencia;
-    comp->setNombre(datos->nombreCompetencia);
     comp->setEstado(this->obtenerEstado("Creada"));
-    int modId = gestorBaseDatos->lastModId();
-    datos->modalidad->setId(++modId);
     comp->setModalidad(datos->modalidad);
     comp->setDeporte(datos->deporte);
     comp->setReglamento(datos->reglamento);
-    comp->setBorrado(false);
-    int id = gestorBaseDatos->lastCompId();
-    comp->setId(++id);
-
-//    comp->setFecha_y_horaB(QDateTime::currentDateTime().toString(Qt::ISODate));
     QVector<Disponibilidad*> disponibilidades;
     for(int i=0;i<datos->lugares.size();i++){
         Disponibilidad * disp = new Disponibilidad();

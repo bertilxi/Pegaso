@@ -37,6 +37,10 @@
 #include "res.h"
 #include "tipomodalidad.h"
 #include "tiporesultado.h"
+#include "mostrar_fixture.h"
+#include "Partido.h"
+#include "tabla_posiciones.h"
+#include "registrar_usuario.h"
 
 
 namespace Ui {
@@ -70,6 +74,8 @@ private:
     QVector<Provincia*> provincias;
     QVector<Localidad*> localidades;
     QVector<Doc*> documentos;
+    QVector<Partido*> partidos;
+    QVector<Participante*> participantes;
 
     Estado* buscarEstado(QString estado);
     Deporte* buscarDeporte(QString deporte);
@@ -78,7 +84,7 @@ private:
 
 public:
     void show();
-    void handleMain(QMainWindow* a, QString b, QString email, QByteArray pass);
+    void handleMain(QMainWindow* a, QString b, QString email = "", QByteArray pass = NULL);
     void handlePantallaUsuario(QDialog* a, QString b);
     void handleListarCompetencias(QDialog* a, QString b, Competencia* comp = NULL);
     void handleListarLugares(QDialog* a , QString b);
@@ -88,6 +94,7 @@ public:
     void handleVerCompetencia(QDialog* a, QString b);
     void handleMostrarFixture(QDialog* a, QString b);
     QVector<Competencia*> handleFiltrarCompetencias(QStringList datos);
+    QString handleRegistrarUsuario(DtoUsuario * datos);
     GUI(GestorBaseDatos* gestorDBP, GestorCompetencias* gestorCompetenciasP,
         GestorLugares* gestorLugaresP, GestorPartidos* gestorPartidosP, GestorUsuarios* gestorUsuariosP,
         QVector<Deporte*> deportesP, QVector<Pais*> paisesP, QVector<Estado*> estadosP, QVector<TipoModalidad*> modalidadesP
@@ -108,6 +115,8 @@ public:
 private slots:
     void on_pushButton_2_clicked();
     void on_pushButton_4_clicked();
+
+    void on_pushButton_clicked();
 
 private:
     Ui::MainWindow *ui;

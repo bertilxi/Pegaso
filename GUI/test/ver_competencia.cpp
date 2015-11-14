@@ -18,6 +18,7 @@ ver_competencia::ver_competencia(Competencia *comp, QWidget *parent) :
     ui->setupUi(this);
     QPixmap pix("/home/fer/Pegaso/Heros64.png");
     ui->label_logo->setPixmap(pix);
+
 }
 
 ver_competencia::~ver_competencia()

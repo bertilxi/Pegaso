@@ -29,22 +29,14 @@ class GestorBaseDatos {
 private:
 
     QSqlDatabase db;
+
     int armarQuerySave(QString tabla, const QVector<Atributo> &atributos);
     QString generarQueryResultado() const;
     QString generarQueryPuntos() const;
     QString generarQuerySets() const;
 
 public: 
-
-    bool LessThan(Participante *a, Participante *b){
-        return a->getId() < b->getId();
-    }
-
-    bool LessThan(Partido *a, Partido *b){
-        return a->getId() < b->getId();
-    }
-
-    int lastCompId();
+    
     GestorBaseDatos(QString dbs);
 
     QVector<Competencia *> getCompetenciasLazy(const DtoGetCompetencia *dto) const;
@@ -146,31 +138,25 @@ public:
         Modalidad *mod = comp->getModalidad();
         status &= this->save(QVector<Modalidad *>(1,mod));
 
-
-
-
         //guardo los atributos simples de competencia
         Atributo usuarioIdAtributo("id_usuario",QString::number(usuarioId));
-// Aca falla el guardar competencia
-        QVector<Competencia*> compAux;
-        compAux.push_back(comp);
-        status &= this->save(compAux, &usuarioIdAtributo);
-       qDebug()<<"AQUI";
+        status &= this->save(QVector<Competencia *>(1,comp), &usuarioIdAtributo);
+
         //guardo las disponibilidades
         QVector<Disponibilidad *> disps = comp->getDisponibilidades();
         Atributo competenciaId("id_competencia",QString::number(comp->getId()));
         status &= this->save(disps, &competenciaId);
-   qDebug()<<"AQUI";
+
         //guardo los participantes
         QVector<Participante *> participantes = comp->getParticipantes();
         status &= this->save(participantes, &competenciaId);
-   qDebug()<<"AQUI";
+
         //guardo los historiales de cada participante
         for(int i = 0; i < participantes.size(); i++){
             Atributo participanteId("id_participante",QString::number(participantes[i]->getId()));
             status &= this->save(participantes[i]->getHistorial(), &participanteId);
         }
-   qDebug()<<"AQUI";
+
         //guardo los partidos
         QVector<Partido *> partidos = comp->getPartidos();
         status &= this->save(partidos, &competenciaId);
@@ -230,12 +216,17 @@ public:
 
     template <class T4>
     QVector<T4> query(T4 obj, QVector<QString> filtros);
+
+    template <class T5>
+    static bool LessThan(T5 *obj1, T5 *obj2){
+        return obj1->getId() < obj2->getId();
+    }
     
     void virtual beginTransaction();
     
     void virtual commit();
     Usuario* cargarUsuario(QString correo);
-    Usuario* saveUsuario(Usuario* usuario);
+    bool saveUsuario(Usuario* usuario);
 
     QVector<Deporte*> getDeportes();
     QVector<Pais*> getPaises();
@@ -246,8 +237,7 @@ public:
     QVector<Lugar *> getLugares(Usuario *user);
     QVector<TipoResultado *> getTiposResultado();
 
-    int lastModId();
-};
+    };
 
 
 #endif //_GESTORBASEDATOS_H

@@ -9,6 +9,13 @@ tabla_posiciones::tabla_posiciones(QWidget *parent) :
     ui->setupUi(this);
 }
 
+tabla_posiciones::tabla_posiciones(QVector<Participante* > participantesP, QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::tabla_posiciones)
+{
+    ui->setupUi(this);
+}
+
 tabla_posiciones::~tabla_posiciones()
 {
     delete ui;

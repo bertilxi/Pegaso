@@ -1,5 +1,6 @@
 #include "estado.h"
 
+
 QString Estado::getNombre()
 {
     return nombre;

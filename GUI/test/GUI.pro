@@ -51,7 +51,10 @@ SOURCES += main.cpp\
     res.cpp \
     tipomodalidad.cpp \
     tiporesultado.cpp \
-    estado.cpp
+    estado.cpp \
+    mostrar_fixture.cpp \
+    tabla_posiciones.cpp \
+    registrar_usuario.cpp
 
 HEADERS  += \
     Atributo.h \
@@ -92,7 +95,10 @@ HEADERS  += \
     res.h \
     tipomodalidad.h \
     tiporesultado.h \
-    estado.h
+    estado.h \
+    mostrar_fixture.h \
+    tabla_posiciones.h \
+    registrar_usuario.h
 
 FORMS    += mainwindow.ui \
     ver_competencia.ui \
@@ -100,6 +106,7 @@ FORMS    += mainwindow.ui \
     modificar_competencia.ui \
     listar_competencias.ui \
     alta_participante.ui \
-    alta_competencia_liga.ui \
-    alta_competencia_eliminacion.ui \
-    alta_competencia.ui
+    alta_competencia.ui \
+    mostrar_fixture.ui \
+    tabla_posiciones.ui \
+    registrar_usuario.ui

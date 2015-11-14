@@ -226,7 +226,7 @@ public:
     
     void virtual commit();
     Usuario* cargarUsuario(QString correo);
-    Usuario* saveUsuario(Usuario* usuario);
+    bool saveUsuario(Usuario* usuario);
 
     QVector<Deporte*> getDeportes();
     QVector<Pais*> getPaises();

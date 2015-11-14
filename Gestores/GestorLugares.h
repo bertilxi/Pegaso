@@ -9,6 +9,7 @@
 #include "Lugar.h"
 #include "GestorBaseDatos.h"
 #include "dtos.h"
+#include "GestorUsuarios.h"
 
 class GestorLugares {
 public: 
@@ -29,11 +30,12 @@ public:
      * @param datos
      */
     void virtual modLugar(Lugar lugar, DtoLugar datos);
-    GestorLugares(GestorBaseDatos* gestorDBP):
-        gestorDB(gestorDBP) {}
+    GestorLugares(GestorBaseDatos* gestorDBP, GestorUsuarios* gestorUsuariosP):
+        gestorDB(gestorDBP), gestorUsuarios(gestorUsuariosP) {}
+    QVector<Lugar *> getLugares();
 private:
     GestorBaseDatos* gestorDB;
-
+    GestorUsuarios* gestorUsuarios;
 };
 
 #endif //_GESTORLUGARES_H

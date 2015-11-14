@@ -6,7 +6,6 @@
 class Estado
 {
 public:
-
     QString getNombre() ;
     void setNombre(const QString &value);
 

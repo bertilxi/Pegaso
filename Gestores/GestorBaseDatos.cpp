@@ -1071,9 +1071,29 @@ WHERE L.id_usuario = userId AND
     return user;
 }
 
-Usuario *GestorBaseDatos::saveUsuario(Usuario *usuario)
+bool GestorBaseDatos::saveUsuario(Usuario *usuario)
 {
+    QString queryStr = "INSERT INTO Usuario(id_usuario,email,nro_doc,id_tipo_doc,password,nombre,apellido,id_localidad) ";
+    queryStr += " VALUES (?,?,?,?,?,?,?,?)";
 
+    QSqlQuery query;
+    query.prepare(queryStr);
+    query.addBindValue(usuario->getId());
+    query.addBindValue(usuario->getEmail());
+    query.addBindValue(usuario->getNro_doc());
+    query.addBindValue(usuario->getDoc()->getId());
+    query.addBindValue(usuario->getPassword());
+    query.addBindValue(usuario->getNombre());
+    query.addBindValue(usuario->getApellido());
+    query.addBindValue(usuario->getLocalidad()->getId());
+
+    if(!query.exec()){
+        qDebug() << "La consulta ha fallado";
+        qDebug() << "La consulta que dio error fue: " << queryStr;
+        qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
+        return false;
+    }
+    return true;
 }
 
 GestorBaseDatos::GestorBaseDatos(QString dbs)

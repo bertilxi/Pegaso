@@ -60,8 +60,8 @@ void GUI::handleMain(QMainWindow* a, QString b, QString email, QByteArray pass)
 {
     if (b == "pantallaUsuario")
     {
-        if(gestorUsuarios->login(email,pass) != NULL){
-//        if(1){
+//        if(gestorUsuarios->login(email,pass) != NULL){
+        if(1){
             pantalla_usuario* p = new pantalla_usuario(this,a);
             a->close();
             p->show();
@@ -79,7 +79,9 @@ void GUI::handleMain(QMainWindow* a, QString b, QString email, QByteArray pass)
     }
     if (b == "registrarUsuario")
     {
-        /* code */
+        registrar_usuario * ru = new registrar_usuario(a);
+        ru->setModal(true);
+        ru->show();
     }
     if (b == "listarTodasCompetencias")
     {
@@ -124,7 +126,6 @@ void GUI::handleListarCompetencias(QDialog *a, QString b, Competencia *comp)
         qDebug()<<lugares.size();
 
         QVector<TipoResultado*> resultados = gestorCompetencias->getTiposResultado();
-//        alta_competencia * al = new alta_competencia(this,deportes,lugares,modalidades,a);
         alta_competencia * al = new alta_competencia(this,deportes,lugares,modalidades, resultados, a);
         al->setModal(true);
         al->show();
@@ -134,10 +135,9 @@ void GUI::handleListarCompetencias(QDialog *a, QString b, Competencia *comp)
     }
     else if (b == "verCompetencia")
     {
-//        ver_competencia * v = new ver_competencia(comp,a);
-//        ver_competencia * v = new ver_competencia(a);
-//        v->setModal(true);
-//        v->show();
+        ver_competencia * v = new ver_competencia(comp,a);
+        v->setModal(true);
+        v->show();
     }
     if(b == "cerrar"){
         pantalla_usuario* p = new pantalla_usuario(this);
@@ -180,6 +180,10 @@ void GUI::handleAltaCompetencia(QDialog *a, QString b, QString nombreComp, Depor
             msg->setText("Competencia creada correctamente");
             msg->setModal(true);
             msg->exec();
+            listar_competencias* lp = new listar_competencias(a);
+            lp->setModal(true);
+            lp->show();
+
         }
         else{
             // QMessageBox fracaso
@@ -198,11 +202,13 @@ void GUI::handleListarParticipantes(QDialog *a, QString b)
 {
     if (b == "altaParticipante")
     {
-        /* code */
+        alta_participante* ap = new alta_participante(a);
+        ap->setModal(true);
+        ap->show();
     }
     if (b == "bajaParticipante")
     {
-        /* code */
+
     }
     if (b == "modificarParticipante")
     {
@@ -216,21 +222,29 @@ void GUI::handleVerCompetencia(QDialog *a, QString b)
     {
         /* code */
     }
-    if (b == "generarFixture")
+    else if (b == "generarFixture")
+    {
+        /*
+            Algoritmo de generacion de fixture
+
+            inyectar partidos en vector de partidos
+        */
+    }
+    else if (b == "bajaCompertencia")
     {
         /* code */
     }
-    if (b == "bajaCompertencia")
+    else if (b == "mostrarFixture")
     {
-        /* code */
+        mostrar_fixture * m = new mostrar_fixture(partidos,a);
+        m->setModal(true);
+        m->show();
     }
-    if (b == "mostrarFixture")
+    else if (b == "mostrarTablasPosiciones")
     {
-        /* code */
-    }
-    if (b == "mostrarTablasPosiciones")
-    {
-        /* code */
+        tabla_posiciones* t = new tabla_posiciones(participantes,a);
+        t->setModal(true);
+        t->show();
     }
 }
 
@@ -288,7 +302,14 @@ QVector<Competencia*> GUI::handleFiltrarCompetencias(QStringList data)
 //    compAux->setEstado(es);
 //    compsAux.push_back(compAux);
 
-//    return compsAux;
+    //    return compsAux;
+}
+
+QString GUI::handleRegistrarUsuario(DtoUsuario *datos)
+{
+    QString error;
+    gestorUsuarios->altaUsuario(datos,error);
+    return error;
 }
 
 
@@ -360,4 +381,9 @@ QValidator::State EmailValidator::validate(QString &text, int &pos) const
 void EmailValidator::fixup(QString &text) const
 {
     text = text.trimmed().toLower();
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    gui->handleMain(this,QString("registrarUsuario"));
 }
