@@ -5,56 +5,65 @@
 #include "gui.h"
 #include <QtSql/QSqlQuery>
 
+/**
+ *  @mainpage Proyecto Pegaso.
+ *
+ *  @brief
+ *
+ *
+ *
+ *
+ *  @author Berti Fernando
+ *  @author Campodonico Daniel
+ *  @author Rico Andres
+ */
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    // nombre de la base de datos a cargar
     QFile pegasoDB("pegaso.sql");
+
+    /**
+     * creamos el gestor de la base de datos y
+     * lo inicializamos con el archivo de la base de datos
+     */
+
     GestorBaseDatos * gestorBaseDeDatos = new GestorBaseDatos("pegaso.db") ;
 
-//    QByteArray passwordHash = QCryptographicHash::hash(QByteArray::fromStdString("root1234"),QCryptographicHash::Sha256);
-
-//    QString str = "UPDATE Usuario SET password = ? ";
-
-//    QSqlQuery query;
-//    query.prepare(str);
-//    query.addBindValue(passwordHash);
-
-//    query.exec();
-
-
-//    QVector<Deporte*> deportes;
-//    QVector<Pais*> paises;
-//    QVector<Estado*> estados;
-//    QVector<TipoModalidad*> tiposModalidad;
-//    QVector<TipoResultado*> tiposResultado;
-//    QVector<Provincia*> provincias;
-//    QVector<Localidad*> localidades;
-//    QVector<Doc*> documentos;
-
-//    QVector<Doc*> doc = gestorBaseDeDatos->getDocs();
-
-
-    QVector<Deporte*>    deportes = gestorBaseDeDatos->getDeportes();
-    QVector<Res*> res;
-    QVector<Pais*>    paises = gestorBaseDeDatos->getPaises();
+    /**
+     * Cargamos todos los objetos que sean necesarios para el sistema
+     * y que sean comunes para todos los usuarios, competencias, etc
+     * como los deportes, tipo de resultados, paises, etc
+     */
+    QVector<Deporte*>    deportes = gestorBaseDeDatos->getDeportes();    
+    QVector<Res*> res;    
+    QVector<Pais*>    paises = gestorBaseDeDatos->getPaises();    
     QVector<Estado*>    estados = gestorBaseDeDatos->getEstados();
-
-    for (int i = 0; i < estados.size(); ++i) {
-        qDebug()<<estados[i]->getNombre()<<" "<<estados[i]->getId();
-    }
-
     QVector<TipoModalidad*> tiposModalidad = gestorBaseDeDatos->getTipoModalidades();
+
+    /* Creamos los gestores del sistema y los inyectamos con sus respectivas dependencias,
+     * siendo que estos gestores van a ser singletons ( concepto matematico, no patron de diseño)
+     * No se inyectara nada que no sea realmente necesario a los gestores.
+     */
 
     GestorUsuarios* gestorUsuarios = new GestorUsuarios(gestorBaseDeDatos);
     GestorPartidos* gestorPartidos = new GestorPartidos(res) ;
-    GestorCompetencias* gestorCompetencias = new GestorCompetencias(gestorBaseDeDatos,
-                                                                    gestorPartidos,gestorUsuarios,estados);
+    GestorCompetencias* gestorCompetencias = new GestorCompetencias(
+                gestorBaseDeDatos, gestorPartidos, gestorUsuarios,estados);
     GestorLugares* gestorLugares = new GestorLugares(gestorBaseDeDatos, gestorUsuarios);
 
+    /**
+     * Creamos la interfaz que actuara como mediador entre las ventanas graficas y los gestores,
+     * unificando el control de las ventanas graficas y los gestores .
+     * Se lo inyecta con todos los gestores y datos cargados de la base de datos,
+     * ya que los va a necesitar para gestionar todo.
+     */
     GUI * gui = new GUI(gestorBaseDeDatos, gestorCompetencias, gestorLugares, gestorPartidos, gestorUsuarios,
                         deportes, paises, estados, tiposModalidad);
 
+    // mostramos el programa.
     gui->show();
 
     return a.exec();

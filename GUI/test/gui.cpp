@@ -1,21 +1,45 @@
 #include "gui.h"
-
+/**
+ * @brief MainWindow::MainWindow : ventana principal para logearse, registrarse y ver competencias
+ *
+ * @param guiP : objeto gui que hace de mediador y sirve para pasar el control
+ * una vez que se quiera ir a otra ventana
+ *
+ * @param parent : objeto tipo ventana padre que sirve como retorno, asi lo
+ * implementa Qt
+ */
 MainWindow::MainWindow(GUI* guiP, QWidget *parent):
     QMainWindow(parent), gui(guiP), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
-    // validadores de la interfaz
 
+    // validador del email
     EmailValidator* emailValidator = new EmailValidator(this);
     ui->lineEdit->setValidator(emailValidator);
+    // validador de la contraseña
     QRegExp password("[a-zA-Z0-9.-]*");
     QValidator* passwordValidator = new QRegExpValidator(password,this);
-    ui->lineEdit_2->setEchoMode(QLineEdit::Password);
     ui->lineEdit_2->setValidator(passwordValidator);
+    // contraseña seteada para que no se vea al escribir
+    ui->lineEdit_2->setEchoMode(QLineEdit::Password);
 
 }
-
+/**
+ * @brief GUI::GUI : Mediador que controla interacion de interfaz grafica
+ * y gestores de la capa logica.
+ *
+ * @param gestorDBP
+ * @param gestorCompetenciasP
+ * @param gestorLugaresP
+ * @param gestorPartidosP
+ * @param gestorUsuariosP
+ * @param deportesP
+ * @param paisesP
+ * @param estadosP
+ * @param modalidadesP
+ *
+ */
 GUI::GUI(GestorBaseDatos *gestorDBP, GestorCompetencias *gestorCompetenciasP, GestorLugares *gestorLugaresP,
          GestorPartidos *gestorPartidosP, GestorUsuarios *gestorUsuariosP, QVector<Deporte *> deportesP,
          QVector<Pais *> paisesP, QVector<Estado *> estadosP, QVector<TipoModalidad *> modalidadesP):
@@ -28,34 +52,45 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-
+/**
+ * @brief MainWindow::on_pushButton_2_clicked
+ * @details boton de login extrae toda la informacion de la ui, la verifica
+ * y la envia al gestor correspondiente para luego efectuar el cambio de ventana o no
+ */
 void MainWindow::on_pushButton_2_clicked()
 {
-    // se encripta la contraseña a penas se pide por seguridad
+    // La contraseña no puede ser menor a 6 caracteres
+    // si no se cumple directamente no se verifica
+    // no se avisa nada al respecto
+    if(ui->lineEdit_2->text().size() > 6){
+        // se encripta la contraseña a penas se pide por seguridad
+        QByteArray passwordHash = QCryptographicHash::hash(QByteArray::fromStdString(ui->lineEdit_2->text().toStdString()),QCryptographicHash::Sha256);
 
-    QByteArray passwordHash = QCryptographicHash::hash(QByteArray::fromStdString(ui->lineEdit_2->text().toStdString()),QCryptographicHash::Sha256);
+        // obtenemos el mail de la ui
+        QString email = ui->lineEdit->text();
 
-    QString email = ui->lineEdit->text();
-
-    // se envian datos se pide la accion correspondiente
-    if(ui->lineEdit_2->text().size() < 4){
-        QMessageBox* msg = new QMessageBox(this);
-        msg->setText("Por favor coloque una contraseña de más de 6 caracteres");
-        msg->setModal(true);
-        msg->exec();
-    }
-    else{
         gui->handleMain(this,QString("pantallaUsuario"),email,passwordHash);
     }
 }
 
+/**
+ * @brief MainWindow::on_pushButton_4_clicked
+ * @details boton de cierre de la ventana principal
+ */
 void MainWindow::on_pushButton_4_clicked()
 {
     this->close();
     qDebug()<<"se cerro el programa";
 }
 
-
+/**
+ * @brief GUI::handleMain:
+ *      Handle para manejar los posibles eventos de la ventana principal
+ * @param a : ventana padre a la posible ventana a instaciar
+ * @param b : opcion para el handle
+ * @param email : email para pedir el usuario
+ * @param pass : contraseña encriptada para loggear usuario
+ */
 void GUI::handleMain(QMainWindow* a, QString b, QString email, QByteArray pass)
 {
     if (b == "pantallaUsuario")
@@ -75,7 +110,6 @@ void GUI::handleMain(QMainWindow* a, QString b, QString email, QByteArray pass)
             msg->exec();
         }
 
-
     }
     else if (b == "registrarUsuario")
     {
@@ -92,9 +126,11 @@ void GUI::handleMain(QMainWindow* a, QString b, QString email, QByteArray pass)
 void GUI::handlePantallaUsuario(QDialog *a, QString b)
 {
     if (b == "listarCompetencias"){
+
         listar_competencias* l = new listar_competencias(this,deportes,estados,modalidades,a);
 
         a->close();
+
         l->show();
     }
 
@@ -162,7 +198,8 @@ void GUI::handleListarLugares(QDialog *a, QString b)
 }
 
 void GUI::handleAltaCompetencia(QDialog *a, QString b, QString nombreComp, Deporte* dep,
-                                QVector<Lugar *> lugs, QVector<int> disps, Modalidad* mod, QString reglamento)
+                                QVector<Lugar *> lugs, QVector<int> disps, Modalidad* mod,
+                                QString reglamento)
 {
     if (b == "crearCompetencia")
     {
@@ -179,9 +216,7 @@ void GUI::handleAltaCompetencia(QDialog *a, QString b, QString nombreComp, Depor
             msg->setText("Competencia creada correctamente");
             msg->setModal(true);
             msg->exec();
-//            listar_competencias* lp = new listar_competencias(a);
-//            lp->setModal(true);
-//            lp->show();
+
 
         }
         else{
@@ -205,11 +240,11 @@ void GUI::handleListarParticipantes(QDialog *a, QString b)
         ap->setModal(true);
         ap->show();
     }
-    if (b == "bajaParticipante")
+    else if (b == "bajaParticipante")
     {
 
     }
-    if (b == "modificarParticipante")
+    else if (b == "modificarParticipante")
     {
         /* code */
     }
@@ -261,8 +296,6 @@ QVector<Competencia*> GUI::handleFiltrarCompetencias(QStringList data)
 
     Usuario*  usuario   =   gestorUsuarios->getActual();
 
-    qDebug()<<usuario->getEmail();
-
     nombreComp          =   data[0];
     deporte             =   data[1];
     estado              =   data[2];
@@ -273,8 +306,6 @@ QVector<Competencia*> GUI::handleFiltrarCompetencias(QStringList data)
     Deporte* d = this->buscarDeporte(deporte);
 
     TipoModalidad* tm = this->buscarTipoModalidad(tipoModalidad);
-
-    qDebug()<<"Modalidad 2";
 
     DtoGetCompetencia* datos = new DtoGetCompetencia(usuario,nombreComp,d,tm,e);
     return gestorCompetencias->getCompetenciasLazy(datos);
@@ -331,15 +362,12 @@ void GUI::show()
 {
     MainWindow * m = new MainWindow(this);
     m->show();
-
 }
 
 EmailValidator::EmailValidator(QObject *parent) :
     QValidator(parent),
       m_validMailRegExp("[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}"),
-      m_intermediateMailRegExp("[a-z0-9._%+-]*@?[a-z0-9.-]*\\.?[a-z]*")
-{
-}
+      m_intermediateMailRegExp("[a-z0-9._%+-]*@?[a-z0-9.-]*\\.?[a-z]*"){}
 
 QValidator::State EmailValidator::validate(QString &text, int &pos) const
 {
@@ -349,6 +377,7 @@ QValidator::State EmailValidator::validate(QString &text, int &pos) const
 
     if (m_validMailRegExp.exactMatch(text))
         return Acceptable;
+
     if (m_intermediateMailRegExp.exactMatch(text))
         return Intermediate;
 
