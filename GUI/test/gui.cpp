@@ -60,8 +60,8 @@ void GUI::handleMain(QMainWindow* a, QString b, QString email, QByteArray pass)
 {
     if (b == "pantallaUsuario")
     {
-//        if(gestorUsuarios->login(email,pass) != NULL){
-        if(1){
+        if(gestorUsuarios->login(email,pass) != NULL){
+
             pantalla_usuario* p = new pantalla_usuario(this,a);
             a->close();
             p->show();
@@ -77,13 +77,13 @@ void GUI::handleMain(QMainWindow* a, QString b, QString email, QByteArray pass)
 
 
     }
-    if (b == "registrarUsuario")
+    else if (b == "registrarUsuario")
     {
         registrar_usuario * ru = new registrar_usuario(a);
         ru->setModal(true);
         ru->show();
     }
-    if (b == "listarTodasCompetencias")
+    else if (b == "listarTodasCompetencias")
     {
         /* code */
     }
@@ -92,7 +92,6 @@ void GUI::handleMain(QMainWindow* a, QString b, QString email, QByteArray pass)
 void GUI::handlePantallaUsuario(QDialog *a, QString b)
 {
     if (b == "listarCompetencias"){
-//          QVector<Lugar*> lugares = gestorUsuarios->
         listar_competencias* l = new listar_competencias(this,deportes,estados,modalidades,a);
 
         a->close();
@@ -180,9 +179,9 @@ void GUI::handleAltaCompetencia(QDialog *a, QString b, QString nombreComp, Depor
             msg->setText("Competencia creada correctamente");
             msg->setModal(true);
             msg->exec();
-            listar_competencias* lp = new listar_competencias(a);
-            lp->setModal(true);
-            lp->show();
+//            listar_competencias* lp = new listar_competencias(a);
+//            lp->setModal(true);
+//            lp->show();
 
         }
         else{
@@ -273,36 +272,14 @@ QVector<Competencia*> GUI::handleFiltrarCompetencias(QStringList data)
 
     Deporte* d = this->buscarDeporte(deporte);
 
-    qDebug()<<deporte;
-
     TipoModalidad* tm = this->buscarTipoModalidad(tipoModalidad);
 
     qDebug()<<"Modalidad 2";
-//    qDebug()<<tm->getId();
-//    qDebug()<<tm->getNombre();
-
-
 
     DtoGetCompetencia* datos = new DtoGetCompetencia(usuario,nombreComp,d,tm,e);
-
     return gestorCompetencias->getCompetenciasLazy(datos);
 
-//    QVector<Competencia*> compsAux;
-//    Competencia *compAux = new Competencia();
-//    Deporte * de = new Deporte();
-//    de->setNombre("voley");
-//    compAux->setDeporte(de);
-//    Modalidad * m = new Modalidad();
-//    TipoModalidad* tmi = new TipoModalidad();
-//    tmi->setNombre("modalidad x");
-//    m->setTipoMod(tmi);
-//    compAux->setModalidad(m);
-//    Estado *es = new Estado();
-//    es->setNombre("creada");
-//    compAux->setEstado(es);
-//    compsAux.push_back(compAux);
 
-    //    return compsAux;
 }
 
 QString GUI::handleRegistrarUsuario(DtoUsuario *datos)

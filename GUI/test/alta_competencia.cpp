@@ -126,7 +126,7 @@ void alta_competencia::on_pushButton_clicked()
         TipoResultado* tipoRes = new TipoResultado();
         tipoRes->setNombre(tipoPuntos);
         mod->setTipoMod(tipoMod);
-        mod->setTipoRes(tipoRes);
+        mod->setTipoRes(tipoRes);  
 
 
         if(tipoPuntos.toLower() == "puntos"){
@@ -161,7 +161,7 @@ void alta_competencia::on_pushButton_clicked()
         }
 
         gui->handleAltaCompetencia(this,QString("crearCompetencia"),nombreCompetencia,deporteP,lugaresP,dispobilidades,mod,reglamento);
-//        gui->handleAltaCompetencia(this,QString("crearCompetencia"),data);
+
     }
 
 }

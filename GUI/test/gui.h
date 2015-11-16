@@ -10,8 +10,6 @@
 #include "GestorUsuarios.h"
 
 #include "alta_competencia.h"
-#include "alta_competencia_eliminacion.h"
-#include "alta_competencia_liga.h"
 #include "alta_participante.h"
 
 #include "listar_competencias.h"
@@ -67,7 +65,7 @@ private:
     QVector<Deporte*> deportes;
     QVector<Pais*> paises;
     QVector<Estado*> estados;
-//    QVector<Lugar*> lugares;
+    QVector<Lugar*> lugares;
     QVector<Res*> res;
     QVector<TipoModalidad*> modalidades;
     QVector<TipoResultado*> tiposResultado;

@@ -8,8 +8,6 @@
 #include "Deporte.h"
 #include "Disponibilidad.h"
 #include "gui.h"
-#include "alta_competencia_eliminacion.h"
-#include "alta_competencia_liga.h"
 
 
 class GUI;

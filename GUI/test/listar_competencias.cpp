@@ -11,6 +11,7 @@ listar_competencias::listar_competencias(GUI *guiP, QVector<Deporte*> deportes, 
     ui->comboBox->clear();
     ui->comboBox_2->clear();
     ui->comboBox_3->clear();
+    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     QRegExp compRegex("[-a-zA-Z0-9_ ]*");
     QValidator* compValidator = new QRegExpValidator(compRegex,this);
@@ -89,6 +90,7 @@ void listar_competencias::on_pushButton_4_clicked()
 
 void listar_competencias::on_pushButton_clicked()
 {
+
     QString nombre = ui->lineEdit->text().toUpper();
     QString deporte = ui->comboBox->currentText();
     QString estado = ui->comboBox_3->currentText();

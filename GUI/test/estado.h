@@ -8,7 +8,6 @@ class Estado
 public:
     QString getNombre() ;
     void setNombre(const QString &value);
-
     int getId() const;
     void setId(int value);
 

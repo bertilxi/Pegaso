@@ -36,7 +36,8 @@ private:
     QString generarQuerySets() const;
 
 public: 
-    
+    int lastCompId();
+    int lastModId();
     GestorBaseDatos(QString dbs);
 
     QVector<Competencia *> getCompetenciasLazy(const DtoGetCompetencia *dto) const;

@@ -46,10 +46,18 @@ Competencia *GestorCompetencias::crearCompetencia(DtoCompetencia *datos, bool op
 
     //Creo la competencia
     Competencia *comp=new Competencia;
+    comp->setNombre(datos->nombreCompetencia);
     comp->setEstado(this->obtenerEstado("Creada"));
+    int modId = gestorBaseDatos->lastModId();
+    datos->modalidad->setId(++modId);
     comp->setModalidad(datos->modalidad);
     comp->setDeporte(datos->deporte);
     comp->setReglamento(datos->reglamento);
+    comp->setBorrado(false);
+    int id = gestorBaseDatos->lastCompId();
+    comp->setId(++id);
+
+
     QVector<Disponibilidad*> disponibilidades;
     for(int i=0;i<datos->lugares.size();i++){
         Disponibilidad * disp = new Disponibilidad();

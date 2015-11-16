@@ -45,8 +45,6 @@ SOURCES += main.cpp\
     modificar_competencia.cpp \
     listar_competencias.cpp \
     alta_participante.cpp \
-    alta_competencia_liga.cpp \
-    alta_competencia_eliminacion.cpp \
     alta_competencia.cpp \
     res.cpp \
     tipomodalidad.cpp \
@@ -89,8 +87,6 @@ HEADERS  += \
     modificar_competencia.h \
     listar_competencias.h \
     alta_participante.h \
-    alta_competencia_liga.h \
-    alta_competencia_eliminacion.h \
     alta_competencia.h \
     res.h \
     tipomodalidad.h \
