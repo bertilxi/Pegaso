@@ -35,41 +35,41 @@ WHERE C.id_usuario = id_usuarioP
 
     QString querystr;
 
-    querystr += "SELECT C.id_competencia, C.nombre, D.nombre, M.nombre, E.nombre ";
-    querystr += "FROM Competencia C, Deporte D, Tipo_modalidad M, Estado E WHERE ";
+    querystr += "SELECT C.id_competencia, C.nombre, D.nombre, D.id_deporte, TM.nombre, TM.id_tipo_modalidad, E.nombre, E.id_estado ";
+    querystr += "FROM Competencia C, Deporte D, Modalidad M, Tipo_modalidad TM, Estado E, Usuario U WHERE ";
 
     bool primeraCondicion = true;
     if(dto->usuario != NULL)
     {
-        querystr += "C.id_usuario = " + QString::number(dto->usuario->getId());
+        querystr += "U.email = '" + dto->usuario->getEmail() + "' ";
         primeraCondicion = false;
     }
 
     if(dto->tipoModalidad != NULL)
     {
         if(!primeraCondicion) {querystr += " AND ";}
-        querystr += "C.id_modalidad = " + QString::number(dto->tipoModalidad->getId());
+        querystr += "M.id_tipo_modalidad = " + QString::number(dto->tipoModalidad->getId());
         primeraCondicion = false;
     }
 
-    if(dto->deporte->getId() != -1)
+    if(dto->deporte != NULL)
     {
         if(!primeraCondicion) {querystr += " AND ";}
-        querystr += "C.id_deporte = " + QString::number(dto->deporte->getId());
+        querystr += "D.id_deporte = " + QString::number(dto->deporte->getId());
         primeraCondicion = false;
     }
 
-    if(dto->estado->getId() != -1)
+    if(dto->estado != NULL)
     {
         if(!primeraCondicion) {querystr += " AND ";}
-        querystr += "E.id_estado = " + dto->estado->getId();
+        querystr += "E.id_estado = " + QString::number(dto->estado->getId());
         primeraCondicion = false;
     }
 
-    if(!dto->nombreCompetencia.isNull())
+    if(!dto->nombreCompetencia.isEmpty())
     {
         if(!primeraCondicion) {querystr += " AND ";}
-        querystr += "C.nombre LIKE '%?%'";
+        querystr += "C.nombre LIKE '%"+ dto->nombreCompetencia + "%'";
         primeraCondicion = false;
     }
 
@@ -79,12 +79,12 @@ WHERE C.id_usuario = id_usuarioP
     querystr += " C.id_modalidad = M.id_modalidad";
     querystr += " AND M.id_tipo_modalidad = TM.id_tipo_modalidad";
     querystr += " AND C.id_deporte = D.id_deporte";
-    querystr += " AND E.id_estado = C.estado";
+    querystr += " AND E.id_estado = C.id_estado";
 
     QSqlQuery query;
 
     query.prepare(querystr);
-    query.addBindValue(dto->nombreCompetencia);
+//    query.addBindValue(dto->nombreCompetencia);
 
     if(!query.exec()){
         qDebug() << "La consulta ha fallado";
@@ -92,7 +92,7 @@ WHERE C.id_usuario = id_usuarioP
     }
 
     QVector<Competencia *> competencias;
-
+int debug =0;
     while (query.next()) {
 
         Competencia *comp = new (std::nothrow) Competencia;
@@ -109,7 +109,8 @@ WHERE C.id_usuario = id_usuarioP
             ///Es necesario destruir la competencia
             return QVector<Competencia *>();
         }
-        deporte->setId(query.value(2).toInt());
+        deporte->setNombre(query.value(2).toString());
+        deporte->setId(query.value(3).toInt());
         comp->setDeporte(deporte);
 
         Modalidad *modalidad = new (std::nothrow) Modalidad;
@@ -121,20 +122,26 @@ WHERE C.id_usuario = id_usuarioP
 
         TipoModalidad* tipoMod = new TipoModalidad();
 
-        tipoMod->setId(query.value(3).toInt());
         tipoMod->setNombre(query.value(4).toString());
+        tipoMod->setId(query.value(5).toInt());
+        qDebug() << "modalidad 3";
+        qDebug() <<tipoMod->getId();
+        qDebug() <<tipoMod->getNombre();
+
 
         modalidad->setTipoMod(tipoMod);
         comp->setModalidad(modalidad);
 
         Estado * est = new Estado();
 
-        est->setId(query.value(4).toInt());
-        est->setNombre(query.value(5).toString());
+//        est->setId(query.value(4).toInt());
+        est->setNombre(query.value(6).toString());
+        est->setId(query.value(7).toInt());
 
         comp->setEstado(est);
 
         competencias.push_back(comp);
+        qDebug()<<debug++;
 
     }
 
@@ -952,6 +959,28 @@ QString GestorBaseDatos::generarQuerySets() const{
     return querystr;
 }
 
+int GestorBaseDatos::lastCompId()
+{
+    QString str = "select seq from sqlite_sequence where name = 'Competencia'";
+    QSqlQuery query;
+    query.exec(str);
+    while(query.next()){
+        qDebug()<<"id competencia";
+        qDebug()<<query.value(0).toInt();
+        return query.value(0).toInt();
+    }
+}
+
+int GestorBaseDatos::lastModId()
+{
+    QString str = "select seq from sqlite_sequence where name = 'Modalidad'";
+    QSqlQuery query;
+    query.exec(str);
+    while(query.next()){
+        return query.value(0).toInt();
+    }
+}
+
 
 Usuario *GestorBaseDatos::cargarUsuario(QString correo)
 {
@@ -981,7 +1010,7 @@ WHERE U.email = correo AND
     query.addBindValue(correo);
 
     // consulta
-    if(!query.exec(querystr)){
+    if(!query.exec()){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
         qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
@@ -1073,7 +1102,7 @@ WHERE L.id_usuario = userId AND
 
 bool GestorBaseDatos::saveUsuario(Usuario *usuario)
 {
-    QString queryStr = "INSERT INTO Usuario(id_usuario,email,nro_doc,id_tipo_doc,password,nombre,apellido,id_localidad) ";
+    QString queryStr = "INSERT OR REPLACE INTO Usuario(id_usuario,email,nro_doc,id_tipo_doc,password,nombre,apellido,id_localidad) ";
     queryStr += " VALUES (?,?,?,?,?,?,?,?)";
 
     QSqlQuery query;

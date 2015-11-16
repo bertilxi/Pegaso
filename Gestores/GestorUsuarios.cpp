@@ -51,6 +51,7 @@ bool GestorUsuarios::altaUsuario(DtoUsuario *datos,QString &error) {
     nuevo->setNombre(datos->nombre);
     nuevo->setPassword(datos->password);
 
+
     //Guardo el nuevo usuario
     gestorDB->saveUsuario(nuevo);
     error="El usuario ha sido creado exitosamente";
@@ -85,7 +86,7 @@ void GestorUsuarios::modUsuario(Usuario *usuario, DtoUsuario *datos) {
 Usuario* GestorUsuarios::login(QString email, QByteArray password) {
     QString error="";
     //Obtengo el usuario con ese correo si no existe retorno NULL
-    Usuario *user=gestorDB->cargarUsuario(email);
+    Usuario *user = gestorDB->cargarUsuario(email);
     if(user==NULL){
         return NULL;
     }
@@ -104,6 +105,7 @@ Usuario* GestorUsuarios::login(QString email, QByteArray password) {
         user->setAuditorias(auditorias);
         //Guardo para que quede registrado el nuevo inicio de sesión
         gestorDB->saveUsuario(user);
+        this->setActual(user);
         //retorno el usuario cargado
         return user;
     }
