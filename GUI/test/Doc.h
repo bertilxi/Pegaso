@@ -12,9 +12,11 @@ class Doc {
 public:
 
     QString getTipo() const;
+
     void setTipo(const QString &value);
 
     int getId() const;
+
     void setId(int value);
 
 private:

@@ -6,14 +6,19 @@
 class Res
 {
 public:
+
     int getId() const;
+
     void setId(int value);
 
     QString getNombre() const;
+
     void setNombre(const QString &value);
 
 private:
+
     int id;
+
     // ganó, perdió, empató, no se presentó
     QString nombre;
 };

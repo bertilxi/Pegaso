@@ -7,7 +7,7 @@
 #include "gui.h"
 
 namespace Ui {
-class pantalla_usuario;
+    class pantalla_usuario;
 }
 
 class GUI;
@@ -17,8 +17,11 @@ class pantalla_usuario : public QDialog
     Q_OBJECT
 
 public:
+
     explicit pantalla_usuario(GUI* guiP, QWidget *parent = 0);
+
     ~pantalla_usuario();
+
 
 private slots:
 
@@ -28,8 +31,11 @@ private slots:
 
 
 private:
+
     GUI* gui;
+
     Ui::pantalla_usuario *ui;
+
 };
 
 #endif // PANTALLA_USUARIO_H

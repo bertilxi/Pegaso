@@ -6,14 +6,22 @@
 class TipoModalidad
 {
 private:
+
     int id;
+
     QString nombre;
+
+
 public:
 
     int getId() ;
+
     void setId(int value);
+
     QString getNombre() ;
+
     void setNombre(const QString &value);
+
 };
 
 #endif // TIPOMODALIDAD_H

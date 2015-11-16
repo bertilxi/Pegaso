@@ -16,54 +16,64 @@
 class Modalidad {
 public:
     int getId() const;
+
     void setId(int value);
 
     int getCant_max_sets() const;
+
     void setCant_max_sets(int value);
 
     int getPuntos_presentarse() const;
+
     void setPuntos_presentarse(int value);
 
     int getPuntos_ganar() const;
+
     void setPuntos_ganar(int value);
 
     bool getEmpate() const;
+
     void setEmpate(bool value);
 
     int getPuntos_empate() const;
+
     void setPuntos_empate(int value);
 
     bool operator==(const Modalidad &other)const;
 
     QString getTable();
 
-    /**
-     * @brief getAtributos
-     * @return una lista de los atributos de Modalidad con el correspondiente nombre
-     * de sus columnas en la tabla Modalidad de la Base de Datos. Los atributos
-     * retornados han sido casteados a QString's.
-     */
     QVector<Atributo> getAtributos() const;
 
     int getId_nombre() const;
+
     void setId_nombre(int value);
 
     void setTipoRes(TipoResultado *value);
 
     TipoModalidad *getTipoMod() const;
-    void setTipoMod(TipoModalidad *value);
 
+    void setTipoMod(TipoModalidad *value);
 
     TipoResultado *getTipoRes() const;
 
+
 private:
+
     int id;
+
     TipoModalidad *tipoMod;
+
     TipoResultado *tipoRes;
+
     int cant_max_sets;
+
     int puntos_presentarse;
+
     int puntos_ganar;
+
     bool empate;
+
     int puntos_empate;
 
 };

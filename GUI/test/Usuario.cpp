@@ -85,24 +85,7 @@ void Usuario::setNro_doc(const QString &value)
 {
     nro_doc = value;
 }
-Provincia *Usuario::getProvincia() const
-{
-    return provincia;
-}
 
-void Usuario::setProvincia(Provincia *value)
-{
-    provincia = value;
-}
-Pais *Usuario::getPais() const
-{
-    return pais;
-}
-
-void Usuario::setPais(Pais *value)
-{
-    pais = value;
-}
 Doc *Usuario::getDoc()
 {
     return doc;

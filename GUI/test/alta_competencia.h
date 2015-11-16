@@ -36,8 +36,6 @@ private slots:
 
     void on_checkBox_stateChanged(int arg1);
 
-
-
     void on_comboBox_2_currentTextChanged(const QString &arg1);
 
     void on_comboBox_4_currentTextChanged(const QString &arg1);

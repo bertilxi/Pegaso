@@ -42,64 +42,102 @@
 
 
 namespace Ui {
-class MainWindow;
+    class MainWindow;
 }
 
 class MainWindow;
+
 class pantalla_usuario;
+
 class listar_competencias;
 
 class GUI
 {
 private:
+
     QWidget* ventanaActual;
+
     QWidget* ventanaAnterior;
 
     GestorBaseDatos* gestorDB;
+
     GestorCompetencias* gestorCompetencias;
+
     GestorLugares* gestorLugares;
+
     GestorPartidos* gestorPartidos;
+
     GestorUsuarios* gestorUsuarios;
 
 
     QVector<Deporte*> deportes;
+
     QVector<Pais*> paises;
+
     QVector<Estado*> estados;
+
     QVector<Lugar*> lugares;
+
     QVector<Res*> res;
+
     QVector<TipoModalidad*> modalidades;
+
     QVector<TipoResultado*> tiposResultado;
+
     QVector<Provincia*> provincias;
+
     QVector<Localidad*> localidades;
+
     QVector<Doc*> documentos;
+
     QVector<Partido*> partidos;
+
     QVector<Participante*> participantes;
 
     Estado* buscarEstado(QString estado);
+
     Deporte* buscarDeporte(QString deporte);
+
     TipoModalidad* buscarTipoModalidad(QString tipoMod);
 
 
 public:
+
     void show();
+
     void handleMain(QMainWindow* a, QString b, QString email = "", QByteArray pass = NULL);
+
     void handlePantallaUsuario(QDialog* a, QString b);
+
     void handleListarCompetencias(QDialog* a, QString b, Competencia* comp = NULL);
+
     void handleListarLugares(QDialog* a , QString b);
+
     void handleAltaCompetencia(QDialog *a, QString b, QString nombreComp, Deporte *dep, QVector<Lugar *> lugs,
                                QVector<int> disps, Modalidad *mod, QString reglamento);
+
     void handleListarParticipantes(QDialog* a, QString b);
+
     void handleVerCompetencia(QDialog* a, QString b);
+
     void handleMostrarFixture(QDialog* a, QString b);
+
     QVector<Competencia*> handleFiltrarCompetencias(QStringList datos);
+
     QString handleRegistrarUsuario(DtoUsuario * datos);
+
     GUI(GestorBaseDatos* gestorDBP, GestorCompetencias* gestorCompetenciasP,
         GestorLugares* gestorLugaresP, GestorPartidos* gestorPartidosP, GestorUsuarios* gestorUsuariosP,
-        QVector<Deporte*> deportesP, QVector<Pais*> paisesP, QVector<Estado*> estadosP, QVector<TipoModalidad*> modalidadesP
-        );
+        QVector<Deporte*> deportesP, QVector<Pais*> paisesP, QVector<Estado*> estadosP, QVector<TipoModalidad*> modalidadesP);
+
     QVector<Deporte *> getDeportes() const;
+
     void setDeportes(const QVector<Deporte *> &value);
+
 };
+
+
+
 
 class MainWindow : public QMainWindow
 {
@@ -108,35 +146,54 @@ class MainWindow : public QMainWindow
 public:
 
     explicit MainWindow(GUI* guiP , QWidget *parent = 0);
+
     ~MainWindow();
 
+
 private slots:
+
     void on_pushButton_2_clicked();
+
     void on_pushButton_4_clicked();
 
     void on_pushButton_clicked();
 
+
 private:
+
     Ui::MainWindow *ui;
-    GUI* gui;
+
+    GUI* gui;    
 
 };
 
 QT_BEGIN_NAMESPACE
+
 class QRegExp;
+
 QT_END_NAMESPACE
+
+
 
 class EmailValidator : public QValidator
 {
     Q_OBJECT
+
 public:
+
     explicit EmailValidator(QObject *parent = 0);
+
     State validate(QString &text, int &pos) const;
+
     void fixup(QString &text) const;
 
+
 private:
+
     const QRegExp m_validMailRegExp;
+
     const QRegExp m_intermediateMailRegExp;
+
 };
 
 

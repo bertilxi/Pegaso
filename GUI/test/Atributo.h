@@ -6,9 +6,13 @@
 class Atributo
 {
 public:
+
     QString campo;
+
     QString valor;
+
     Atributo() = default;
+
     Atributo(QString campoP, QString valorP): campo(campoP), valor(valorP) {}
 };
 

@@ -25,19 +25,29 @@ using namespace std;
 #define _GESTORBASEDATOS_H
 
 class Participante;
+
 class GestorBaseDatos {
+
 private:
 
     QSqlDatabase db;
 
     int armarQuerySave(QString tabla, const QVector<Atributo> &atributos);
+
     QString generarQueryResultado() const;
+
     QString generarQueryPuntos() const;
+
     QString generarQuerySets() const;
 
+
+
 public: 
+
     int lastCompId();
+
     int lastModId();
+
     GestorBaseDatos(QString dbs);
 
     QVector<Competencia *> getCompetenciasLazy(const DtoGetCompetencia *dto) const;
@@ -226,16 +236,25 @@ public:
     void virtual beginTransaction();
     
     void virtual commit();
+
     Usuario* cargarUsuario(QString correo);
+
     bool saveUsuario(Usuario* usuario);
 
     QVector<Deporte*> getDeportes();
+
     QVector<Pais*> getPaises();
+
     QVector<Provincia*> getProvincias(Pais* pais);
+
     QVector<Localidad*> getLocalidades(Provincia* provincia);
+
     QVector<Estado*> getEstados();
+
     QVector<TipoModalidad*> getTipoModalidades();
+
     QVector<Lugar *> getLugares(Usuario *user);
+
     QVector<TipoResultado *> getTiposResultado();
 
     };
