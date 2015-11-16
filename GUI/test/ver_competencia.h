@@ -13,11 +13,14 @@ class ver_competencia : public QDialog
     Q_OBJECT
 
 public:
-    explicit ver_competencia(QWidget *parent = 0);
+
     explicit ver_competencia(Competencia *comp, QWidget *parent = 0);
+
     ~ver_competencia();
 
+
 private slots:
+
     void on_pushButton_7_clicked();
 
     void on_pushButton_2_clicked();

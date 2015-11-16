@@ -1,24 +1,7 @@
 #include "alta_competencia.h"
 #include "ui_alta_competencia.h"
 
-
-
-alta_competencia::alta_competencia(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::alta_competencia)
-{
-    ui->setupUi(this);
-    ui->plainTextEdit->hide();
-    QRegExp compRegex("[-a-zA-Z0-9_ ]*");
-    QValidator* compValidator = new QRegExpValidator(compRegex,this);
-    ui->lineEdit->setValidator(compValidator);
-    ui->comboBox_2->setCurrentIndex(-1);
-
-
-
-}
-
- alta_competencia::alta_competencia(GUI *guiP, QVector<Deporte*> deportesP, QVector<Lugar *> lugaresP,
+alta_competencia::alta_competencia(GUI *guiP, QVector<Deporte*> deportesP, QVector<Lugar *> lugaresP,
     QVector<TipoModalidad*> modalidadesP, QVector<TipoResultado*> resultadosP, QWidget *parent):
      QDialog(parent), lugar(lugaresP), ui(new Ui::alta_competencia), tiposModalidades(modalidadesP),
      gui(guiP), deportes(deportesP), modalidades(modalidadesP)
@@ -32,7 +15,6 @@ alta_competencia::alta_competencia(QWidget *parent) :
      ui->comboBox_4->clear();
      ui->radioButton_2->setChecked(true);
      rowCount = 0;
-     // crear validadores para nombre y para reglamento
 
      int i;
      for(i=0;i<deportesP.size();i++){
@@ -47,6 +29,8 @@ alta_competencia::alta_competencia(QWidget *parent) :
      for(i=0;i<resultadosP.size();i++){
          ui->comboBox_4->addItem(resultadosP[i]->getNombre());
      }
+
+     // crear validadores para nombre y para reglamento
      QRegExp compRegex("[-a-zA-Z0-9_ ]*");
      QValidator* compValidator = new QRegExpValidator(compRegex,this);
      ui->lineEdit->setValidator(compValidator);
@@ -80,8 +64,7 @@ alta_competencia::alta_competencia(QWidget *parent) :
      ui->lineEdit_3->hide();
      this->resize(500,600);
 
-
-     maxSet =0;
+     maxSet = 0;
 
  }
 
@@ -111,7 +94,9 @@ void alta_competencia::on_pushButton_clicked()
         msg->setModal(true);
         msg->exec();
     }
-    else{
+
+    else
+    {
         Deporte* deporteP = new Deporte();
         deporteP->setNombre(deporte);
         int depId = this->buscarDeporte(deporte);
@@ -237,7 +222,6 @@ void alta_competencia::on_comboBox_2_currentTextChanged(const QString &arg1)
         ui->radioButton->show();
         ui->radioButton_2->show();
 
-
     }
     else if (arg1.toLower() == "eliminación simple"){
         ui->label_6->hide();
@@ -306,8 +290,6 @@ void alta_competencia::on_comboBox_4_currentTextChanged(const QString &arg1)
         ui->label_11->hide();
         ui->label_6->hide();
         ui->lineEdit_4->hide();
-//        ui->radioButton->hide();
-//        ui->radioButton_2->hide();
         ui->label_9->hide();
         ui->label_7->hide();
         ui->lineEdit_5->hide();
@@ -350,8 +332,6 @@ void alta_competencia::on_pushButton_5_clicked()
         ui->pushButton_10->setDisabled(true);
         ui->pushButton_11->setDisabled(true);
     }
-//    ui->pushButton_5->setEnabled(true);
-
 }
 
 void alta_competencia::on_pushButton_8_clicked()

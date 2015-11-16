@@ -9,15 +9,6 @@
  * Pais implementation
  */
 
-QVector<Provincia> Pais::getProvincias() const
-{
-    return provincias;
-}
-
-void Pais::setProvincias(const QVector<Provincia> &value)
-{
-    provincias = value;
-}
 
 int Pais::getId() const
 {
@@ -37,4 +28,14 @@ QString Pais::getNombre() const
 void Pais::setNombre(const QString &value)
 {
     nombre = value;
+}
+
+QVector<Provincia *> Pais::getProvincias() const
+{
+    return provincias;
+}
+
+void Pais::setProvincias(const QVector<Provincia *> &value)
+{
+    provincias = value;
 }

@@ -8,16 +8,18 @@
 
 #include "Localidad.h"
 #include <QString>
- #include <QVector>
+#include <QVector>
+#include "Pais.h"
 
-
+class Localidad;
+class Pais;
 class Provincia {
 
 public: 
 
-    QVector<Localidad> getLocalidades() const;
+    QVector<Localidad*> getLocalidades() const;
 
-    void setLocalidades(const QVector<Localidad> &value);
+    void setLocalidades(const QVector<Localidad*> &value);
 
     int getId() const;
 
@@ -30,11 +32,13 @@ public:
 
 private:
 
-    QVector<Localidad> localidades;
+    QVector<Localidad*> localidades;
 
     int id;
 
     QString nombre;
+
+    Pais * pais;
 };
 
 #endif //_PROVINCIA_H

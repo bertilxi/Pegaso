@@ -124,17 +124,11 @@ int debug =0;
 
         tipoMod->setNombre(query.value(4).toString());
         tipoMod->setId(query.value(5).toInt());
-        qDebug() << "modalidad 3";
-        qDebug() <<tipoMod->getId();
-        qDebug() <<tipoMod->getNombre();
-
-
         modalidad->setTipoMod(tipoMod);
         comp->setModalidad(modalidad);
 
         Estado * est = new Estado();
 
-//        est->setId(query.value(4).toInt());
         est->setNombre(query.value(6).toString());
         est->setId(query.value(7).toInt());
 
@@ -147,8 +141,6 @@ int debug =0;
 
     return competencias;
 }
-
-
 
 template bool GestorBaseDatos::LessThan(Participante *a, Participante *b);
 template bool GestorBaseDatos::LessThan(Partido *a, Partido *b);
@@ -1048,13 +1040,13 @@ WHERE U.email = correo AND
         prov->setId(query.value(9).toInt());
         prov->setNombre(query.value(10).toString());
 
-        user->setProvincia(prov);
+//        user->setProvincia(prov);
 
         Pais *pais = new Pais();
         pais->setId(query.value(11).toInt());
         pais->setNombre(query.value(12).toString());
 
-        user->setPais(pais);
+//        user->setPais(pais);
     }
     else
     {
@@ -1215,6 +1207,8 @@ WHERE PR.id_pais = paisId*/
     QSqlQuery query;
     query.prepare(querystr);
     query.addBindValue(pais->getId());
+
+    qDebug()<<"id pais "<<pais->getId();
 
     if(!query.exec()){
         qDebug() << "La consulta ha fallado";

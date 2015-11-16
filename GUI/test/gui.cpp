@@ -113,7 +113,8 @@ void GUI::handleMain(QMainWindow* a, QString b, QString email, QByteArray pass)
     }
     else if (b == "registrarUsuario")
     {
-        registrar_usuario * ru = new registrar_usuario(a);
+
+        registrar_usuario * ru = new registrar_usuario(this,paises,a);
         ru->setModal(true);
         ru->show();
     }
@@ -216,8 +217,6 @@ void GUI::handleAltaCompetencia(QDialog *a, QString b, QString nombreComp, Depor
             msg->setText("Competencia creada correctamente");
             msg->setModal(true);
             msg->exec();
-
-
         }
         else{
             // QMessageBox fracaso
@@ -329,6 +328,16 @@ QVector<Deporte *> GUI::getDeportes() const
 void GUI::setDeportes(const QVector<Deporte *> &value)
 {
     deportes = value;
+}
+
+QVector<Provincia *> GUI::getProvincias(Pais *paisP)
+{
+    return gestorUsuarios->getProvincias(paisP);
+}
+
+QVector<Localidad *> GUI::getLocalidades(Provincia *provinciaP)
+{
+    return gestorUsuarios->getLocalidades(provinciaP);
 }
 
 Estado *GUI::buscarEstado(QString estado)

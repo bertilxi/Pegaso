@@ -45,6 +45,10 @@ private:
 
     Usuario* actual;
 
+    QVector<Pais *> paises;
+
+    QVector<Provincia *> provincias;
+
     GestorBaseDatos* gestorDB;
 };
 

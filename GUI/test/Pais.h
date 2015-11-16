@@ -9,14 +9,10 @@
 #include "Provincia.h"
 #include <QVector>
 
-
+class Provincia;
 class Pais {
 
 public: 
-
-    QVector<Provincia> getProvincias() const;
-
-    void setProvincias(const QVector<Provincia> &value);
 
     int getId() const;
 
@@ -27,9 +23,12 @@ public:
     void setNombre(const QString &value);
 
 
+    QVector<Provincia*> getProvincias() const;
+    void setProvincias(const QVector<Provincia*> &value);
+
 private:
 
-    QVector<Provincia> provincias;
+    QVector<Provincia*> provincias;
 
     int id;
 

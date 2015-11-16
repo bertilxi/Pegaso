@@ -134,6 +134,10 @@ public:
 
     void setDeportes(const QVector<Deporte *> &value);
 
+    QVector<Provincia *> getProvincias(Pais* paisP);
+
+    QVector<Localidad*> getLocalidades(Provincia* provinciaP);
+
 };
 
 
