@@ -38,6 +38,33 @@ void GeneradorExcel::generarExcel(Competencia *comp)
     format1.setRightBorderStyle(QXlsx::Format::BorderMedium);//La última celda tiene borde derecho Medio
     xlsx.write("H2","",format1);
 
+    //Genero la tercer fila y cargo resultados según la modalidad de la competencia
+    if(comp->getModalidad()->getTipoRes()->getNombre().toLower()=="puntuación"){
+        if(comp->getModalidad()->getEmpate()){
+            this->mod_puntuacion_con_empate(comp,xlsx);
+        }
+        else{
+            this->mod_puntuacion_sin_empate(comp,xlsx);
+        }
+    }
+    else{
+        if(comp->getModalidad()->getEmpate()){
+            this->no_puntuacion_con_empate(comp,xlsx);
+        }
+        else{
+            this->no_puntuacion_sin_empate(comp,xlsx);
+        }
+    }
+
+
+    //Guardo el archivo generado
+    QString nombreArchivo="Tabla_Posiciones_"+comp->getNombre();
+    nombreArchivo+=".xlsx";
+    xlsx.saveAs(nombreArchivo);
+}
+
+void GeneradorExcel::mod_puntuacion_con_empate(Competencia *comp, QXlsx::Document &xlsx)
+{
     //Tercer fila
     QXlsx::Format format2;
     format2.setPatternBackgroundColor(QColor(224,224,224));
@@ -91,7 +118,6 @@ void GeneradorExcel::generarExcel(Competencia *comp)
 
        Puntaje* puntos=participantes[i]->getPuntaje();
        xlsx.write(fila,1,participantes[i]->getNombre(),format4);
-       format1.setLeftBorderStyle(QXlsx::Format::BorderNone);
        xlsx.write(fila,2,puntos->getPuntos(),format3);
        xlsx.write(fila,3,puntos->getPG(),format3);
        xlsx.write(fila,4,puntos->getPE(),format3);
@@ -101,8 +127,207 @@ void GeneradorExcel::generarExcel(Competencia *comp)
        xlsx.write(fila,8,puntos->getDif(),format5);
     }
 
-    //Guardo el archivo generado
-    QString nombreArchivo="Tabla_Posiciones_"+comp->getNombre();
-    nombreArchivo+=".xlsx";
-    xlsx.saveAs(nombreArchivo);
+}
+
+void GeneradorExcel::mod_puntuacion_sin_empate(Competencia *comp, QXlsx::Document &xlsx)
+{
+    //Tercer fila
+    QXlsx::Format format2;
+    format2.setPatternBackgroundColor(QColor(224,224,224));
+    format2.setHorizontalAlignment(QXlsx::Format::AlignHCenter);
+    format2.setVerticalAlignment(QXlsx::Format::AlignVCenter);
+    format2.setBottomBorderStyle(QXlsx::Format::BorderMedium);
+    format2.setLeftBorderStyle(QXlsx::Format::BorderMedium);//La primer celda tiene borde izquierdo Medio
+    xlsx.write("A3","Equipo",format2);
+    format2.setLeftBorderStyle(QXlsx::Format::BorderThin);
+    xlsx.write("B3","",format2); //Se quita PE
+    xlsx.write("C3","Puntos",format2);
+    xlsx.write("D3","PG",format2);
+    xlsx.write("E3","PP",format2);
+    xlsx.write("F3","TF",format2);
+    xlsx.write("G3","TC",format2);
+    format2.setRightBorderStyle(QXlsx::Format::BorderMedium);//La última celda tiene borde derecho Medio
+    xlsx.write("H3","DT",format2);
+
+    //agrego la informacion de los equipos
+    //Formateo
+    QXlsx::Format format3;
+    format3.setBorderStyle(QXlsx::Format::BorderThin);
+    format3.setBorderColor(QColor(128,128,128));
+    format3.setHorizontalAlignment(QXlsx::Format::AlignHCenter);
+    QXlsx::Format format4;//Para la celda más a la izquierda
+    format4.setBorderStyle(QXlsx::Format::BorderThin);
+    format4.setBorderColor(QColor(128,128,128));
+    format4.setLeftBorderColor(QColor(0,0,0));
+    format4.setLeftBorderStyle(QXlsx::Format::BorderMedium);
+    format4.setHorizontalAlignment(QXlsx::Format::AlignHCenter);
+    QXlsx::Format format5;//Para la celda más a la derecha
+    format5.setBorderStyle(QXlsx::Format::BorderThin);
+    format5.setBorderColor(QColor(128,128,128));
+    format5.setRightBorderColor(QColor(0,0,0));
+    format5.setRightBorderStyle(QXlsx::Format::BorderMedium);
+    format5.setHorizontalAlignment(QXlsx::Format::AlignHCenter);
+
+    //Agrego los datos
+    QVector<Participante*> participantes=comp->getParticipantes();
+    int fila=4;
+    for(int i=0;i<participantes.size();i++,fila++){
+        //Si es la última fila hay que hacer borde inferior medio
+        if(i==participantes.size()-1){
+            format3.setBottomBorderColor(QColor(0,0,0));
+            format3.setBottomBorderStyle(QXlsx::Format::BorderMedium);
+            format4.setBottomBorderColor(QColor(0,0,0));
+            format4.setBottomBorderStyle(QXlsx::Format::BorderMedium);
+            format5.setBottomBorderColor(QColor(0,0,0));
+            format5.setBottomBorderStyle(QXlsx::Format::BorderMedium);
+        }
+
+       Puntaje* puntos=participantes[i]->getPuntaje();
+       xlsx.write(fila,1,participantes[i]->getNombre(),format4);
+       xlsx.write(fila,2,"",format3);//Se quita PE
+       xlsx.write(fila,3,puntos->getPuntos(),format3);
+       xlsx.write(fila,4,puntos->getPG(),format3);
+       xlsx.write(fila,5,puntos->getPP(),format3);
+       xlsx.write(fila,6,puntos->getTF(),format3);
+       xlsx.write(fila,7,puntos->getTC(),format3);
+       xlsx.write(fila,8,puntos->getDif(),format5);
+    }
+}
+
+void GeneradorExcel::no_puntuacion_con_empate(Competencia *comp, QXlsx::Document &xlsx)
+{
+    //Tercer fila
+    QXlsx::Format format2;
+    format2.setPatternBackgroundColor(QColor(224,224,224));
+    format2.setHorizontalAlignment(QXlsx::Format::AlignHCenter);
+    format2.setVerticalAlignment(QXlsx::Format::AlignVCenter);
+    format2.setBottomBorderStyle(QXlsx::Format::BorderMedium);
+    format2.setLeftBorderStyle(QXlsx::Format::BorderMedium);//La primer celda tiene borde izquierdo Medio
+    xlsx.write("A3","Equipo",format2);
+    format2.setLeftBorderStyle(QXlsx::Format::BorderThin);
+    xlsx.write("E3","Puntos",format2);
+    xlsx.write("F3","PG",format2);
+    xlsx.write("G3","PE",format2);
+    //Se quitan las referencias a tantos
+    xlsx.write("B3","",format2);
+    xlsx.write("C3","",format2);
+    xlsx.write("D3","",format2);
+    format2.setRightBorderStyle(QXlsx::Format::BorderMedium);//La última celda tiene borde derecho Medio
+    xlsx.write("H3","PP",format2);
+
+
+    //agrego la informacion de los equipos
+    //Formateo
+    QXlsx::Format format3;
+    format3.setBorderStyle(QXlsx::Format::BorderThin);
+    format3.setBorderColor(QColor(128,128,128));
+    format3.setHorizontalAlignment(QXlsx::Format::AlignHCenter);
+    QXlsx::Format format4;//Para la celda más a la izquierda
+    format4.setBorderStyle(QXlsx::Format::BorderThin);
+    format4.setBorderColor(QColor(128,128,128));
+    format4.setLeftBorderColor(QColor(0,0,0));
+    format4.setLeftBorderStyle(QXlsx::Format::BorderMedium);
+    format4.setHorizontalAlignment(QXlsx::Format::AlignHCenter);
+    QXlsx::Format format5;//Para la celda más a la derecha
+    format5.setBorderStyle(QXlsx::Format::BorderThin);
+    format5.setBorderColor(QColor(128,128,128));
+    format5.setRightBorderColor(QColor(0,0,0));
+    format5.setRightBorderStyle(QXlsx::Format::BorderMedium);
+    format5.setHorizontalAlignment(QXlsx::Format::AlignHCenter);
+
+    //Agrego los datos
+    QVector<Participante*> participantes=comp->getParticipantes();
+    int fila=4;
+    for(int i=0;i<participantes.size();i++,fila++){
+        //Si es la última fila hay que hacer borde inferior medio
+        if(i==participantes.size()-1){
+            format3.setBottomBorderColor(QColor(0,0,0));
+            format3.setBottomBorderStyle(QXlsx::Format::BorderMedium);
+            format4.setBottomBorderColor(QColor(0,0,0));
+            format4.setBottomBorderStyle(QXlsx::Format::BorderMedium);
+            format5.setBottomBorderColor(QColor(0,0,0));
+            format5.setBottomBorderStyle(QXlsx::Format::BorderMedium);
+        }
+
+       Puntaje* puntos=participantes[i]->getPuntaje();
+       xlsx.write(fila,1,participantes[i]->getNombre(),format4);
+       xlsx.write(fila,5,puntos->getPuntos(),format3);
+       xlsx.write(fila,6,puntos->getPG(),format3);
+       xlsx.write(fila,7,puntos->getPE(),format3);
+       xlsx.write(fila,8,puntos->getPP(),format5);
+
+       //Se quitan las referencias a tantos
+       xlsx.write(fila,2,"",format3);
+       xlsx.write(fila,3,"",format3);
+       xlsx.write(fila,4,"",format3);
+    }
+}
+
+void GeneradorExcel::no_puntuacion_sin_empate(Competencia *comp, QXlsx::Document &xlsx)
+{
+    //Tercer fila
+    QXlsx::Format format2;
+    format2.setPatternBackgroundColor(QColor(224,224,224));
+    format2.setHorizontalAlignment(QXlsx::Format::AlignHCenter);
+    format2.setVerticalAlignment(QXlsx::Format::AlignVCenter);
+    format2.setBottomBorderStyle(QXlsx::Format::BorderMedium);
+    format2.setLeftBorderStyle(QXlsx::Format::BorderMedium);//La primer celda tiene borde izquierdo Medio
+    xlsx.write("A3","Equipo",format2);
+    format2.setLeftBorderStyle(QXlsx::Format::BorderThin);
+    xlsx.write("F3","Puntos",format2);
+    xlsx.write("G3","PG",format2);
+    xlsx.write("E3","",format2);//Se quita el empate
+    //Se quitan las referencias a tantos
+    xlsx.write("B3","",format2);
+    xlsx.write("C3","",format2);
+    xlsx.write("D3","",format2);
+    format2.setRightBorderStyle(QXlsx::Format::BorderMedium);//La última celda tiene borde derecho Medio
+    xlsx.write("H3","PP",format2);
+
+
+    //agrego la informacion de los equipos
+    //Formateo
+    QXlsx::Format format3;
+    format3.setBorderStyle(QXlsx::Format::BorderThin);
+    format3.setBorderColor(QColor(128,128,128));
+    format3.setHorizontalAlignment(QXlsx::Format::AlignHCenter);
+    QXlsx::Format format4;//Para la celda más a la izquierda
+    format4.setBorderStyle(QXlsx::Format::BorderThin);
+    format4.setBorderColor(QColor(128,128,128));
+    format4.setLeftBorderColor(QColor(0,0,0));
+    format4.setLeftBorderStyle(QXlsx::Format::BorderMedium);
+    format4.setHorizontalAlignment(QXlsx::Format::AlignHCenter);
+    QXlsx::Format format5;//Para la celda más a la derecha
+    format5.setBorderStyle(QXlsx::Format::BorderThin);
+    format5.setBorderColor(QColor(128,128,128));
+    format5.setRightBorderColor(QColor(0,0,0));
+    format5.setRightBorderStyle(QXlsx::Format::BorderMedium);
+    format5.setHorizontalAlignment(QXlsx::Format::AlignHCenter);
+
+    //Agrego los datos
+    QVector<Participante*> participantes=comp->getParticipantes();
+    int fila=4;
+    for(int i=0;i<participantes.size();i++,fila++){
+        //Si es la última fila hay que hacer borde inferior medio
+        if(i==participantes.size()-1){
+            format3.setBottomBorderColor(QColor(0,0,0));
+            format3.setBottomBorderStyle(QXlsx::Format::BorderMedium);
+            format4.setBottomBorderColor(QColor(0,0,0));
+            format4.setBottomBorderStyle(QXlsx::Format::BorderMedium);
+            format5.setBottomBorderColor(QColor(0,0,0));
+            format5.setBottomBorderStyle(QXlsx::Format::BorderMedium);
+        }
+
+       Puntaje* puntos=participantes[i]->getPuntaje();
+       xlsx.write(fila,1,participantes[i]->getNombre(),format4);
+       xlsx.write(fila,6,puntos->getPuntos(),format3);
+       xlsx.write(fila,7,puntos->getPG(),format3);
+       xlsx.write(fila,5,"",format3);//Se quita el empate
+       xlsx.write(fila,8,puntos->getPP(),format5);
+
+       //Se quitan las referencias a tantos
+       xlsx.write(fila,2,"",format3);
+       xlsx.write(fila,3,"",format3);
+       xlsx.write(fila,4,"",format3);
+    }
 }

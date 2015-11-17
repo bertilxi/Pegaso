@@ -4,11 +4,9 @@ int main(int argc, char *argv[])
     //Test
 
     Competencia* comp=new Competencia();
-    QString nombre="Competencia";
-    comp->setNombre(nombre);
+    comp->setNombre("Competencia");
     TipoResultado* tipo=new TipoResultado();
-    nombre="Liga";
-    tipo->setNombre(nombre);
+    tipo->setNombre("Sets");
     Modalidad* mod=new Modalidad();
     mod->setTipoRes(tipo);
     comp->setModalidad(mod);
@@ -47,4 +45,5 @@ int main(int argc, char *argv[])
     GeneradorExcel* gen=new GeneradorExcel();
     gen->generarExcel(comp);
     delete gen;
+    return 0;
 }
