@@ -802,8 +802,9 @@ WHERE S.partido_anterior = P.id_partido AND
         partido_anterior->addSucesor(*index);
     }
 
+    // Agrego que se setee la fecha actual
 
-
+    comp->getFechaActual();
     return comp;
 }
 

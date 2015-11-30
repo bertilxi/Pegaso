@@ -72,6 +72,7 @@ public:
     virtual bool puedeModificar(Partido* part, Competencia* comp, QString &error);
 
     QVector<TipoResultado *> getTiposResultado();
+
 };
 
 #endif //_GESTORCOMPETENCIAS_H

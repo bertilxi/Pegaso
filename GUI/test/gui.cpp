@@ -171,6 +171,7 @@ void GUI::handleListarCompetencias(QDialog *a, QString b, Competencia *comp)
     }
     else if (b == "verCompetencia")
     {
+
         Competencia * c = new Competencia();
         c = gestorCompetencias->getCompetenciaFull(comp->getId());
 
