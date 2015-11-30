@@ -10,6 +10,14 @@ ver_competencia::ver_competencia(Competencia *comp, QWidget *parent) :
 //    QPixmap pix("/home/fer/Pegaso/Heros64.png");
 //    ui->label_logo->setPixmap(pix);
 
+    QString nombre = "Competencia " + comp->getNombre();
+    ui->label->setText(nombre);
+    ui->label_7->setText(comp->getModalidad()->getTipoMod()->getNombre());
+    ui->label_8->setText(comp->getDeporte()->getNombre());
+    ui->label_9->setText(comp->getEstado()->getNombre());
+    ui->tableWidget->resizeColumnsToContents();
+
+//    comp->getPartidos()[1]->get
 
 }
 
@@ -22,56 +30,3 @@ void ver_competencia::on_pushButton_7_clicked()
 {
     this->close();
 }
-
-void ver_competencia::on_pushButton_2_clicked()
-{
-//    modificar_competencia * m;
-//    m= new modificar_competencia();
-//    m->setModal(true);
-//    m->show();
-
-}
-
-//void ver_competencia::on_pushButton_3_clicked()
-//{
-//    baja_competencia * b;
-//    b = new baja_competencia();
-//    b->setModal(true);
-//    b->show();
-//}
-
-//void ver_competencia::on_pushButton_5_clicked()
-//{
-//    // algoritmo de generacion de fixture con su correspodiente validacion
-//}
-
-//void ver_competencia::on_pushButton_4_clicked()
-//{
-//    // validacion correspondiente
-//    mostrar_fixture * m;
-//    m = new mostrar_fixture();
-//    m->setModal(true);
-//    m->show();
-
-//}
-
-//void ver_competencia::on_pushButton_6_clicked()
-//{
-
-//    tabla_posiciones * t;
-//    t = new tabla_posiciones();
-//    t->setModal(true);
-//    t->show();
-
-//}
-
-//void ver_competencia::on_pushButton_clicked()
-//{
-//    listar_participante * l;
-//    l = new listar_participante();
-//    l->setModal(true);
-//    l->show();
-//}
-
-
-
