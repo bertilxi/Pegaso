@@ -1409,3 +1409,32 @@ FROM Tipo_resultado TR*/
 
     return tiposRes;
 }
+
+bool eliminarParticipantes(Competencia *comp){
+    /*
+     * DELETE FROM Partido
+     * WHERE id_competencia = compId
+    */
+
+    int compId = comp->getId();
+
+    QString querystr;
+    querystr += "DELETE FROM Partido WHERE id_competencia = ?";
+
+    QSqlQuery query;
+
+    if(!query.prepare(querystr))
+        qDebug() << "falla el prepare";
+
+    query.addBindValue(compId);
+
+    if(!query.exec()){
+        qDebug() << "La consulta ha fallado";
+        qDebug() << "La consulta que dio error fue: " << querystr;
+        qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
+
+        return false;
+    }
+
+    return true;
+}

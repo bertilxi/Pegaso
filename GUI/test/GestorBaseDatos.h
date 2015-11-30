@@ -257,6 +257,13 @@ public:
 
     QVector<TipoResultado *> getTiposResultado();
 
+    /**
+     * @brief elimina los participantes de una competencia
+     * @param comp es la competencia cuyos partidos se borrarán
+     * @return true si se eliminaron correctamente, false en caso contrario
+     */
+    bool eliminarParticipantes(Competencia *comp);
+
     };
 
 
