@@ -70,7 +70,9 @@ public:
 
     void setEstado(Estado *value);
 
-    QVector<Partido*> getProximosEncuentros();
+    void getProximosEncuentros();
+
+
 
     int getFechaActual();
 
@@ -100,6 +102,8 @@ private:
     Modalidad *modalidad;
 
     QVector<Partido *> partidos;
+
+    QVector<Partido *> proximosEncuentros;
 
     Deporte *deporte;
 };

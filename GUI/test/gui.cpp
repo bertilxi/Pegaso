@@ -173,9 +173,8 @@ void GUI::handleListarCompetencias(QDialog *a, QString b, Competencia *comp)
     {
 
         Competencia * c = new Competencia();
+
         c = gestorCompetencias->getCompetenciaFull(comp->getId());
-
-
 
         ver_competencia * v = new ver_competencia(c,a);
         v->setModal(true);

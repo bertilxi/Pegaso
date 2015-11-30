@@ -191,35 +191,75 @@ void Competencia::setEstado(Estado *value)
     estado = value;
 }
 
-QVector<Partido *> Competencia::getProximosEncuentros()
+void Competencia::getProximosEncuentros()
 {
+    QVector<Partido *> prox;
 
+    // recorro todo los partidos de la competencia
+    for (int i = 0; i < partidos.size(); ++i) {
+        int fechaAux = partidos[i]->getFecha();
+        // si el la fecha es mayor o igual a la fecha actual
+        if( fechaAux >= fechaActual){
+            // si el partido no tiene resultado tambien se mostrara como proximo
+            if(partidos[i]->getActual()->getResultadoA() == NULL && partidos[i]->getActual()->getResultadoA() == NULL ){
+                prox.append(partidos[i]);
+            }
+        }
+    }
+    Partido* pAux;
+    for (int i = 0; i < prox.size(); ++i) {
+
+        while(prox[i+1] != NULL && prox[i]->getFecha() > prox[i+1]->getFecha()){
+            pAux = prox[i];
+            prox[i] = prox[i+1];
+            prox[i+1] = pAux;
+
+        }
+
+    }
 }
 
 int Competencia::getFechaActual()
 {
-    // si no esta cargada la fecha se busca
-    if(fechaActual < 0){
-        int fechaAct = INT_MAX;
-        int fechaAux;
+    // Si la competencia no esta finalizada
+    if(this->getEstado()->getNombre().toLower() != "finalizada"){
 
-        //recoremos todos los partidos
-        for (int i = 0; i < partidos.size(); ++i) {
-            // si algun partido no tiene el resultado cargado se ve que fecha tiene
-            if(partidos[i]->getActual()->getResultadoA() == NULL || partidos[i]->getActual()->getResultadoB() == NULL){
-                fechaAux = partidos[i]->getFecha();
-                // si la fecha que tiene ese partido es menor que la fecha que suponemos actual, nos quedamos con la menor
-                if(fechaAux < fechaAct){
-                    fechaAct = fechaAux;
+        // si no esta cargada la fecha se busca
+        if(fechaActual < 0){
+            int fechaAct = INT_MAX;
+            int fechaAux;
+
+            //recoremos todos los partidos
+            for (int i = 0; i < partidos.size(); ++i) {
+                // si algun partido no tiene el resultado cargado se ve que fecha tiene
+                if(partidos[i]->getActual()->getResultadoA() == NULL || partidos[i]->getActual()->getResultadoB() == NULL){
+                    fechaAux = partidos[i]->getFecha();
+                    // si la fecha que tiene ese partido es menor que la fecha que suponemos actual, nos quedamos con la menor
+                    if(fechaAux < fechaAct){
+                        fechaAct = fechaAux;
+                    }
                 }
             }
+            // guardamos en competencia
+            fechaActual = fechaAct;
         }
-        // guardamos en competencia
-        fechaActual = fechaAct;
-    }
-    // si esta la fecha la retorna
-    else {
-        return fechaActual;
+        // si esta la fecha la retorna
+        else {
+            return fechaActual;
 
+        }
+    }
+    // si la competencia esta finalizada
+    else{
+
+        // buscamos la fecha ultima y la seteamos como actual
+        int maxFecha = -1;
+        for (int i = 0; i < partidos.size(); ++i) {
+            int fechaAux = partidos[i]->getFecha();
+               if( fechaAux > maxFecha){
+                   maxFecha = fechaAux;
+               }
+        }
+        fechaActual = maxFecha;
     }
 }

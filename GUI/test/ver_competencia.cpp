@@ -18,6 +18,11 @@ ver_competencia::ver_competencia(Competencia *comp, QWidget *parent) :
     ui->tableWidget->resizeColumnsToContents();
 
 //    comp->getPartidos()[1]->get
+    // si la competencia no esta planificada o en disputa no se muestra la tabla
+    if (!(comp->getEstado()->getNombre().toLower() == "planificada" || comp->getEstado()->getNombre().toLower() == "en disputa")){
+        ui->tableWidget->hide();
+        ui->label_6->hide();
+    }
 
 }
 
