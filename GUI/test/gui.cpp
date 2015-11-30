@@ -171,11 +171,16 @@ void GUI::handleListarCompetencias(QDialog *a, QString b, Competencia *comp)
     }
     else if (b == "verCompetencia")
     {
-        ver_competencia * v = new ver_competencia(comp,a);
+        Competencia * c = new Competencia();
+        c = gestorCompetencias->getCompetenciaFull(comp->getId());
+
+
+
+        ver_competencia * v = new ver_competencia(c,a);
         v->setModal(true);
         v->show();
     }
-    if(b == "cerrar"){
+    else if(b == "cerrar"){
         pantalla_usuario* p = new pantalla_usuario(this);
         p->show();
         a->close();
@@ -188,11 +193,11 @@ void GUI::handleListarLugares(QDialog *a, QString b)
     {
         /* code */
     }
-    if (b == "bajaLugar")
+    else if (b == "bajaLugar")
     {
         /* code */
     }
-    if (b == "modificarLugar")
+    else if (b == "modificarLugar")
     {
         /* code */
     }

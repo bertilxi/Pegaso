@@ -35,6 +35,7 @@ listar_competencias::listar_competencias(GUI *guiP, QVector<Deporte*> deportes, 
     ui->comboBox->setCurrentIndex(-1);
     ui->comboBox_2->setCurrentIndex(-1);
     ui->comboBox_3->setCurrentIndex(-1);
+    ui->tableWidget->resizeColumnsToContents();
 
 }
 
@@ -81,11 +82,17 @@ void listar_competencias::on_pushButton_2_clicked()
 
 void listar_competencias::on_pushButton_4_clicked()
 {
-    //validar fila seleccionada y tabla no vacia
+    // validar fila seleccionada y tabla no vacia
     // validar pos < comps.size()
-
     int pos = ui->tableWidget->currentRow() ;
-    gui->handleListarCompetencias(this,"verCompetencia",comps[pos]);
+
+    qDebug()<<ui->tableWidget->rowCount()<<" "<< pos << " "<< comps.size();
+
+    if(ui->tableWidget->rowCount() > 0 && pos >= 0 && pos < comps.size() && comps[pos] != NULL){
+
+        gui->handleListarCompetencias(this,"verCompetencia",comps[pos]);
+
+    }
 }
 
 void listar_competencias::on_pushButton_clicked()
@@ -105,6 +112,7 @@ void listar_competencias::on_pushButton_clicked()
    comps = gui->handleFiltrarCompetencias(data);
 
     mostrarCompetencias();
+    ui->tableWidget->resizeColumnsToContents();
 
 }
 

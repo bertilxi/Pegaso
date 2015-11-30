@@ -4,6 +4,7 @@
 #include <QDialog>
 #include "Competencia.h"
 
+
 namespace Ui {
 class ver_competencia;
 }
