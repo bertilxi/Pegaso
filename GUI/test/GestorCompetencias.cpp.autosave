@@ -260,6 +260,8 @@ bool GestorCompetencias::generarFixture(Competencia *comp, QString error)
     //Seteo la competencia como "Planificada" y la guardo
     comp->setEstado(this->obtenerEstado("Planificada"));
     gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual()->getId());
+    
+    return true;
 
 }
 

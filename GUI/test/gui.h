@@ -118,7 +118,7 @@ public:
 
     void handleListarParticipantes(QDialog* a, QString b);
 
-    void handleVerCompetencia(QDialog* a, QString b);
+    void handleVerCompetencia(QDialog* a, QString b, Competencia *comp);
 
     void handleMostrarFixture(QDialog* a, QString b);
 

@@ -23,6 +23,8 @@ MainWindow::MainWindow(GUI* guiP, QWidget *parent):
     ui->lineEdit_2->setValidator(passwordValidator);
     // contraseña seteada para que no se vea al escribir
     ui->lineEdit_2->setEchoMode(QLineEdit::Password);
+    ui->pushButton_3->hide();
+    ui->pushButton->setDisabled(true);
 
 }
 /**
@@ -176,7 +178,7 @@ void GUI::handleListarCompetencias(QDialog *a, QString b, Competencia *comp)
 
         c = gestorCompetencias->getCompetenciaFull(comp->getId());
 
-        ver_competencia * v = new ver_competencia(c,a);
+        ver_competencia * v = new ver_competencia(this,c,a);
         v->setModal(true);
         v->show();
     }
@@ -254,7 +256,7 @@ void GUI::handleListarParticipantes(QDialog *a, QString b)
     }
 }
 
-void GUI::handleVerCompetencia(QDialog *a, QString b)
+void GUI::handleVerCompetencia(QDialog *a, QString b,Competencia* comp)
 {
     if (b == "modificarCompetencia")
     {
@@ -267,6 +269,10 @@ void GUI::handleVerCompetencia(QDialog *a, QString b)
 
             inyectar partidos en vector de partidos
         */
+        QString error;
+        return gestorCompetencias->generarFixture(comp,error);
+
+
     }
     else if (b == "bajaCompertencia")
     {

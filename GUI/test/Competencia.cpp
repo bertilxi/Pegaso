@@ -206,6 +206,8 @@ void Competencia::getProximosEncuentros()
             }
         }
     }
+
+    // Ordenamos de menor a mayor las fechas
     Partido* pAux;
     for (int i = 0; i < prox.size(); ++i) {
 

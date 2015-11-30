@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include "Competencia.h"
-
+#include "gui.h"
 
 namespace Ui {
 class ver_competencia;
@@ -15,7 +15,7 @@ class ver_competencia : public QDialog
 
 public:
 
-    explicit ver_competencia(Competencia *comp, QWidget *parent = 0);
+    explicit ver_competencia(GUI* guiP,Competencia *compP, QWidget *parent = 0);
 
     ~ver_competencia();
 
@@ -25,8 +25,12 @@ private slots:
     void on_pushButton_7_clicked();
 
 
+    void on_pushButton_5_clicked();
+
 private:
     Ui::ver_competencia *ui;
+    GUI* gui;
+    Competencia* comp;
 };
 
 #endif // VER_COMPETENCIA_H

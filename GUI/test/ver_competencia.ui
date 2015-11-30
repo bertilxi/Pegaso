@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>518</width>
+    <width>499</width>
     <height>532</height>
    </rect>
   </property>
@@ -252,6 +252,12 @@
        </item>
        <item>
         <widget class="QSplitter" name="splitter">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -308,6 +314,12 @@
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <widget class="QPushButton" name="pushButton_6">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="text">
           <string>Mostrar tabla de posiciones</string>
          </property>
@@ -315,6 +327,18 @@
        </item>
        <item>
         <widget class="QPushButton" name="pushButton">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>197</width>
+           <height>16777215</height>
+          </size>
+         </property>
          <property name="text">
           <string>Ver participantes</string>
          </property>
@@ -336,20 +360,13 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
+          <widget class="QPushButton" name="pushButton_7">
+           <property name="maximumSize">
             <size>
-             <width>40</width>
-             <height>20</height>
+             <width>100</width>
+             <height>16777215</height>
             </size>
            </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_7">
            <property name="text">
             <string>Salir</string>
            </property>
