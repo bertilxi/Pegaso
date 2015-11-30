@@ -71,6 +71,8 @@ public:
     void setEstado(Estado *value);
 
     QVector<Partido*> getProximosEncuentros();
+    
+    int getFechaActual();
 
 
 private:

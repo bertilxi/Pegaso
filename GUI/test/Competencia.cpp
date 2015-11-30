@@ -190,3 +190,36 @@ void Competencia::setEstado(Estado *value)
 {
     estado = value;
 }
+
+QVector<Partido *> Competencia::getProximosEncuentros()
+{
+
+}
+
+int Competencia::getFechaActual()
+{
+    // si no esta cargada la fecha se busca
+    if(fechaActual < 0){
+        int fechaAct = INT_MAX;
+        int fechaAux;
+
+        //recoremos todos los partidos
+        for (int i = 0; i < partidos.size(); ++i) {
+            // si algun partido no tiene el resultado cargado se ve que fecha tiene
+            if(partidos[i]->getActual()->getResultadoA() == NULL || partidos[i]->getActual()->getResultadoB() == NULL){
+                fechaAux = partidos[i]->getFecha();
+                // si la fecha que tiene ese partido es menor que la fecha que suponemos actual, nos quedamos con la menor
+                if(fechaAux < fechaAct){
+                    fechaAct = fechaAux;
+                }
+            }
+        }
+        // guardamos en competencia
+        fechaActual = fechaAct;
+    }
+    // si esta la fecha la retorna
+    else {
+        return fechaActual;
+
+    }
+}
