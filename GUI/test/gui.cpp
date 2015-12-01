@@ -250,6 +250,10 @@ void GUI::handleListarParticipantes(QDialog *a, QString b)
         alta_participante* ap = new alta_participante(this,a);
         ap->setModal(true);
         ap->show();
+        // actualizo participantes y los retorno para mostrar actualizados
+        participantes = competenciaActual->getParticipantes();
+        a->close();
+
     }
     else if (b == "bajaParticipante")
     {
@@ -282,12 +286,11 @@ bool GUI::handleVerCompetencia(QDialog *a, QString b,Competencia* comp)
     }
     else if (b == "mostrarFixture")
     {
-        qDebug()<<"Esto quiero ver";
-        qDebug()<<competenciaActual->getNombre();
-        qDebug()<<competenciaActual->getPartidos().size();
+
         mostrar_fixture* mf = new mostrar_fixture(this,competenciaActual,a);
         mf->setModal(true);
         mf->show();
+
     }
     else if (b == "mostrarTablasPosiciones")
     {
@@ -385,6 +388,7 @@ void GUI::handleAltaParticipante(QDialog *a, QString nombre, QString email, QStr
         msg->show();
     }
     a->close();
+
 }
 
 Estado *GUI::buscarEstado(QString estado)

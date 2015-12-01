@@ -23,7 +23,6 @@ private slots:
     void on_pushButton_2_clicked();
 
 
-
 private:
     Ui::listar_participante *ui;
     QVector<Participante*> participantes;

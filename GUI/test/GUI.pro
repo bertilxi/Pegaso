@@ -103,7 +103,6 @@ FORMS    += mainwindow.ui \
     pantalla_usuario.ui \
     modificar_competencia.ui \
     listar_competencias.ui \
-    alta_participante.ui \
     alta_competencia.ui \
     mostrar_fixture.ui \
     tabla_posiciones.ui \

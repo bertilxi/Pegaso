@@ -185,7 +185,8 @@ WHERE C.id_competencia = id_comp AND
     if(!query.prepare(querystr))
         qDebug() << "no anda el prepare";
 
-    query.addBindValue(id_comp);
+    query.addBindValue(QString::number(id_comp));
+
 
     // consulta
     if(!query.exec()){
@@ -198,7 +199,7 @@ WHERE C.id_competencia = id_comp AND
 
 
     if(!query.next()){
-        qDebug() << "Error Base de datos: No hay ninguna competencia con ese id";
+        qDebug() << "Error Base de datos: No hay ninguna competencia con el id: "<< id_comp;
         return NULL;
     }
 

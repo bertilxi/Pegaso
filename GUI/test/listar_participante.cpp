@@ -13,17 +13,30 @@ listar_participante::listar_participante(GUI *guiP, QVector<Participante *> part
     QPixmap pix(":/images/Heros64.png");
     ui->label_logo->setPixmap(pix);
 
+    resize(300,400);
     ui->pushButton_3->hide();
     ui->pushButton_4->hide();
 
-    qDebug()<<"participantes"<< participantes.size();
+    // ocultar alta
 
+
+
+    qDebug()<<"participantes"<< participantes.size();
+    ui->tableWidget->setRowCount(0);
     for (int i = 0; i < participantes.size(); ++i) {
         ui->tableWidget->insertRow(i);
         ui->tableWidget->setItem(i,0,new QTableWidgetItem(participantes[i]->getNombre()));
-        qDebug()<<"part "<<i<< participantes[i]->getNombre();
         ui->tableWidget->setItem(i,1,new QTableWidgetItem(participantes[i]->getCorreo()));
     }
+//    ui->tableWidget->resize(500,300);
+    ui->tableWidget->resizeColumnsToContents();
+    ui->tableWidget->horizontalHeader()->setVisible(false);
+    ui->tab->setVisible(false);
+    ui->tabWidget->setTabText(0,"");
+    ui->tabWidget->setTabText(1,"");
+//    ui->tabWidget->setTabEnabled(0,false);
+//    ui->tabWidget->setTabEnabled(1,false);
+
 }
 
 listar_participante::~listar_participante()
@@ -38,7 +51,8 @@ void listar_participante::on_pushButton_clicked()
 
 void listar_participante::on_pushButton_2_clicked()
 {
-    gui->handleListarParticipantes(this,QString("altaParticipante"));
-}
 
+
+//    gui->handleListarParticipantes(this,QString("altaParticipante"));
+}
 

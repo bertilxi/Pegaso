@@ -7,9 +7,9 @@ alta_competencia::alta_competencia(GUI *guiP, QVector<Deporte*> deportesP, QVect
      gui(guiP), deportes(deportesP), modalidades(modalidadesP), tiposResultados(resultadosP)
 
  {
+       ui->setupUi(this);
      QPixmap pix(":/images/Heros64.png");
      ui->label_logo->setPixmap(pix);
-     ui->setupUi(this);
      ui->plainTextEdit->hide();
      ui->comboBox->clear();
      ui->comboBox_2->clear();
@@ -30,6 +30,7 @@ alta_competencia::alta_competencia(GUI *guiP, QVector<Deporte*> deportesP, QVect
      }
      for(i=0;i<resultadosP.size();i++){
          ui->comboBox_4->addItem(resultadosP[i]->getNombre());
+         qDebug()<<resultadosP[i]->getNombre();
      }
 
      // crear validadores para nombre y para reglamento
@@ -84,9 +85,9 @@ void alta_competencia::on_pushButton_clicked()
 {
 
     QString nombreCompetencia = ui->lineEdit->text().toUpper();
-    QString deporte = ui->comboBox->currentText();
-    QString tipoModalidad = ui->comboBox_2->currentText();
-    QString tipoPuntos = ui->comboBox_4->currentText();
+    QString deporte = ui->comboBox->currentText().toLower();
+    QString tipoModalidad = ui->comboBox_2->currentText().toLower();
+    QString tipoPuntos = ui->comboBox_4->currentText().toLower();
 
     qDebug()<<nombreCompetencia.isEmpty() << deporte.isEmpty() << tipoModalidad.isEmpty();
 
@@ -411,7 +412,7 @@ void alta_competencia::on_pushButton_11_clicked()
 int alta_competencia::buscarDeporte(QString deporte)
 {
     for (int i = 0; i < deportes.size(); ++i) {
-        if(deporte == deportes[i]->getNombre())
+        if(deporte.toLower() == deportes[i]->getNombre().toLower())
             return deportes[i]->getId();
     }
     return 0;
@@ -420,7 +421,7 @@ int alta_competencia::buscarDeporte(QString deporte)
 int alta_competencia::buscarTipoMod(QString modalidad)
 {
     for (int i = 0; i < modalidades.size(); ++i) {
-        if(modalidad == modalidades[i]->getNombre())
+        if(modalidad.toLower() == modalidades[i]->getNombre().toLower())
             return modalidades[i]->getId();
     }
     return 0;
@@ -430,7 +431,7 @@ int alta_competencia::buscarTipoMod(QString modalidad)
 int alta_competencia::buscarTipoRes(QString resultado)
 {
     for (int i = 0; i < tiposResultados.size(); ++i) {
-        if(resultado == tiposResultados[i]->getNombre())
+        if(resultado.toLower() == tiposResultados[i]->getNombre().toLower())
             return tiposResultados[i]->getId();
     }
     return 0;
@@ -439,7 +440,7 @@ int alta_competencia::buscarTipoRes(QString resultado)
 int alta_competencia::buscarLugar(QString lugarP)
 {
     for (int i = 0; i < lugar.size(); ++i) {
-        if(lugarP == lugar[i]->getNombre())
+        if(lugarP.toLower() == lugar[i]->getNombre().toLower())
             return lugar[i]->getId();
     }
     return 0;

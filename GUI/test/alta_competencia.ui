@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>456</width>
-    <height>762</height>
+    <height>847</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,6 +37,19 @@
         <string>Coloque los datos de su nueva competencia</string>
        </property>
       </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_15">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </item>
@@ -795,7 +808,6 @@
   <zorder>verticalSpacer_4</zorder>
   <zorder>verticalSpacer_5</zorder>
   <zorder>label_9</zorder>
-  <zorder>horizontalLayoutWidget</zorder>
  </widget>
  <tabstops>
   <tabstop>lineEdit</tabstop>

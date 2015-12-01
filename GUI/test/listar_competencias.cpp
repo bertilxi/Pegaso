@@ -118,10 +118,11 @@ void listar_competencias::on_pushButton_clicked()
 
 void listar_competencias::mostrarCompetencias()
 {
-    ui->tableWidget->setRowCount(comps.size());
+//    ui->tableWidget->setRowCount(comps.size());
 
-    int i;
-    for(i=0;i<comps.size();i++){
+    ui->tableWidget->setRowCount(0);
+
+    for(int i=0;i<comps.size();i++){
         ui->tableWidget->insertRow(i);
         ui->tableWidget->setItem(i,0,new QTableWidgetItem(comps[i]->getNombre()));
         ui->tableWidget->setItem(i,1,new QTableWidgetItem(comps[i]->getDeporte()->getNombre()));
