@@ -9,6 +9,7 @@
 #include <QString>
 #include <QVector>
 #include <QDebug>
+#include <QtAlgorithms>
 #include "Disponibilidad.h"
 #include "Participante.h"
 #include "Modalidad.h"

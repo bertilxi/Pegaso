@@ -51,6 +51,8 @@ public:
 
     bool operator==(const Partido &other)const;
 
+    bool operator<(const Partido &other)const;
+
     QString getTable() const;
 
     QString getTable(Partido &sucesor) const;
