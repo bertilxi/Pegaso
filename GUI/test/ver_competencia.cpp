@@ -40,12 +40,12 @@ ver_competencia::ver_competencia(GUI *guiP, Competencia *compP, QWidget *parent)
         else{
 
             for (int i = 0; i < proxEnc.size(); ++i) {
-
+                ui->tableWidget->insertRow(i);
                 ui->tableWidget->setItem(i,0,new QTableWidgetItem(proxEnc[i]->getEquipoA()->getNombre()));
                 ui->tableWidget->setItem(i,1,new QTableWidgetItem(proxEnc[i]->getEquipoB()->getNombre()));
-                ui->tableWidget->setItem(i,2,new QTableWidgetItem(proxEnc[i]->getFecha()));
+                ui->tableWidget->setItem(i,2,new QTableWidgetItem(QString::number(proxEnc[i]->getFecha())));
 
-                qDebug()<<"equipo a"<<proxEnc[i]->getEquipoA()->getNombre();
+                qDebug()<<"equipo a"<<proxEnc[i]->getEquipoA()->getNombre()<<"fecha"<<proxEnc[i]->getFecha();
 
             }
         }

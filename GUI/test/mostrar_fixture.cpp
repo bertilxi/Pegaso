@@ -14,7 +14,7 @@ mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp, QWidget *parent) 
     qDebug()<< "Tam fixture "<<comp->getPartidos().size();
     for (int i = 0; i < comp->getPartidos().size(); ++i) {
         ui->tableWidget->insertRow(i);
-        ui->tableWidget->setItem(i,0,new QTableWidgetItem(comp->getPartidos()[i]->getFecha()));
+        ui->tableWidget->setItem(i,0,new QTableWidgetItem(QString::number(comp->getPartidos()[i]->getFecha())));
         ui->tableWidget->setItem(i,1,new QTableWidgetItem(comp->getPartidos()[i]->getEquipoA()->getNombre()));
         ui->tableWidget->setItem(i,2,new QTableWidgetItem(comp->getPartidos()[i]->getEquipoB()->getNombre()));
 
