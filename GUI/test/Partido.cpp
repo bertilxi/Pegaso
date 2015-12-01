@@ -9,6 +9,12 @@
  * Partido implementation
  */
 
+Partido::Partido()
+{
+    id=-1;
+    actual=NULL;
+}
+
 int Partido::getId() const
 {
     return id;

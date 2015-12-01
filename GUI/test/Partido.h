@@ -65,6 +65,7 @@ public:
 
     void addSucesor(Partido *partido_sucesor);
 
+    Partido();
 
 private:
 

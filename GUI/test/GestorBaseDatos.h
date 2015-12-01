@@ -199,8 +199,9 @@ public:
     bool saveResultado(Resultado *resultado, Atributo partidoId){
         bool status = true;
         if(resultado == NULL){
-            return false;
+            return true;
         }
+        qDebug()<<"El partido que si tiene resultado es"<<partidoId.valor;
         Puntos *puntos = dynamic_cast<Puntos *>(resultado);
         if(puntos != NULL)  //si es de clase Puntos
         {
@@ -260,11 +261,11 @@ public:
     QVector<TipoResultado *> getTiposResultado();
 
     /**
-     * @brief elimina los participantes de una competencia
+     * @brief elimina los partidos de una competencia
      * @param comp es la competencia cuyos partidos se borrarán
      * @return true si se eliminaron correctamente, false en caso contrario
      */
-    bool eliminarParticipantes(Competencia *comp);
+    bool eliminarPartidos(Competencia *comp);
 
     };
 

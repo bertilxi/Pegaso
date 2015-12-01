@@ -1411,7 +1411,7 @@ FROM Tipo_resultado TR*/
     return tiposRes;
 }
 
-bool eliminarParticipantes(Competencia *comp){
+bool GestorBaseDatos::eliminarPartidos(Competencia *comp){
     /*
      * DELETE FROM Partido
      * WHERE id_competencia = compId

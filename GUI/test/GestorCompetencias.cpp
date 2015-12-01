@@ -19,6 +19,7 @@ void GestorCompetencias::eliminarFixture(Competencia *comp)
     partidos.clear();
     comp->setPartidos(partidos);
     comp->setEstado(this->obtenerEstado("Creada"));
+    gestorBaseDatos->eliminarPartidos(comp);
 }
 
 Estado *GestorCompetencias::obtenerEstado(QString estado)

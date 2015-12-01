@@ -204,7 +204,7 @@ QVector<Partido *> Competencia::getProximosEncuentros()
         // si el la fecha es mayor o igual a la fecha actual
         if( fechaAux >= fechaActual){
             // si el partido no tiene resultado tambien se mostrara como proximo
-            if(partidos[i]->getActual()->getResultadoA() == NULL && partidos[i]->getActual()->getResultadoA() == NULL ){
+            if(partidos[i]->getActual() == NULL ){
                 prox.append(partidos[i]);
             }
         }
@@ -214,7 +214,7 @@ QVector<Partido *> Competencia::getProximosEncuentros()
     Partido* pAux;
     for (int i = 0; i < prox.size(); ++i) {
 
-        while(prox[i+1] != NULL && prox[i]->getFecha() > prox[i+1]->getFecha()){
+        while(i+1 != prox.size() && prox[i]->getFecha() > prox[i+1]->getFecha()){
             pAux = prox[i];
             prox[i] = prox[i+1];
             prox[i+1] = pAux;
