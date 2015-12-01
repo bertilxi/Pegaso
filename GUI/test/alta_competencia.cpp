@@ -139,6 +139,8 @@ void alta_competencia::on_pushButton_clicked()
         for (int i = 0; i < ui->tableWidget->rowCount(); ++i) {
             Lugar* lAux = new Lugar();
             lAux->setNombre(ui->tableWidget->item(i,0)->text());
+            int lugarId = this->buscarLugar(lAux->getNombre());
+            lAux->setId(lugarId);
             lugaresP.push_back(lAux);
             dispobilidades.push_back( ui->tableWidget->item(i,1)->text().toInt());
         }
@@ -428,6 +430,15 @@ int alta_competencia::buscarTipoRes(QString resultado)
     for (int i = 0; i < tiposResultados.size(); ++i) {
         if(resultado == tiposResultados[i]->getNombre())
             return tiposResultados[i]->getId();
+    }
+    return 0;
+}
+
+int alta_competencia::buscarLugar(QString lugarP)
+{
+    for (int i = 0; i < lugar.size(); ++i) {
+        if(lugarP == lugar[i]->getNombre())
+            return lugar[i]->getId();
     }
     return 0;
 }
