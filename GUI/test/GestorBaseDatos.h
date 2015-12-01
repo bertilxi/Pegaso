@@ -198,7 +198,9 @@ public:
 
     bool saveResultado(Resultado *resultado, Atributo partidoId){
         bool status = true;
-
+        if(resultado == NULL){
+            return false;
+        }
         Puntos *puntos = dynamic_cast<Puntos *>(resultado);
         if(puntos != NULL)  //si es de clase Puntos
         {

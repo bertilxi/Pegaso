@@ -242,7 +242,7 @@ int Competencia::getFechaActual()
             //recoremos todos los partidos
             for (int i = 0; i < partidos.size(); ++i) {
                 // si algun partido no tiene el resultado cargado se ve que fecha tiene
-                if(partidos[i]->getActual()->getResultadoA() == NULL || partidos[i]->getActual()->getResultadoB() == NULL){
+                if(partidos[i]->getActual() == NULL){
                     fechaAux = partidos[i]->getFecha();
                     // si la fecha que tiene ese partido es menor que la fecha que suponemos actual, nos quedamos con la menor
                     if(fechaAux < fechaAct){
