@@ -69,6 +69,7 @@ private:
     int buscarDeporte(QString deporte);
     int buscarTipoMod(QString modalidad);
     int buscarTipoRes(QString resultado);
+    int buscarLugar(QString lugarP);
 };
 
 #endif // ALTA_COMPETENCIA_H

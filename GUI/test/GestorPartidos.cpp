@@ -12,8 +12,8 @@
 void GestorPartidos::generarFixture(Competencia *comp) {
     //Llamo a la función adecuada según la modalidad de la competencia
     QString modalidad=comp->getModalidad()->getTipoMod()->getNombre().toLower();
-    qDebug()<<"modalidad "<<modalidad;
-    if(modalidad == QString("Liga").toLower()){
+        qDebug()<<"Generando fixture";
+        if(modalidad == QString("Liga").toLower()){
         this->generarFixtureLiga(comp);
     }
     else{
@@ -38,14 +38,15 @@ void GestorPartidos::generarFixture(Competencia *comp) {
     bool seAsigno; //Bandera para saber si se asigno un lugar a un partido
     for (int i = 0; i < partidos.size(); ++i) {
         seAsigno=false;
-        for(int j=0;j<disponibilidades.size();j++) //Compruebo en todos los lugares si tengo disponibilidad
+        for(int j=0;j<disponibilidades.size();j++){ //Compruebo en todos los lugares si tengo disponibilidad
             //Voy asignando cíclicamente los lugares
             if(numeroDisponibles[(actual+j)%disponibilidades.size()]){
-                partidos[i]->setLugar(disponibilidades[actual+j]->getLugar());
-                actual=actual+j+1;
+                partidos[i]->setLugar(disponibilidades[(actual+j)%disponibilidades.size()]->getLugar());
+                seAsigno=true;
+                actual=(actual+j+1)%disponibilidades.size();
                 break;
             }
-
+        }
         //Si no hay más lugares con disponibilidad, reestablezco las disponibilidades y sigo asignando
         if(!seAsigno){
             i--; //Para que se le asigne al partido que no se le pudo asignar
@@ -57,6 +58,8 @@ void GestorPartidos::generarFixture(Competencia *comp) {
             }
         }
     }
+    qDebug()<<"Lugares asignados";
+    qDebug()<<"Fixture generado";
 }
 
 
@@ -195,13 +198,11 @@ void GestorPartidos::generarFixtureLiga(Competencia *comp) {
     QVector<Partido*> partidos;
     //Algoritmo Round Robin schedule de Édouard Lucas modificado
     int n=participantes.size();
-    qDebug()<<"hola GenFix";
         for (int i = 1; i < n; ++i) {
             for (int j = 0; j < n - i - 1 + (n&1) ; j++) { //Si son pares hago una iteración menos porque asigno especialmente al último
                 Partido *part = new Partido();
                 part->setEquipoA(participantes[i-1]);
                 part->setEquipoB(participantes[i+j]);
-                qDebug()<<"equipo dentro de generarFixture "<< participantes[i-1]->getNombre();
                 part->setFecha(((i<<1) + j - 1)%(n -1 + (n&1) )+1); //La fecha la calculo por deducción de la matriz Round Robin
                 partidos.push_back(part);
             }
@@ -209,14 +210,13 @@ void GestorPartidos::generarFixtureLiga(Competencia *comp) {
             if(!n&1){
                 Partido *part = new Partido();
                 part->setEquipoA(participantes[i-1]);
-                qDebug()<<"equipo dentro de generarFixture "<< participantes[i-1]->getNombre();
                 part->setEquipoB(participantes[n-1]);
                 part->setFecha(((i<<1)-2)%(n-1)+1);
                 partidos.push_back(part);
             }
         }
-        qDebug()<<"chau GenFix";
     comp->setPartidos(partidos);
+    qDebug()<<"Partidos asignados"<<": "<<partidos.size();
 }
 
 void GestorPartidos::generarFixtureElimSimple(Competencia *comp) {
