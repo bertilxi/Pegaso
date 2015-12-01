@@ -148,6 +148,7 @@ bool GestorCompetencias::altaParticipante(Competencia *comp, DtoParticipante *da
     part->setImg(datos->imgUrl);
     part->setNombre(datos->nombre);
     part->setPuntaje(puntaje);
+    part->setId(-1);
     participantes.push_back(part);
     comp->setParticipantes(participantes);
 

@@ -53,7 +53,7 @@ public:
 
 private:
 
-    int id;
+//    int id;
 
     int puntos;
 

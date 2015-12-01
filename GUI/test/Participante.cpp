@@ -125,6 +125,11 @@ QVector<Atributo> Participante::getAtributos() const{
     return result;
 }
 
+Participante::Participante()
+{
+    id = -1;
+}
+
 
 
 
