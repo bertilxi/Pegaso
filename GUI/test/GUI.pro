@@ -52,7 +52,8 @@ SOURCES += main.cpp\
     estado.cpp \
     mostrar_fixture.cpp \
     tabla_posiciones.cpp \
-    registrar_usuario.cpp
+    registrar_usuario.cpp \
+    listar_participante.cpp
 
 HEADERS  += \
     Atributo.h \
@@ -94,7 +95,8 @@ HEADERS  += \
     estado.h \
     mostrar_fixture.h \
     tabla_posiciones.h \
-    registrar_usuario.h
+    registrar_usuario.h \
+    listar_participante.h
 
 FORMS    += mainwindow.ui \
     ver_competencia.ui \
@@ -105,4 +107,5 @@ FORMS    += mainwindow.ui \
     alta_competencia.ui \
     mostrar_fixture.ui \
     tabla_posiciones.ui \
-    registrar_usuario.ui
+    registrar_usuario.ui \
+    listar_participante.ui

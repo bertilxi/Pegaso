@@ -191,10 +191,13 @@ void Competencia::setEstado(Estado *value)
     estado = value;
 }
 
-void Competencia::getProximosEncuentros()
+QVector<Partido *> Competencia::getProximosEncuentros()
 {
     QVector<Partido *> prox;
 
+     qDebug()<<"fecha actual"<< fechaActual;
+    this->getFechaActual();
+    qDebug()<<"fecha actual"<< fechaActual;
     // recorro todo los partidos de la competencia
     for (int i = 0; i < partidos.size(); ++i) {
         int fechaAux = partidos[i]->getFecha();
@@ -217,12 +220,17 @@ void Competencia::getProximosEncuentros()
             prox[i+1] = pAux;
 
         }
-
     }
+    proximosEncuentros = prox;
+
+    qDebug()<<prox.size();
+
+    return proximosEncuentros;
 }
 
 int Competencia::getFechaActual()
 {
+     fechaActual = -1;
     // Si la competencia no esta finalizada
     if(this->getEstado()->getNombre().toLower() != "finalizada"){
 
@@ -239,6 +247,11 @@ int Competencia::getFechaActual()
                     // si la fecha que tiene ese partido es menor que la fecha que suponemos actual, nos quedamos con la menor
                     if(fechaAux < fechaAct){
                         fechaAct = fechaAux;
+
+                        qDebug()<<"fecha aux"<<fechaAux;
+                        qDebug()<<"fecha act"<<fechaAct;
+
+
                     }
                 }
             }
@@ -264,4 +277,9 @@ int Competencia::getFechaActual()
         }
         fechaActual = maxFecha;
     }
+}
+
+Competencia::Competencia()
+{
+    fechaActual = -1;
 }

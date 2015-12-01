@@ -178,6 +178,8 @@ void GUI::handleListarCompetencias(QDialog *a, QString b, Competencia *comp)
 
         c = gestorCompetencias->getCompetenciaFull(comp->getId());
 
+        qDebug()<<"Competencia id: "<<c->getId();
+
         ver_competencia * v = new ver_competencia(this,c,a);
         v->setModal(true);
         v->show();
@@ -256,7 +258,7 @@ void GUI::handleListarParticipantes(QDialog *a, QString b)
     }
 }
 
-void GUI::handleVerCompetencia(QDialog *a, QString b,Competencia* comp)
+bool GUI::handleVerCompetencia(QDialog *a, QString b,Competencia* comp)
 {
     if (b == "modificarCompetencia")
     {
@@ -290,6 +292,14 @@ void GUI::handleVerCompetencia(QDialog *a, QString b,Competencia* comp)
         t->setModal(true);
         t->show();
     }
+    else if (b == "listarParticipantes"){
+
+        participantes = comp->getParticipantes();
+        listar_participante * lp = new listar_participante(this,participantes, a);
+        lp->setModal(true);
+        lp->show();
+    }
+
 }
 
 void GUI::handleMostrarFixture(QDialog *a, QString b)

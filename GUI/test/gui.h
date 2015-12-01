@@ -39,7 +39,7 @@
 #include "Partido.h"
 #include "tabla_posiciones.h"
 #include "registrar_usuario.h"
-
+#include "listar_participante.h"
 
 namespace Ui {
     class MainWindow;
@@ -118,7 +118,7 @@ public:
 
     void handleListarParticipantes(QDialog* a, QString b);
 
-    void handleVerCompetencia(QDialog* a, QString b, Competencia *comp);
+    bool handleVerCompetencia(QDialog* a, QString b, Competencia *comp = NULL);
 
     void handleMostrarFixture(QDialog* a, QString b);
 
@@ -137,6 +137,7 @@ public:
     QVector<Provincia *> getProvincias(Pais* paisP);
 
     QVector<Localidad*> getLocalidades(Provincia* provinciaP);
+
 
 };
 

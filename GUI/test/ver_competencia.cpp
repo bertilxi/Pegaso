@@ -19,13 +19,36 @@ ver_competencia::ver_competencia(GUI *guiP, Competencia *compP, QWidget *parent)
     ui->pushButton_2->setDisabled(true);
     ui->pushButton_3->setDisabled(true);
 
-//    comp->getPartidos()[1]->get
+
     // si la competencia no esta planificada o en disputa no se muestra la tabla
     if (!(compP->getEstado()->getNombre().toLower() == "planificada" || compP->getEstado()->getNombre().toLower() == "en disputa")){
         ui->tableWidget->hide();
         ui->label_6->hide();
     }
+    else{
+        QVector<Partido*> proxEnc = comp->getProximosEncuentros() ;
+        if(proxEnc.size() == 0){
+            qDebug()<< "Error: no hay partidos cargados";
 
+            for (int i = 0; i < comp->getPartidos().size(); ++i) {
+                qDebug()<<"Equipo A "<<comp->getPartidos()[i]->getEquipoA()->getNombre();
+
+            }
+
+        }
+        else{
+
+            for (int i = 0; i < proxEnc.size(); ++i) {
+
+                ui->tableWidget->setItem(i,0,new QTableWidgetItem(proxEnc[i]->getEquipoA()->getNombre()));
+                ui->tableWidget->setItem(i,1,new QTableWidgetItem(proxEnc[i]->getEquipoB()->getNombre()));
+                ui->tableWidget->setItem(i,2,new QTableWidgetItem(proxEnc[i]->getFecha()));
+
+                qDebug()<<"equipo a"<<proxEnc[i]->getEquipoA()->getNombre();
+
+            }
+        }
+    }
 }
 
 ver_competencia::~ver_competencia()
@@ -50,4 +73,19 @@ void ver_competencia::on_pushButton_5_clicked()
         msg->setModal(true);
         msg->show();
     }
+}
+
+void ver_competencia::on_pushButton_6_clicked()
+{
+    gui->handleVerCompetencia(this,QString("mostrarTablasPosiciones"));
+}
+
+void ver_competencia::on_pushButton_4_clicked()
+{
+    gui->handleVerCompetencia(this,QString("mostrarFixture"));
+}
+
+void ver_competencia::on_pushButton_clicked()
+{
+    gui->handleVerCompetencia(this,QString("listarParticipantes"),comp);
 }

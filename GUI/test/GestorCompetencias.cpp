@@ -261,6 +261,8 @@ bool GestorCompetencias::generarFixture(Competencia *comp, QString error)
     comp->setEstado(this->obtenerEstado("Planificada"));
     gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual()->getId());
 
+    return true;
+
 }
 
 bool GestorCompetencias::puedeModificar(Partido *part, Competencia *comp, QString &error)

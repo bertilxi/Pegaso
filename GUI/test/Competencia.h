@@ -70,13 +70,13 @@ public:
 
     void setEstado(Estado *value);
 
-    void getProximosEncuentros();
+    QVector<Partido *> getProximosEncuentros();
 
 
 
     int getFechaActual();
 
-    Competencia(): fechaActual(-1) {}
+    Competencia();
 
 
 private:

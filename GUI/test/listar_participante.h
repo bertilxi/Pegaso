@@ -2,6 +2,8 @@
 #define LISTAR_PARTICIPANTE_H
 
 #include <QDialog>
+#include "Participante.h"
+#include "gui.h"
 
 namespace Ui {
 class listar_participante;
@@ -12,7 +14,7 @@ class listar_participante : public QDialog
     Q_OBJECT
 
 public:
-    explicit listar_participante(QWidget *parent = 0);
+    listar_participante(GUI* guiP,QVector<Participante*> partP, QWidget *parent = 0);
     ~listar_participante();
 
 private slots:
@@ -20,12 +22,12 @@ private slots:
 
     void on_pushButton_2_clicked();
 
-    void on_pushButton_3_clicked();
 
-    void on_pushButton_4_clicked();
 
 private:
     Ui::listar_participante *ui;
+    QVector<Participante*> participantes;
+    GUI* gui;
 };
 
 #endif // LISTAR_PARTICIPANTE_H
