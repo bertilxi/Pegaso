@@ -6,9 +6,9 @@ alta_participante::alta_participante(GUI *guiP, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::alta_participante), gui(guiP)
 {
-    Q_INIT_RESOURCE(img);
+
     ui->setupUi(this);
-    QPixmap pix(":/graph.png");
+    QPixmap pix(":/images/Heros64.png");
     ui->label_logo->setPixmap(pix);
 
     QRegExp nombre("[a-zA-Z0-9.-]*");

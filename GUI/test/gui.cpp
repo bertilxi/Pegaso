@@ -13,6 +13,9 @@ MainWindow::MainWindow(GUI* guiP, QWidget *parent):
 {
     ui->setupUi(this);
 
+    QPixmap pix(":/images/Heros128.png");
+    ui->label_logo->setPixmap(pix);
+
 
     // validador del email
     EmailValidator* emailValidator = new EmailValidator(this);

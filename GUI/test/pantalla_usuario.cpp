@@ -7,8 +7,7 @@ pantalla_usuario::pantalla_usuario(GUI *guiP, QWidget *parent) :
     ui(new Ui::pantalla_usuario)
 {
     ui->setupUi(this);
-    Q_INIT_RESOURCE(img);
-    //QPixmap pix("/home/fer/Pegaso/Heros128.png");
+
     QPixmap pix(":/images/Heros128.png");
     ui->label_logo->setPixmap(pix);
 

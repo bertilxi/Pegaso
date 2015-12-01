@@ -7,6 +7,8 @@ alta_competencia::alta_competencia(GUI *guiP, QVector<Deporte*> deportesP, QVect
      gui(guiP), deportes(deportesP), modalidades(modalidadesP), tiposResultados(resultadosP)
 
  {
+     QPixmap pix(":/images/Heros64.png");
+     ui->label_logo->setPixmap(pix);
      ui->setupUi(this);
      ui->plainTextEdit->hide();
      ui->comboBox->clear();

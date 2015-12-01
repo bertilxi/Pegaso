@@ -7,8 +7,8 @@ modificar_competencia::modificar_competencia(QWidget *parent) :
     ui(new Ui::modificar_competencia)
 {
     ui->setupUi(this);
-    QPixmap pix("/home/fer/Pegaso/Heros64.png");
-   // ui->label_logo->setPixmap(pix);
+    QPixmap pix(":/images/Heros64.png");
+    ui->label_logo->setPixmap(pix);
 }
 
 modificar_competencia::~modificar_competencia()
