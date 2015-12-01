@@ -100,6 +100,8 @@ private:
 
     TipoModalidad* buscarTipoModalidad(QString tipoMod);
 
+    Competencia* competenciaActual;
+
 
 public:
 
@@ -138,6 +140,8 @@ public:
 
     QVector<Localidad*> getLocalidades(Provincia* provinciaP);
 
+    void handleAltaParticipante(QDialog *a, QString nombre, QString email, QString ImgUrl);
+
 
 };
 
@@ -172,34 +176,34 @@ private:
 
 };
 
-QT_BEGIN_NAMESPACE
+//QT_BEGIN_NAMESPACE
 
-class QRegExp;
+//class QRegExp;
 
-QT_END_NAMESPACE
-
-
-
-class EmailValidator : public QValidator
-{
-    Q_OBJECT
-
-public:
-
-    explicit EmailValidator(QObject *parent = 0);
-
-    State validate(QString &text, int &pos) const;
-
-    void fixup(QString &text) const;
+//QT_END_NAMESPACE
 
 
-private:
 
-    const QRegExp m_validMailRegExp;
+//class EmailValidator : public QValidator
+//{
+//    Q_OBJECT
 
-    const QRegExp m_intermediateMailRegExp;
+//public:
 
-};
+//    explicit EmailValidator(QObject *parent = 0);
+
+//    State validate(QString &text, int &pos) const;
+
+//    void fixup(QString &text) const;
+
+
+//private:
+
+//    const QRegExp m_validMailRegExp;
+
+//    const QRegExp m_intermediateMailRegExp;
+
+//};
 
 
 #endif // GUI_H

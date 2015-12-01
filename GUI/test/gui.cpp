@@ -24,7 +24,7 @@ MainWindow::MainWindow(GUI* guiP, QWidget *parent):
     // contraseña seteada para que no se vea al escribir
     ui->lineEdit_2->setEchoMode(QLineEdit::Password);
     ui->pushButton_3->hide();
-    ui->pushButton->setDisabled(true);
+    ui->pushButton->hide();
 
 }
 /**
@@ -244,7 +244,7 @@ void GUI::handleListarParticipantes(QDialog *a, QString b)
 {
     if (b == "altaParticipante")
     {
-        alta_participante* ap = new alta_participante(a);
+        alta_participante* ap = new alta_participante(this,a);
         ap->setModal(true);
         ap->show();
     }
@@ -260,6 +260,7 @@ void GUI::handleListarParticipantes(QDialog *a, QString b)
 
 bool GUI::handleVerCompetencia(QDialog *a, QString b,Competencia* comp)
 {
+    competenciaActual = comp;
     if (b == "modificarCompetencia")
     {
         /* code */
@@ -361,6 +362,25 @@ QVector<Localidad *> GUI::getLocalidades(Provincia *provinciaP)
     return gestorUsuarios->getLocalidades(provinciaP);
 }
 
+void GUI::handleAltaParticipante(QDialog *a, QString nombre, QString email, QString ImgUrl)
+{
+    DtoParticipante* datos = new DtoParticipante(nombre,email,ImgUrl);
+    QString error;
+    if(gestorCompetencias->altaParticipante(competenciaActual,datos,error)){
+        QMessageBox* msg = new QMessageBox(a);
+        msg->setText(error);
+        msg->setModal(true);
+        msg->show();
+    }
+    else{
+        QMessageBox* msg = new QMessageBox(a);
+        msg->setText(error);
+        msg->setModal(true);
+        msg->show();
+    }
+    a->close();
+}
+
 Estado *GUI::buscarEstado(QString estado)
 {
     for (int i = 0; i < estados.size(); ++i) {
@@ -392,31 +412,6 @@ void GUI::show()
 {
     MainWindow * m = new MainWindow(this);
     m->show();
-}
-
-EmailValidator::EmailValidator(QObject *parent) :
-    QValidator(parent),
-      m_validMailRegExp("[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}"),
-      m_intermediateMailRegExp("[a-z0-9._%+-]*@?[a-z0-9.-]*\\.?[a-z]*"){}
-
-QValidator::State EmailValidator::validate(QString &text, int &pos) const
-{
-    Q_UNUSED(pos)
-
-    fixup(text);
-
-    if (m_validMailRegExp.exactMatch(text))
-        return Acceptable;
-
-    if (m_intermediateMailRegExp.exactMatch(text))
-        return Intermediate;
-
-    return Invalid;
-}
-
-void EmailValidator::fixup(QString &text) const
-{
-    text = text.trimmed().toLower();
 }
 
 void MainWindow::on_pushButton_clicked()

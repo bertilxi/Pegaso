@@ -13,6 +13,9 @@ listar_participante::listar_participante(GUI *guiP, QVector<Participante *> part
 //    QPixmap pix("/home/fer/Pegaso/Heros64.png");
 //    ui->label_logo->setPixmap(pix);
 
+    ui->pushButton_3->hide();
+    ui->pushButton_4->hide();
+
     qDebug()<<"participantes"<< participantes.size();
 
     for (int i = 0; i < participantes.size(); ++i) {

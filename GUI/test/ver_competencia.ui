@@ -282,6 +282,9 @@
           <property name="checked">
            <bool>false</bool>
           </property>
+          <property name="tristate">
+           <bool>false</bool>
+          </property>
          </widget>
         </widget>
        </item>

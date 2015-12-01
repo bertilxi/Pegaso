@@ -182,6 +182,18 @@ bool Puntaje::operator==(const Puntaje &other) const
     return 1;
 }
 
+Puntaje::Puntaje()
+{
+    puntos = 0 ;
+    PG = 0 ;
+    PE = 0 ;
+    PP = 0 ;
+    TF = 0 ;
+    TC = 0 ;
+    Dif = 0 ;
+    id = -1;
+}
+
 
 
 

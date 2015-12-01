@@ -143,9 +143,11 @@ bool GestorCompetencias::altaParticipante(Competencia *comp, DtoParticipante *da
 
     //Creo el participante y lo asigno a la competencia
     Participante *part=new Participante;
+    Puntaje* puntaje = new Puntaje();
     part->setCorreo(datos->correo);
     part->setImg(datos->imgUrl);
     part->setNombre(datos->nombre);
+    part->setPuntaje(puntaje);
     participantes.push_back(part);
     comp->setParticipantes(participantes);
 
@@ -153,6 +155,7 @@ bool GestorCompetencias::altaParticipante(Competencia *comp, DtoParticipante *da
     this->eliminarFixture(comp);
 
     //Guardo los cambios
+
     gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual()->getId());
 
     error="La operación ha culminado con éxito";

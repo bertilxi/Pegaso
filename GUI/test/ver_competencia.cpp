@@ -6,8 +6,6 @@ ver_competencia::ver_competencia(GUI *guiP, Competencia *compP, QWidget *parent)
     QDialog(parent), gui(guiP),  ui(new Ui::ver_competencia), comp(compP)
 {
     ui->setupUi(this);
-//    QPixmap pix("/home/fer/Pegaso/Heros64.png");
-//    ui->label_logo->setPixmap(pix);
 
     QString nombre = "Competencia " + compP->getNombre();
     ui->label->setText(nombre);
@@ -16,8 +14,9 @@ ver_competencia::ver_competencia(GUI *guiP, Competencia *compP, QWidget *parent)
     ui->label_9->setText(compP->getEstado()->getNombre());
     ui->tableWidget->resizeColumnsToContents();
 
-    ui->pushButton_2->setDisabled(true);
-    ui->pushButton_3->setDisabled(true);
+    ui->pushButton_2->hide();
+    ui->pushButton_3->hide();
+    ui->pushButton_4->setDisabled(true);
 
 
     // si la competencia no esta planificada o en disputa no se muestra la tabla
@@ -88,4 +87,14 @@ void ver_competencia::on_pushButton_4_clicked()
 void ver_competencia::on_pushButton_clicked()
 {
     gui->handleVerCompetencia(this,QString("listarParticipantes"),comp);
+}
+
+void ver_competencia::on_checkBox_stateChanged(int arg1)
+{
+    if(arg1 == 0){
+        ui->pushButton_4->setDisabled(true);
+    }
+    else if(arg1 == 2){
+        ui->pushButton_4->setEnabled(true);
+    }
 }

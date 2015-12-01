@@ -10,8 +10,8 @@ pantalla_usuario::pantalla_usuario(GUI *guiP, QWidget *parent) :
     //QPixmap pix("/home/fer/Pegaso/Heros128.png");
     //ui->label_logo->setPixmap(pix);
 
-    ui->pushButton->setDisabled(true);
-    ui->pushButton_3->setDisabled(true);
+    ui->pushButton->hide();
+    ui->pushButton_3->hide();
 }
 
 pantalla_usuario::~pantalla_usuario()

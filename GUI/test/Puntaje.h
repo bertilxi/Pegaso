@@ -48,8 +48,12 @@ public:
 
     bool operator==(const Puntaje &other)const;
 
+    Puntaje();
+
 
 private:
+
+    int id;
 
     int puntos;
 
