@@ -198,3 +198,16 @@ void Partido::addSucesor(Partido *partido_sucesor)
     sucesores.push_back(partido_sucesor);
 }
 
+bool Partido::operator<(const Partido &otroPartido)const
+{
+    bool res=false;
+    if(fecha < otroPartido.getFecha()){
+        res=true;
+    }
+    else if(fecha == otroPartido.getFecha()){
+        if(equipoA->getNombre() < otroPartido.equipoA->getNombre()){
+            res=true;
+        }
+    }
+    return res;
+}

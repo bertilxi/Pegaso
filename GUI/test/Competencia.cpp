@@ -190,6 +190,7 @@ void Competencia::setEstado(Estado *value)
 {
     estado = value;
 }
+bool comparePtrPartido(Partido* a, Partido* b) { return (*a < *b); }
 
 QVector<Partido *> Competencia::getProximosEncuentros()
 {
@@ -211,16 +212,8 @@ QVector<Partido *> Competencia::getProximosEncuentros()
     }
 
     // Ordenamos de menor a mayor las fechas
-    Partido* pAux;
-    for (int i = 0; i < prox.size(); ++i) {
+    qSort(prox.begin(),prox.end(),comparePtrPartido);
 
-        while(i+1 != prox.size() && prox[i]->getFecha() > prox[i+1]->getFecha()){
-            pAux = prox[i];
-            prox[i] = prox[i+1];
-            prox[i+1] = pAux;
-
-        }
-    }
     proximosEncuentros = prox;
 
     qDebug()<<prox.size();
