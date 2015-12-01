@@ -4,7 +4,7 @@
 alta_competencia::alta_competencia(GUI *guiP, QVector<Deporte*> deportesP, QVector<Lugar *> lugaresP,
     QVector<TipoModalidad*> modalidadesP, QVector<TipoResultado*> resultadosP, QWidget *parent):
      QDialog(parent), lugar(lugaresP), ui(new Ui::alta_competencia), tiposModalidades(modalidadesP),
-     gui(guiP), deportes(deportesP), modalidades(modalidadesP)
+     gui(guiP), deportes(deportesP), modalidades(modalidadesP), tiposResultados(resultadosP)
 
  {
      ui->setupUi(this);
@@ -110,6 +110,8 @@ void alta_competencia::on_pushButton_clicked()
 
         TipoResultado* tipoRes = new TipoResultado();
         tipoRes->setNombre(tipoPuntos);
+        int tipoResId = this->buscarTipoRes(tipoPuntos);
+        tipoRes->setId(tipoResId);
         mod->setTipoMod(tipoMod);
         mod->setTipoRes(tipoRes);  
 
@@ -421,3 +423,11 @@ int alta_competencia::buscarTipoMod(QString modalidad)
 }
 
 
+int alta_competencia::buscarTipoRes(QString resultado)
+{
+    for (int i = 0; i < tiposResultados.size(); ++i) {
+        if(resultado == tiposResultados[i]->getNombre())
+            return tiposResultados[i]->getId();
+    }
+    return 0;
+}

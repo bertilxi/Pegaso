@@ -63,10 +63,12 @@ private:
     int maxSet;
     bool conEmpate;
     QVector<TipoModalidad*> tiposModalidades;
+    QVector<TipoResultado*> tiposResultados;
     Ui::alta_competencia *ui;
 
     int buscarDeporte(QString deporte);
     int buscarTipoMod(QString modalidad);
+    int buscarTipoRes(QString resultado);
 };
 
 #endif // ALTA_COMPETENCIA_H
