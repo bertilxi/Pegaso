@@ -109,3 +109,6 @@ FORMS    += mainwindow.ui \
     tabla_posiciones.ui \
     registrar_usuario.ui \
     listar_participante.ui
+
+RESOURCES += \
+    img.qrc

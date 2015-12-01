@@ -10,8 +10,8 @@ listar_participante::listar_participante(GUI *guiP, QVector<Participante *> part
     ui(new Ui::listar_participante), participantes(partP), gui(guiP)
 {
     ui->setupUi(this);
-//    QPixmap pix("/home/fer/Pegaso/Heros64.png");
-//    ui->label_logo->setPixmap(pix);
+    QPixmap pix(":/images/Heros64.png");
+    ui->label_logo->setPixmap(pix);
 
     ui->pushButton_3->hide();
     ui->pushButton_4->hide();

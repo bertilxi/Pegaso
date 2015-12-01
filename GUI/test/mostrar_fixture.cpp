@@ -8,8 +8,8 @@ mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp, QWidget *parent) 
     ui(new Ui::mostrar_fixture), competencia(comp), gui(guiP)
 {
     ui->setupUi(this);
-//    QPixmap pix("/home/fer/Pegaso/Heros64.png");
-//    ui->label_logo->setPixmap(pix);
+    QPixmap pix(":/images/Heros64.png");
+    ui->label_logo->setPixmap(pix);
 
     qDebug()<< "Tam fixture "<<comp->getPartidos().size();
     for (int i = 0; i < comp->getPartidos().size(); ++i) {

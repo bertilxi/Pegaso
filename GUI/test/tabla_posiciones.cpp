@@ -6,6 +6,8 @@ tabla_posiciones::tabla_posiciones(GUI *guiP, QVector<Participante* > participan
     ui(new Ui::tabla_posiciones), gui(guiP)
 {
     ui->setupUi(this);
+    QPixmap pix(":/images/Heros64.png");
+    ui->label_logo->setPixmap(pix);
 
     for (int i = 0; i < participantesP.size(); ++i) {
 

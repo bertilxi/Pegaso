@@ -6,8 +6,8 @@ listar_competencias::listar_competencias(GUI *guiP, QVector<Deporte*> deportes, 
     ui(new Ui::listar_competencias)
 {
     ui->setupUi(this);
-    //QPixmap pix("/home/fer/Pegaso/Heros64.png");
-    //ui->label_logo->setPixmap(pix);
+    QPixmap pix(":/images/Heros64.png");
+    ui->label_logo->setPixmap(pix);
     ui->comboBox->clear();
     ui->comboBox_2->clear();
     ui->comboBox_3->clear();

@@ -6,6 +6,8 @@ ver_competencia::ver_competencia(GUI *guiP, Competencia *compP, QWidget *parent)
     QDialog(parent), gui(guiP),  ui(new Ui::ver_competencia), comp(compP)
 {
     ui->setupUi(this);
+    QPixmap pix(":/images/Heros64.png");
+    ui->label_logo->setPixmap(pix);
 
     QString nombre = "Competencia " + compP->getNombre();
     ui->label->setText(nombre);

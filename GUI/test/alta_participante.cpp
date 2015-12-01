@@ -6,8 +6,9 @@ alta_participante::alta_participante(GUI *guiP, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::alta_participante), gui(guiP)
 {
+
     ui->setupUi(this);
-    QPixmap pix("/home/fer/Pegaso/Heros64.png");
+    QPixmap pix(":/images/Heros64.png");
     ui->label_logo->setPixmap(pix);
 
     QRegExp nombre("[a-zA-Z0-9.-]*");
