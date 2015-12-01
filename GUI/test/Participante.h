@@ -49,6 +49,8 @@ public:
 
     QVector<Atributo> getAtributos() const;
 
+    Participante();
+
 
 private:
 

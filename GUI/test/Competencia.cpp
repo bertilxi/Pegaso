@@ -282,4 +282,5 @@ int Competencia::getFechaActual()
 Competencia::Competencia()
 {
     fechaActual = -1;
+    id = -1;
 }

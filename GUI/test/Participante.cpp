@@ -110,6 +110,7 @@ QVector<Atributo> Participante::getAtributos() const{
     QVector<Atributo> result;
     if(id != -1){
         result.push_back(Atributo("id_participante",QString::number(id)));
+
     }
     result.push_back(Atributo("imagen", img));
     result.push_back(Atributo("nombre", nombre));

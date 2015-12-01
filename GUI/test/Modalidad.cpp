@@ -77,6 +77,11 @@ TipoResultado *Modalidad::getTipoRes() const
     return tipoRes;
 }
 
+Modalidad::Modalidad()
+{
+    id=-1;
+}
+
 TipoModalidad *Modalidad::getTipoMod() const
 {
     return tipoMod;

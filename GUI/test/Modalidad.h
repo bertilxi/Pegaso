@@ -57,6 +57,7 @@ public:
 
     TipoResultado *getTipoRes() const;
 
+    Modalidad();
 
 private:
 

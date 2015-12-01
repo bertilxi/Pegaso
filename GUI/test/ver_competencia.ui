@@ -144,21 +144,6 @@
                <height>16777215</height>
               </size>
              </property>
-             <row>
-              <property name="text">
-               <string>1</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>2</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>4</string>
-              </property>
-             </row>
              <column>
               <property name="text">
                <string>Equipo A</string>
@@ -277,9 +262,12 @@
            <string>Generado</string>
           </property>
           <property name="checkable">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="checked">
+           <bool>false</bool>
+          </property>
+          <property name="autoRepeat">
            <bool>false</bool>
           </property>
           <property name="tristate">

@@ -63,7 +63,9 @@ void ver_competencia::on_pushButton_7_clicked()
 void ver_competencia::on_pushButton_5_clicked()
 {
     if (gui->handleVerCompetencia(this,QString("generarFixture"),comp)){
+        ui->checkBox->setCheckable(true);
         ui->checkBox->setChecked(true);
+        ui->checkBox->setDisabled(true);
     }
     else{
         QMessageBox* msg = new QMessageBox(this);

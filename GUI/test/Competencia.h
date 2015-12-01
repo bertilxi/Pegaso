@@ -72,8 +72,6 @@ public:
 
     QVector<Partido *> getProximosEncuentros();
 
-
-
     int getFechaActual();
 
     Competencia();
