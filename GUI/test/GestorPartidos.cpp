@@ -11,16 +11,17 @@
 
 void GestorPartidos::generarFixture(Competencia *comp) {
     //Llamo a la función adecuada según la modalidad de la competencia
-    QString modalidad=comp->getModalidad()->getTipoMod()->getNombre();
-    if(modalidad=="Liga"){
+    QString modalidad=comp->getModalidad()->getTipoMod()->getNombre().toLower();
+    qDebug()<<"modalidad "<<modalidad;
+    if(modalidad == QString("Liga").toLower()){
         this->generarFixtureLiga(comp);
     }
     else{
-        if(modalidad=="Simple"){
+        if(modalidad == QString("Eliminación Simple").toLower()){
             this->generarFixtureElimSimple(comp);
         }
         else
-            if(modalidad=="Doble")
+            if(modalidad == QString("Eliminación Doble").toLower())
                 this->generarFixtureElimDoble(comp);
     }
 
@@ -190,15 +191,17 @@ Res *GestorPartidos::buscarRes(QString res)
 
 void GestorPartidos::generarFixtureLiga(Competencia *comp) {
 
-    QVector<Participante*> participantes=comp->getParticipantes();
+    QVector<Participante*> participantes = comp->getParticipantes();
     QVector<Partido*> partidos;
     //Algoritmo Round Robin schedule de Édouard Lucas modificado
     int n=participantes.size();
+    qDebug()<<"hola GenFix";
         for (int i = 1; i < n; ++i) {
             for (int j = 0; j < n - i - 1 + (n&1) ; j++) { //Si son pares hago una iteración menos porque asigno especialmente al último
                 Partido *part = new Partido();
                 part->setEquipoA(participantes[i-1]);
                 part->setEquipoB(participantes[i+j]);
+                qDebug()<<"equipo dentro de generarFixture "<< participantes[i-1]->getNombre();
                 part->setFecha(((i<<1) + j - 1)%(n -1 + (n&1) )+1); //La fecha la calculo por deducción de la matriz Round Robin
                 partidos.push_back(part);
             }
@@ -206,11 +209,13 @@ void GestorPartidos::generarFixtureLiga(Competencia *comp) {
             if(!n&1){
                 Partido *part = new Partido();
                 part->setEquipoA(participantes[i-1]);
+                qDebug()<<"equipo dentro de generarFixture "<< participantes[i-1]->getNombre();
                 part->setEquipoB(participantes[n-1]);
                 part->setFecha(((i<<1)-2)%(n-1)+1);
                 partidos.push_back(part);
             }
         }
+        qDebug()<<"chau GenFix";
     comp->setPartidos(partidos);
 }
 

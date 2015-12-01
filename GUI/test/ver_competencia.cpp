@@ -83,6 +83,7 @@ void ver_competencia::on_pushButton_6_clicked()
 
 void ver_competencia::on_pushButton_4_clicked()
 {
+    qDebug()<<"tam vector part antes mostrar fixture "<<comp->getPartidos().size();
     gui->handleVerCompetencia(this,QString("mostrarFixture"),comp);
 }
 

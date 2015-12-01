@@ -267,14 +267,10 @@ bool GUI::handleVerCompetencia(QDialog *a, QString b,Competencia* comp)
     }
     else if (b == "generarFixture")
     {
-        /*
-            Algoritmo de generacion de fixture
 
-            inyectar partidos en vector de partidos
-        */
         QString error;
         return gestorCompetencias->generarFixture(comp,error);
-
+        competenciaActual = comp;
 
     }
     else if (b == "bajaCompertencia")
