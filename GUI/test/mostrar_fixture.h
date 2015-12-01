@@ -3,6 +3,8 @@
 
 #include <QDialog>
 #include "Partido.h"
+#include "Competencia.h"
+#include "gui.h"
 
 namespace Ui {
     class mostrar_fixture;
@@ -14,9 +16,7 @@ class mostrar_fixture : public QDialog
 
 public:
 
-    explicit mostrar_fixture(QWidget *parent = 0);
-
-    explicit mostrar_fixture(QVector<Partido*> partidosP,QWidget *parent = 0);
+    explicit mostrar_fixture(GUI* guiP,Competencia* comp, QWidget *parent = 0);
 
     ~mostrar_fixture();
 
@@ -29,6 +29,8 @@ private slots:
 private:
 
     Ui::mostrar_fixture *ui;
+    GUI* gui;
+    Competencia* competencia;
 };
 
 #endif // MOSTRAR_FIXTURE_H

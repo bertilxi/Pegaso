@@ -283,9 +283,12 @@ bool GUI::handleVerCompetencia(QDialog *a, QString b,Competencia* comp)
     }
     else if (b == "mostrarFixture")
     {
-        mostrar_fixture * m = new mostrar_fixture(partidos,a);
-        m->setModal(true);
-        m->show();
+        qDebug()<<"Esto quiero ver";
+        qDebug()<<competenciaActual->getNombre();
+        qDebug()<<competenciaActual->getPartidos().size();
+        mostrar_fixture* mf = new mostrar_fixture(this,competenciaActual,a);
+        mf->setModal(true);
+        mf->show();
     }
     else if (b == "mostrarTablasPosiciones")
     {
@@ -305,9 +308,12 @@ bool GUI::handleVerCompetencia(QDialog *a, QString b,Competencia* comp)
 
 void GUI::handleMostrarFixture(QDialog *a, QString b)
 {
-    if (b == "generarFixture")
+    if (b == "mostrarFixture")
     {
-        /* code */
+        qDebug()<<"Esto quiero ver";
+        qDebug()<<competenciaActual->getNombre();
+        qDebug()<<competenciaActual->getPartidos().size();
+        mostrar_fixture* mf = new mostrar_fixture(this,competenciaActual,a);
     }
 }
 

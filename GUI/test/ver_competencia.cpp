@@ -83,7 +83,7 @@ void ver_competencia::on_pushButton_6_clicked()
 
 void ver_competencia::on_pushButton_4_clicked()
 {
-    gui->handleVerCompetencia(this,QString("mostrarFixture"));
+    gui->handleVerCompetencia(this,QString("mostrarFixture"),comp);
 }
 
 void ver_competencia::on_pushButton_clicked()
