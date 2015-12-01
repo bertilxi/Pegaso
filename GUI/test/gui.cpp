@@ -292,7 +292,8 @@ bool GUI::handleVerCompetencia(QDialog *a, QString b,Competencia* comp)
     }
     else if (b == "mostrarTablasPosiciones")
     {
-        tabla_posiciones* t = new tabla_posiciones(participantes,a);
+        participantes = comp->getParticipantes();
+        tabla_posiciones* t = new tabla_posiciones(this,participantes,a);
         t->setModal(true);
         t->show();
     }

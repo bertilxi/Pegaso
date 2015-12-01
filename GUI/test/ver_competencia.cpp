@@ -78,7 +78,7 @@ void ver_competencia::on_pushButton_5_clicked()
 
 void ver_competencia::on_pushButton_6_clicked()
 {
-    gui->handleVerCompetencia(this,QString("mostrarTablasPosiciones"));
+    gui->handleVerCompetencia(this,QString("mostrarTablasPosiciones"),comp);
 }
 
 void ver_competencia::on_pushButton_4_clicked()
