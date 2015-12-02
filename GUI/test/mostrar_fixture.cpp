@@ -37,5 +37,7 @@ void mostrar_fixture::on_pushButton_clicked()
 
 void mostrar_fixture::on_pushButton_2_clicked()
 {
-    gui->handleMostrarFixture(this,"gestionarFixture");
+    int partidoSeleccionado = ui->tableWidget->currentRow();
+    Partido* p = competencia->getPartidos()[partidoSeleccionado];
+    gui->handleMostrarFixture(this,"gestionarFixture",p);
 }

@@ -14,7 +14,7 @@ class gestionar_fixture : public QDialog
     Q_OBJECT
 
 public:
-    explicit gestionar_fixture(Modalidad *mod, GUI* guiP, QWidget *parent = 0);
+    explicit gestionar_fixture(Competencia *compP, Partido* partP , GUI* guiP, QWidget *parent = 0);
     ~gestionar_fixture();
 
 private slots:
@@ -24,10 +24,21 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_checkBox_5_toggled(bool checked);
+
+    void on_checkBox_6_toggled(bool checked);
+
+    void on_checkBox_7_toggled(bool checked);
+
+    void on_checkBox_3_toggled(bool checked);
+
+    void on_checkBox_4_toggled(bool checked);
+
 private:
     Ui::gestionar_fixture *ui;
     GUI* gui;
-    Modalidad* modalidad;
+    Competencia* competencia;
+    Partido* partidoGestionado;
 };
 
 #endif // GESTIONAR_FIXTURE_H

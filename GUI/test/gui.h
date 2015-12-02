@@ -124,7 +124,7 @@ public:
 
     bool handleVerCompetencia(QDialog* a, QString b, Competencia *comp = NULL);
 
-    void handleMostrarFixture(QDialog* a, QString b);
+    void handleMostrarFixture(QDialog* a, QString b, Partido *partido);
 
     QVector<Competencia*> handleFiltrarCompetencias(QStringList datos);
 

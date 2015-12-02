@@ -98,16 +98,6 @@ void Modalidad::setPuntos_no_presentarse(int value)
     puntos_no_presentarse = value;
 }
 
-int Modalidad::getPuntos_no_presentarse() const
-{
-    return puntos_no_presentarse;
-}
-
-void Modalidad::setPuntos_no_presentarse(int value)
-{
-    puntos_no_presentarse = value;
-}
-
 TipoModalidad *Modalidad::getTipoMod() const
 {
     return tipoMod;

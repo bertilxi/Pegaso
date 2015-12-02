@@ -61,11 +61,7 @@ public:
 
     int getPuntos_no_presentarse() const;
     void setPuntos_no_presentarse(int value);
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> d7a4b2cac75d9d1676dd937fade47409e257571e
 private:
     
     int id;
@@ -78,8 +74,6 @@ private:
 
     int puntos_presentarse;
     
-    int puntos_no_presentarse;
-
     int puntos_no_presentarse;
 
     int puntos_ganar;

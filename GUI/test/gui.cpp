@@ -313,11 +313,12 @@ bool GUI::handleVerCompetencia(QDialog *a, QString b,Competencia* comp)
 
 }
 
-void GUI::handleMostrarFixture(QDialog *a, QString b)
+void GUI::handleMostrarFixture(QDialog *a, QString b,Partido* partido)
 {
     if (b == "gestionarFixture")
     {
-        gestionar_fixture* gf = new gestionar_fixture(competenciaActual->getModalidad(),this,a);
+
+        gestionar_fixture* gf = new gestionar_fixture(competenciaActual,partido,this,a);
         gf->setModal(true);
         gf->show();
     }
