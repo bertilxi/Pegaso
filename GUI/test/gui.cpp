@@ -70,7 +70,7 @@ void MainWindow::on_pushButton_2_clicked()
     // La contraseña no puede ser menor a 6 caracteres
     // si no se cumple directamente no se verifica
     // no se avisa nada al respecto
-    if(ui->lineEdit_2->text().size() > 6){
+    if(ui->lineEdit_2->text().size() > 0 && ui->lineEdit->text().size() > 0 && ui->lineEdit->hasAcceptableInput() ){
         // se encripta la contraseña a penas se pide por seguridad
         QByteArray passwordHash = QCryptographicHash::hash(QByteArray::fromStdString(ui->lineEdit_2->text().toStdString()),QCryptographicHash::Sha256);
 
@@ -78,6 +78,14 @@ void MainWindow::on_pushButton_2_clicked()
         QString email = ui->lineEdit->text();
 
         gui->handleMain(this,QString("pantallaUsuario"),email,passwordHash);
+    }
+    else{
+        QMessageBox* msg = new QMessageBox(this);
+        msg->setText("Complete correctamente los campos por favor");
+        QPixmap icono(":/images/Heros-amarillo-64.png");
+        msg->setIconPixmap(icono);
+        msg->setModal(true);
+        msg->exec();
     }
 }
 
@@ -114,6 +122,8 @@ void GUI::handleMain(QMainWindow* a, QString b, QString email, QByteArray pass)
             // mensaje de error
             QMessageBox* msg = new QMessageBox(a);
             msg->setText("Nombre o contraseña incorrecta");
+            QPixmap icono(":/images/Heros-rojo-64.png");
+            msg->setIconPixmap(icono);
             msg->setModal(true);
             msg->exec();
         }
@@ -230,6 +240,8 @@ void GUI::handleAltaCompetencia(QDialog *a, QString b, QString nombreComp, Depor
 
             QMessageBox* msg = new QMessageBox(a);
             msg->setText("Competencia creada correctamente");
+            QPixmap icono(":/images/Heros-verde-64.png");
+            msg->setIconPixmap(icono);
             msg->setModal(true);
             msg->exec();
         }
@@ -238,6 +250,8 @@ void GUI::handleAltaCompetencia(QDialog *a, QString b, QString nombreComp, Depor
             QMessageBox* msg = new QMessageBox(a);
             QString error1 = "Error al crear la competencia. \n" + error;
             msg->setText(error1);
+            QPixmap icono(":/images/Heros-rojo-64.png");
+            msg->setIconPixmap(icono);
             msg->setModal(true);
             msg->exec();
         }
@@ -379,6 +393,8 @@ QVector<Participante*> GUI::handleAltaParticipante(QDialog *a, QString nombre, Q
     if(gestorCompetencias->altaParticipante(competenciaActual,datos,error)){
         QMessageBox* msg = new QMessageBox(a);
         msg->setText(error);
+        QPixmap icono(":/images/Heros-verde-64.png");
+        msg->setIconPixmap(icono);
         msg->setModal(true);
         msg->exec();
         return competenciaActual->getParticipantes();
@@ -386,6 +402,8 @@ QVector<Participante*> GUI::handleAltaParticipante(QDialog *a, QString nombre, Q
     else{
         QMessageBox* msg = new QMessageBox(a);
         msg->setText(error);
+        QPixmap icono(":/images/Heros-rojo-64.png");
+        msg->setIconPixmap(icono);
         msg->setModal(true);
         msg->exec();
         QVector<Participante*> aux;
