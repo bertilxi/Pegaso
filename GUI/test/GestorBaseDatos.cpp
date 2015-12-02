@@ -488,7 +488,7 @@ ORDER BY id_partido ASC
     for(int i = 0; i < partidos.size(); i++){
 
         //si el resultado es de tipo Resultado
-        if(comp->getModalidad()->getTipoRes()->getNombre() == "Resultado")
+        if(comp->getModalidad()->getTipoRes()->getNombre() == "Resultado Final")
         {
 
             //conecto el id del partido i a la consulta (la consulta lo usa 2 veces)
@@ -547,7 +547,7 @@ ORDER BY id_partido ASC
 
         }
         //si el resultado es de tipo Puntos
-        else if(comp->getModalidad()->getTipoRes()->getNombre() == "Puntos")
+        else if(comp->getModalidad()->getTipoRes()->getNombre() == "Por Puntos")
         {
 
             //conecto el id del partido i a la consulta (la consulta lo usa 2 veces)
@@ -612,7 +612,7 @@ ORDER BY id_partido ASC
 
         }
         //si el resultado es de tipo Sets:
-        else if(comp->getModalidad()->getTipoRes()->getNombre() == "Sets")
+        else if(comp->getModalidad()->getTipoRes()->getNombre() == "Por Sets")
         {
 
             //conecto el id del partido i a la consulta (la consulta lo usa 2 veces)
@@ -655,7 +655,7 @@ ORDER BY id_partido ASC
                     //si ya hemos cargado los todos los sets correspondientes a un Resultado
                     if(primerResultado == false){
 
-                        //creo un resultado de tipo "Sets"
+                        //creo un resultado de tipo "Por Sets"
                         Sets *sets = new Sets;
 
                         //lo seteo con los atributos de cualquier Resultado
@@ -703,7 +703,7 @@ ORDER BY id_partido ASC
 
             //repito por ultima vez el codigo para guardar el ultimo Resultado
 
-            //creo un resultado de tipo "Sets"
+            //creo un resultado de tipo "Por Sets"
             Sets *sets = new Sets;
 
             //lo seteo con los atributos de cualquier Resultado

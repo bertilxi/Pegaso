@@ -34,7 +34,7 @@ bool Resultado::operator==(const Resultado &other) const
 }
 
 QString Resultado::getTable() const{
-    return "Resultado";
+    return "Resultado Final";
 }
 
 /**

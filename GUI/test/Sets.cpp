@@ -36,7 +36,7 @@ bool Sets::operator==(const Sets &other) const
     }
     QVector<Set *> otherSets(other.getSets());
     if(otherSets.size()!=sets.size()){
-        qDebug()<<"Sets";
+        qDebug()<<"Por Sets";
         return 0;
     }
     for(int i=0;i<otherSets.size();i++){
@@ -49,5 +49,5 @@ bool Sets::operator==(const Sets &other) const
 }
 
 QString Sets::getTable() const{
-    return "Sets";
+    return "Por Sets";
 }

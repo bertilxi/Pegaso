@@ -35,7 +35,7 @@ void Puntaje::restar(Resultado *res,Modalidad *mod,QString equipo) {
     }
 
     //Si el tipo de resultado es por puntos descuento los tantos a favor y en contra y calculo la diferencia
-    if(mod->getTipoRes()->getNombre()=="Puntos"){
+    if(mod->getTipoRes()->getNombre()=="Por Puntos"){
         if(equipo=="EquipoA"){
             TF-=res->getPuntosA();
             TC-=res->getPuntosB();
@@ -73,7 +73,7 @@ void Puntaje::sumar(Resultado *res,Modalidad *mod,QString equipo) {
     }
 
     //Si el tipo de resultado es por puntos agrego los tantos a favor y en contra y calculo la diferencia
-    if(mod->getTipoRes()->getNombre()=="Puntos"){
+    if(mod->getTipoRes()->getNombre()=="Por Puntos"){
         if(equipo=="EquipoA"){
             TF+=res->getPuntosA();
             TC+=res->getPuntosB();

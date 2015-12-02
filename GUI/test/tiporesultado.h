@@ -19,7 +19,7 @@ private:
 
     int id;
 
-    //"Resultado", "Puntos", o "Sets"
+    //"Resultado Final", "Por Puntos", o "Por Sets"
     QString nombre;
 
 };

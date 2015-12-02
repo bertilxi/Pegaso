@@ -65,6 +65,10 @@ alta_competencia::alta_competencia(GUI *guiP, QVector<Deporte*> deportesP, QVect
      ui->lineEdit_5->hide();
      ui->label_5->hide();
      ui->lineEdit_3->hide();
+
+     ui->lineEdit_6->hide();
+     ui->label_12->hide();
+
      this->resize(500,600);
 
      maxSet = 0;
@@ -119,14 +123,14 @@ void alta_competencia::on_pushButton_clicked()
         mod->setTipoRes(tipoRes);  
 
 
-        if(tipoPuntos.toLower() == "puntos"){
+        if(tipoPuntos.toLower() == "por puntos"){
             mod->setPuntos_presentarse(ui->lineEdit_5->text().toInt());
         }
-        else if (tipoPuntos.toLower() == "sets" && maxSet != 0){
+        else if (tipoPuntos.toLower() == "por sets" && maxSet != 0){
             mod->setCant_max_sets(maxSet);
         }
 
-        if(tipoPuntos.toLower() == "torneo"){
+        if(tipoPuntos.toLower() == "liga"){
             mod->setPuntos_ganar(ui->lineEdit_4->text().toInt());
             mod->setEmpate(conEmpate);
             if(conEmpate){
@@ -222,7 +226,7 @@ void alta_competencia::on_checkBox_stateChanged(int arg1)
 
 void alta_competencia::on_comboBox_2_currentTextChanged(const QString &arg1)
 {
-    if(arg1.toLower() == "torneo"){
+    if(arg1.toLower() == "liga"){
 
         ui->label_6->show();
         ui->lineEdit_4->show();
@@ -254,7 +258,7 @@ void alta_competencia::on_comboBox_2_currentTextChanged(const QString &arg1)
 
 void alta_competencia::on_comboBox_4_currentTextChanged(const QString &arg1)
 {
-    if(arg1.toLower() == "sets"){
+    if(arg1.toLower() == "por sets"){
         ui->pushButton_11->show();
         ui->pushButton_10->show();
         ui->pushButton_9->show();
@@ -264,13 +268,15 @@ void alta_competencia::on_comboBox_4_currentTextChanged(const QString &arg1)
         ui->label_9->show();
         ui->label_7->hide();
         ui->lineEdit_5->hide();
-        if(ui->comboBox_2->currentText().toLower() == "torneo"){
+        ui->lineEdit_6->hide();
+        ui->label_12->hide();
+        if(ui->comboBox_2->currentText().toLower() == "liga"){
 
             ui->label_6->show();
             ui->lineEdit_4->show();
         }
     }
-    else if(arg1.toLower() == "puntos"){
+    else if(arg1.toLower() == "por puntos"){
         ui->pushButton_11->hide();
         ui->pushButton_10->hide();
         ui->pushButton_9->hide();
@@ -280,7 +286,9 @@ void alta_competencia::on_comboBox_4_currentTextChanged(const QString &arg1)
         ui->label_7->show();
         ui->lineEdit_5->show();
         ui->label_9->hide();
-        if(ui->comboBox_2->currentText().toLower() == "torneo"){
+        ui->lineEdit_6->show();
+        ui->label_12->show();
+        if(ui->comboBox_2->currentText().toLower() == "liga"){
 
             ui->label_6->show();
             ui->lineEdit_4->show();
@@ -288,7 +296,7 @@ void alta_competencia::on_comboBox_4_currentTextChanged(const QString &arg1)
 
 
     }
-    else if(arg1.toLower() == "resultado"){
+    else if(arg1.toLower() == "resultado final"){
         ui->pushButton_11->hide();
         ui->pushButton_10->hide();
         ui->pushButton_9->hide();
@@ -300,7 +308,9 @@ void alta_competencia::on_comboBox_4_currentTextChanged(const QString &arg1)
         ui->label_9->hide();
         ui->label_7->hide();
         ui->lineEdit_5->hide();
-        if(ui->comboBox_2->currentText().toLower() == "torneo"){
+        ui->lineEdit_6->hide();
+        ui->label_12->hide();
+        if(ui->comboBox_2->currentText().toLower() == "liga"){
 
             ui->label_6->show();
             ui->lineEdit_4->show();

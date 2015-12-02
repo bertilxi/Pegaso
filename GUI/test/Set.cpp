@@ -55,7 +55,7 @@ bool Set::operator==(const Set &other) const
 }
 
 QString Set::getTable() const{
-    return "Sets";
+    return "Por Sets";
 }
 
 /**
