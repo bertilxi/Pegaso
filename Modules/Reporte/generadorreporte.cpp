@@ -39,8 +39,8 @@ void generadorReporte::generar(Competencia *comp) {
         paramValue = comp->getNombre();
     if (paramName == "modalidad")
         paramValue = comp->getModalidad()->getTipoMod()->getNombre();
-   // if (paramName == "fecha")
-   //     paramValue = comp->getFechaActual;
+    if (paramName == "fecha")
+        paramValue = comp->getFechaActual();
     if (paramName == "equipo")
         paramValue = participantes[recNo]->getNombre();
     if (paramName == "puntos")

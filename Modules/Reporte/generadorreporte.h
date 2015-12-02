@@ -3,7 +3,7 @@
 #include <qtrpt.h>
 #include <QString>
 #include <QVariant>
-#include "../../Gestores/Competencia.h"
+#include "../../GUI/test/Competencia.h"
 
 class generadorReporte
 {

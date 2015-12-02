@@ -11,12 +11,19 @@ MainWindow::MainWindow(QWidget *parent) :
 
     Competencia* comp=new Competencia();
     QString nombre="Competencia";
+    Estado* est=new Estado;
+    est->setNombre("En disputa");
+    comp->setEstado(est);
     comp->setNombre(nombre);
-    TipoResultado* tipo=new TipoResultado();
+    TipoResultado* tipoRes=new TipoResultado();
+    nombre="Sets";
+    tipoRes->setNombre(nombre);
+    TipoModalidad* tipoMod=new TipoModalidad();
     nombre="Liga";
-    tipo->setNombre(nombre);
+    tipoMod->setNombre(nombre);
     Modalidad* mod=new Modalidad();
-    mod->setTipoRes(tipo);
+    mod->setTipoRes(tipoRes);
+    mod->setTipoMod(tipoMod);
     comp->setModalidad(mod);
 
     Puntaje* punt=new Puntaje();
