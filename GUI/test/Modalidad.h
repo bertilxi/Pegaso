@@ -59,6 +59,9 @@ public:
 
     Modalidad();
 
+    int getPuntos_no_presentarse() const;
+    void setPuntos_no_presentarse(int value);
+
 private:
 
     int id;
@@ -70,6 +73,8 @@ private:
     int cant_max_sets;
 
     int puntos_presentarse;
+
+    int puntos_no_presentarse;
 
     int puntos_ganar;
 

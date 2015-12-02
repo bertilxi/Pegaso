@@ -79,7 +79,23 @@ TipoResultado *Modalidad::getTipoRes() const
 
 Modalidad::Modalidad()
 {
-    id=-1;
+    id = -1;
+    cant_max_sets = -1;
+    puntos_presentarse = -1;
+    puntos_no_presentarse = -1;
+    puntos_ganar = -1;
+    empate = false;
+    puntos_empate = -1;
+}
+
+int Modalidad::getPuntos_no_presentarse() const
+{
+    return puntos_no_presentarse;
+}
+
+void Modalidad::setPuntos_no_presentarse(int value)
+{
+    puntos_no_presentarse = value;
 }
 
 TipoModalidad *Modalidad::getTipoMod() const

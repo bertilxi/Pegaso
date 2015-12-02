@@ -14,7 +14,7 @@ class gestionar_fixture : public QDialog
     Q_OBJECT
 
 public:
-    explicit gestionar_fixture(TipoResultado* tr, GUI* guiP,QWidget *parent = 0);
+    explicit gestionar_fixture(Modalidad *mod, GUI* guiP, QWidget *parent = 0);
     ~gestionar_fixture();
 
 private slots:
@@ -27,7 +27,7 @@ private slots:
 private:
     Ui::gestionar_fixture *ui;
     GUI* gui;
-    TipoResultado* tipoResultado;
+    Modalidad* modalidad;
 };
 
 #endif // GESTIONAR_FIXTURE_H

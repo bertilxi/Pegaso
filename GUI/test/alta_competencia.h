@@ -60,11 +60,17 @@ private:
     QVector<Lugar*> lugar;
     QVector<Deporte*> deportes;
     QVector<TipoModalidad*> modalidades;
-    int maxSet;
     bool conEmpate;
     QVector<TipoModalidad*> tiposModalidades;
     QVector<TipoResultado*> tiposResultados;
     Ui::alta_competencia *ui;
+
+    int maxSet;
+    int puntoGanado;
+    int puntoPresentarse;
+    int puntoEmpate;
+    int puntoNoPresentarse;
+
 
     int buscarDeporte(QString deporte);
     int buscarTipoMod(QString modalidad);

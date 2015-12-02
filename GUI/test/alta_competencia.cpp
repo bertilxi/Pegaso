@@ -16,7 +16,13 @@ alta_competencia::alta_competencia(GUI *guiP, QVector<Deporte*> deportesP, QVect
      ui->comboBox_3->clear();
      ui->comboBox_4->clear();
      ui->radioButton_2->setChecked(true);
+
      rowCount = 0;
+     maxSet = -1 ;
+     puntoGanado = -1 ;
+     puntoPresentarse = -1 ;
+     puntoEmpate = -1 ;
+     puntoNoPresentarse = -1 ;
 
      int i;
      for(i=0;i<deportesP.size();i++){
@@ -95,7 +101,8 @@ void alta_competencia::on_pushButton_clicked()
 
     qDebug()<<nombreCompetencia.isEmpty() << deporte.isEmpty() << tipoModalidad.isEmpty();
 
-    if(nombreCompetencia.isEmpty() || deporte.isEmpty() || tipoModalidad.isEmpty() || ui->tableWidget->item(0,0)->text().isEmpty()){
+    if(nombreCompetencia.isEmpty() || deporte.isEmpty() || tipoModalidad.isEmpty() || ui->tableWidget->item(0,0)->text().isEmpty() ||
+            (tipoPuntos.toLower() == "por sets" && maxSet < 0 ) ){
         QMessageBox* msg = new QMessageBox(this);
         msg->setText("Por favor complete todos los datos");
         msg->setModal(true);
@@ -122,23 +129,24 @@ void alta_competencia::on_pushButton_clicked()
         mod->setTipoMod(tipoMod);
         mod->setTipoRes(tipoRes);  
 
+        if(tipoModalidad.toLower() == "eliminación simple" || tipoModalidad.toLower() == "eliminación doble"){
 
-        if(tipoPuntos.toLower() == "por puntos"){
-            mod->setPuntos_presentarse(ui->lineEdit_5->text().toInt());
-            mod->setPuntos_no_presentarse(ui->lineEdit_6->text().toInt());
         }
-        else if (tipoPuntos.toLower() == "por sets" && maxSet != 0){
-            mod->setCant_max_sets(maxSet);
-        }
-
-        if(tipoPuntos.toLower() == "liga"){
+        else if(tipoModalidad.toLower() == "liga"){
             mod->setPuntos_ganar(ui->lineEdit_4->text().toInt());
             mod->setEmpate(conEmpate);
+
             if(conEmpate){
                 mod->setPuntos_empate(ui->lineEdit_3->text().toInt());
             }
-        }
-        else if(tipoPuntos.toLower() == "eliminación simple" || tipoPuntos.toLower() == "eliminación doble"){
+
+            if(tipoPuntos.toLower() == "por puntos"){
+                mod->setPuntos_presentarse(ui->lineEdit_5->text().toInt());
+                mod->setPuntos_no_presentarse(ui->lineEdit_6->text().toInt());
+            }
+            else if (tipoPuntos.toLower() == "por sets" && maxSet > 0){
+                mod->setCant_max_sets(maxSet);
+            }
 
         }
 
@@ -337,86 +345,96 @@ void alta_competencia::on_radioButton_2_toggled(bool checked)
 
 void alta_competencia::on_pushButton_5_clicked()
 {
-    maxSet = 1;
+
     if(!ui->pushButton_8->isEnabled()){
         ui->pushButton_8->setEnabled(true);
         ui->pushButton_9->setEnabled(true);
         ui->pushButton_10->setEnabled(true);
         ui->pushButton_11->setEnabled(true);
+        maxSet = -1;
     }
     else{
         ui->pushButton_8->setDisabled(true);
         ui->pushButton_9->setDisabled(true);
         ui->pushButton_10->setDisabled(true);
         ui->pushButton_11->setDisabled(true);
+        maxSet = 1;
     }
 }
 
 void alta_competencia::on_pushButton_8_clicked()
 {
-    maxSet = 3;
+
     if(!ui->pushButton_9->isEnabled()){
         ui->pushButton_5->setEnabled(true);
         ui->pushButton_9->setEnabled(true);
         ui->pushButton_10->setEnabled(true);
         ui->pushButton_11->setEnabled(true);
+        maxSet = -1;
     }
     else{
         ui->pushButton_5->setDisabled(true);
         ui->pushButton_9->setDisabled(true);
         ui->pushButton_10->setDisabled(true);
         ui->pushButton_11->setDisabled(true);
+        maxSet = 3;
     }
 }
 
 void alta_competencia::on_pushButton_9_clicked()
 {
-    maxSet = 5;
+
     if(!ui->pushButton_10->isEnabled()){
         ui->pushButton_8->setEnabled(true);
         ui->pushButton_10->setEnabled(true);
         ui->pushButton_5->setEnabled(true);
         ui->pushButton_11->setEnabled(true);
+        maxSet = -1;
     }
     else{
         ui->pushButton_8->setDisabled(true);
         ui->pushButton_10->setDisabled(true);
         ui->pushButton_5->setDisabled(true);
         ui->pushButton_11->setDisabled(true);
+        maxSet = 5;
     }
 }
 
 void alta_competencia::on_pushButton_10_clicked()
 {
-    maxSet = 7;
+
     if(!ui->pushButton_11->isEnabled()){
         ui->pushButton_8->setEnabled(true);
         ui->pushButton_9->setEnabled(true);
         ui->pushButton_5->setEnabled(true);
         ui->pushButton_11->setEnabled(true);
+        maxSet = -1;
     }
     else{
         ui->pushButton_8->setDisabled(true);
         ui->pushButton_9->setDisabled(true);
         ui->pushButton_5->setDisabled(true);
         ui->pushButton_11->setDisabled(true);
+        maxSet = 7;
     }
 }
 
 void alta_competencia::on_pushButton_11_clicked()
 {
-    maxSet = 9;
+
     if(!ui->pushButton_5->isEnabled()){
         ui->pushButton_8->setEnabled(true);
         ui->pushButton_9->setEnabled(true);
         ui->pushButton_10->setEnabled(true);
         ui->pushButton_5->setEnabled(true);
+        maxSet = -1;
     }
     else{
         ui->pushButton_8->setDisabled(true);
         ui->pushButton_9->setDisabled(true);
         ui->pushButton_10->setDisabled(true);
         ui->pushButton_5->setDisabled(true);
+        maxSet = 9;
     }
 }
 

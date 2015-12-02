@@ -317,7 +317,7 @@ void GUI::handleMostrarFixture(QDialog *a, QString b)
 {
     if (b == "gestionarFixture")
     {
-        gestionar_fixture* gf = new gestionar_fixture(competenciaActual->getModalidad()->getTipoRes(),this,a);
+        gestionar_fixture* gf = new gestionar_fixture(competenciaActual->getModalidad(),this,a);
         gf->setModal(true);
         gf->show();
     }
