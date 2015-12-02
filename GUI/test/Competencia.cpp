@@ -270,6 +270,7 @@ int Competencia::getFechaActual()
         }
         fechaActual = maxFecha;
     }
+    return fechaActual;
 }
 
 Competencia::Competencia()

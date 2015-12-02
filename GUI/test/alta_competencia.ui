@@ -839,7 +839,6 @@
   <zorder>verticalSpacer_4</zorder>
   <zorder>verticalSpacer_5</zorder>
   <zorder>label_9</zorder>
-  <zorder>horizontalLayoutWidget</zorder>
  </widget>
  <tabstops>
   <tabstop>lineEdit</tabstop>
