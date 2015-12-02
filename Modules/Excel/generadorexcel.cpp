@@ -23,7 +23,7 @@ void GeneradorExcel::generarExcel(Competencia *comp)
     xlsx.write("F1","",format1);
     xlsx.write("G1","Fecha:",format1);
     format1.setRightBorderStyle(QXlsx::Format::BorderMedium);//La última celda tiene borde derecho Medio
-///xlsx.write("H1",comp->getFechaActual(),format1);
+    xlsx.write("H1",comp->getFechaActual(),format1);
     format1.setRightBorderStyle(QXlsx::Format::BorderThin);
 
     //Segunda fila

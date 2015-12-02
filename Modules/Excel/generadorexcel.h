@@ -4,7 +4,7 @@
 #include "xlsxdocument.h"
 #include "xlsxformat.h"
 #include "xlsxcellrange.h"
-#include "../../Gestores/Competencia.h"
+#include "../../GUI/test/Competencia.h"
 
 class GeneradorExcel
 {
