@@ -22,6 +22,10 @@ gestionar_fixture::gestionar_fixture(Competencia * compP, Partido *partP, GUI *g
         ui->tabWidget->removeTab(0);
         ui->tabWidget->removeTab(0);
         ui->tabWidget->setTabText(0,"Por Resultado Final");
+
+        ui->checkBox_5->setText("Ganó " + partP->getEquipoA()->getNombre());
+        ui->checkBox_6->setText("Ganó " + partP->getEquipoB()->getNombre());
+
     }
     else if(tr == "por puntos"){
         ui->tabWidget->removeTab(1);
@@ -161,6 +165,19 @@ void gestionar_fixture::on_checkBox_7_toggled(bool checked)
     if(checked){
         ui->checkBox_6->setChecked(false);
         ui->checkBox_5->setChecked(false);
+        ui->checkBox_8->setChecked(false);
+        ui->checkBox_9->setChecked(false);
+        ui->checkBox_6->setEnabled(false);
+        ui->checkBox_5->setEnabled(false);
+        ui->checkBox_8->setEnabled(false);
+        ui->checkBox_9->setEnabled(false);
+    }
+    else{
+
+        ui->checkBox_6->setEnabled(true);
+        ui->checkBox_5->setEnabled(true);
+        ui->checkBox_8->setEnabled(true);
+        ui->checkBox_9->setEnabled(true);
     }
 }
 
@@ -168,6 +185,7 @@ void gestionar_fixture::on_checkBox_3_toggled(bool checked)
 {
     if(checked){
         ui->lineEdit_9->setDisabled(true);
+
     }
     else{
         ui->lineEdit_9->setEnabled(true);
@@ -181,5 +199,27 @@ void gestionar_fixture::on_checkBox_4_toggled(bool checked)
     }
     else{
         ui->lineEdit_10->setEnabled(true);
+    }
+}
+
+void gestionar_fixture::on_checkBox_8_toggled(bool checked)
+{
+    if(checked){
+        ui->checkBox_5->setDisabled(true);
+        ui->checkBox_5->setChecked(false);
+    }
+    else{
+        ui->checkBox_5->setEnabled(true);
+    }
+}
+
+void gestionar_fixture::on_checkBox_9_toggled(bool checked)
+{
+    if(checked){
+        ui->checkBox_6->setDisabled(true);
+        ui->checkBox_6->setChecked(false);
+    }
+    else{
+        ui->checkBox_6->setEnabled(true);
     }
 }

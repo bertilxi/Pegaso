@@ -34,6 +34,10 @@ private slots:
 
     void on_checkBox_4_toggled(bool checked);
 
+    void on_checkBox_8_toggled(bool checked);
+
+    void on_checkBox_9_toggled(bool checked);
+
 private:
     Ui::gestionar_fixture *ui;
     GUI* gui;
