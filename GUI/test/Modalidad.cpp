@@ -147,6 +147,7 @@ QVector<Atributo> Modalidad::getAtributos() const{
     }
     result.push_back(Atributo("pto_partido_ganado",QString::number(puntos_ganar)));
     result.push_back(Atributo("pto_presentarse", QString::number(puntos_presentarse)));
+    result.push_back(Atributo("pto_no_presentarse", QString::number(puntos_no_presentarse)));
     result.push_back(Atributo("pto_empate", QString::number(puntos_empate)));
     if(cant_max_sets != 0){
         result.push_back(Atributo("cant_max_sets", QString::number(cant_max_sets)));
