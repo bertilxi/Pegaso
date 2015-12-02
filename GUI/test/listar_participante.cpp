@@ -120,6 +120,8 @@ void listar_participante::on_pushButton_8_clicked()
     else{
         QMessageBox* msg = new QMessageBox(this);
         msg->setText("Por favor complete correctamente todos los campos obligatorios");
+        QPixmap icono(":/images/Heros-amarillo-64.png");
+        msg->setIconPixmap(icono);
         msg->setModal(true);
         msg->exec();
     }

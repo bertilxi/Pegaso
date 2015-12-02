@@ -73,6 +73,8 @@ void ver_competencia::on_pushButton_5_clicked()
         QMessageBox* msg = new QMessageBox(this);
         QString error = "";
         msg->setText(error);
+        QPixmap icono(":/images/Heros-amarillo-64.png");
+        msg->setIconPixmap(icono);
         msg->setModal(true);
         msg->show();
     }

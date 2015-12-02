@@ -105,6 +105,8 @@ void alta_competencia::on_pushButton_clicked()
             (tipoPuntos.toLower() == "por sets" && maxSet < 0 ) ){
         QMessageBox* msg = new QMessageBox(this);
         msg->setText("Por favor complete todos los datos");
+        QPixmap icono(":/images/Heros-amarillo-64.png");
+        msg->setIconPixmap(icono);
         msg->setModal(true);
         msg->exec();
     }
@@ -183,6 +185,8 @@ void alta_competencia::on_pushButton_3_clicked()
     if(disp <= 0 ){
         QMessageBox* msg = new QMessageBox(this);
         msg->setText("Por favor coloque una disponibilidad");
+        QPixmap icono(":/images/Heros-amarillo-64.png");
+        msg->setIconPixmap(icono);
         msg->setModal(true);
         msg->exec();
     }

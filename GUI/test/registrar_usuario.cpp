@@ -62,6 +62,8 @@ void registrar_usuario::on_pushButton_clicked()
 
         QString error = gui->handleRegistrarUsuario(data);
         QMessageBox* msg = new QMessageBox(this);
+        QPixmap icono(":/images/Heros-amarillo-64.png");
+        msg->setIconPixmap(icono);
         msg->setModal(true);
         msg->setText(error);
         msg->show();
@@ -74,6 +76,8 @@ void registrar_usuario::on_pushButton_clicked()
         }
         QMessageBox* msg = new QMessageBox(this);
         msg->setModal(true);
+        QPixmap icono(":/images/Heros-amarillo-64.png");
+        msg->setIconPixmap(icono);
         msg->setText(errorStr);
         msg->show();
     }
