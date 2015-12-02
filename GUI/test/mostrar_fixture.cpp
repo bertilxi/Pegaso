@@ -18,11 +18,9 @@ mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp, QWidget *parent) 
         ui->tableWidget->setItem(i,1,new QTableWidgetItem(comp->getPartidos()[i]->getEquipoA()->getNombre()));
         ui->tableWidget->setItem(i,2,new QTableWidgetItem(comp->getPartidos()[i]->getEquipoB()->getNombre()));
 
-        //  ver tema de los resultados
-        //        if(comp->getPartidos()[i]->getEquipoA())
-
-
     }
+    ui->tableWidget->resizeColumnsToContents();
+    ui->tableWidget->resize(200,450);
 }
 
 mostrar_fixture::~mostrar_fixture()
@@ -36,3 +34,8 @@ void mostrar_fixture::on_pushButton_clicked()
 }
 
 
+
+void mostrar_fixture::on_pushButton_2_clicked()
+{
+    gui->handleMostrarFixture(this,"gestionarFixture");
+}

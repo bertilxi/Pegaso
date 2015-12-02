@@ -40,6 +40,8 @@
 #include "tabla_posiciones.h"
 #include "registrar_usuario.h"
 #include "listar_participante.h"
+#include "gestionar_fixture.h"
+
 
 namespace Ui {
     class MainWindow;
