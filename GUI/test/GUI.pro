@@ -44,7 +44,6 @@ SOURCES += main.cpp\
     pantalla_usuario.cpp \
     modificar_competencia.cpp \
     listar_competencias.cpp \
-    alta_participante.cpp \
     alta_competencia.cpp \
     res.cpp \
     tipomodalidad.cpp \
@@ -88,7 +87,6 @@ HEADERS  += \
     pantalla_usuario.h \
     modificar_competencia.h \
     listar_competencias.h \
-    alta_participante.h \
     alta_competencia.h \
     res.h \
     tipomodalidad.h \

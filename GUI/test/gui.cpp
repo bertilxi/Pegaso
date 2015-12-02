@@ -20,10 +20,13 @@ MainWindow::MainWindow(GUI* guiP, QWidget *parent):
     // validador del email
     EmailValidator* emailValidator = new EmailValidator(this);
     ui->lineEdit->setValidator(emailValidator);
+
     // validador de la contraseña
     QRegExp password("[a-zA-Z0-9.-]*");
     QValidator* passwordValidator = new QRegExpValidator(password,this);
     ui->lineEdit_2->setValidator(passwordValidator);
+
+
     // contraseña seteada para que no se vea al escribir
     ui->lineEdit_2->setEchoMode(QLineEdit::Password);
     ui->pushButton_3->hide();
@@ -247,12 +250,6 @@ void GUI::handleListarParticipantes(QDialog *a, QString b)
 {
     if (b == "altaParticipante")
     {
-        alta_participante* ap = new alta_participante(this,a);
-        ap->setModal(true);
-        ap->show();
-        // actualizo participantes y los retorno para mostrar actualizados
-        participantes = competenciaActual->getParticipantes();
-        a->close();
 
     }
     else if (b == "bajaParticipante")
@@ -433,4 +430,30 @@ void GUI::show()
 void MainWindow::on_pushButton_clicked()
 {
     gui->handleMain(this,QString("registrarUsuario"));
+}
+
+
+EmailValidator::EmailValidator(QObject *parent) :
+    QValidator(parent),
+      m_validMailRegExp("[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}"),
+      m_intermediateMailRegExp("[a-z0-9._%+-]*@?[a-z0-9.-]*\\.?[a-z]*"){}
+
+QValidator::State EmailValidator::validate(QString &text, int &pos) const
+{
+    Q_UNUSED(pos)
+
+    fixup(text);
+
+    if (m_validMailRegExp.exactMatch(text))
+        return Acceptable;
+
+    if (m_intermediateMailRegExp.exactMatch(text))
+        return Intermediate;
+
+    return Invalid;
+}
+
+void EmailValidator::fixup(QString &text) const
+{
+    text = text.trimmed().toLower();
 }

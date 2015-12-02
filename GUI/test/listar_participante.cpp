@@ -13,6 +13,14 @@ listar_participante::listar_participante(GUI *guiP, Competencia *compP, QWidget 
     QPixmap pix(":/images/Heros64.png");
     ui->label_logo->setPixmap(pix);
 
+    QRegExp nombre("[a-zA-Z0-9.-]*");
+    QValidator* nomValidator = new QRegExpValidator(nombre,this);
+    ui->lineEdit->setValidator(nomValidator);
+
+    // validador del email
+    EmailValidator* emailValidator = new EmailValidator(this);
+    ui->lineEdit_2->setValidator(emailValidator);
+
     resize(300,400);
     ui->pushButton_3->hide();
     ui->pushButton_4->hide();
@@ -91,23 +99,29 @@ void listar_participante::on_pushButton_8_clicked()
     // tomar ruta de imagen
 
     QString imgUrl = "";
-    QVector<Participante*> participantesActualizados = gui->handleAltaParticipante(this,nombre,email,imgUrl);
-//    participantes =
+    if(email != "" && nombre != "" && ui->lineEdit_2->hasAcceptableInput() ){
 
-    qDebug()<<participantesActualizados.size() ;
-    if(participantesActualizados.size() != 0){
+        QVector<Participante*> participantesActualizados = gui->handleAltaParticipante(this,nombre,email,imgUrl);
+        if(participantesActualizados.size() != 0){
 
-        ui->tableWidget->setRowCount(0);
-        for (int i = 0; i < participantesActualizados.size(); ++i) {
-            ui->tableWidget->insertRow(i);
-            ui->tableWidget->setItem(i,0,new QTableWidgetItem(participantesActualizados[i]->getNombre()));
-            ui->tableWidget->setItem(i,1,new QTableWidgetItem(participantesActualizados[i]->getCorreo()));
+            ui->tableWidget->setRowCount(0);
+            for (int i = 0; i < participantesActualizados.size(); ++i) {
+                ui->tableWidget->insertRow(i);
+                ui->tableWidget->setItem(i,0,new QTableWidgetItem(participantesActualizados[i]->getNombre()));
+                ui->tableWidget->setItem(i,1,new QTableWidgetItem(participantesActualizados[i]->getCorreo()));
+            }
+            ui->lineEdit->clear();
+            ui->lineEdit_2->clear();
+            participantes = participantesActualizados;
+            ui->tableWidget->resizeColumnsToContents();
+            this->on_pushButton_7_clicked();
         }
-        ui->lineEdit->clear();
-        ui->lineEdit_2->clear();
-        participantes = participantesActualizados;
-        ui->tableWidget->resizeColumnsToContents();
-        this->on_pushButton_7_clicked();
+    }
+    else{
+        QMessageBox* msg = new QMessageBox(this);
+        msg->setText("Por favor complete correctamente todos los campos obligatorios");
+        msg->setModal(true);
+        msg->exec();
     }
 
 }

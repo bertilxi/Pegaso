@@ -4,6 +4,7 @@
 #include <QDialog>
 #include "Participante.h"
 #include "gui.h"
+#include <QValidator>
 
 namespace Ui {
 class listar_participante;
@@ -36,4 +37,32 @@ private:
     GUI* gui;
 };
 
+QT_BEGIN_NAMESPACE
+
+class QRegExp;
+
+QT_END_NAMESPACE
+
+
+
+class EmailValidator : public QValidator
+{
+    Q_OBJECT
+
+public:
+
+    explicit EmailValidator(QObject *parent = 0);
+
+    State validate(QString &text, int &pos) const;
+
+    void fixup(QString &text) const;
+
+
+private:
+
+    const QRegExp m_validMailRegExp;
+
+    const QRegExp m_intermediateMailRegExp;
+
+};
 #endif // LISTAR_PARTICIPANTE_H
