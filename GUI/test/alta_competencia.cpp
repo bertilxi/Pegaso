@@ -125,6 +125,7 @@ void alta_competencia::on_pushButton_clicked()
 
         if(tipoPuntos.toLower() == "por puntos"){
             mod->setPuntos_presentarse(ui->lineEdit_5->text().toInt());
+            mod->setPuntos_no_presentarse(ui->lineEdit_6->text().toInt());
         }
         else if (tipoPuntos.toLower() == "por sets" && maxSet != 0){
             mod->setCant_max_sets(maxSet);
