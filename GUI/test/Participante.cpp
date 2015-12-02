@@ -115,7 +115,7 @@ QVector<Atributo> Participante::getAtributos() const{
     result.push_back(Atributo("imagen", img));
     result.push_back(Atributo("nombre", nombre));
     result.push_back(Atributo("correo", correo));
-    result.push_back(Atributo("Por Puntos", QString::number(puntaje->getPuntos())));
+    result.push_back(Atributo("puntos", QString::number(puntaje->getPuntos())));
     result.push_back(Atributo("pg", QString::number(puntaje->getPG())));
     result.push_back(Atributo("pp", QString::number(puntaje->getPP())));
     result.push_back(Atributo("pe", QString::number(puntaje->getPE())));
