@@ -1,7 +1,7 @@
 #include "tabla_posiciones.h"
 #include "ui_tabla_posiciones.h"
 
-tabla_posiciones::tabla_posiciones(GUI *guiP, QVector<Participante* > participantesP, QWidget *parent) :
+tabla_posiciones::tabla_posiciones(GUI *guiP, Competencia* compP, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::tabla_posiciones), gui(guiP)
 {
@@ -9,6 +9,11 @@ tabla_posiciones::tabla_posiciones(GUI *guiP, QVector<Participante* > participan
     QPixmap pix(":/images/Heros64.png");
     ui->label_logo->setPixmap(pix);
 
+    ui->label_2->setText(compP->getNombre());
+    ui->label_4->setText(compP->getModalidad()->getTipoMod()->getNombre());
+    ui->label_6->setText(QString::number(compP->getFechaActual()));
+
+    QVector<Participante*> participantesP = compP->getParticipantes();
     for (int i = 0; i < participantesP.size(); ++i) {
 
         qDebug()<<"mis puntos "<<i;

@@ -263,6 +263,10 @@ void GUI::handleListarParticipantes(QDialog *a, QString b)
     {
         /* code */
     }
+    else if(b == "actualizarParticipantes"){
+
+        this->handleVerCompetencia(a,QString("listarParticipantes"),competenciaActual);
+    }
 }
 
 bool GUI::handleVerCompetencia(QDialog *a, QString b,Competencia* comp)
@@ -287,22 +291,22 @@ bool GUI::handleVerCompetencia(QDialog *a, QString b,Competencia* comp)
     else if (b == "mostrarFixture")
     {
 
-        mostrar_fixture* mf = new mostrar_fixture(this,competenciaActual,a);
+        mostrar_fixture* mf = new mostrar_fixture(this,comp,a);
         mf->setModal(true);
         mf->show();
 
     }
     else if (b == "mostrarTablasPosiciones")
     {
-        participantes = comp->getParticipantes();
-        tabla_posiciones* t = new tabla_posiciones(this,participantes,a);
+
+        tabla_posiciones* t = new tabla_posiciones(this,comp,a);
         t->setModal(true);
         t->show();
     }
     else if (b == "listarParticipantes"){
 
         participantes = comp->getParticipantes();
-        listar_participante * lp = new listar_participante(this,participantes, a);
+        listar_participante * lp = new listar_participante(this,comp, a);
         lp->setModal(true);
         lp->show();
     }
@@ -371,7 +375,7 @@ QVector<Localidad *> GUI::getLocalidades(Provincia *provinciaP)
     return gestorUsuarios->getLocalidades(provinciaP);
 }
 
-void GUI::handleAltaParticipante(QDialog *a, QString nombre, QString email, QString ImgUrl)
+QVector<Participante*> GUI::handleAltaParticipante(QDialog *a, QString nombre, QString email, QString ImgUrl)
 {
     DtoParticipante* datos = new DtoParticipante(nombre,email,ImgUrl);
     QString error;
@@ -379,15 +383,17 @@ void GUI::handleAltaParticipante(QDialog *a, QString nombre, QString email, QStr
         QMessageBox* msg = new QMessageBox(a);
         msg->setText(error);
         msg->setModal(true);
-        msg->show();
+        msg->exec();
+        return competenciaActual->getParticipantes();
     }
     else{
         QMessageBox* msg = new QMessageBox(a);
         msg->setText(error);
         msg->setModal(true);
-        msg->show();
+        msg->exec();
+        QVector<Participante*> aux;
+        return aux;
     }
-    a->close();
 
 }
 

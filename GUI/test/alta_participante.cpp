@@ -66,7 +66,7 @@ void alta_participante::on_pushButton_2_clicked()
     QString imgUrl = "";
 
     gui->handleAltaParticipante(NULL,nombre,email,imgUrl);
-//    this->close();
+
 
 }
 

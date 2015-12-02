@@ -15,7 +15,7 @@ class tabla_posiciones : public QDialog
 
 public:
 
-    explicit tabla_posiciones(GUI* guiP,QVector<Participante* > participantesP, QWidget *parent = 0);
+    explicit tabla_posiciones(GUI* guiP, Competencia *compP, QWidget *parent = 0);
 
     ~tabla_posiciones();
 
