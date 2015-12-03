@@ -71,7 +71,7 @@ void ver_competencia::on_pushButton_5_clicked()
     }
     else{
         QMessageBox* msg = new QMessageBox(this);
-        QString error = "";
+        QString error = "No se pude generar el fixture";
         msg->setText(error);
         QPixmap icono(":/images/Heros-amarillo-64.png");
         msg->setIconPixmap(icono);
@@ -82,7 +82,23 @@ void ver_competencia::on_pushButton_5_clicked()
 
 void ver_competencia::on_pushButton_6_clicked()
 {
-    gui->handleVerCompetencia(this,QString("mostrarTablasPosiciones"),comp);
+    // si la competencia esta en disputa o finalizada y es de liga se muestra el fixture, sino no
+    if((comp->getEstado()->getNombre().toLower() == "en disputa" ||
+        comp->getEstado()->getNombre().toLower() == "finalizada" ) &&
+        comp->getModalidad()->getTipoMod()->getNombre().toLower() == "liga")
+    {
+        gui->handleVerCompetencia(this,QString("mostrarTablasPosiciones"),comp);
+
+    }
+    else{
+        QMessageBox* msg = new QMessageBox(this);
+        QString error = "No es posible mostrar la tabla de posiciones";
+        msg->setText(error);
+        QPixmap icono(":/images/Heros-rojo-64.png");
+        msg->setIconPixmap(icono);
+        msg->setModal(true);
+        msg->show();
+    }
 }
 
 void ver_competencia::on_pushButton_4_clicked()
