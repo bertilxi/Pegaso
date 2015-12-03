@@ -43,6 +43,9 @@ private:
     GUI* gui;
     Competencia* competencia;
     Partido* partidoGestionado;
+    bool noSePresentoA;
+    bool noSePresentoB;
+    bool empate;
 };
 
 #endif // GESTIONAR_FIXTURE_H

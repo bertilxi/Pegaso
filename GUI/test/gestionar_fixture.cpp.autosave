@@ -250,6 +250,8 @@ void gestionar_fixture::on_checkBox_4_toggled(bool checked)
     if(checked){
         ui->lineEdit_10->setDisabled(true);
         ui->lineEdit_9->setDisabled(true);
+        ui->lineEdit_9->clear();
+        ui->lineEdit_10->clear();
         noSePresentoB = true;
     }
     else{

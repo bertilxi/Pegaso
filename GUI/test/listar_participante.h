@@ -38,6 +38,7 @@ private:
     QVector<Participante*> participantes;
     Competencia* competencia;
     GUI* gui;
+    QString imgUrl;
 };
 
 QT_BEGIN_NAMESPACE

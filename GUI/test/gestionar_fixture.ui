@@ -6,18 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>448</width>
-    <height>385</height>
+    <width>452</width>
+    <height>380</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_12">
+  <layout class="QVBoxLayout" name="verticalLayout_15">
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -123,14 +123,14 @@
            <item>
             <widget class="QCheckBox" name="checkBox_3">
              <property name="text">
-              <string>Equipo 1 no se presentó</string>
+              <string>no se presentó</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QCheckBox" name="checkBox_4">
              <property name="text">
-              <string>Equipo 2 no se presentó</string>
+              <string>no se presentó</string>
              </property>
             </widget>
            </item>
@@ -222,6 +222,9 @@
         <layout class="QHBoxLayout" name="horizontalLayout_9">
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_14">
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
            <item>
             <widget class="QLabel" name="label_5">
              <property name="text">
@@ -246,135 +249,356 @@
           </layout>
          </item>
          <item>
-          <layout class="QVBoxLayout" name="verticalLayout_15">
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>30</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_13">
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_10">
-             <item>
+            <layout class="QVBoxLayout" name="verticalLayout_3">
+             <item alignment="Qt::AlignHCenter">
               <widget class="QLabel" name="label_8">
                <property name="text">
-                <string>   1</string>
+                <string>1</string>
                </property>
               </widget>
              </item>
-             <item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLineEdit" name="lineEdit_6">
+               <property name="minimumSize">
+                <size>
+                 <width>30</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>30</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLineEdit" name="lineEdit_11">
+               <property name="minimumSize">
+                <size>
+                 <width>30</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>30</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_10">
+             <item alignment="Qt::AlignHCenter">
               <widget class="QLabel" name="label_13">
                <property name="text">
-                <string>   2</string>
+                <string>2</string>
                </property>
               </widget>
              </item>
-             <item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLineEdit" name="lineEdit_5">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>30</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>30</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>30</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLineEdit" name="lineEdit_12">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>30</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>30</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_11">
+             <item alignment="Qt::AlignHCenter">
               <widget class="QLabel" name="label_14">
                <property name="text">
-                <string>   3</string>
+                <string>3</string>
                </property>
               </widget>
              </item>
-             <item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLineEdit" name="lineEdit_15">
+               <property name="minimumSize">
+                <size>
+                 <width>30</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>30</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLineEdit" name="lineEdit_2">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>30</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>30</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_12">
+             <item alignment="Qt::AlignHCenter">
               <widget class="QLabel" name="label_15">
                <property name="text">
-                <string>   4</string>
+                <string>4</string>
                </property>
               </widget>
              </item>
-             <item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLineEdit" name="lineEdit_3">
+               <property name="maximumSize">
+                <size>
+                 <width>30</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLineEdit" name="lineEdit_18">
+               <property name="maximumSize">
+                <size>
+                 <width>30</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_17">
+             <item alignment="Qt::AlignHCenter">
               <widget class="QLabel" name="label_16">
                <property name="text">
-                <string>   5</string>
+                <string>5</string>
                </property>
               </widget>
              </item>
-             <item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLineEdit" name="lineEdit_17">
+               <property name="maximumSize">
+                <size>
+                 <width>30</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLineEdit" name="lineEdit_14">
+               <property name="maximumSize">
+                <size>
+                 <width>30</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_18">
+             <item alignment="Qt::AlignHCenter">
               <widget class="QLabel" name="label_17">
                <property name="text">
-                <string>   6</string>
+                <string>6</string>
                </property>
               </widget>
              </item>
-             <item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLineEdit" name="lineEdit_4">
+               <property name="maximumSize">
+                <size>
+                 <width>30</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLineEdit" name="lineEdit_19">
+               <property name="maximumSize">
+                <size>
+                 <width>30</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_19">
+             <item alignment="Qt::AlignHCenter">
               <widget class="QLabel" name="label_18">
                <property name="text">
-                <string>   7</string>
+                <string>7</string>
                </property>
               </widget>
              </item>
-             <item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLineEdit" name="lineEdit_13">
+               <property name="maximumSize">
+                <size>
+                 <width>30</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLineEdit" name="lineEdit_20">
+               <property name="maximumSize">
+                <size>
+                 <width>30</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_20">
+             <item alignment="Qt::AlignHCenter">
               <widget class="QLabel" name="label_19">
                <property name="text">
-                <string>   8</string>
+                <string>8</string>
                </property>
               </widget>
              </item>
-             <item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLineEdit" name="lineEdit_16">
+               <property name="maximumSize">
+                <size>
+                 <width>30</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLineEdit" name="lineEdit_21">
+               <property name="maximumSize">
+                <size>
+                 <width>30</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_21">
+             <item alignment="Qt::AlignHCenter">
               <widget class="QLabel" name="label_20">
                <property name="text">
-                <string>   9</string>
+                <string>9</string>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLineEdit" name="lineEdit">
+               <property name="maximumSize">
+                <size>
+                 <width>30</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLineEdit" name="lineEdit_22">
+               <property name="maximumSize">
+                <size>
+                 <width>30</width>
+                 <height>16777215</height>
+                </size>
                </property>
               </widget>
              </item>
             </layout>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_11">
-             <item>
-              <widget class="QLineEdit" name="lineEdit_11"/>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_12"/>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_2"/>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_18"/>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_14"/>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_4"/>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_13"/>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_16"/>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit"/>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_12">
-             <item>
-              <widget class="QLineEdit" name="lineEdit_6"/>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_5"/>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_15"/>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_3"/>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_17"/>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_19"/>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_20"/>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_21"/>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_22"/>
-             </item>
-            </layout>
+            <spacer name="horizontalSpacer_9">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
            </item>
           </layout>
          </item>
@@ -529,7 +753,7 @@
              <item>
               <widget class="QCheckBox" name="checkBox_9">
                <property name="text">
-                <string>no se presentó</string>
+                <string>no sepresentó</string>
                </property>
               </widget>
              </item>
@@ -608,6 +832,8 @@
     </layout>
    </item>
   </layout>
+  <zorder>tabWidget</zorder>
+  <zorder></zorder>
  </widget>
  <tabstops>
   <tabstop>pushButton_2</tabstop>

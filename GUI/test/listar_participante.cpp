@@ -102,7 +102,6 @@ void listar_participante::on_pushButton_8_clicked()
 
     // tomar ruta de imagen
 
-    QString imgUrl = "";
     if(email != "" && nombre != "" && ui->lineEdit_2->hasAcceptableInput() ){
 
         QVector<Participante*> participantesActualizados = gui->handleAltaParticipante(this,nombre,email,imgUrl);
@@ -134,7 +133,8 @@ void listar_participante::on_pushButton_8_clicked()
 
 void listar_participante::on_pushButton_6_clicked()
 {
-    QString imgUrl = QFileDialog::getOpenFileName(this,tr("elija una imagen"),"",tr("Imágenes (*.png *.jpg *.jpeg *.bmp *.gif)"));
+    imgUrl = "";
+    imgUrl = QFileDialog::getOpenFileName(this,tr("elija una imagen"),"",tr("Imágenes (*.png *.jpg *.jpeg *.bmp *.gif)"));
 
     if(imgUrl.size() > 0){
         QPixmap img(imgUrl);
