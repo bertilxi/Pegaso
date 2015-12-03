@@ -216,8 +216,6 @@ QVector<Partido *> Competencia::getProximosEncuentros()
 
     proximosEncuentros = prox;
 
-    qDebug()<<prox.size();
-
     return proximosEncuentros;
 }
 
@@ -240,10 +238,6 @@ int Competencia::getFechaActual()
                     // si la fecha que tiene ese partido es menor que la fecha que suponemos actual, nos quedamos con la menor
                     if(fechaAux < fechaAct){
                         fechaAct = fechaAux;
-
-                        qDebug()<<"fecha aux"<<fechaAux;
-                        qDebug()<<"fecha act"<<fechaAct;
-
 
                     }
                 }

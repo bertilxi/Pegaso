@@ -8,6 +8,9 @@ tabla_posiciones::tabla_posiciones(GUI *guiP, Competencia* compP, QWidget *paren
     ui->setupUi(this);
     QPixmap pix(":/images/Heros64.png");
     ui->label_logo->setPixmap(pix);
+    this->setWindowTitle("Tabla de posiciones");
+    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
 
     ui->label_2->setText(compP->getNombre());
     ui->label_4->setText(compP->getModalidad()->getTipoMod()->getNombre());
@@ -15,9 +18,6 @@ tabla_posiciones::tabla_posiciones(GUI *guiP, Competencia* compP, QWidget *paren
 
     QVector<Participante*> participantesP = compP->getParticipantes();
     for (int i = 0; i < participantesP.size(); ++i) {
-
-        qDebug()<<"mis puntos "<<i;
-       qDebug()<<participantesP[i]->getPuntaje()->getPuntos();
 
        ui->tableWidget->insertRow(i);
 

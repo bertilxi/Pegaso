@@ -15,7 +15,10 @@ listar_participante::listar_participante(GUI *guiP, Competencia *compP, QWidget 
 
     QPixmap userImg(":/images/user.png");
     ui->label_4->setPixmap(userImg);
+    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
+
+    this->setWindowTitle("Listar Participantes de competencia");
 
     QRegExp nombre("[a-zA-Z0-9.-]*");
     QValidator* nomValidator = new QRegExpValidator(nombre,this);

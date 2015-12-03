@@ -16,6 +16,8 @@ gestionar_fixture::gestionar_fixture(Competencia * compP, Partido *partP, GUI *g
     ui->tabWidget->setTabText(1,"");
     ui->tabWidget->setTabText(2,"");
 
+    this->setWindowTitle("Gestionar resultados del Fixture");
+
     noSePresentoA = false;
     noSePresentoB = false;
     empate = false;
@@ -71,13 +73,21 @@ gestionar_fixture::gestionar_fixture(Competencia * compP, Partido *partP, GUI *g
                     ui->lineEdit_19->hide();
                     ui->label_17->hide();
                     ui->label_18->hide();
-                    if(compP->getModalidad()->getCant_max_sets() == 3){
+                    if(compP->getModalidad()->getCant_max_sets() <= 3){
                         ui->lineEdit_14->hide();
                         ui->lineEdit_17->hide();
                         ui->lineEdit_18->hide();
                         ui->lineEdit_3->hide();
                         ui->label_16->hide();
                         ui->label_15->hide();
+                        if(compP->getModalidad()->getCant_max_sets() == 1 ){
+                            ui->lineEdit_15->hide();
+                            ui->lineEdit_2->hide();
+                            ui->lineEdit_12->hide();
+                            ui->lineEdit_5->hide();
+                            ui->label_13->hide();
+                            ui->label_14->hide();
+                        }
                     }
                 }
             }
@@ -283,7 +293,6 @@ void gestionar_fixture::on_checkBox_8_toggled(bool checked)
         noSePresentoA = false;
     }
 
-    qDebug()<<"no A "<<noSePresentoA;
 }
 
 void gestionar_fixture::on_checkBox_9_toggled(bool checked)
@@ -303,5 +312,4 @@ void gestionar_fixture::on_checkBox_9_toggled(bool checked)
         }
         noSePresentoB = false;
     }
-    qDebug()<<"no B "<<noSePresentoB;
 }

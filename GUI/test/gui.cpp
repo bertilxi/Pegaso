@@ -16,6 +16,8 @@ MainWindow::MainWindow(GUI* guiP, QWidget *parent):
     QPixmap pix(":/images/Heros128.png");
     ui->label_logo->setPixmap(pix);
 
+    this->setWindowTitle("Sistema deportivo Pegaso");
+
 
     // validador del email
     EmailValidator* emailValidator = new EmailValidator(this);
@@ -97,7 +99,6 @@ void MainWindow::on_pushButton_2_clicked()
 void MainWindow::on_pushButton_4_clicked()
 {
     this->close();
-    qDebug()<<"se cerro el programa";
 }
 
 /**
@@ -117,7 +118,6 @@ void GUI::handleMain(QMainWindow* a, QString b, QString email, QByteArray pass)
             pantalla_usuario* p = new pantalla_usuario(this,a);
             a->close();
             p->show();
-             qDebug()<<deportes.size();
         }
         else{
             // mensaje de error
@@ -175,10 +175,8 @@ void GUI::handleListarCompetencias(QDialog *a, QString b, Competencia *comp)
     {
 
         Usuario* user = gestorUsuarios->getActual();
-        qDebug()<<user->getNombre();
 
         QVector<Lugar*> lugares = gestorLugares->getLugares();
-        qDebug()<<lugares.size();
 
         QVector<TipoResultado*> resultados = gestorCompetencias->getTiposResultado();
         alta_competencia * al = new alta_competencia(this,deportes,lugares,modalidades, resultados, a);
@@ -194,8 +192,6 @@ void GUI::handleListarCompetencias(QDialog *a, QString b, Competencia *comp)
         Competencia * c = new Competencia();
 
         c = gestorCompetencias->getCompetenciaFull(comp->getId());
-
-        qDebug()<<"Competencia id: "<<c->getId();
 
         ver_competencia * v = new ver_competencia(this,c,a);
         v->setModal(true);
@@ -233,8 +229,6 @@ void GUI::handleAltaCompetencia(QDialog *a, QString b, QString nombreComp, Depor
         bool op;
         QString error;
         Usuario* user = gestorUsuarios->getActual();
-        qDebug()<<user->getNombre();
-
 
         DtoCompetencia* dtoC = new DtoCompetencia(user,nombreComp,dep,lugs,disps,mod,reglamento);
         if(gestorCompetencias->crearCompetencia(dtoC,op,error) != NULL){

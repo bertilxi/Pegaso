@@ -9,6 +9,10 @@ ver_competencia::ver_competencia(GUI *guiP, Competencia *compP, QWidget *parent)
     QPixmap pix(":/images/Heros64.png");
     ui->label_logo->setPixmap(pix);
 
+    this->setWindowTitle("Ver competencias deportivas");
+
+    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
     QString nombre = "Competencia " + compP->getNombre();
     ui->label->setText(nombre);
     ui->label_7->setText(compP->getModalidad()->getTipoMod()->getNombre());
@@ -29,12 +33,6 @@ ver_competencia::ver_competencia(GUI *guiP, Competencia *compP, QWidget *parent)
     else{
         QVector<Partido*> proxEnc = comp->getProximosEncuentros() ;
         if(proxEnc.size() == 0){
-            qDebug()<< "Error: no hay partidos cargados";
-
-            for (int i = 0; i < comp->getPartidos().size(); ++i) {
-                qDebug()<<"Equipo A "<<comp->getPartidos()[i]->getEquipoA()->getNombre();
-
-            }
 
         }
         else{
@@ -44,8 +42,6 @@ ver_competencia::ver_competencia(GUI *guiP, Competencia *compP, QWidget *parent)
                 ui->tableWidget->setItem(i,0,new QTableWidgetItem(proxEnc[i]->getEquipoA()->getNombre()));
                 ui->tableWidget->setItem(i,1,new QTableWidgetItem(proxEnc[i]->getEquipoB()->getNombre()));
                 ui->tableWidget->setItem(i,2,new QTableWidgetItem(QString::number(proxEnc[i]->getFecha())));
-
-                qDebug()<<"equipo a"<<proxEnc[i]->getEquipoA()->getNombre()<<"fecha"<<proxEnc[i]->getFecha();
 
             }
         }
@@ -103,7 +99,6 @@ void ver_competencia::on_pushButton_6_clicked()
 
 void ver_competencia::on_pushButton_4_clicked()
 {
-    qDebug()<<"tam vector part antes mostrar fixture "<<comp->getPartidos().size();
     gui->handleVerCompetencia(this,QString("mostrarFixture"),comp);
 }
 

@@ -88,7 +88,6 @@ void registrar_usuario::on_comboBox_5_currentIndexChanged(int index)
     ui->comboBox_8->clear();
     if( index != -1){
         provincias = gui->getProvincias(paises[index]);
-        qDebug()<<"provincias size "<<provincias.size();
 
         for (int i = 0; i < provincias.size(); ++i) {
             ui->comboBox_8->addItem(provincias[i]->getNombre());

@@ -13,6 +13,8 @@ listar_competencias::listar_competencias(GUI *guiP, QVector<Deporte*> deportes, 
     ui->comboBox_3->clear();
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
+    this->setWindowTitle("Listar competencias deportivas");
+
     QRegExp compRegex("[-a-zA-Z0-9_ ]*");
     QValidator* compValidator = new QRegExpValidator(compRegex,this);
     ui->lineEdit->setValidator(compValidator);
@@ -29,7 +31,6 @@ listar_competencias::listar_competencias(GUI *guiP, QVector<Deporte*> deportes, 
     }
     for(i=0;i<modalidades.size();i++){
         ui->comboBox_2->addItem(modalidades[i]->getNombre());
-        qDebug()<<modalidades[i]->getId()<<" "<<modalidades[i]->getNombre();
     }
 
     ui->comboBox->setCurrentIndex(-1);
@@ -85,8 +86,6 @@ void listar_competencias::on_pushButton_4_clicked()
     // validar fila seleccionada y tabla no vacia
     // validar pos < comps.size()
     int pos = ui->tableWidget->currentRow() ;
-
-    qDebug()<<ui->tableWidget->rowCount()<<" "<< pos << " "<< comps.size();
 
     if(ui->tableWidget->rowCount() > 0 && pos >= 0 && pos < comps.size() && comps[pos] != NULL){
 

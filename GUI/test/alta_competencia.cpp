@@ -16,6 +16,10 @@ alta_competencia::alta_competencia(GUI *guiP, QVector<Deporte*> deportesP, QVect
      ui->comboBox_3->clear();
      ui->comboBox_4->clear();
      ui->radioButton_2->setChecked(true);
+     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+     this->setWindowTitle("Dar de alta participante");
+
 
      rowCount = 0;
      maxSet = -1 ;
@@ -36,7 +40,6 @@ alta_competencia::alta_competencia(GUI *guiP, QVector<Deporte*> deportesP, QVect
      }
      for(i=0;i<resultadosP.size();i++){
          ui->comboBox_4->addItem(resultadosP[i]->getNombre());
-         qDebug()<<resultadosP[i]->getNombre();
      }
 
      // crear validadores para nombre y para reglamento
@@ -98,8 +101,6 @@ void alta_competencia::on_pushButton_clicked()
     QString deporte = ui->comboBox->currentText().toLower();
     QString tipoModalidad = ui->comboBox_2->currentText().toLower();
     QString tipoPuntos = ui->comboBox_4->currentText().toLower();
-
-    qDebug()<<nombreCompetencia.isEmpty() << deporte.isEmpty() << tipoModalidad.isEmpty();
 
     if(nombreCompetencia.isEmpty() || deporte.isEmpty() || tipoModalidad.isEmpty() || ui->tableWidget->item(0,0)->text().isEmpty() ||
             (tipoPuntos.toLower() == "por sets" && maxSet < 0 ) ){
@@ -201,6 +202,14 @@ void alta_competencia::on_pushButton_3_clicked()
     if(disp <= 0 ){
         QMessageBox* msg = new QMessageBox(this);
         msg->setText("Por favor coloque una disponibilidad");
+        QPixmap icono(":/images/Heros-amarillo-64.png");
+        msg->setIconPixmap(icono);
+        msg->setModal(true);
+        msg->exec();
+    }
+    else if( lugarPos < 0){
+        QMessageBox* msg = new QMessageBox(this);
+        msg->setText("Por favor seleccione un lugar");
         QPixmap icono(":/images/Heros-amarillo-64.png");
         msg->setIconPixmap(icono);
         msg->setModal(true);

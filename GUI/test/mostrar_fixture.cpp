@@ -10,8 +10,10 @@ mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp, QWidget *parent) 
     ui->setupUi(this);
     QPixmap pix(":/images/Heros64.png");
     ui->label_logo->setPixmap(pix);
+    this->setWindowTitle("Mostrar Fixture de competencia");
 
-    qDebug()<< "Tam fixture "<<comp->getPartidos().size();
+    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
     for (int i = 0; i < comp->getPartidos().size(); ++i) {
         ui->tableWidget->insertRow(i);
         ui->tableWidget->setItem(i,0,new QTableWidgetItem(QString::number(comp->getPartidos()[i]->getFecha())));
