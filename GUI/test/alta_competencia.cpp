@@ -111,6 +111,22 @@ void alta_competencia::on_pushButton_clicked()
         msg->exec();
     }
 
+    else if(tipoModalidad.toLower() == "liga" && ui->lineEdit_4->text().toInt() < ui->lineEdit_3->text().toInt()){
+        QMessageBox* msg = new QMessageBox(this);
+        msg->setText("Los puntos por partido ganado no deben ser menores que los puntos por empate.");
+        QPixmap icono(":/images/Heros-amarillo-64.png");
+        msg->setIconPixmap(icono);
+        msg->setModal(true);
+        msg->exec();
+    }
+    else if(tipoModalidad.toLower() == "liga"  && ui->lineEdit_4->text().toInt() < ui->lineEdit_5->text().toInt()){
+        QMessageBox* msg = new QMessageBox(this);
+        msg->setText("Los puntos por partido ganado no deben ser menores que los puntos por presentarse.");
+        QPixmap icono(":/images/Heros-amarillo-64.png");
+        msg->setIconPixmap(icono);
+        msg->setModal(true);
+        msg->exec();
+    }
     else
     {
         Deporte* deporteP = new Deporte();
@@ -243,6 +259,8 @@ void alta_competencia::on_comboBox_2_currentTextChanged(const QString &arg1)
 
         ui->label_6->show();
         ui->lineEdit_4->show();
+        ui->label_7->show();
+        ui->lineEdit_5->show();
         ui->radioButton->show();
         ui->radioButton_2->show();
 
@@ -279,12 +297,11 @@ void alta_competencia::on_comboBox_4_currentTextChanged(const QString &arg1)
         ui->pushButton_5->show();
         ui->label_11->show();
         ui->label_9->show();
-        ui->label_7->hide();
-        ui->lineEdit_5->hide();
+        //ui->label_7->hide();
+        //ui->lineEdit_5->hide();
         ui->lineEdit_6->hide();
         ui->label_12->hide();
         if(ui->comboBox_2->currentText().toLower() == "liga"){
-
             ui->label_6->show();
             ui->lineEdit_4->show();
         }
@@ -296,13 +313,12 @@ void alta_competencia::on_comboBox_4_currentTextChanged(const QString &arg1)
         ui->pushButton_8->hide();
         ui->pushButton_5->hide();
         ui->label_11->hide();
-        ui->label_7->show();
-        ui->lineEdit_5->show();
+        //ui->label_7->hide();
+        //ui->lineEdit_5->hide();
         ui->label_9->hide();
         ui->lineEdit_6->show();
         ui->label_12->show();
         if(ui->comboBox_2->currentText().toLower() == "liga"){
-
             ui->label_6->show();
             ui->lineEdit_4->show();
         }
@@ -319,12 +335,11 @@ void alta_competencia::on_comboBox_4_currentTextChanged(const QString &arg1)
         ui->label_6->hide();
         ui->lineEdit_4->hide();
         ui->label_9->hide();
-        ui->label_7->hide();
-        ui->lineEdit_5->hide();
+        //ui->label_7->hide();
+        //ui->lineEdit_5->hide();
         ui->lineEdit_6->hide();
         ui->label_12->hide();
         if(ui->comboBox_2->currentText().toLower() == "liga"){
-
             ui->label_6->show();
             ui->lineEdit_4->show();
         }

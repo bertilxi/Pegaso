@@ -41,7 +41,7 @@ Competencia *GestorCompetencias::crearCompetencia(DtoCompetencia *datos, bool op
         if(auxComps[i]->getNombre()==datos->nombreCompetencia){
             operacionExitosa=false;
             error="Ya existe una competencia con el mismo nombre";
-            return (new Competencia);
+            return NULL;
         }
     }
 
