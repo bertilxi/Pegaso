@@ -100,30 +100,45 @@ void listar_participante::on_pushButton_8_clicked()
     QString email = ui->lineEdit_2->text();
     QString nombre = ui->lineEdit->text();
 
-    // tomar ruta de imagen
 
-    if(email != "" && nombre != "" && ui->lineEdit_2->hasAcceptableInput() ){
+    // si la competencia esta creada o planificada se puede agregar participantes, sino no
+    if(competencia->getEstado()->getNombre().toLower() == "creada"      ||
+       competencia->getEstado()->getNombre().toLower() == "planificada"     )
+    {
+        // si el mail es valido y el nombre no es nulo se manda el participante nuevo y
+        // se piden los participantes actualizados
+        if(email != "" && nombre != "" && ui->lineEdit_2->hasAcceptableInput() ){
 
-        QVector<Participante*> participantesActualizados = gui->handleAltaParticipante(this,nombre,email,imgUrl);
-        if(participantesActualizados.size() != 0){
+            QVector<Participante*> participantesActualizados = gui->handleAltaParticipante(this,nombre,email,imgUrl);
+            if(participantesActualizados.size() != 0){
 
-            ui->tableWidget->setRowCount(0);
-            for (int i = 0; i < participantesActualizados.size(); ++i) {
-                ui->tableWidget->insertRow(i);
-                ui->tableWidget->setItem(i,0,new QTableWidgetItem(participantesActualizados[i]->getNombre()));
-                ui->tableWidget->setItem(i,1,new QTableWidgetItem(participantesActualizados[i]->getCorreo()));
+                ui->tableWidget->setRowCount(0);
+                for (int i = 0; i < participantesActualizados.size(); ++i) {
+                    ui->tableWidget->insertRow(i);
+                    ui->tableWidget->setItem(i,0,new QTableWidgetItem(participantesActualizados[i]->getNombre()));
+                    ui->tableWidget->setItem(i,1,new QTableWidgetItem(participantesActualizados[i]->getCorreo()));
+                }
+                ui->lineEdit->clear();
+                ui->lineEdit_2->clear();
+                participantes = participantesActualizados;
+                ui->tableWidget->resizeColumnsToContents();
+                this->on_pushButton_7_clicked();
             }
-            ui->lineEdit->clear();
-            ui->lineEdit_2->clear();
-            participantes = participantesActualizados;
-            ui->tableWidget->resizeColumnsToContents();
-            this->on_pushButton_7_clicked();
         }
+        else{
+            QMessageBox* msg = new QMessageBox(this);
+            msg->setText("Por favor complete correctamente todos los campos obligatorios");
+            QPixmap icono(":/images/Heros-amarillo-64.png");
+            msg->setIconPixmap(icono);
+            msg->setModal(true);
+            msg->exec();
+        }
+
     }
     else{
         QMessageBox* msg = new QMessageBox(this);
-        msg->setText("Por favor complete correctamente todos los campos obligatorios");
-        QPixmap icono(":/images/Heros-amarillo-64.png");
+        msg->setText("No se puede agregar participantes a la competencia");
+        QPixmap icono(":/images/Heros-rojo-64.png");
         msg->setIconPixmap(icono);
         msg->setModal(true);
         msg->exec();

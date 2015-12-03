@@ -31,6 +31,7 @@ MainWindow::MainWindow(GUI* guiP, QWidget *parent):
     ui->lineEdit_2->setEchoMode(QLineEdit::Password);
     ui->pushButton_3->hide();
     ui->pushButton->hide();
+//    this->setGeometry(0,0,350,100);
 
 }
 /**
@@ -182,8 +183,8 @@ void GUI::handleListarCompetencias(QDialog *a, QString b, Competencia *comp)
         QVector<TipoResultado*> resultados = gestorCompetencias->getTiposResultado();
         alta_competencia * al = new alta_competencia(this,deportes,lugares,modalidades, resultados, a);
         al->setModal(true);
+        a->lower();
         al->show();
-
 
 
     }
@@ -304,7 +305,9 @@ bool GUI::handleVerCompetencia(QDialog *a, QString b,Competencia* comp)
 
         mostrar_fixture* mf = new mostrar_fixture(this,comp,a);
         mf->setModal(true);
+
         mf->show();
+
 
     }
     else if (b == "mostrarTablasPosiciones")
