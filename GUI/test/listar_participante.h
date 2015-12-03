@@ -5,6 +5,7 @@
 #include "Participante.h"
 #include "gui.h"
 #include <QValidator>
+#include <QFileDialog>
 
 namespace Ui {
 class listar_participante;
@@ -29,6 +30,8 @@ private slots:
     void on_tabWidget_currentChanged(int index);
 
     void on_pushButton_8_clicked();
+
+    void on_pushButton_6_clicked();
 
 private:
     Ui::listar_participante *ui;

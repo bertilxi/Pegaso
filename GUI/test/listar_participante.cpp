@@ -13,6 +13,10 @@ listar_participante::listar_participante(GUI *guiP, Competencia *compP, QWidget 
     QPixmap pix(":/images/Heros64.png");
     ui->label_logo->setPixmap(pix);
 
+    QPixmap userImg(":/images/user.png");
+    ui->label_4->setPixmap(userImg);
+
+
     QRegExp nombre("[a-zA-Z0-9.-]*");
     QValidator* nomValidator = new QRegExpValidator(nombre,this);
     ui->lineEdit->setValidator(nomValidator);
@@ -126,4 +130,14 @@ void listar_participante::on_pushButton_8_clicked()
         msg->exec();
     }
 
+}
+
+void listar_participante::on_pushButton_6_clicked()
+{
+    QString imgUrl = QFileDialog::getOpenFileName(this,tr("elija una imagen"),"",tr("Imágenes (*.png *.jpg *.jpeg *.bmp *.gif)"));
+
+    if(imgUrl.size() > 0){
+        QPixmap img(imgUrl);
+        ui->label_4->setPixmap(img.scaled(128, 128, Qt::IgnoreAspectRatio, Qt::FastTransformation));
+    }
 }

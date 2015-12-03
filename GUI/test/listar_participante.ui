@@ -281,22 +281,15 @@
            </item>
           </layout>
          </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_7">
-           <property name="bottomMargin">
-            <number>78</number>
+         <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string/>
            </property>
-           <item>
-            <widget class="QLabel" name="label_4">
-             <property name="text">
-              <string/>
-             </property>
-             <property name="pixmap">
-              <pixmap>user.png</pixmap>
-             </property>
-            </widget>
-           </item>
-          </layout>
+           <property name="pixmap">
+            <pixmap>user.png</pixmap>
+           </property>
+          </widget>
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_8">
