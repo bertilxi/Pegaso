@@ -21,6 +21,7 @@ mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp, QWidget *parent) 
     }
     ui->tableWidget->resizeColumnsToContents();
     ui->tableWidget->resize(200,450);
+    ui->tableWidget->setCurrentCell(-1,-1);
 }
 
 mostrar_fixture::~mostrar_fixture()
@@ -38,6 +39,20 @@ void mostrar_fixture::on_pushButton_clicked()
 void mostrar_fixture::on_pushButton_2_clicked()
 {
     int partidoSeleccionado = ui->tableWidget->currentRow();
-    Partido* p = competencia->getPartidos()[partidoSeleccionado];
-    gui->handleMostrarFixture(this,"gestionarFixture",p);
+
+    if(partidoSeleccionado > -1){
+
+        Partido* p = competencia->getPartidos()[partidoSeleccionado];
+        gui->handleMostrarFixture(this,"gestionarFixture",p);
+    }
+    else{
+        QMessageBox* msg = new QMessageBox(this);
+        msg->setText("Por favor seleccione un partido");
+        QPixmap icono(":/images/Heros-amarillo-64.png");
+        msg->setIconPixmap(icono);
+        msg->setModal(true);
+        msg->exec();
+
+    }
+
 }
