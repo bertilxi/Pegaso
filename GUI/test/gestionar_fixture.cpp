@@ -236,6 +236,8 @@ void gestionar_fixture::on_pushButton_clicked()
         bool errFlag2 = false;
         // enteros para verificar el empate en caso de que no este permitido
         int sumA = 0 , sumB = 0;
+        // preguntamos si la competencia permite o no empate
+        bool empate = competencia->getModalidad()->getEmpate();
 
         // seteamos los valores en -1 para saber que no estan cargados
 
@@ -305,7 +307,7 @@ void gestionar_fixture::on_pushButton_clicked()
 
                     errFlag = true;
                 }
-                else if ( (sumA == sumB) || setA1 == setB1 || setA2 == setB2 || setA3 == setB3){
+                else if (!empate && (sumA == sumB || setA1 == setB1 || setA2 == setB2 || setA3 == setB3)){
                     errFlag2 == true;
                 }
         }
@@ -317,8 +319,8 @@ void gestionar_fixture::on_pushButton_clicked()
                 {
                     errFlag = true;
                 }
-                else if( (sumA == sumB) || setA1 == setB1 || setA2 == setB2 || setA3 == setB3
-                         setA4 == setB4 || setA5 == setB5)
+                else if(!empate && ( sumA == sumB || setA1 == setB1 || setA2 == setB2 || setA3 == setB3 ||
+                         setA4 == setB4 || setA5 == setB5))
                 {
                     errFlag2 = true;
                 }
@@ -332,8 +334,8 @@ void gestionar_fixture::on_pushButton_clicked()
                 {
                     errFlag = true;
                 }
-                else if( (sumA == sumB) || setA1 == setB1 || setA2 == setB2 || setA3 == setB3
-                         setA4 == setB4 || setA5 == setB5 || setA6 == setB6 || setA7 == setB7)
+                else if(!empate && (sumA == sumB || setA1 == setB1 || setA2 == setB2 || setA3 == setB3 ||
+                         setA4 == setB4 || setA5 == setB5 || setA6 == setB6 || setA7 == setB7))
                 {
                     errFlag2 = true;
                 }
@@ -347,9 +349,9 @@ void gestionar_fixture::on_pushButton_clicked()
                 {
                     errFlag = true;
                 }
-                else if( (sumA == sumB) || setA1 == setB1 || setA2 == setB2 || setA3 == setB3
-                         setA4 == setB4 || setA5 == setB5 || setA6 == setB6 || setA7 == setB7
-                         setA8 == setB8 || setA9 == setB9)
+                else if(!empate && (sumA == sumB || setA1 == setB1 || setA2 == setB2 || setA3 == setB3 ||
+                         setA4 == setB4 || setA5 == setB5 || setA6 == setB6 || setA7 == setB7 ||
+                         setA8 == setB8 || setA9 == setB9 ))
                 {
                     errFlag2 = true;
                 }
@@ -366,6 +368,12 @@ void gestionar_fixture::on_pushButton_clicked()
         }
         else if(errFlag2){
 
+            QMessageBox* msg = new QMessageBox(this);
+            msg->setText("Coloque los puntos faltantes por favor");
+            QPixmap icono(":/images/Heros-amarillo-64.png");
+            msg->setIconPixmap(icono);
+            msg->setModal(true);
+            msg->exec();
         }
         else{
 
@@ -433,15 +441,9 @@ void gestionar_fixture::on_pushButton_clicked()
                         }
                     }
                 }
-
             }
-
         }
-
-
     }
-
-
 }
 
 void gestionar_fixture::on_checkBox_5_toggled(bool checked)
