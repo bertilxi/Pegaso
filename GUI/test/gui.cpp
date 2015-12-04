@@ -269,11 +269,11 @@ void GUI::handleListarParticipantes(QDialog *a, QString b)
     }
     else if(b == "actualizarParticipantes"){
 
-        this->handleVerCompetencia(a,QString("listarParticipantes"),competenciaActual);
+        this->handleVerCompetencia(a,QString("listarParticipantes"),"",competenciaActual);
     }
 }
 
-bool GUI::handleVerCompetencia(QDialog *a, QString b,Competencia* comp)
+bool GUI::handleVerCompetencia(QDialog *a, QString b, QString error, Competencia* comp)
 {
     competenciaActual = comp;
     if (b == "modificarCompetencia")
@@ -283,7 +283,6 @@ bool GUI::handleVerCompetencia(QDialog *a, QString b,Competencia* comp)
     else if (b == "generarFixture")
     {
 
-        QString error;
         return gestorCompetencias->generarFixture(comp,error);
         competenciaActual = comp;
 
@@ -316,7 +315,7 @@ bool GUI::handleVerCompetencia(QDialog *a, QString b,Competencia* comp)
         lp->setModal(true);
         lp->show();
     }
-
+    return false;
 }
 
 void GUI::handleMostrarFixture(QDialog *a, QString b,Partido* partido)

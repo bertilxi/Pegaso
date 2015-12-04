@@ -60,19 +60,19 @@ void ver_competencia::on_pushButton_7_clicked()
 
 void ver_competencia::on_pushButton_5_clicked()
 {
-    if (gui->handleVerCompetencia(this,QString("generarFixture"),comp)){
+    QString error;
+    if (gui->handleVerCompetencia(this,QString("generarFixture"),error,comp)){
         ui->checkBox->setCheckable(true);
         ui->checkBox->setChecked(true);
         ui->checkBox->setDisabled(true);
     }
     else{
         QMessageBox* msg = new QMessageBox(this);
-        QString error = "No se pude generar el fixture";
         msg->setText(error);
         QPixmap icono(":/images/Heros-amarillo-64.png");
         msg->setIconPixmap(icono);
         msg->setModal(true);
-        msg->show();
+        msg->exec();
     }
 }
 
@@ -83,7 +83,7 @@ void ver_competencia::on_pushButton_6_clicked()
         comp->getEstado()->getNombre().toLower() == "finalizada" ) &&
         comp->getModalidad()->getTipoMod()->getNombre().toLower() == "liga")
     {
-        gui->handleVerCompetencia(this,QString("mostrarTablasPosiciones"),comp);
+        gui->handleVerCompetencia(this,QString("mostrarTablasPosiciones"),"",comp);
 
     }
     else{
@@ -93,18 +93,18 @@ void ver_competencia::on_pushButton_6_clicked()
         QPixmap icono(":/images/Heros-rojo-64.png");
         msg->setIconPixmap(icono);
         msg->setModal(true);
-        msg->show();
+        msg->exec();
     }
 }
 
 void ver_competencia::on_pushButton_4_clicked()
 {
-    gui->handleVerCompetencia(this,QString("mostrarFixture"),comp);
+    gui->handleVerCompetencia(this,QString("mostrarFixture"),"",comp);
 }
 
 void ver_competencia::on_pushButton_clicked()
 {
-    gui->handleVerCompetencia(this,QString("listarParticipantes"),comp);
+    gui->handleVerCompetencia(this,QString("listarParticipantes"),"",comp);
 }
 
 void ver_competencia::on_checkBox_stateChanged(int arg1)

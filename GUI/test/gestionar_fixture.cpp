@@ -315,7 +315,7 @@ void gestionar_fixture::on_pushButton_clicked()
         else if(maxset == 5){
             sumA += setA1 + setA2 + setA3 + setA4 + setA5;
             sumB += setB1 + setB2 + setB3 + setB4 + setB5;
-                if(setA1 == 0 || setB1 == 0 || setA2 == 0 || setB2 == 0 || setA3 == 0 || setB3 == 0
+                if(setA1 == 0 || setB1 == 0 || setA2 == 0 || setB2 == 0 || setA3 == 0 || setB3 == 0 ||
                  setA4 == 0 || setB4 == 0 || setA5 == 0 || setB5 == 0 )
                 {
                     errFlag = true;
@@ -329,8 +329,8 @@ void gestionar_fixture::on_pushButton_clicked()
         else if(maxset == 7){
             sumA += setA1 + setA2 + setA3 + setA4 + setA5 + setA6 + setA7;
             sumB += setB1 + setB2 + setB3 + setB4 + setB5 + setB6 + setB7;
-                if(setA1 == 0 || setB1 == 0 || setA2 == 0 || setB2 == 0 || setA3 == 0 || setB3 == 0
-                 setA4 == 0 || setB4 == 0 || setA5 == 0 || setB5 == 0 || setA6 == 0 || setB6 == 0
+                if(setA1 == 0 || setB1 == 0 || setA2 == 0 || setB2 == 0 || setA3 == 0 || setB3 == 0 ||
+                 setA4 == 0 || setB4 == 0 || setA5 == 0 || setB5 == 0 || setA6 == 0 || setB6 == 0 ||
                  setA7 == 0 || setB7 == 0 )
                 {
                     errFlag = true;
@@ -344,8 +344,8 @@ void gestionar_fixture::on_pushButton_clicked()
         else if(maxset == 9){
             sumA += setA1 + setA2 + setA3 + setA4 + setA5 + setA6 + setA7 + setA8 + setA9;
             sumB += setB1 + setB2 + setB3 + setB4 + setB5 + setB6 + setB7 + setB8 + setB9;
-                if(setA1 == 0 || setB1 == 0 || setA2 == 0 || setB2 == 0 || setA3 == 0 || setB3 == 0
-                 setA4 == 0 || setB4 == 0 || setA5 == 0 || setB5 == 0 || setA6 == 0 || setB6 == 0
+                if(setA1 == 0 || setB1 == 0 || setA2 == 0 || setB2 == 0 || setA3 == 0 || setB3 == 0 ||
+                 setA4 == 0 || setB4 == 0 || setA5 == 0 || setB5 == 0 || setA6 == 0 || setB6 == 0 ||
                  setA7 == 0 || setB7 == 0 || setA8 == 0 || setB8 == 0 || setA9 == 0 || setB9 == 0)
                 {
                     errFlag = true;

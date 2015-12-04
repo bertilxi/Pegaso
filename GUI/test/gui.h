@@ -122,7 +122,7 @@ public:
 
     void handleListarParticipantes(QDialog* a, QString b);
 
-    bool handleVerCompetencia(QDialog* a, QString b, Competencia *comp = NULL);
+    bool handleVerCompetencia(QDialog* a, QString b,QString error, Competencia *comp = NULL);
 
     void handleMostrarFixture(QDialog* a, QString b, Partido *partido);
 
