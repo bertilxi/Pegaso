@@ -109,38 +109,35 @@ void gestionar_fixture::on_pushButton_2_clicked()
 
 void gestionar_fixture::on_pushButton_clicked()
 {
-    Partido* p = new Partido();
     Resultado* r = new Resultado();
+
     QString tr = competencia->getModalidad()->getTipoRes()->getNombre().toLower();
     if(tr == "resultado final" ){
+        r->setId(-1);
+        Res* res = new Res();
+        Res* res2 = new Res();
         // gano equipo A
         if(ui->checkBox_5->isChecked()){
-            r->setId(-1);
-            Res* res = new Res();
             res->setId(1);
             res->setNombre("ganó");
             r->setResultadoA(res);
-            Res* res2 = new Res();
             res2->setId(2);
             res2->setNombre("perdió");
             r->setResultadoB(res2);
         }
 //        gano Equipo B
         else if (ui->checkBox_6->isChecked()){
-            r->setId(-1);
-            Res* res = new Res();
+
             res->setId(1);
             res->setNombre("ganó");
             r->setResultadoB(res);
-            Res* res2 = new Res();
             res2->setId(2);
             res2->setNombre("perdió");
             r->setResultadoA(res2);
         }
 //        empataron
         else if (ui->checkBox_7->isChecked()){
-            r->setId(-1);
-            Res* res = new Res();
+
             res->setId(3);
             res->setNombre("empate");
             r->setResultadoA(res);
@@ -148,8 +145,7 @@ void gestionar_fixture::on_pushButton_clicked()
         }
         // equipo A no se presento
         if(ui->checkBox_8->isChecked()){
-            r->setId(-1);
-            Res* res = new Res();
+
             res->setId(4);
             res->setNombre("no se presentó");
             r->setResultadoA(res);
@@ -157,38 +153,62 @@ void gestionar_fixture::on_pushButton_clicked()
         }
         // equipo B no se presento
         if(ui->checkBox_9->isChecked()){
-            r->setId(-1);
-            Res* res = new Res();
+
             res->setId(4);
             res->setNombre("no se presentó");
             r->setResultadoB(res);
 
         }
+        partidoGestionado->setActual(r);
     }
     else if(tr == "por puntos"){
+
         int puntosA = ui->lineEdit_9->text().toInt();
         int puntosB = ui->lineEdit_10->text().toInt();
 
         // si algun equipo esta ausente pero se le coloca puntos dara una alerta de error
-        if( (puntosA == 0 && !ui->checkBox_4->isChecked()) || (puntosB == 0 && !ui->checkBox_3->isChecked() )){
 
+        if( (ui->lineEdit_9->isEnabled()  && puntosA == 0) ||
+            (ui->lineEdit_10->isEnabled() && puntosB == 0 )  ){
 
-        }
-        //gano equipo A
-        if(puntosA < puntosB){
-            r->setId(-1);
-            Res* res = new Res();
-            res->setId(1);
-            res->setNombre("ganó");
-            r->setResultadoA(res);
-            Res* res2 = new Res();
-            res2->setId(2);
-            res2->setNombre("perdió");
-            r->setResultadoB(res2);
+            QMessageBox* msg = new QMessageBox(this);
+            msg->setText("Coloque los puntos del equipo faltante por favor");
+            QPixmap icono(":/images/Heros-amarillo-64.png");
+            msg->setIconPixmap(icono);
+            msg->setModal(true);
+            msg->exec();
         }
         else{
+            //gano equipo A
+            r->setId(-1);
+            Res* res = new Res();
+            if(puntosA < puntosB){
+                res->setId(1);
+                res->setNombre("ganó");
+                r->setResultadoA(res);
+                Res* res2 = new Res();
+                res2->setId(2);
+                res2->setNombre("perdió");
+                r->setResultadoB(res2);
+                // si se cargan los puntos por primera vez
+                if(partidoGestionado->getActual() == NULL){
+
+                }
+
+
+                // si no tienen puntos cargados
+                if(partidoGestionado->getEquipoA()->getPuntaje() == NULL &&
+                   partidoGestionado->getEquipoB()->getPuntaje() == NULL )
+                {
+                    Pun
+                }
+            }
+            else{
+
+            }
 
         }
+
 
     }
     else if(tr == "por sets"){

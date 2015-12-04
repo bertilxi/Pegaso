@@ -195,13 +195,12 @@ bool comparePtrPartido(Partido* a, Partido* b) { return (*a < *b); }
 QVector<Partido *> Competencia::getProximosEncuentros()
 {
     QVector<Partido *> prox;
+    int fechaAux;
 
-     qDebug()<<"fecha actual"<< fechaActual;
     this->getFechaActual();
-    qDebug()<<"fecha actual"<< fechaActual;
     // recorro todo los partidos de la competencia
     for (int i = 0; i < partidos.size(); ++i) {
-        int fechaAux = partidos[i]->getFecha();
+        fechaAux = partidos[i]->getFecha();
         // si el la fecha es mayor o igual a la fecha actual
         if( fechaAux >= fechaActual){
             // si el partido no tiene resultado tambien se mostrara como proximo
@@ -221,15 +220,14 @@ QVector<Partido *> Competencia::getProximosEncuentros()
 
 int Competencia::getFechaActual()
 {
-     fechaActual = -1;
+    int fechaAux;
+    int fechaAct = INT_MAX;
+    int maxFecha = -1;
     // Si la competencia no esta finalizada
     if(this->getEstado()->getNombre().toLower() != "finalizada"){
 
         // si no esta cargada la fecha se busca
         if(fechaActual < 0){
-            int fechaAct = INT_MAX;
-            int fechaAux;
-
             //recoremos todos los partidos
             for (int i = 0; i < partidos.size(); ++i) {
                 // si algun partido no tiene el resultado cargado se ve que fecha tiene
@@ -248,16 +246,13 @@ int Competencia::getFechaActual()
         // si esta la fecha la retorna
         else {
             return fechaActual;
-
         }
     }
     // si la competencia esta finalizada
     else{
-
         // buscamos la fecha ultima y la seteamos como actual
-        int maxFecha = -1;
         for (int i = 0; i < partidos.size(); ++i) {
-            int fechaAux = partidos[i]->getFecha();
+            fechaAux = partidos[i]->getFecha();
                if( fechaAux > maxFecha){
                    maxFecha = fechaAux;
                }
