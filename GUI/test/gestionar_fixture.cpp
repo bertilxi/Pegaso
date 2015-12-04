@@ -164,7 +164,7 @@ void gestionar_fixture::on_pushButton_clicked()
             r->setResultadoB(res);
 
         }
-        partidoGestionado->setActual(r);
+        gui->handleGestionarFixture(this,"",partidoGestionado,r);
     }
     else if(tr == "por puntos"){
 
@@ -226,6 +226,7 @@ void gestionar_fixture::on_pushButton_clicked()
                 r->setResultadoA(res2);
             }
         }
+        gui->handleGestionarFixture(this,"",partidoGestionado,r);
     }
     else if(tr == "por sets"){
 
@@ -369,8 +370,8 @@ void gestionar_fixture::on_pushButton_clicked()
         else if(errFlag2){
 
             QMessageBox* msg = new QMessageBox(this);
-            msg->setText("Coloque los puntos faltantes por favor");
-            QPixmap icono(":/images/Heros-amarillo-64.png");
+            msg->setText("No se permite empatar en este competencia");
+            QPixmap icono(":/images/Heros-rojo-64.png");
             msg->setIconPixmap(icono);
             msg->setModal(true);
             msg->exec();
@@ -442,6 +443,7 @@ void gestionar_fixture::on_pushButton_clicked()
                     }
                 }
             }
+            gui->handleGestionarFixture(this,"",partidoGestionado,sets);
         }
     }
 }
