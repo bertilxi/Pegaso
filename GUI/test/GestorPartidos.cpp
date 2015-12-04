@@ -70,13 +70,13 @@ void GestorPartidos::nuevoResultado(Competencia *comp, Partido *part, Resultado 
         QVector<Resultado*> historial=part->getModificado();
         //Creo el nuevo resultado dependiendo el tipo de resultado
         QString tipo_resultado=comp->getModalidad()->getTipoRes()->getNombre();
-        if(tipo_resultado=="Resultado Final"){
+        if(tipo_resultado.toLower()=="resultado final"){
             Resultado *resAux=new Resultado;
             resAux->setResultadoA(part->getActual()->getResultadoA());
             resAux->setResultadoB(part->getActual()->getResultadoB());
             historial.push_back(resAux);
         }
-        else if(tipo_resultado=="Por Puntos"){
+        else if(tipo_resultado.toLower()=="por puntos"){
             Puntos *resAux=new Puntos;
             resAux->setPuntosA(part->getActual()->getPuntosA());
             resAux->setPuntosB(part->getActual()->getPuntosB());

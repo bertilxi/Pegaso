@@ -77,3 +77,4 @@ Res *Resultado::getResultadoB() const
     return resultadoB;
 }
 
+

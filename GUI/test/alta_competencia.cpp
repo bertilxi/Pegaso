@@ -153,6 +153,7 @@ void alta_competencia::on_pushButton_clicked()
         }
         else if(tipoModalidad.toLower() == "liga"){
             mod->setPuntos_ganar(ui->lineEdit_4->text().toInt());
+            mod->setPuntos_presentarse(ui->lineEdit_5->text().toInt());
             mod->setEmpate(conEmpate);
 
             if(conEmpate){

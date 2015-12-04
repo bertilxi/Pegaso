@@ -22,25 +22,25 @@ void Puntaje::restar(Resultado *res,Modalidad *mod,QString equipo) {
     else resultado = res->getResultadoB();
 
     //Actualizo los puntos según el resultado del equipo
-    if(resultado->getNombre()=="Ganó"){
+    if(resultado->getNombre().toLower()=="ganó"){
         puntos -= mod->getPuntos_ganar();
         PG--;
     }
-    if(resultado->getNombre()=="Empató"){
+    if(resultado->getNombre().toLower()=="empató"){
         puntos-=mod->getPuntos_empate();
         PE--;
     }
-    if(resultado->getNombre() == "Perdió" || resultado->getNombre() == "No se presentó"){
+    if(resultado->getNombre().toLower() == "perdió" || resultado->getNombre().toLower() == "no se presentó"){
         PP--;
     }
 
     //Si se presentó le descuento los puntos por presentarse
-    if(resultado->getNombre() != "No se presentó"){
+    if(resultado->getNombre().toLower() != "no se presentó"){
         puntos -= mod->getPuntos_presentarse();
     }
 
     //Si el tipo de resultado es por puntos descuento los tantos a favor y en contra y calculo la diferencia
-    if(mod->getTipoRes()->getNombre()=="Por Puntos"){
+    if(mod->getTipoRes()->getNombre().toLower() =="por puntos"){
         if(equipo=="EquipoA"){
             TF-=res->getPuntosA();
             TC-=res->getPuntosB();
@@ -65,25 +65,25 @@ void Puntaje::sumar(Resultado *res,Modalidad *mod,QString equipo) {
     else resultado = res->getResultadoB();
 
     //Actualizo los puntos según el resultado del equipo
-    if(resultado->getNombre() =="Ganó"){
+    if(resultado->getNombre().toLower() =="ganó"){
         puntos+=mod->getPuntos_ganar();
         PG++;
     }
-    if(resultado->getNombre()=="Empató"){
+    if(resultado->getNombre().toLower()=="empató"){
         puntos+=mod->getPuntos_empate();
         PE++;
     }
-    if(resultado->getNombre()=="Perdió" || resultado->getNombre()=="No se presentó"){
+    if(resultado->getNombre().toLower()=="perdió" || resultado->getNombre().toLower()=="no se presentó"){
         PP++;
     }
 
     //Si se presentó le agrego los puntos por presentarse
-    if(resultado->getNombre() != "No se presentó"){
+    if(resultado->getNombre().toLower() != "no se presentó"){
         puntos += mod->getPuntos_presentarse();
     }
 
     //Si el tipo de resultado es por puntos agrego los tantos a favor y en contra y calculo la diferencia
-    if(mod->getTipoRes()->getNombre()=="Por Puntos"){
+    if(mod->getTipoRes()->getNombre().toLower()=="por puntos"){
         if(equipo=="EquipoA"){
             TF+=res->getPuntosA();
             TC+=res->getPuntosB();

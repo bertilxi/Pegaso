@@ -323,11 +323,15 @@ void GUI::handleMostrarFixture(QDialog *a, QString b,Partido* partido)
 {
     if (b == "gestionarFixture")
     {
-
         gestionar_fixture* gf = new gestionar_fixture(competenciaActual,partido,this,a);
         gf->setModal(true);
         gf->show();
     }
+}
+
+void GUI::handleGestionarFixture(QDialog *a, QString b, Partido *partP, Resultado *resP)
+{
+    gestorPartidos->nuevoResultado(competenciaActual,partP,resP);
 }
 
 QVector<Competencia*> GUI::handleFiltrarCompetencias(QStringList data)

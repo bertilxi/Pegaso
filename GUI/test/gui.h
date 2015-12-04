@@ -126,6 +126,8 @@ public:
 
     void handleMostrarFixture(QDialog* a, QString b, Partido *partido);
 
+    void handleGestionarFixture(QDialog* a, QString b, Partido* partP, Resultado* resP);
+
     QVector<Competencia*> handleFiltrarCompetencias(QStringList datos);
 
     QString handleRegistrarUsuario(DtoUsuario * datos);
@@ -143,6 +145,7 @@ public:
     QVector<Localidad*> getLocalidades(Provincia* provinciaP);
 
     QVector<Participante *> handleAltaParticipante(QDialog *a, QString nombre, QString email, QString ImgUrl);
+
 
 
 };
