@@ -563,3 +563,59 @@ void gestionar_fixture::on_checkBox_9_toggled(bool checked)
         noSePresentoB = false;
     }
 }
+
+void gestionar_fixture::on_checkBox_10_toggled(bool checked)
+{
+    if(checked){
+        ui->lineEdit_6->setDisabled(true);
+        ui->lineEdit_5->setDisabled(true);
+        ui->lineEdit_15->setDisabled(true);
+        ui->lineEdit_3->setDisabled(true);
+        ui->lineEdit_17->setDisabled(true);
+        ui->lineEdit_4->setDisabled(true);
+        ui->lineEdit_13->setDisabled(true);
+        ui->lineEdit_16->setDisabled(true);
+        ui->lineEdit->setDisabled(true);
+    }
+    else{
+
+        ui->lineEdit_6->setEnabled(true);
+        ui->lineEdit_5->setEnabled(true);
+        ui->lineEdit_15->setEnabled(true);
+        ui->lineEdit_3->setEnabled(true);
+        ui->lineEdit_17->setEnabled(true);
+        ui->lineEdit_4->setEnabled(true);
+        ui->lineEdit_13->setEnabled(true);
+        ui->lineEdit_16->setEnabled(true);
+        ui->lineEdit->setEnabled(true);
+
+    }
+}
+
+void gestionar_fixture::on_checkBox_11_toggled(bool checked)
+{
+    if(checked){
+
+        ui->lineEdit_11->setDisabled(true);
+        ui->lineEdit_12->setDisabled(true);
+        ui->lineEdit_2->setDisabled(true);
+        ui->lineEdit_18->setDisabled(true);
+        ui->lineEdit_14->setDisabled(true);
+        ui->lineEdit_19->setDisabled(true);
+        ui->lineEdit_20->setDisabled(true);
+        ui->lineEdit_21->setDisabled(true);
+        ui->lineEdit_22->setDisabled(true);
+    }
+    else{
+
+        ui->lineEdit_11->setEnabled(true);
+        ui->lineEdit_12->setEnabled(true);
+        ui->lineEdit_2->setEnabled(true);
+        ui->lineEdit_18->setEnabled(true);
+        ui->lineEdit_14->setEnabled(true);
+        ui->lineEdit_19->setEnabled(true);
+        ui->lineEdit_20->setEnabled(true);
+        ui->lineEdit_21->setEnabled(true);
+        ui->lineEdit_22->setEnabled(true);
+    }
+}
