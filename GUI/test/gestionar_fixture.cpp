@@ -22,6 +22,34 @@ gestionar_fixture::gestionar_fixture(Competencia * compP, Partido *partP, GUI *g
     noSePresentoB = false;
     empate = false;
 
+    // validadores
+
+    QRegExp numRegex("[0-9]{0,3}");
+    QValidator* numValidator = new QRegExpValidator(numRegex,this);
+
+    ui->lineEdit_9->setValidator(numValidator);
+    ui->lineEdit_10->setValidator(numValidator);
+
+    ui->lineEdit_6->setValidator(numValidator);
+    ui->lineEdit_5->setValidator(numValidator);
+    ui->lineEdit_15->setValidator(numValidator);
+    ui->lineEdit_3->setValidator(numValidator);
+    ui->lineEdit_17->setValidator(numValidator);
+    ui->lineEdit_4->setValidator(numValidator);
+    ui->lineEdit_13->setValidator(numValidator);
+    ui->lineEdit_16->setValidator(numValidator);
+    ui->lineEdit->setValidator(numValidator);
+
+    ui->lineEdit_11->setValidator(numValidator);
+    ui->lineEdit_12->setValidator(numValidator);
+    ui->lineEdit_2->setValidator(numValidator);
+    ui->lineEdit_18->setValidator(numValidator);
+    ui->lineEdit_14->setValidator(numValidator);
+    ui->lineEdit_19->setValidator(numValidator);
+    ui->lineEdit_20->setValidator(numValidator);
+    ui->lineEdit_21->setValidator(numValidator);
+    ui->lineEdit_22->setValidator(numValidator);
+
     QString tr = compP->getModalidad()->getTipoRes()->getNombre().toLower();
 
     if(tr == "resultado final" ){
