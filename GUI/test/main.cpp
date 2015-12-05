@@ -22,15 +22,12 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    // nombre de la base de datos a cargar
-    QFile pegasoDB("pegaso.sql");
-
     /**
      * creamos el gestor de la base de datos y
      * lo inicializamos con el archivo de la base de datos
      */
 
-    GestorBaseDatos * gestorBaseDeDatos = new GestorBaseDatos("pegaso.db") ;
+    GestorBaseDatos * gestorBaseDeDatos = new GestorBaseDatos() ;
 
     /**
      * Cargamos todos los objetos que sean necesarios para el sistema

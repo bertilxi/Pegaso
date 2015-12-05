@@ -212,9 +212,7 @@ void GestorCompetencias::modParticipante(Competencia *comp, Participante *part, 
     part->setImg(datos->imgUrl);
 
     //Guardo los cambios
-    QVector<Participante *> partList;
-    partList.push_back(part);
-    gestorBaseDatos->save(partList,comp->getId());
+    gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual()->getId());
 }
 void GestorCompetencias::nuevoResultado(Competencia *comp, Partido *part, Resultado *res)
 {

@@ -10,18 +10,27 @@
  */
 
 
+GestorBaseDatos::GestorBaseDatos()
+{
+    db = QSqlDatabase::addDatabase("QSQLITE");
+        db.setDatabaseName("pegaso.db");
 
-/**
- * @brief carga varias competencias inicializandolas parcialmente
- * @param dto dto con los filtros para buscar competencias
- * @return una lista de punteros a competencias
- *
- * Solo se carga el id y nombre de la competencia, su estado, el NOMBRE
- * de su modalidad y el ID de su deporte.
- */
+
+        if(db.open()){
+            qDebug()<<"Se ha conectado la Base de Datos";
+        }
+        else{
+            qDebug()<<"Error al conectar la Base de Datos";
+        }
+}
+
+
+
+
 QVector<Competencia *> GestorBaseDatos::getCompetenciasLazy(const DtoGetCompetencia *dto) const{
 
-    /*
+    /*Consulta usada en este método:
+
 SELECT C.id_competencia, C.nombre, D.id_deporte, D.id_deporte, TM.nombre, TM.id_tipo_modalidad,
     E.nombre, E.id_estado
 FROM Competencia C, Deporte D, Modalidad M, Tipo_modalidad TM, Estado E, Usuario U
@@ -39,6 +48,7 @@ WHERE C.id_deporte = D.id_deporte AND
     C.borrado = 0
         */
 
+    //armamos la consulta
     QString querystr;
 
     querystr += "SELECT C.id_competencia, C.nombre, D.nombre, D.id_deporte, TM.nombre, TM.id_tipo_modalidad, E.nombre, E.id_estado ";
@@ -49,6 +59,7 @@ WHERE C.id_deporte = D.id_deporte AND
     querystr += " AND C.id_deporte = D.id_deporte";
     querystr += " AND C.id_estado = E.id_estado";
 
+    //si una opción de filtrado fue elegida, se la agrega a la consulta
     if(dto->usuario != NULL)
     {
         querystr += " AND U.email = '" + dto->usuario->getEmail() + "' ";
@@ -76,43 +87,36 @@ WHERE C.id_deporte = D.id_deporte AND
 
     querystr += " AND C.borrado = 0";
 
-    QSqlQuery query;
 
+    QSqlQuery query;
+    //preparamos la consulta
     query.prepare(querystr);
 
-    if(!query.exec()){
+    //ejecutamos la consulta
+    if(!query.exec(querystr)){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
+        qDebug() << "SqLite error:" << query.lastError().text() << ", SqLite error code:" << query.lastError().number();
+        return QVector<Competencia *>();
     }
 
     QVector<Competencia *> competencias;
-    int debug =0;
+
+    //por cada fila en la tabla resultado, se toman los datos y se crean objetos con ellos
     while (query.next()) {
 
-        Competencia *comp = new (std::nothrow) Competencia;
-        if(comp == NULL){
-            qDebug() << "No se pudo asignar memoria para Competencia";
-            return QVector<Competencia *>();
-        }
+        Competencia *comp = new Competencia();
+
         comp->setId(query.value(0).toInt());
         comp->setNombre(query.value(1).toString());
 
-        Deporte *deporte = new (std::nothrow) Deporte;
-        if(deporte == NULL){
-            qDebug() << "No se pudo alocar memoria para Deporte";
-            ///Es necesario destruir la competencia
-            return QVector<Competencia *>();
-        }
+        Deporte *deporte = new Deporte();
+
         deporte->setNombre(query.value(2).toString());
         deporte->setId(query.value(3).toInt());
         comp->setDeporte(deporte);
 
-        Modalidad *modalidad = new (std::nothrow) Modalidad;
-        if(modalidad == NULL){
-            qDebug() << "No se pudo alocar memoria para Modalidad";
-            ///Es necesario destruir la competencia
-            return QVector<Competencia *>();
-        }
+        Modalidad *modalidad = new Modalidad();
 
         TipoModalidad* tipoMod = new TipoModalidad();
 
@@ -129,19 +133,21 @@ WHERE C.id_deporte = D.id_deporte AND
         comp->setEstado(est);
 
         competencias.push_back(comp);
-        qDebug()<<debug++;
-
     }
 
     return competencias;
 }
 
+
+
+
+//declaramos estas instancias del la función template para poder usarlas
 template bool GestorBaseDatos::LessThan(Participante *a, Participante *b);
 template bool GestorBaseDatos::LessThan(Partido *a, Partido *b);
 
 Competencia *GestorBaseDatos::getCompetenciaFull(int id_comp) const{
 
-    //CARGA COMPETENCIA, MODALIDAD Y DEPORTE
+    //esta consulta carga COMPETENCIA, MODALIDAD y DEPORTE:
 
 /*
 SELECT C.nombre, E.id_estado, E.nombre, C.fecha_y_horaB, C.reglamento,
@@ -159,7 +165,7 @@ WHERE C.id_competencia = id_comp AND
     C.borrado = 0
 */
 
-
+    //armamos la consulta
     QString querystr;
     querystr += "SELECT C.nombre, E.id_estado, E.nombre, C.fecha_y_horaB, C.reglamento";
     querystr += ", D.id_deporte, D.nombre, M.id_modalidad, M.pto_partido_ganado, M.pto_presentarse";
@@ -174,15 +180,17 @@ WHERE C.id_competencia = id_comp AND
     querystr += " AND E.id_estado = C.id_estado";
     querystr += " AND C.borrado = 0";
 
-    QSqlQuery query;
 
+    QSqlQuery query;
+    //preparamos la consulta
     if(!query.prepare(querystr))
         qDebug() << "no anda el prepare";
 
+    //ligamos a la consulta el valor del id de la competencia
     query.addBindValue(QString::number(id_comp));
 
 
-    // consulta
+    //ejecutamos la consulta
     if(!query.exec()){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
@@ -191,12 +199,13 @@ WHERE C.id_competencia = id_comp AND
         return NULL;
     }
 
-
+    //nos posicionamos en la primera fila de la tabla resultado
     if(!query.next()){
         qDebug() << "Error Base de datos: No hay ninguna competencia con el id: "<< id_comp;
         return NULL;
     }
 
+    //tomamos todos los datos de la fila y creamos objetos con ellos
     Competencia *comp = new Competencia;
 
     Estado* est = new Estado();
@@ -245,7 +254,7 @@ WHERE C.id_competencia = id_comp AND
     comp->setModalidad(mod);
 
 ///______________________________________________________________________________________________________________________
-    //CARGA DISPONIBILIDADES
+    //esta consulta carga las DISPONIBILIDADES
 
     /*
     SELECT SA.disponibilidad, L.id_lugar, L.nombre, L.descripcion
@@ -256,14 +265,18 @@ WHERE C.id_competencia = id_comp AND
 
     querystr.clear();
 
+    //armamos la consulta
     querystr += "SELECT SA.disponibilidad, L.id_lugar, L.nombre, L.descripcion";
     querystr += " FROM Se_asignan SA, Lugar L WHERE SA.id_competencia = ?";
     querystr += " AND SA.id_lugar = L.id_lugar";
 
+    //preparamos la consulta
     query.prepare(querystr);
+
+    //ligamos a la consulta el id de la competencia
     query.addBindValue(id_comp);
 
-    // consulta
+    //ejecutamos la consulta
     if(!query.exec()){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
@@ -274,6 +287,7 @@ WHERE C.id_competencia = id_comp AND
 
     QVector<Disponibilidad *> disps;
 
+    //por cada fila de la tabla resultado, tomamos los datos y los cargamos en objetos
     while(query.next()){
         Disponibilidad *disp = new Disponibilidad;
 
@@ -293,7 +307,7 @@ WHERE C.id_competencia = id_comp AND
     comp->setDisponibilidades(disps);
 
 ///______________________________________________________________________________________________________________________
-    //CARGA PARTICIPANTES
+    //esta consulta carga los PARTICIPANTES
 
 /*
 SELECT id_participante, imagen, nombre, correo, puntos, pg, pp, pe, tf,
@@ -305,14 +319,18 @@ ORDER BY id_participante ASC
 
     querystr.clear();
 
+    //armamos la consulta
     querystr += "SELECT id_participante, imagen, nombre, correo, puntos, pg, pp, pe, tf, tc, dif";
     querystr += " FROM Participante WHERE id_competencia = ?";
     querystr += " ORDER BY id_participante ASC";
 
+    //preparamos la consulta
     query.prepare(querystr);
+
+    //ligamos a la consulta el id de la competencia
     query.addBindValue(id_comp);
 
-    // consulta
+    //ejecutamos la consulta
     if(!query.exec()){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
@@ -323,6 +341,7 @@ ORDER BY id_participante ASC
 
     QVector<Participante *> partics;
 
+    //por cada fila en la tabla resultado
     while(query.next()){
         Participante *partic = new Participante;
         partic->setId(query.value(0).toInt());
@@ -345,7 +364,7 @@ ORDER BY id_participante ASC
     }
 
 ///______________________________________________________________________________________________________________________
-    //CARGA HISTORIALES DE MODIFICACION DE PARTICIPANTES
+    //esta consulta carga los HISTORIALES DE MODIFICACION DE PARTICIPANTES
 
 /*
 SELECT id_modificacion, nombre, correo, imagen
@@ -355,17 +374,20 @@ WHERE id_participante = id_part
 
     querystr.clear();
 
+    //armamos la consulta
     querystr += "SELECT id_modificacion, nombre, correo, imagen";
     querystr += " FROM Historial_participante WHERE id_participante = ?";
 
+    //preparamos la consulta
     query.prepare(querystr);
 
     //para cada participante, cargo sus historiales de modificacion
     for(int i = 0; i < partics.size(); i++){
 
+        //ligamos a la consulta el id de un participante
         query.addBindValue(partics[i]->getId());
 
-        // consulta
+        //ejecutamos la consulta
         if(!query.exec()){
             qDebug() << "La consulta ha fallado";
             qDebug() << "La consulta que dio error fue: " << querystr;
@@ -376,6 +398,7 @@ WHERE id_participante = id_part
 
         QVector<HistorialParticipante *> hists;
 
+        //por cada fila en la tabla resultado
         while(query.next()){
             HistorialParticipante *hist = new HistorialParticipante;
             hist->setId(query.value(0).toInt());
@@ -392,7 +415,7 @@ WHERE id_participante = id_part
     comp->setParticipantes(partics);
 
 ///______________________________________________________________________________________________________________________
-    //CARGA PARTIDOS
+    //esta consulta carga los PARTIDOS
 
 /*
 SELECT id_partido, fecha, ronda, id_lugar, equipoA, equipoB
@@ -403,14 +426,18 @@ ORDER BY id_partido ASC
 
     querystr.clear();
 
+    //armamos la consulta
     querystr += "SELECT id_partido, fecha, ronda, id_lugar, equipoA, equipoB";
     querystr += " FROM Partido WHERE id_competencia = ?";
     querystr += " ORDER BY id_partido ASC";
 
+    //preparamos la consulta
     query.prepare(querystr);
+
+    //ligamos a la consulta el id de la competencia
     query.addBindValue(id_comp);
 
-    // consulta
+    //ejecutamos la consulta
     if(!query.exec()){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
@@ -422,6 +449,7 @@ ORDER BY id_partido ASC
     QVector<Partido *> partidos;
     int equipoA, equipoB;
 
+    //por cada fila en la tabla resultado
     while(query.next()){
         Partido *partido = new Partido;
         partido->setId(query.value(0).toInt());
@@ -459,7 +487,7 @@ ORDER BY id_partido ASC
     }
 
 ///______________________________________________________________________________________________________________________
-    //CARGA RESULTADOS
+    //esta consulta carga los RESULTADOS
 
     switch(comp->getModalidad()->getTipoRes()->getId())
     {
@@ -476,6 +504,7 @@ ORDER BY id_partido ASC
         qDebug() << "El tipo de resultado no coincide con 'Resultado', 'Puntos' o 'Sets'";
     }
 
+    //preparamos la consulta
     if(!query.prepare(querystr))
         qDebug() << "falla el prepare";
 
@@ -489,7 +518,7 @@ ORDER BY id_partido ASC
             query.addBindValue(partidos[i]->getId());
             query.addBindValue(partidos[i]->getId());
 
-            // consulta
+            //ejecutamos la consulta
             if(!query.exec()){
                 qDebug() << "La consulta ha fallado";
                 qDebug() << "La consulta que dio error fue: " << querystr;
@@ -548,7 +577,7 @@ ORDER BY id_partido ASC
             query.addBindValue(partidos[i]->getId());
             query.addBindValue(partidos[i]->getId());
 
-            // consulta
+            //ejecutamos la consulta
             if(!query.exec()){
                 qDebug() << "La consulta ha fallado";
                 qDebug() << "La consulta que dio error fue: " << querystr;
@@ -559,6 +588,8 @@ ORDER BY id_partido ASC
 
 
             QVector<Resultado *> resultadosModificados;
+
+            //por cada fila en la tabla de resultado
             while(query.next()){
                 /*
                  * 0 id_resultado
@@ -613,7 +644,7 @@ ORDER BY id_partido ASC
             query.addBindValue(partidos[i]->getId());
             query.addBindValue(partidos[i]->getId());
 
-            // consulta
+            //ejecutamos la consulta
             if(!query.exec()){
                 qDebug() << "La consulta ha fallado";
                 qDebug() << "La consulta que dio error fue: " << querystr;
@@ -629,6 +660,7 @@ ORDER BY id_partido ASC
             bool primerResultado = true;
             int resultadoActual = -1000;
 
+            //por cada fila en la tabla resultado
             while(query.next()){
                 /*
                  * 0 id_resultado
@@ -746,7 +778,7 @@ ORDER BY id_partido ASC
     comp->setPartidos(partidos);
 
 ///______________________________________________________________________________________________________________________
-    //CARGA SUCESORES
+    //esta consulta carga las relaciones de SUCESORES (entre partidos)
 
     /*
 SELECT S.partido_anterior, S.partido_siguiente
@@ -757,15 +789,18 @@ WHERE S.partido_anterior = P.id_partido AND
 
     querystr.clear();
 
+    //armamos la consulta
     querystr += "SELECT S.partido_anterior, S.partido_siguiente FROM Sucesor S, Partido P";
     querystr += " WHERE S.partido_anterior = P.id_partido AND P.id_competencia = ?";
 
+    //preparamos la consulta
     if(!query.prepare(querystr))
         qDebug() << "falla el prepare";
 
+    //ligamos a la consulta el id de la competencia
     query.addBindValue(comp->getId());
 
-    // consulta
+    //ejecutamos la consulta
     if(!query.exec()){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
@@ -780,6 +815,7 @@ WHERE S.partido_anterior = P.id_partido AND
     Partido *partido_anterior;
     QVector<Partido *>::iterator index;
 
+    //por cada fila de la tabla resultado, creamos una asociación entre partidos que se suceden
     while(query.next())
     {
         int partido_anterior_id = query.value(0).toInt();
@@ -797,50 +833,24 @@ WHERE S.partido_anterior = P.id_partido AND
         partido_anterior->addSucesor(*index);
     }
 
-    // Agrego que se setee la fecha actual
-
+    //le indico que setee su fecha actual
     comp->getFechaActual();
+
     return comp;
 }
 
 
 
 
-
-//temporal
-bool GestorBaseDatos::save(QVector<Participante *> participantes, int id_externo){
-    Atributo id_externoA("id_competencia",QString::number(id_externo));
+bool GestorBaseDatos::saveParticipantes(QVector<Participante *> participantes, int id_comp)
+{
+    Atributo id_externoA("id_competencia",QString::number(id_comp));
     return this->save(participantes, &id_externoA);
 }
 
 
 
-/**
- * @param obj
- * @param filtros
- * @brief Ejecuta una consulta en la base de datos con filtros como parametros en select
- */
-template <class T4>
-QVector<T4> GestorBaseDatos::query(T4 obj, QVector<QString> filtros) {
-    return NULL;
-}
 
-void GestorBaseDatos::beginTransaction() {
-
-}
-
-void GestorBaseDatos::commit() {
-
-}
-
-
-/**
- * @brief utiliza el nombre de una tabla y conjuntos columna-valor (atributos)
- * para armar un insert SQL y ejecutarlo en la BD.
- * @param tabla
- * @param atributos
- * @return id del objeto que se acaba de guardar, asignado por la BD
- */
 int GestorBaseDatos::armarQuerySave(QString tabla, const QVector<Atributo> &atributos){
 
     QString querystr;
@@ -878,6 +888,8 @@ int GestorBaseDatos::armarQuerySave(QString tabla, const QVector<Atributo> &atri
 }
 
 
+
+
 QString GestorBaseDatos::generarQueryResultado() const{
     /**
     SELECT R.id_resultado, TRA.id_res, TRA.nombre, TRB.id_res, TRB.nombre, R.partido_actual
@@ -886,7 +898,6 @@ QString GestorBaseDatos::generarQueryResultado() const{
             R.partido_modificado = id_partido) AND
             TRA.id_res = R.resultadoA AND
             TRB.id_res = R.resultadoB
-
 */
 
     QString querystr;
@@ -900,6 +911,8 @@ QString GestorBaseDatos::generarQueryResultado() const{
 }
 
 
+
+
 QString GestorBaseDatos::generarQueryPuntos() const{
     /**
     SELECT R.id_resultado, TRA.id_res, TRA.nombre, TRB.id_res, TRB.nombre, R.partido_actual, P.puntosA, P.puntosB
@@ -909,9 +922,8 @@ QString GestorBaseDatos::generarQueryPuntos() const{
             R.id_resultado = P.id_resultado AND
             TRA.id_res = R.resultadoA AND
             TRB.id_res = R.resultadoB
-
 */
-
+    //armamos la consulta
     QString querystr;
     querystr += "SELECT R.id_resultado, RA.id_res, RA.nombre, RB.id_res, RB.nombre, R.partido_actual, P.puntosA, P.puntosB";
     querystr += " FROM Resultado R, Puntos P, res RA, res RB ";
@@ -935,6 +947,7 @@ QString GestorBaseDatos::generarQuerySets() const{
             TRB.id_res = R.resultadoB
     ORDER BY R.id_resultado, S.nro_set ASC*/
 
+    //armamos la consulta
     QString querystr;
     querystr += "SELECT R.id_resultado, RA.id_res, RA.nombre, RB.id_res, RB.nombre, R.partido_actual, S.nro_set, S.puntosA, S.puntosB";
     querystr += " FROM Resultado R, Sets S, res RA, res RB ";
@@ -947,57 +960,36 @@ QString GestorBaseDatos::generarQuerySets() const{
     return querystr;
 }
 
-int GestorBaseDatos::lastCompId()
-{
-    QString str = "select seq from sqlite_sequence where name = 'Competencia'";
-    QSqlQuery query;
-    query.exec(str);
-    while(query.next()){
-        qDebug()<<"id competencia";
-        qDebug()<<query.value(0).toInt();
-        return query.value(0).toInt();
-    }
-}
-
-int GestorBaseDatos::lastModId()
-{
-    QString str = "select seq from sqlite_sequence where name = 'Modalidad'";
-    QSqlQuery query;
-    query.exec(str);
-    while(query.next()){
-        return query.value(0).toInt();
-    }
-}
-
 
 Usuario *GestorBaseDatos::cargarUsuario(QString correo)
 {
-    /*SELECT U.id_usuario, U.nro_doc, D.id_tipo_doc, D.nombre, U.password, U.nombre,
-    U.apellido, L.id_localidad, L.nombre, PR.id_provincia, PR.nombre,
-    PA.id_pais, PA.nombre
-FROM Usuario U, Tipo_doc D, Localidad L, Provincia PR, Pais PA
+    /*
+SELECT U.id_usuario, U.nro_doc, D.id_tipo_doc, D.nombre, U.password, U.nombre,
+    U.apellido, L.id_localidad, L.nombre
+FROM Usuario U, Tipo_doc D, Localidad L
 WHERE U.email = correo AND
     U.id_tipo_doc = D.id_tipo_doc AND
-    U.id_localidad = U.id_localidad AND
-    L.id_provincia = PR.id_provincia AND
-    PR.id_pais = PA.id_pais*/
+    U.id_localidad = U.id_localidad
+    */
 
+    //armamos la consulta
     QString querystr;
     querystr += "SELECT U.id_usuario, U.nro_doc, D.id_tipo_doc, D.nombre, U.password, U.nombre, U.apellido";
-    querystr += ", L.id_localidad, L.nombre, PR.id_provincia, PR.nombre, PA.id_pais, PA.nombre";
-    querystr += " FROM Usuario U, Tipo_doc D, Localidad L, Provincia PR, Pais PA";
+    querystr += ", L.id_localidad, L.nombre";
+    querystr += " FROM Usuario U, Tipo_doc D, Localidad L";
     querystr += " WHERE U.email = ?";
     querystr += " AND U.id_tipo_doc = D.id_tipo_doc";
     querystr += " AND U.id_localidad = U.id_localidad";
-    querystr += " AND L.id_provincia = PR.id_provincia";
-    querystr += " AND PR.id_pais = PA.id_pais";
 
     QSqlQuery query;
 
+    //preparamos la consulta
     query.prepare(querystr);
+
+    //ligamos a la consulta la dirección de correo del usuario
     query.addBindValue(correo);
 
-    // consulta
+    //ejecutamos la consulta
     if(!query.exec()){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
@@ -1008,6 +1000,7 @@ WHERE U.email = correo AND
 
     Usuario *user;
 
+    //si hay un usuario con ese correo
     if(query.next())
     {
         user = new Usuario();
@@ -1032,39 +1025,34 @@ WHERE U.email = correo AND
 
         user->setLocalidad(loc);
 
-        Provincia *prov = new Provincia();
-        prov->setId(query.value(9).toInt());
-        prov->setNombre(query.value(10).toString());
-
-//        user->setProvincia(prov);
-
-        Pais *pais = new Pais();
-        pais->setId(query.value(11).toInt());
-        pais->setNombre(query.value(12).toString());
-
-//        user->setPais(pais);
     }
+    //si no hay un usuario con ese correo
     else
     {
-        qDebug() << "Error: no hay usuario con correo: " << correo;
-
         return NULL;
     }
 
-    /*SELECT L.id_lugar, L.nombre, L.descripcion
+
+    /*Consulta para cargar los LUGARES de este usuario:
+     *
+SELECT L.id_lugar, L.nombre, L.descripcion
 FROM Lugar L
 WHERE L.id_usuario = userId AND
     L.borrado = 0*/
 
     querystr.clear();
 
+    //armamos la consulta
     querystr += "SELECT L.id_lugar, L.nombre, L.descripcion";
     querystr += " FROM Lugar L WHERE L.id_usuario = ? AND L.borrado = 0";
 
+    //preparamos la consulta
     query.prepare(querystr);
+
+    //ligamos a la consulta el id del usuario
     query.addBindValue(user->getId());
 
-    // consulta
+    //ejecutamos la consulta
     if(!query.exec()){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
@@ -1074,6 +1062,8 @@ WHERE L.id_usuario = userId AND
     }
 
     QVector<Lugar *> lugares;
+
+    //por cada fila de la tabla resultado
     while(query.next())
     {
         Lugar *lugar = new Lugar();
@@ -1088,13 +1078,20 @@ WHERE L.id_usuario = userId AND
     return user;
 }
 
+
+
+
 bool GestorBaseDatos::saveUsuario(Usuario *usuario)
 {
+    //armamos la consulta
     QString queryStr = "INSERT OR REPLACE INTO Usuario(id_usuario,email,nro_doc,id_tipo_doc,password,nombre,apellido,id_localidad) ";
     queryStr += " VALUES (?,?,?,?,?,?,?,?)";
 
     QSqlQuery query;
+    //preparamos la consulta
     query.prepare(queryStr);
+
+    //ligamos todos los valores a la consulta
     query.addBindValue(usuario->getId());
     query.addBindValue(usuario->getEmail());
     query.addBindValue(usuario->getNro_doc());
@@ -1104,6 +1101,7 @@ bool GestorBaseDatos::saveUsuario(Usuario *usuario)
     query.addBindValue(usuario->getApellido());
     query.addBindValue(usuario->getLocalidad()->getId());
 
+    //ejecutamos la consulta
     if(!query.exec()){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << queryStr;
@@ -1113,19 +1111,7 @@ bool GestorBaseDatos::saveUsuario(Usuario *usuario)
     return true;
 }
 
-GestorBaseDatos::GestorBaseDatos(QString dbs)
-{
-    db = QSqlDatabase::addDatabase("QSQLITE");
-        db.setDatabaseName("pegaso.db");
 
-
-        if(db.open()){
-            qDebug()<<"Se ha conectado la Base de Datos";
-        }
-        else{
-            qDebug()<<"Error al conectar la Base de Datos";
-        }
-}
 
 QVector<Deporte *> GestorBaseDatos::getDeportes()
 {
@@ -1133,10 +1119,12 @@ QVector<Deporte *> GestorBaseDatos::getDeportes()
 FROM Deporte D*/
 
     QString querystr;
+    //armamos la consulta
     querystr += "SELECT D.id_deporte, D.nombre FROM Deporte D";
 
     QSqlQuery query;
 
+    //ejecutamos la consulta
     if(!query.exec(querystr)){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
@@ -1147,6 +1135,7 @@ FROM Deporte D*/
 
     QVector<Deporte *> deportes;
 
+    //por cada fila de la tabla resultado
     while(query.next())
     {
         Deporte *dep = new Deporte();
@@ -1165,10 +1154,12 @@ QVector<Pais *> GestorBaseDatos::getPaises()
 FROM Pais P*/
 
     QString querystr;
+    //armamos la consulta
     querystr += "SELECT P.id_pais, P.nombre FROM Pais P";
 
     QSqlQuery query;
 
+    //ejecutamos la consulta
     if(!query.exec(querystr)){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
@@ -1179,6 +1170,7 @@ FROM Pais P*/
 
     QVector<Pais *> paises;
 
+    //por cada fila de la tabla resultado
     while(query.next())
     {
         Pais *pais = new Pais;
@@ -1198,14 +1190,19 @@ FROM Provincia PR
 WHERE PR.id_pais = paisId*/
 
     QString querystr;
+    //armamos la consulta
     querystr += "SELECT PR.id_provincia, PR.nombre FROM Provincia PR WHERE PR.id_pais = ?";
 
     QSqlQuery query;
+    //preparamos la consulta
     query.prepare(querystr);
+
+    //ligamos a la consulta el id del pais
     query.addBindValue(pais->getId());
 
     qDebug()<<"id pais "<<pais->getId();
 
+    //ejecutamos la consulta
     if(!query.exec()){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
@@ -1216,6 +1213,7 @@ WHERE PR.id_pais = paisId*/
 
     QVector<Provincia *> provincias;
 
+    //por cada fila de la tabla resultado
     while(query.next())
     {
         Provincia *prov = new Provincia();
@@ -1236,12 +1234,17 @@ FROM Localidad L
 WHERE L.id_provincia = provinciaId*/
 
     QString querystr;
+    //armamos la consulta
     querystr += "SELECT L.id_localidad, L.nombre FROM Localidad L WHERE L.id_provincia = ?";
 
     QSqlQuery query;
+    //preparamos la consulta
     query.prepare(querystr);
+
+    //ligamos a la consulta el id de la provincia
     query.addBindValue(provincia->getId());
 
+    //ejecutamos la consulta
     if(!query.exec()){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
@@ -1252,6 +1255,7 @@ WHERE L.id_provincia = provinciaId*/
 
     QVector<Localidad *> localidades;
 
+    //por cada fila de la tabla resultado
     while(query.next())
     {
         Localidad *loc = new Localidad();
@@ -1271,10 +1275,12 @@ QVector<Estado *> GestorBaseDatos::getEstados()
 FROM Estado E*/
 
     QString querystr;
+    //armamos la consulta
     querystr += "SELECT E.id_estado, E.nombre FROM Estado E";
 
     QSqlQuery query;
 
+    //ejecutamos la consulta
     if(!query.exec(querystr)){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
@@ -1285,6 +1291,7 @@ FROM Estado E*/
 
     QVector<Estado *> estados;
 
+    //por cada fila de la tabla resultado
     while(query.next())
     {
         Estado *est = new Estado;
@@ -1304,10 +1311,12 @@ QVector<TipoModalidad *> GestorBaseDatos::getTipoModalidades()
 FROM Tipo_modalidad TM*/
 
     QString querystr;
+    //armamos la consulta
     querystr += "SELECT TM.id_tipo_modalidad, TM.nombre FROM Tipo_modalidad TM";
 
     QSqlQuery query;
 
+    //ejecutamos la consulta
     if(!query.exec(querystr)){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
@@ -1318,6 +1327,7 @@ FROM Tipo_modalidad TM*/
 
     QVector<TipoModalidad *> tmodalidades;
 
+    //por cada fila de la tabla resultado
     while(query.next())
     {
         TipoModalidad *tmod = new TipoModalidad();
@@ -1339,16 +1349,19 @@ WHERE L.id_usuario = userId AND
     L.borrado = 0*/
 
     QString querystr;
+    //armamos la consulta
     querystr += "SELECT L.id_lugar, L.nombre, L.descripcion FROM Lugar L WHERE L.id_usuario = ?";
     querystr += " AND L.borrado = 0";
 
     QSqlQuery query;
-
+    //preparamos la consulta
     if(!query.prepare(querystr))
         qDebug() << "falla el prepare";
 
+    //ligamos a la consulta el id del usuario
     query.addBindValue(user->getId());
 
+    //ejecutamos la consulta
     if(!query.exec()){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
@@ -1359,6 +1372,7 @@ WHERE L.id_usuario = userId AND
 
     QVector<Lugar *> lugares;
 
+    //por cada fila de la tabla resultado
     while(query.next())
     {
         Lugar *lugar = new Lugar();
@@ -1379,10 +1393,12 @@ QVector<TipoResultado *> GestorBaseDatos::getTiposResultado()
 FROM Tipo_resultado TR*/
 
     QString querystr;
+    //armamos la consulta
     querystr += "SELECT TR.id_tipo_resultado, TR.nombre FROM Tipo_resultado TR";
 
     QSqlQuery query;
 
+    //ejecutamos la consulta
     if(!query.exec(querystr)){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;
@@ -1393,6 +1409,7 @@ FROM Tipo_resultado TR*/
 
     QVector<TipoResultado *> tiposRes;
 
+    //por cada fila de la tabla resultado
     while(query.next())
     {
         TipoResultado *tipo = new TipoResultado();
@@ -1415,15 +1432,18 @@ bool GestorBaseDatos::eliminarPartidos(Competencia *comp){
     int compId = comp->getId();
 
     QString querystr;
+    //armamos la consulta
     querystr += "DELETE FROM Partido WHERE id_competencia = ?";
 
     QSqlQuery query;
-
+    //preparamos la consulta
     if(!query.prepare(querystr))
         qDebug() << "falla el prepare";
 
+    //ligamos a la consulta el id de la competencia
     query.addBindValue(compId);
 
+    //ejecutamos la consulta
     if(!query.exec()){
         qDebug() << "La consulta ha fallado";
         qDebug() << "La consulta que dio error fue: " << querystr;

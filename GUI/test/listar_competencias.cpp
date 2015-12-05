@@ -103,6 +103,10 @@ void listar_competencias::on_pushButton_4_clicked()
 
 void listar_competencias::on_pushButton_clicked()
 {
+    //borramos las competencias cargadas en una búsqueda anterior
+    for (int i = 0; i < comps.size(); ++i) {
+        delete comps[i];
+    }
 
     QString nombre = ui->lineEdit->text().toUpper();
     QString deporte = ui->comboBox->currentText();
@@ -115,7 +119,7 @@ void listar_competencias::on_pushButton_clicked()
     data.append(estado);
     data.append(tipoModalidad);
 
-   comps = gui->handleFiltrarCompetencias(data);
+    comps = gui->handleFiltrarCompetencias(data);
 
     mostrarCompetencias();
     ui->tableWidget->resizeColumnsToContents();

@@ -27,47 +27,53 @@ using namespace std;
 class Participante;
 
 /**
- * @brief GestorBaseDatos :
+ * @brief GestorBaseDatos : Clase responsable de comunicarse directamente con
+ * la base de batos, para levantar objetos, persistirlos o eliminarlos de la
+ * base de datos.
  */
 class GestorBaseDatos {
 
-private:
-
-    QSqlDatabase db;
-
-    int armarQuerySave(QString tabla, const QVector<Atributo> &atributos);
-
-    QString generarQueryResultado() const;
-
-    QString generarQueryPuntos() const;
-
-    QString generarQuerySets() const;
-
-
-
 public: 
 
-    int lastCompId();
-
-    int lastModId();
-
-    GestorBaseDatos(QString dbs);
-
-    QVector<Competencia *> getCompetenciasLazy(const DtoGetCompetencia *dto) const;
-
-    Competencia *getCompetenciaFull(int id_comp) const;
-    
-    //temporal hasta redefinir el save con template
-    bool save(QVector<Participante *> participantes, int id_externo);
+    GestorBaseDatos();
 
     /**
-     * @brief guarda una lista de objetos
+     * @brief carga varias competencias inicializandolas parcialmente
+     * @param dto dto con los filtros para buscar competencias
+     * @return una lista de punteros a competencias. Si ocurre un error,
+     * retorna una lista vacía.
+     *
+     * Solo se carga el id y nombre de la competencia, su estado, el NOMBRE
+     * de su modalidad y el ID de su deporte.
+     */
+    QVector<Competencia *> getCompetenciasLazy(const DtoGetCompetencia *dto) const;
+
+    /**
+     * @brief getCompetenciaFull levanta de la base de datos una Competencia completa
+     * con todos los objetos que la componen
+     * @param id_comp es el id de la competencia
+     * @return un puntero a la competencia, o NULL si ocurrió un error.
+     */
+    Competencia *getCompetenciaFull(int id_comp) const;
+    
+    /**
+     * @brief saveParticipantes guarda en la base de datos los participantes que
+     * que se le pasan como argumentos
+     * @param participantes son los participantes a guardar
+     * @param id_comp es el id de la competencia a la cual corresponden los paarticipantes
+     * @return true, si se guardaron con éxito, o false, si falló
+     */
+    bool saveParticipantes(QVector<Participante *> participantes, int id_comp);
+
+    /**
+     * @brief guarda una lista de objetos en la base de datos
      * @param objptrs punteros a objetos
      * @param tabla nombre de la tabla de la BD donde guardar los objetos
      * @param id_externo es un puntero a un atributo correspondiente a una fk.
      * Su valor es NULL si no se la llama con tal argumento.
-     * @return true si tuvo exito, false si fallo
-     */    template <class T1>
+     * @return true si tuvo exito, false si falló.
+     */
+    template <class T1>
     bool save(QVector<T1 *> objptrs, Atributo *id_externo = NULL){
 
         QString tabla;
@@ -95,10 +101,10 @@ public:
     }
 
     /**
+     * @brief Guarda una relacion n a n entre dos objetos
      * @param obj1
      * @param obj2
-     * @brief Guarda una relacion n a n entre dos objetos
-     * obj1 debe conocer la tabla de la relacion
+     * obj1 debe conocer la tabla de la relacion entre esos dos objetos
      */
     template <class T2,class T3>
     bool saveRelacion(T2 *obj1, T3 *obj2){
@@ -140,7 +146,7 @@ public:
     }
 
     /**
-     * @brief persiste un objeto Competencia
+     * @brief persiste un objeto Competencia y todas sus partes
      * @param comp la competencia a persistir
      * @param usuarioId id del usuario al que pertenece la competencia
      * @return true si tuvo exito, false si fallo
@@ -198,7 +204,13 @@ public:
     }
 
 
-
+    /**
+     * @brief saveResultado guarda un objeto de la clase Resultado en la base de datos
+     * @param resultado es el resultado a guardar
+     * @param partidoId objeto de clase Atributo que contiene el id del partido al
+     * cual corresponde el resultado
+     * @return true, si se guardó con éxito, o false, si falló en guardarse
+     */
     bool saveResultado(Resultado *resultado, Atributo partidoId){
         bool status = true;
         if(resultado == NULL){
@@ -228,39 +240,79 @@ public:
         }
 
         return status;
-
 }
 
-    template <class T4>
-    QVector<T4> query(T4 obj, QVector<QString> filtros);
 
-    template <class T5>
-    static bool LessThan(T5 *obj1, T5 *obj2){
-        return obj1->getId() < obj2->getId();
-    }
-    
-    void virtual beginTransaction();
-    
-    void virtual commit();
-
+    /**
+     * @brief cargarUsuario levanta de la base de datos al usuario con la direccion de correo
+     * pasada como parámetro
+     * @param correo es la dirección de correo electrónico con la que se busca al usuario
+     * @return un puntero al objeto Usuario, o NULL si ningún usuario tiene ese correo
+     */
     Usuario* cargarUsuario(QString correo);
 
+    /**
+     * @brief saveUsuario guarda en la base de datos el usuario que se le pasa como parámetro
+     * @param usuario es el usuario a guardar
+     * @return true, si se guardó correctamente; false, si falló en guardarlo
+     */
     bool saveUsuario(Usuario* usuario);
 
+    /**
+     * @brief getDeportes levanta todos los deportes de la base de datos
+     * @return lista de deportes
+     */
     QVector<Deporte*> getDeportes();
 
+    /**
+     * @brief getPaises levanta todos los países de la base de datos
+     * @return lista de países
+     */
     QVector<Pais*> getPaises();
 
+    /**
+     * @brief getProvincias levanta de la base de datos todas las provincias del país
+     * que se le pasa como parámetro
+     * @param pais es el país cuyas provincias se van a cargar
+     * @return lista de provincias
+     */
     QVector<Provincia*> getProvincias(Pais* pais);
 
+    /**
+     * @brief getLocalidades levanta de la base de datos todas las localidades de la
+     * provincia que se le pasa como parámetro
+     * @param provincia es la provincia cuyas localidades se van a cargar
+     * @return lista de localidades
+     */
     QVector<Localidad*> getLocalidades(Provincia* provincia);
 
+    /**
+     * @brief getEstados levanta de la base de datos todos los estados en que puede
+     * encontrarse una Competencia
+     * @return lista de estados
+     */
     QVector<Estado*> getEstados();
 
+    /**
+     * @brief getTipoModalidades levanta de la base de datos todos los tipos de modalidades
+     * posibles (Eliminación Simple, Eliminaciñon Doble, Liga)
+     * @return lista de tipos de modalidad
+     */
     QVector<TipoModalidad*> getTipoModalidades();
 
+    /**
+     * @brief getLugares levanta de la base de datos todos los lugares cargados por el
+     * usuario que se le pasa como parámetro
+     * @param user es el usuario cuyos lugares se van a cargar
+     * @return lista de lugares
+     */
     QVector<Lugar *> getLugares(Usuario *user);
 
+    /**
+     * @brief getTiposResultado levanta de la base de datos todos los tipos de resultado
+     * (Por Puntos, Por Sets, Partido Final)
+     * @return lista de tipos de resultado
+     */
     QVector<TipoResultado *> getTiposResultado();
 
     /**
@@ -270,7 +322,52 @@ public:
      */
     bool eliminarPartidos(Competencia *comp);
 
-    };
+private:
+
+    QSqlDatabase db;
+
+    /**
+     * @brief armarQuerySave toma como parámentros datos sobre un objeto y la información
+     * sobre cómo guardarlos en la base de datos. Usa estos elementos para persistir un objeto
+     * individual en la base de datos
+     * @param tabla es el nombre de la tabla donde se almacenan los datos del objeto
+     * @param atributos son pares columna-valor que indican la columna de la tabla y el valor
+     * que debe guardarse en ella.
+     * @return el id que este objeto tiene en la base de datos, o -1 si hubo un error.
+     */
+    int armarQuerySave(QString tabla, const QVector<Atributo> &atributos);
+
+    /**
+     * @brief generarQueryResultado crea y retorna un string con la consulta para levantar
+     * de la base de datos un objeto de tipo Resultado
+     */
+    QString generarQueryResultado() const;
+
+    /**
+     * @brief generarQueryPuntos crea y retorna un string con la consulta para levantar
+     * de la base de datos un objeto de tipo Puntos
+     */
+    QString generarQueryPuntos() const;
+
+    /**
+     * @brief generarQuerySets crea y retorna un string con la consulta para levantar
+     * de la base de datos un objeto de tipo Sets
+     */
+    QString generarQuerySets() const;
+
+    /**
+     * @brief LessThan compara el valor de los id de dos objetos de la misma clase
+     * @param obj1
+     * @param obj2
+     * @return true, si el id del objeto obj1 tiene un valor menor que el id del objeto obj2;
+     * false, en caso contrario.
+     */
+    template <class T4>
+    static bool LessThan(T4 *obj1, T4 *obj2)
+    {
+        return obj1->getId() < obj2->getId();
+    }
+};
 
 
 #endif //_GESTORBASEDATOS_H
