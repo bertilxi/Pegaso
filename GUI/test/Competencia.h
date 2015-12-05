@@ -77,6 +77,7 @@ public:
 
     Competencia();
 
+    ~Competencia();
 
 private:
 

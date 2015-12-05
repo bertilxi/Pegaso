@@ -131,6 +131,12 @@ Participante::Participante()
     id = -1;
 }
 
-
+Participante::~Participante()
+{
+    for(int i = 0; i < historial.size(); i++){
+        delete historial[i];
+    }
+    delete puntaje;
+}
 
 

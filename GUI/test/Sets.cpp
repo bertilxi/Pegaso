@@ -51,3 +51,10 @@ bool Sets::operator==(const Sets &other) const
 QString Sets::getTable() const{
     return "Por Sets";
 }
+
+Sets::~Sets()
+{
+    for(int i = 0; i < sets.size(); i++){
+        delete sets[i];
+    }
+}

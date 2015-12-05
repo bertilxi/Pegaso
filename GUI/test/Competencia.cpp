@@ -267,3 +267,19 @@ Competencia::Competencia()
     fechaActual = -1;
     id = -1;
 }
+
+Competencia::~Competencia()
+{
+    delete estado;
+    for(int i = 0; i < disponibilidades.size(); i++){
+        delete disponibilidades[i];
+    }
+    for(int i = 0; i < participantes.size(); i++){
+        delete participantes[i];
+    }
+    delete modalidad;
+    for(int i = 0; i < partidos.size(); i++){
+        delete partidos[i];
+    }
+    delete deporte;
+}

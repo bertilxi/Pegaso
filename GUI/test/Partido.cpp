@@ -17,6 +17,14 @@ Partido::Partido()
     actual=NULL;
 }
 
+Partido::~Partido()
+{
+    delete actual;
+    for(int i = 0; i < modificado.size(); i++){
+        delete modificado[i];
+    }
+}
+
 int Partido::getId() const
 {
     return id;

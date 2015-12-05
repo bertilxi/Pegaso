@@ -26,6 +26,9 @@ using namespace std;
 
 class Participante;
 
+/**
+ * @brief GestorBaseDatos :
+ */
 class GestorBaseDatos {
 
 private:

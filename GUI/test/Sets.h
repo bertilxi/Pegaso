@@ -23,6 +23,8 @@ public:
 
     QString getTable() const;
 
+    ~Sets();
+
 private:
 
     QVector<Set *> sets;

@@ -42,6 +42,8 @@ public:
 
     Res *getResultadoB() const;
 
+    virtual ~Resultado();
+
 protected:
 
     int id;

@@ -22,69 +22,63 @@
 QVector<Competencia *> GestorBaseDatos::getCompetenciasLazy(const DtoGetCompetencia *dto) const{
 
     /*
-SELECT C.id_competencia, C.nombre, D.id_deporte, TM.nombre, C.estado
-FROM Competencia C, Deporte D, Modalidad M, Tipo_modalidad TM
-WHERE C.id_usuario = id_usuarioP
-    C.id_modalidad = id_modalidadP AND C.id_modalidad = M.id_modalidad AND
+SELECT C.id_competencia, C.nombre, D.id_deporte, D.id_deporte, TM.nombre, TM.id_tipo_modalidad,
+    E.nombre, E.id_estado
+FROM Competencia C, Deporte D, Modalidad M, Tipo_modalidad TM, Estado E, Usuario U
+WHERE C.id_deporte = D.id_deporte AND
+    C.id_modalidad = M.id_modalidad AND
     M.id_tipo_modalidad = TM.id_tipo_modalidad AND
-    C.id_deporte = id_deporteP AND C.id_deporte = D.id_deporte AND
-    C.estado = estadoP AND
-    C.borrado = 0 AND
-    C.nombre LIKE '%nombreP%'
+    C.id_estado = E.id_estado AND
+    C.id_usuario = U.id_usuario AND
+
+    U.email = emailP AND
+    M.id_tipo_modalidad = id_tipo_modalidadP AND
+    D.id_deporte = id_deporteP AND
+    E.id_estado = id_estadoP AND
+    C.nombre LIKE '%nombreP%' AND
+    C.borrado = 0
         */
 
     QString querystr;
 
     querystr += "SELECT C.id_competencia, C.nombre, D.nombre, D.id_deporte, TM.nombre, TM.id_tipo_modalidad, E.nombre, E.id_estado ";
     querystr += "FROM Competencia C, Deporte D, Modalidad M, Tipo_modalidad TM, Estado E, Usuario U WHERE ";
+    querystr += " C.id_usuario = U.id_usuario";
+    querystr += " AND C.id_modalidad = M.id_modalidad";
+    querystr += " AND M.id_tipo_modalidad = TM.id_tipo_modalidad";
+    querystr += " AND C.id_deporte = D.id_deporte";
+    querystr += " AND C.id_estado = E.id_estado";
 
-    bool primeraCondicion = true;
     if(dto->usuario != NULL)
     {
-        querystr += "U.email = '" + dto->usuario->getEmail() + "' ";
-        primeraCondicion = false;
+        querystr += " AND U.email = '" + dto->usuario->getEmail() + "' ";
     }
 
     if(dto->tipoModalidad != NULL)
     {
-        if(!primeraCondicion) {querystr += " AND ";}
-        querystr += "M.id_tipo_modalidad = " + QString::number(dto->tipoModalidad->getId());
-        primeraCondicion = false;
+        querystr += " AND M.id_tipo_modalidad = " + QString::number(dto->tipoModalidad->getId());
     }
 
     if(dto->deporte != NULL)
     {
-        if(!primeraCondicion) {querystr += " AND ";}
-        querystr += "D.id_deporte = " + QString::number(dto->deporte->getId());
-        primeraCondicion = false;
+        querystr += " AND D.id_deporte = " + QString::number(dto->deporte->getId());
     }
 
     if(dto->estado != NULL)
     {
-        if(!primeraCondicion) {querystr += " AND ";}
-        querystr += "E.id_estado = " + QString::number(dto->estado->getId());
-        primeraCondicion = false;
+        querystr += " AND E.id_estado = " + QString::number(dto->estado->getId());
     }
 
     if(!dto->nombreCompetencia.isEmpty())
     {
-        if(!primeraCondicion) {querystr += " AND ";}
-        querystr += "C.nombre LIKE '%"+ dto->nombreCompetencia + "%'";
-        primeraCondicion = false;
+        querystr += " AND C.nombre LIKE '%"+ dto->nombreCompetencia + "%'";
     }
 
-    if(!primeraCondicion){
-        querystr += " AND";
-    }
-    querystr += " C.id_modalidad = M.id_modalidad";
-    querystr += " AND M.id_tipo_modalidad = TM.id_tipo_modalidad";
-    querystr += " AND C.id_deporte = D.id_deporte";
-    querystr += " AND E.id_estado = C.id_estado";
+    querystr += " AND C.borrado = 0";
 
     QSqlQuery query;
 
     query.prepare(querystr);
-//    query.addBindValue(dto->nombreCompetencia);
 
     if(!query.exec()){
         qDebug() << "La consulta ha fallado";
@@ -92,12 +86,12 @@ WHERE C.id_usuario = id_usuarioP
     }
 
     QVector<Competencia *> competencias;
-int debug =0;
+    int debug =0;
     while (query.next()) {
 
         Competencia *comp = new (std::nothrow) Competencia;
         if(comp == NULL){
-            qDebug() << "No se pudo alocar memoria para Competencia";
+            qDebug() << "No se pudo asignar memoria para Competencia";
             return QVector<Competencia *>();
         }
         comp->setId(query.value(0).toInt());

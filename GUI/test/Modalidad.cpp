@@ -88,6 +88,12 @@ Modalidad::Modalidad()
     puntos_empate = -1;
 }
 
+Modalidad::~Modalidad()
+{
+    delete tipoMod;
+    delete tipoRes;
+}
+
 int Modalidad::getPuntos_no_presentarse() const
 {
     return puntos_no_presentarse;

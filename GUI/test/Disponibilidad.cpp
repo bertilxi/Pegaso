@@ -61,4 +61,8 @@ QVector<Atributo> Disponibilidad::getAtributos() const{
     return result;
 }
 
+Disponibilidad::~Disponibilidad()
+{
+    delete lugar;
+}
 

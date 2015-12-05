@@ -29,6 +29,8 @@ public:
 
     QVector<Atributo> getAtributos() const;
 
+    ~Disponibilidad();
+
 private:
 
     Lugar *lugar;

@@ -59,6 +59,8 @@ public:
 
     Modalidad();
 
+    ~Modalidad();
+
     int getPuntos_no_presentarse() const;
     void setPuntos_no_presentarse(int value);
 

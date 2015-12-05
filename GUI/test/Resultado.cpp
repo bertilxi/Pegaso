@@ -77,4 +77,8 @@ Res *Resultado::getResultadoB() const
     return resultadoB;
 }
 
-
+Resultado::~Resultado()
+{
+    delete resultadoA;
+    delete resultadoB;
+}
