@@ -46,6 +46,7 @@ WHERE C.id_deporte = D.id_deporte AND
     E.id_estado = id_estadoP AND
     C.nombre LIKE '%nombreP%' AND
     C.borrado = 0
+ORDER BY C.nombre ASC
         */
 
     //armamos la consulta
@@ -86,6 +87,7 @@ WHERE C.id_deporte = D.id_deporte AND
     }
 
     querystr += " AND C.borrado = 0";
+    querystr += " ORDER BY C.nombre ASC";
 
 
     QSqlQuery query;
