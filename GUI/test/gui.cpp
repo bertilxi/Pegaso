@@ -148,6 +148,12 @@ void GUI::handlePantallaUsuario(QDialog *a, QString b)
         a->close();
         l->show();
     }
+    else if(b == "cerrar")
+    {
+           MainWindow * m = new MainWindow(this);
+           m->show();
+           a->close();
+    }
 }
 
 void GUI::handleListarCompetencias(QDialog *a, QString b, Competencia *comp)
@@ -170,6 +176,12 @@ void GUI::handleListarCompetencias(QDialog *a, QString b, Competencia *comp)
         ver_competencia * v = new ver_competencia(this,c,a);
         v->setModal(true);
         v->show();
+    }
+    else if(b == "cerrar")
+    {
+            pantalla_usuario* p = new pantalla_usuario(this);
+            p->show();
+            a->close();
     }
 }
 
