@@ -22,8 +22,17 @@ ver_competencia::ver_competencia(GUI *guiP, Competencia *compP, QWidget *parent)
 
     ui->pushButton_2->hide();
     ui->pushButton_3->hide();
-    ui->pushButton_4->setDisabled(true);
 
+    //Si la competencia no está en estado creada, se permite ver el fixture y se tilda el checkbox
+    if (compP->getEstado()->getNombre().toLower() != "creada"){
+        ui->checkBox->setCheckable(true);
+        ui->checkBox->setChecked(true);
+        ui->checkBox->setDisabled(true);
+        ui->pushButton_4->setEnabled(true);
+    }
+    else {
+        ui->pushButton_4->setDisabled(true);
+    }
 
     // si la competencia no esta planificada o en disputa no se muestra la tabla
     if (!(compP->getEstado()->getNombre().toLower() == "planificada" || compP->getEstado()->getNombre().toLower() == "en disputa")){
@@ -78,7 +87,7 @@ void ver_competencia::on_pushButton_5_clicked()
 
 void ver_competencia::on_pushButton_6_clicked()
 {
-    // si la competencia esta en disputa o finalizada y es de liga se muestra el fixture, sino no
+    // si la competencia está en disputa o finalizada y es de liga se muestra la tabla, si no, no
     if((comp->getEstado()->getNombre().toLower() == "en disputa" ||
         comp->getEstado()->getNombre().toLower() == "finalizada" ) &&
         comp->getModalidad()->getTipoMod()->getNombre().toLower() == "liga")
@@ -86,9 +95,18 @@ void ver_competencia::on_pushButton_6_clicked()
         gui->handleVerCompetencia(this,QString("mostrarTablasPosiciones"),"",comp);
 
     }
+    else if(comp->getModalidad()->getTipoMod()->getNombre().toLower() != "liga"){
+        QMessageBox* msg = new QMessageBox(this);
+        QString error = "No es posible mostrar la tabla de posiciones, la competencia no es de la modalidad de liga";
+        msg->setText(error);
+        QPixmap icono(":/images/Heros-rojo-64.png");
+        msg->setIconPixmap(icono);
+        msg->setModal(true);
+        msg->exec();
+    }
     else{
         QMessageBox* msg = new QMessageBox(this);
-        QString error = "No es posible mostrar la tabla de posiciones";
+        QString error = "No es posible mostrar la tabla de posiciones, la competencia no está en disputa o finalizada";
         msg->setText(error);
         QPixmap icono(":/images/Heros-rojo-64.png");
         msg->setIconPixmap(icono);

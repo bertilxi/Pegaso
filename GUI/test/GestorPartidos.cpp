@@ -221,6 +221,8 @@ void GestorPartidos::generarFixtureLiga(Competencia *comp) {
 }
 
 void GestorPartidos::generarFixtureElimSimple(Competencia *comp) {
+    qDebug()<<"Generar fixture elim simple no funciona aun";
+    return;
     QVector<Participante*> participantes=comp->getParticipantes();
     int n=participantes.size();
     //Si el número de participantes no es potencia de 2 hay que hacer ajustes para saber la cantidad de partido en la primera fecha
@@ -287,5 +289,6 @@ void GestorPartidos::generarFixtureElimSimple(Competencia *comp) {
 
 
 void GestorPartidos::generarFixtureElimDoble(Competencia *comp) {
-
+    qDebug()<<"Generar fixture elim simple no implementado";
+    return;
 }
