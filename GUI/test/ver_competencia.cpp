@@ -91,6 +91,9 @@ void ver_competencia::on_pushButton_5_clicked() //Generar fixture
 
         }
         ui->tableWidget->resizeColumnsToContents();
+
+        //Se cambia el estado de la competencia
+        ui->label_9->setText(comp->getEstado()->getNombre());
     }
     else{
         QMessageBox* msg = new QMessageBox(this);
