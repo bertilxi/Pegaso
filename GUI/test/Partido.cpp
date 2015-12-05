@@ -11,10 +11,13 @@
 
 Partido::Partido()
 {
-    id=-1;
-    ronda ="";
+    id = -1;
+    ronda = "";
     fecha = -1;
-    actual=NULL;
+    actual = NULL;
+    lugar = NULL;
+    equipoA = NULL;
+    equipoB = NULL;
 }
 
 Partido::~Partido()

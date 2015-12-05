@@ -271,6 +271,9 @@ Competencia::Competencia()
 {
     fechaActual = -1;
     id = -1;
+    estado = NULL;
+    modalidad = NULL;
+    deporte = NULL;
 }
 
 Competencia::~Competencia()

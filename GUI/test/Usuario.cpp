@@ -130,6 +130,13 @@ QVector<Atributo> Usuario::getAtributos() const
     return QVector<Atributo>(); //temporal
 }
 
+Usuario::Usuario()
+{
+    id = -1;
+    doc = NULL;
+    localidad = NULL;
+}
+
 
 
 

@@ -67,6 +67,8 @@ public:
 
     QVector<Atributo> getAtributos() const;
 
+    Usuario();
+
 private:
 
     int id;

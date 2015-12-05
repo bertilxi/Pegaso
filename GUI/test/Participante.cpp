@@ -129,6 +129,7 @@ QVector<Atributo> Participante::getAtributos() const{
 Participante::Participante()
 {
     id = -1;
+    puntaje = NULL;
 }
 
 Participante::~Participante()

@@ -86,6 +86,8 @@ Modalidad::Modalidad()
     puntos_ganar = -1;
     empate = false;
     puntos_empate = -1;
+    tipoMod = NULL;
+    tipoRes = NULL;
 }
 
 Modalidad::~Modalidad()
