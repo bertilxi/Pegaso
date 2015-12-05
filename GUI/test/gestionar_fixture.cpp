@@ -225,8 +225,8 @@ void gestionar_fixture::on_pushButton_clicked()
                 r->setResultadoB(res);
                 r->setResultadoA(res2);
             }
+            gui->handleGestionarFixture(this,"",partidoGestionado,r);
         }
-        gui->handleGestionarFixture(this,"",partidoGestionado,r);
     }
     else if(tr == "por sets"){
 
@@ -302,60 +302,113 @@ void gestionar_fixture::on_pushButton_clicked()
             }
         }
         else if(maxset == 3){
-            sumA += setA1 + setA2 + setA3 ;
-            sumB += setB1 + setB2 + setB3 ;
-                if(setA1  == 0 || setB1 == 0 || setA2 == 0 || setB2 == 0 || setA3 == 0 || setB3 == 0 ){
+//            sumA += setA1 + setA2 + setA3 ;
+//            sumB += setB1 + setB2 + setB3 ;
+            if(setA1 > setB1) sumA++;
+            else sumB++;
+            if(setA2 > setB2) sumA++;
+            else sumB++;
+            if(setA3 > setB3) sumA++;
+            else sumB++;
 
-                    errFlag = true;
-                }
-                else if (!empate && (sumA == sumB || setA1 == setB1 || setA2 == setB2 || setA3 == setB3)){
-                    errFlag2 == true;
-                }
+            if(setA1  == 0 || setB1 == 0 || setA2 == 0 || setB2 == 0 || setA3 == 0 || setB3 == 0 ){
+
+                errFlag = true;
+            }
+            else if (!empate && (sumA == sumB || setA1 == setB1 || setA2 == setB2 || setA3 == setB3)){
+                errFlag2 == true;
+            }
         }
         else if(maxset == 5){
-            sumA += setA1 + setA2 + setA3 + setA4 + setA5;
-            sumB += setB1 + setB2 + setB3 + setB4 + setB5;
-                if(setA1 == 0 || setB1 == 0 || setA2 == 0 || setB2 == 0 || setA3 == 0 || setB3 == 0 ||
-                 setA4 == 0 || setB4 == 0 || setA5 == 0 || setB5 == 0 )
-                {
-                    errFlag = true;
-                }
-                else if(!empate && ( sumA == sumB || setA1 == setB1 || setA2 == setB2 || setA3 == setB3 ||
-                         setA4 == setB4 || setA5 == setB5))
-                {
-                    errFlag2 = true;
-                }
+//            sumA += setA1 + setA2 + setA3 + setA4 + setA5;
+//            sumB += setB1 + setB2 + setB3 + setB4 + setB5;
+            if(setA1 > setB1) sumA++;
+            else sumB++;
+            if(setA2 > setB2) sumA++;
+            else sumB++;
+            if(setA3 > setB3) sumA++;
+            else sumB++;
+            if(setA4 > setB4) sumA++;
+            else sumB++;
+            if(setA5 > setB5) sumA++;
+            else sumB++;
+
+            if(setA1 == 0 || setB1 == 0 || setA2 == 0 || setB2 == 0 || setA3 == 0 || setB3 == 0 ||
+             setA4 == 0 || setB4 == 0 || setA5 == 0 || setB5 == 0 )
+            {
+                errFlag = true;
+            }
+            else if(!empate && ( sumA == sumB || setA1 == setB1 || setA2 == setB2 || setA3 == setB3 ||
+                     setA4 == setB4 || setA5 == setB5))
+            {
+                errFlag2 = true;
+            }
         }
         else if(maxset == 7){
-            sumA += setA1 + setA2 + setA3 + setA4 + setA5 + setA6 + setA7;
-            sumB += setB1 + setB2 + setB3 + setB4 + setB5 + setB6 + setB7;
-                if(setA1 == 0 || setB1 == 0 || setA2 == 0 || setB2 == 0 || setA3 == 0 || setB3 == 0 ||
-                 setA4 == 0 || setB4 == 0 || setA5 == 0 || setB5 == 0 || setA6 == 0 || setB6 == 0 ||
-                 setA7 == 0 || setB7 == 0 )
-                {
-                    errFlag = true;
-                }
-                else if(!empate && (sumA == sumB || setA1 == setB1 || setA2 == setB2 || setA3 == setB3 ||
-                         setA4 == setB4 || setA5 == setB5 || setA6 == setB6 || setA7 == setB7))
-                {
-                    errFlag2 = true;
-                }
+//            sumA += setA1 + setA2 + setA3 + setA4 + setA5 + setA6 + setA7;
+//            sumB += setB1 + setB2 + setB3 + setB4 + setB5 + setB6 + setB7;
+            if(setA1 > setB1) sumA++;
+            else sumB++;
+            if(setA2 > setB2) sumA++;
+            else sumB++;
+            if(setA3 > setB3) sumA++;
+            else sumB++;
+            if(setA4 > setB4) sumA++;
+            else sumB++;
+            if(setA5 > setB5) sumA++;
+            else sumB++;
+            if(setA6 > setB6) sumA++;
+            else sumB++;
+            if(setA7 > setB7) sumA++;
+            else sumB++;
+
+            if(setA1 == 0 || setB1 == 0 || setA2 == 0 || setB2 == 0 || setA3 == 0 || setB3 == 0 ||
+             setA4 == 0 || setB4 == 0 || setA5 == 0 || setB5 == 0 || setA6 == 0 || setB6 == 0 ||
+             setA7 == 0 || setB7 == 0 )
+            {
+                errFlag = true;
+            }
+            else if(!empate && (sumA == sumB || setA1 == setB1 || setA2 == setB2 || setA3 == setB3 ||
+                     setA4 == setB4 || setA5 == setB5 || setA6 == setB6 || setA7 == setB7))
+            {
+                errFlag2 = true;
+            }
         }
         else if(maxset == 9){
-            sumA += setA1 + setA2 + setA3 + setA4 + setA5 + setA6 + setA7 + setA8 + setA9;
-            sumB += setB1 + setB2 + setB3 + setB4 + setB5 + setB6 + setB7 + setB8 + setB9;
-                if(setA1 == 0 || setB1 == 0 || setA2 == 0 || setB2 == 0 || setA3 == 0 || setB3 == 0 ||
-                 setA4 == 0 || setB4 == 0 || setA5 == 0 || setB5 == 0 || setA6 == 0 || setB6 == 0 ||
-                 setA7 == 0 || setB7 == 0 || setA8 == 0 || setB8 == 0 || setA9 == 0 || setB9 == 0)
-                {
-                    errFlag = true;
-                }
-                else if(!empate && (sumA == sumB || setA1 == setB1 || setA2 == setB2 || setA3 == setB3 ||
-                         setA4 == setB4 || setA5 == setB5 || setA6 == setB6 || setA7 == setB7 ||
-                         setA8 == setB8 || setA9 == setB9 ))
-                {
-                    errFlag2 = true;
-                }
+//            sumA += setA1 + setA2 + setA3 + setA4 + setA5 + setA6 + setA7 + setA8 + setA9;
+//            sumB += setB1 + setB2 + setB3 + setB4 + setB5 + setB6 + setB7 + setB8 + setB9;
+
+            if(setA1 > setB1) sumA++;
+            else sumB++;
+            if(setA2 > setB2) sumA++;
+            else sumB++;
+            if(setA3 > setB3) sumA++;
+            else sumB++;
+            if(setA4 > setB4) sumA++;
+            else sumB++;
+            if(setA5 > setB5) sumA++;
+            else sumB++;
+            if(setA6 > setB6) sumA++;
+            else sumB++;
+            if(setA7 > setB7) sumA++;
+            else sumB++;
+            if(setA8 > setB8) sumA++;
+            else sumB++;
+            if(setA9 > setB9) sumA++;
+            else sumB++;
+
+            if(setA1 == 0 || setB1 == 0 || setA2 == 0 || setB2 == 0 || setA3 == 0 || setB3 == 0 ||
+             setA4 == 0 || setB4 == 0 || setA5 == 0 || setB5 == 0 || setA6 == 0 || setB6 == 0 ||
+             setA7 == 0 || setB7 == 0 || setA8 == 0 || setB8 == 0 || setA9 == 0 || setB9 == 0)
+            {
+                errFlag = true;
+            }
+            else if(!empate && (sumA == sumB || setA1 == setB1 || setA2 == setB2 || setA3 == setB3 ||
+                     setA4 == setB4 || setA5 == setB5 || setA6 == setB6 || setA7 == setB7 ||
+                     setA8 == setB8 || setA9 == setB9 ))
+            {
+                errFlag2 = true;
+            }
         }
 
         if( errFlag ){
