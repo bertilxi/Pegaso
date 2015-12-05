@@ -25,7 +25,7 @@ void GestorCompetencias::eliminarFixture(Competencia *comp)
 Estado *GestorCompetencias::obtenerEstado(QString estado)
 {
     for (int i = 0; i < estados.size(); ++i) {
-        if(estado==estados[i]->getNombre())
+        if(estado.toLower() == estados[i]->getNombre().toLower())
             return estados[i];
     }
     return NULL;
@@ -223,7 +223,7 @@ void GestorCompetencias::nuevoResultado(Competencia *comp, Partido *part, Result
     comp->setEstado(this->obtenerEstado("Finalizada"));
     QVector<Partido*> partidos=comp->getPartidos();
     for (int i = 0; i < partidos.size(); ++i) {
-        if(partidos[i]->getActual()==NULL){
+        if(partidos[i]->getActual() == NULL){
             comp->setEstado(this->obtenerEstado("En disputa"));
             break;
         }
