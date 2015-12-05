@@ -67,7 +67,7 @@ public:
     
     virtual QVector<Competencia*> getCompetenciasLazy(DtoGetCompetencia*);
 
-    virtual bool generarFixture(Competencia* comp,QString error);
+    virtual bool generarFixture(Competencia* comp, QString &error);
 
     virtual bool puedeModificar(Partido* part, Competencia* comp, QString &error);
 

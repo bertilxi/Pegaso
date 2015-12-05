@@ -19,10 +19,13 @@ void GestorPartidos::generarFixture(Competencia *comp) {
     else{
         if(modalidad == QString("Eliminación Simple").toLower()){
             this->generarFixtureElimSimple(comp);
+            return; //Quitar al implementar elim simple
         }
         else
-            if(modalidad == QString("Eliminación Doble").toLower())
+            if(modalidad == QString("Eliminación Doble").toLower()){
                 this->generarFixtureElimDoble(comp);
+                return; //Quitar al implementar elim doble
+            }
     }
 
 //Asigno lugares de realización a los partidos
@@ -289,6 +292,6 @@ void GestorPartidos::generarFixtureElimSimple(Competencia *comp) {
 
 
 void GestorPartidos::generarFixtureElimDoble(Competencia *comp) {
-    qDebug()<<"Generar fixture elim simple no implementado";
+    qDebug()<<"Generar fixture elim doble no implementado";
     return;
 }

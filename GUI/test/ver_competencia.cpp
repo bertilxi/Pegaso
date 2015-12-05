@@ -54,6 +54,7 @@ ver_competencia::ver_competencia(GUI *guiP, Competencia *compP, QWidget *parent)
 
             }
         }
+        ui->tableWidget->resizeColumnsToContents();
     }
 }
 
@@ -62,18 +63,34 @@ ver_competencia::~ver_competencia()
     delete ui;
 }
 
-void ver_competencia::on_pushButton_7_clicked()
+void ver_competencia::on_pushButton_7_clicked() //Salir
 {
     this->close();
 }
 
-void ver_competencia::on_pushButton_5_clicked()
+void ver_competencia::on_pushButton_5_clicked() //Generar fixture
 {
     QString error;
     if (gui->handleVerCompetencia(this,QString("generarFixture"),error,comp)){
+        //Se coloca el tilde en el checkbox
         ui->checkBox->setCheckable(true);
         ui->checkBox->setChecked(true);
         ui->checkBox->setDisabled(true);
+
+        //También se muestran los próximos encuentros
+        ui->tableWidget->show();
+        ui->label_6->show();
+        QVector<Partido*> proxEnc = comp->getProximosEncuentros();
+        ui->tableWidget->setRowCount(0);
+        qDebug()<<"proxEnc size = "<<proxEnc.size();
+        for (int i = 0; i < proxEnc.size(); ++i) {
+            ui->tableWidget->insertRow(i);
+            ui->tableWidget->setItem(i,0,new QTableWidgetItem(proxEnc[i]->getEquipoA()->getNombre()));
+            ui->tableWidget->setItem(i,1,new QTableWidgetItem(proxEnc[i]->getEquipoB()->getNombre()));
+            ui->tableWidget->setItem(i,2,new QTableWidgetItem(QString::number(proxEnc[i]->getFecha())));
+
+        }
+        ui->tableWidget->resizeColumnsToContents();
     }
     else{
         QMessageBox* msg = new QMessageBox(this);
@@ -85,14 +102,15 @@ void ver_competencia::on_pushButton_5_clicked()
     }
 }
 
-void ver_competencia::on_pushButton_6_clicked()
+void ver_competencia::on_pushButton_6_clicked() //Mostrar tabla posiciones
 {
     // si la competencia está en disputa o finalizada y es de liga se muestra la tabla, si no, no
     if((comp->getEstado()->getNombre().toLower() == "en disputa" ||
         comp->getEstado()->getNombre().toLower() == "finalizada" ) &&
         comp->getModalidad()->getTipoMod()->getNombre().toLower() == "liga")
     {
-        gui->handleVerCompetencia(this,QString("mostrarTablasPosiciones"),"",comp);
+        QString error;
+        gui->handleVerCompetencia(this,QString("mostrarTablasPosiciones"),error,comp);
 
     }
     else if(comp->getModalidad()->getTipoMod()->getNombre().toLower() != "liga"){
@@ -115,14 +133,16 @@ void ver_competencia::on_pushButton_6_clicked()
     }
 }
 
-void ver_competencia::on_pushButton_4_clicked()
+void ver_competencia::on_pushButton_4_clicked() //Mostrar fixture
 {
-    gui->handleVerCompetencia(this,QString("mostrarFixture"),"",comp);
+    QString error;
+    gui->handleVerCompetencia(this,QString("mostrarFixture"),error,comp);
 }
 
-void ver_competencia::on_pushButton_clicked()
+void ver_competencia::on_pushButton_clicked() //Listar participantes
 {
-    gui->handleVerCompetencia(this,QString("listarParticipantes"),"",comp);
+    QString error;
+    gui->handleVerCompetencia(this,QString("listarParticipantes"),error,comp);
 }
 
 void ver_competencia::on_checkBox_stateChanged(int arg1)

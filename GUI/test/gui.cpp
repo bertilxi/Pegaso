@@ -220,7 +220,7 @@ void GUI::handleAltaCompetencia(QDialog *a, QString b, QString nombreComp, Depor
     }
 }
 
-bool GUI::handleVerCompetencia(QDialog *a, QString b, QString error, Competencia* comp)
+bool GUI::handleVerCompetencia(QDialog *a, QString b, QString &error, Competencia* comp)
 {
     competenciaActual = comp;
     if (b == "modificarCompetencia")
@@ -229,8 +229,9 @@ bool GUI::handleVerCompetencia(QDialog *a, QString b, QString error, Competencia
     }
     else if (b == "generarFixture")
     {
-        return gestorCompetencias->generarFixture(comp,error);
+        bool retorno = gestorCompetencias->generarFixture(comp,error);
         competenciaActual = comp;
+        return retorno;
     }
     else if (b == "bajaCompetencia")
     {

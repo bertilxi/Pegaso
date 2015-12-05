@@ -259,15 +259,25 @@ QVector<Competencia *> GestorCompetencias::getCompetenciasLazy(DtoGetCompetencia
     return gestorBaseDatos->getCompetenciasLazy(datos);
 }
 
-bool GestorCompetencias::generarFixture(Competencia *comp, QString error)
+bool GestorCompetencias::generarFixture(Competencia *comp, QString &error)
 {
     //Elimino el fixture si existiera
     this->eliminarFixture(comp);
 
+    //Compruebo si existen dos o más participantes en la competencia
+    if(comp->getParticipantes().size() < 1){
+        error = "No se puede generar el fixture, la competencia no tiene participantes";
+        return false;
+    }
+    else if(comp->getParticipantes().size() < 2){
+        error = "No se puede generar el fixture, la competencia solo tiene un participante";
+        return false;
+    }
     //Llamo a gestor partidos para que genere el fixture
     gestorPartidos->generarFixture(comp);
 
     //Seteo la competencia como "Planificada" y la guardo
+    comp->setFechaActual(-1);
     comp->setEstado(this->obtenerEstado("Planificada"));
     gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual()->getId());
 
