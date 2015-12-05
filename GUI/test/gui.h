@@ -120,8 +120,6 @@ public:
     void handleAltaCompetencia(QDialog *a, QString b, QString nombreComp, Deporte *dep, QVector<Lugar *> lugs,
                                QVector<int> disps, Modalidad *mod, QString reglamento);
 
-    void handleListarParticipantes(QDialog* a, QString b);
-
     bool handleVerCompetencia(QDialog* a, QString b,QString error, Competencia *comp = NULL);
 
     void handleMostrarFixture(QDialog* a, QString b, Partido *partido);

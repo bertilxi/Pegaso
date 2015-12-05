@@ -116,6 +116,8 @@ void gestionar_fixture::on_pushButton_clicked()
     Puntos* r = new Puntos();
     Res* res = new Res();
     Res* res2 = new Res();
+    Res* res3 = new Res();
+    Res* res4 = new Res();
 
     QString tr = competencia->getModalidad()->getTipoRes()->getNombre().toLower();
     if(tr == "resultado final" ){
@@ -290,7 +292,7 @@ void gestionar_fixture::on_pushButton_clicked()
         }
 
         // validaciones
-        if(maxset >= 1){
+        if(maxset == 1){
             sumA += setA1;
             sumB += setB1;
             if (setA1  == 0 || setB1 == 0 ){
@@ -302,8 +304,7 @@ void gestionar_fixture::on_pushButton_clicked()
             }
         }
         else if(maxset == 3){
-//            sumA += setA1 + setA2 + setA3 ;
-//            sumB += setB1 + setB2 + setB3 ;
+
             if(setA1 > setB1) sumA++;
             else sumB++;
             if(setA2 > setB2) sumA++;
@@ -320,8 +321,7 @@ void gestionar_fixture::on_pushButton_clicked()
             }
         }
         else if(maxset == 5){
-//            sumA += setA1 + setA2 + setA3 + setA4 + setA5;
-//            sumB += setB1 + setB2 + setB3 + setB4 + setB5;
+
             if(setA1 > setB1) sumA++;
             else sumB++;
             if(setA2 > setB2) sumA++;
@@ -345,8 +345,7 @@ void gestionar_fixture::on_pushButton_clicked()
             }
         }
         else if(maxset == 7){
-//            sumA += setA1 + setA2 + setA3 + setA4 + setA5 + setA6 + setA7;
-//            sumB += setB1 + setB2 + setB3 + setB4 + setB5 + setB6 + setB7;
+
             if(setA1 > setB1) sumA++;
             else sumB++;
             if(setA2 > setB2) sumA++;
@@ -375,8 +374,6 @@ void gestionar_fixture::on_pushButton_clicked()
             }
         }
         else if(maxset == 9){
-//            sumA += setA1 + setA2 + setA3 + setA4 + setA5 + setA6 + setA7 + setA8 + setA9;
-//            sumB += setB1 + setB2 + setB3 + setB4 + setB5 + setB6 + setB7 + setB8 + setB9;
 
             if(setA1 > setB1) sumA++;
             else sumB++;
@@ -411,7 +408,7 @@ void gestionar_fixture::on_pushButton_clicked()
             }
         }
 
-        if( errFlag ){
+        if(errFlag){
 
             QMessageBox* msg = new QMessageBox(this);
             msg->setText("Coloque los puntos faltantes por favor");
@@ -434,6 +431,38 @@ void gestionar_fixture::on_pushButton_clicked()
             Sets* sets = new Sets();
             QVector<Set*> listaSets;
             sets->setSets(listaSets);
+            res->setId(1);
+            res->setNombre("ganó");
+            res2->setId(2);
+            res2->setNombre("perdió");
+            res3->setId(3);
+            res3->setNombre("empate");
+            res4->setId(4);
+            res4->setNombre("no se presentó");
+            // gano equipo A
+            if(sumA > sumB){
+                sets->setResultadoA(res);
+                sets->setResultadoB(res2);
+            }
+            // gano equipo B
+            else if(sumA < sumB){
+                sets->setResultadoB(res);
+                sets->setResultadoA(res2);
+            }
+            // hay empate, ya esta validado antes, asique no se valida aca
+            else if(sumA == sumB){
+                sets->setResultadoA(res3);
+                sets->setResultadoB(res3);
+            }
+            // si no se presento equipo a
+            if(ui->checkBox_10->isChecked()){
+                sets->setResultadoA(res4);
+            }
+            // si no se presento equipo b
+            if(ui->checkBox_11->isChecked()){
+                sets->setResultadoB(res4);
+            }
+
             if(maxset >= 1 ){
 
                 Set* set1 = new Set();
@@ -441,7 +470,6 @@ void gestionar_fixture::on_pushButton_clicked()
                 set1->setPuntosA(setA1);
                 set1->setPuntosB(setB1);
                 listaSets.push_back(set1);
-
 
                 if(maxset >= 3){
                     Set* set2 = new Set();

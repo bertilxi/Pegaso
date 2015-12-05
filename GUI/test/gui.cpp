@@ -137,10 +137,7 @@ void GUI::handleMain(QMainWindow* a, QString b, QString email, QByteArray pass)
         ru->setModal(true);
         ru->show();
     }
-    else if (b == "listarTodasCompetencias")
-    {
-        /* code */
-    }
+
 }
 
 void GUI::handlePantallaUsuario(QDialog *a, QString b)
@@ -148,24 +145,8 @@ void GUI::handlePantallaUsuario(QDialog *a, QString b)
     if (b == "listarCompetencias"){
 
         listar_competencias* l = new listar_competencias(this,deportes,estados,modalidades,a);
-
         a->close();
-
         l->show();
-    }
-
-    else if (b == "modificarUsuario")
-    {
-        /* code */
-    }
-    else if (b == "listarLugares")
-    {
-        /* code */
-    }
-    else if(b == "cerrar"){
-        MainWindow * m = new MainWindow(this);
-        m->show();
-        a->close();
     }
 }
 
@@ -173,7 +154,6 @@ void GUI::handleListarCompetencias(QDialog *a, QString b, Competencia *comp)
 {
     if (b == "altaCompetencia")
     {
-
         Usuario* user = gestorUsuarios->getActual();
 
         QVector<Lugar*> lugares = gestorLugares->getLugares();
@@ -181,40 +161,15 @@ void GUI::handleListarCompetencias(QDialog *a, QString b, Competencia *comp)
         QVector<TipoResultado*> resultados = gestorCompetencias->getTiposResultado();
         alta_competencia * al = new alta_competencia(this,deportes,lugares,modalidades, resultados, a);
         al->setModal(true);
-        a->lower();
         al->show();
-
 
     }
     else if (b == "verCompetencia")
     {
-
         Competencia * c = gestorCompetencias->getCompetenciaFull(comp->getId());
-
         ver_competencia * v = new ver_competencia(this,c,a);
         v->setModal(true);
         v->show();
-    }
-    else if(b == "cerrar"){
-        pantalla_usuario* p = new pantalla_usuario(this);
-        p->show();
-        a->close();
-    }
-}
-
-void GUI::handleListarLugares(QDialog *a, QString b)
-{
-    if (b == "altaLugar")
-    {
-        /* code */
-    }
-    else if (b == "bajaLugar")
-    {
-        /* code */
-    }
-    else if (b == "modificarLugar")
-    {
-        /* code */
     }
 }
 
@@ -253,26 +208,6 @@ void GUI::handleAltaCompetencia(QDialog *a, QString b, QString nombreComp, Depor
     }
 }
 
-void GUI::handleListarParticipantes(QDialog *a, QString b)
-{
-    if (b == "altaParticipante")
-    {
-
-    }
-    else if (b == "bajaParticipante")
-    {
-
-    }
-    else if (b == "modificarParticipante")
-    {
-        /* code */
-    }
-    else if(b == "actualizarParticipantes"){
-
-        this->handleVerCompetencia(a,QString("listarParticipantes"),"",competenciaActual);
-    }
-}
-
 bool GUI::handleVerCompetencia(QDialog *a, QString b, QString error, Competencia* comp)
 {
     competenciaActual = comp;
@@ -282,10 +217,8 @@ bool GUI::handleVerCompetencia(QDialog *a, QString b, QString error, Competencia
     }
     else if (b == "generarFixture")
     {
-
         return gestorCompetencias->generarFixture(comp,error);
         competenciaActual = comp;
-
     }
     else if (b == "bajaCompertencia")
     {
@@ -293,17 +226,13 @@ bool GUI::handleVerCompetencia(QDialog *a, QString b, QString error, Competencia
     }
     else if (b == "mostrarFixture")
     {
-
+        comp = gestorCompetencias->getCompetenciaFull()
         mostrar_fixture* mf = new mostrar_fixture(this,comp,a);
         mf->setModal(true);
-
         mf->show();
-
-
     }
     else if (b == "mostrarTablasPosiciones")
     {
-
         tabla_posiciones* t = new tabla_posiciones(this,comp,a);
         t->setModal(true);
         t->show();
@@ -325,12 +254,21 @@ void GUI::handleMostrarFixture(QDialog *a, QString b,Partido* partido)
         gestionar_fixture* gf = new gestionar_fixture(competenciaActual,partido,this,a);
         gf->setModal(true);
         gf->show();
+
     }
 }
 
 void GUI::handleGestionarFixture(QDialog *a, QString b, Partido *partP, Resultado *resP)
 {
-    gestorPartidos->nuevoResultado(competenciaActual,partP,resP);
+    gestorCompetencias->nuevoResultado(competenciaActual,partP,resP);
+    competenciaActual = gestorCompetencias->getCompetenciaFull(competenciaActual->getId());
+    QMessageBox* msg = new QMessageBox(a);
+    msg->setText("Partido cargado correctamente");
+    QPixmap icono(":/images/Heros-verde-64.png");
+    msg->setIconPixmap(icono);
+    msg->setModal(true);
+    msg->exec();
+    a->close();
 }
 
 QVector<Competencia*> GUI::handleFiltrarCompetencias(QStringList data)

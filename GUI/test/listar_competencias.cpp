@@ -87,10 +87,17 @@ void listar_competencias::on_pushButton_4_clicked()
     // validar pos < comps.size()
     int pos = ui->tableWidget->currentRow() ;
 
-    if(ui->tableWidget->rowCount() > 0 && pos >= 0 && pos < comps.size() && comps[pos] != NULL){
+    if(ui->tableWidget->rowCount() > 0 && pos > -1 && pos < comps.size() && comps[pos] != NULL){
 
         gui->handleListarCompetencias(this,"verCompetencia",comps[pos]);
-
+    }
+    else{
+        QMessageBox* msg = new QMessageBox(this);
+        msg->setText("Por favor seleccione una competencia");
+        QPixmap icono(":/images/Heros-amarillo-64.png");
+        msg->setIconPixmap(icono);
+        msg->setModal(true);
+        msg->exec();
     }
 }
 

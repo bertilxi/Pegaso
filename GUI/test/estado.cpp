@@ -20,3 +20,9 @@ void Estado::setId(int value)
 {
     id = value;
 }
+
+Estado::Estado()
+{
+//    id = -1;
+//    nombre = "";
+}

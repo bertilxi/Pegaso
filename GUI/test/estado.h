@@ -15,6 +15,8 @@ public:
 
     void setId(int value);
 
+    Estado();
+
 private:
 
     int id;

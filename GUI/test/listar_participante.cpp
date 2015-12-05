@@ -78,7 +78,6 @@ void listar_participante::on_pushButton_2_clicked()
 
     }
 
-//    gui->handleListarParticipantes(this,QString("altaParticipante"));
 }
 
 
