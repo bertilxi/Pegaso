@@ -30,9 +30,6 @@ private:
     int id;
 
     QString nombre;
-
-    Provincia * provincia;
-
 };
 
 #endif //_LOCALIDAD_H

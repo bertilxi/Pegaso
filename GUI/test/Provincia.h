@@ -37,8 +37,6 @@ private:
     int id;
 
     QString nombre;
-
-    Pais * pais;
 };
 
 #endif //_PROVINCIA_H
