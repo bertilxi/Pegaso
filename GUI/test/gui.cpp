@@ -220,13 +220,13 @@ bool GUI::handleVerCompetencia(QDialog *a, QString b, QString error, Competencia
         return gestorCompetencias->generarFixture(comp,error);
         competenciaActual = comp;
     }
-    else if (b == "bajaCompertencia")
+    else if (b == "bajaCompetencia")
     {
         /* code */
     }
     else if (b == "mostrarFixture")
     {
-        comp = gestorCompetencias->getCompetenciaFull()
+        comp = gestorCompetencias->getCompetenciaFull(comp->getId());
         mostrar_fixture* mf = new mostrar_fixture(this,comp,a);
         mf->setModal(true);
         mf->show();

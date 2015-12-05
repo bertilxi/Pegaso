@@ -75,6 +75,8 @@ public:
 
     int getFechaActual();
 
+    void setFechaActual(int fecha);
+
     Competencia();
 
     ~Competencia();

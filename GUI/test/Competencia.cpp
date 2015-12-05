@@ -262,6 +262,11 @@ int Competencia::getFechaActual()
     return fechaActual;
 }
 
+void Competencia::setFechaActual(int fecha)
+{
+   fechaActual = fecha;
+}
+
 Competencia::Competencia()
 {
     fechaActual = -1;

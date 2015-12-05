@@ -229,6 +229,9 @@ void GestorCompetencias::nuevoResultado(Competencia *comp, Partido *part, Result
         }
     }
 
+    //Modifico la fechaActual, la próxima vez que se haga getFechaActual se volverá a calcular
+    comp->setFechaActual(-1);
+
     //Guardo los cambios
     gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual()->getId());
 }
