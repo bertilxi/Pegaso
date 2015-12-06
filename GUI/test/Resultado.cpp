@@ -34,7 +34,7 @@ bool Resultado::operator==(const Resultado &other) const
 }
 
 QString Resultado::getTable() const{
-    return "Resultado Final";
+    return "Resultado";
 }
 
 /**
@@ -83,10 +83,3 @@ Resultado::~Resultado()
     delete resultadoB;
 }
 
-Resultado::Resultado()
-{
-    id = -1;
-    Res* res = new Res();
-    resultadoA = res;
-    resultadoB = res;
-}

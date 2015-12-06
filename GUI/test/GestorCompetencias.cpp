@@ -221,11 +221,27 @@ void GestorCompetencias::nuevoResultado(Competencia *comp, Partido *part, Result
 
     //Modifico el estado según corresponda
     comp->setEstado(this->obtenerEstado("Finalizada"));
+
     QVector<Partido*> partidos=comp->getPartidos();
     for (int i = 0; i < partidos.size(); ++i) {
         if(partidos[i]->getActual() == NULL){
             comp->setEstado(this->obtenerEstado("En disputa"));
             break;
+        }
+    }
+    for (int i = 0; i < partidos.size(); ++i) {
+        if(partidos[i]->getId() == part->getId()){
+            partidos[i] = part;
+            break;
+        }
+    }
+    comp->setPartidos(partidos);
+
+    for (int i = 0; i < partidos.size(); ++i) {
+        if(partidos[i]->getActual() != NULL){
+            qDebug()<<"id "<<partidos[i]->getId();
+            qDebug()<<"puntos A "<<partidos[i]->getActual()->getPuntosA();
+            qDebug()<<"puntos B "<<partidos[i]->getActual()->getPuntosB();
         }
     }
 
@@ -234,6 +250,14 @@ void GestorCompetencias::nuevoResultado(Competencia *comp, Partido *part, Result
 
     //Guardo los cambios
     gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual()->getId());
+
+
+    if(part->getActual() != NULL){
+        qDebug()<<"id "<<part->getId();
+        qDebug()<<"puntos A "<<part->getActual()->getPuntosA();
+        qDebug()<<"puntos B "<<part->getActual()->getPuntosB();
+    }
+
 }
 
 Competencia *GestorCompetencias::getCompetenciaFull(int id_comp)

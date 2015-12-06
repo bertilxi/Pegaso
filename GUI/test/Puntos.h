@@ -28,6 +28,8 @@ public:
 
     void setPuntosB(int value);
 
+    Puntos();
+
 
 private:
 
