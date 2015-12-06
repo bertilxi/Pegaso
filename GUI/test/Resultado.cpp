@@ -48,8 +48,8 @@ QVector<Atributo> Resultado::getAtributos() const{
     if(id != -1){
         result.push_back(Atributo("id_resultado",QString::number(id)));
     }
-    result.push_back(Atributo("resultadoA", resultadoA->getNombre()));
-    result.push_back(Atributo("resultadoB", resultadoB->getNombre()));
+    result.push_back(Atributo("resultadoA", QString::number(resultadoA->getId())));
+    result.push_back(Atributo("resultadoB", QString::number(resultadoB->getId())));
 
     return result;
 }
