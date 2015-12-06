@@ -28,6 +28,16 @@ Partido::~Partido()
     }
 }
 
+bool Partido::estaCargado()
+{
+    if(actual->getPuntosA() != -1){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 int Partido::getId() const
 {
     return id;

@@ -19,6 +19,8 @@ public:
 
     void setId(int value);
 
+    Doc();
+
 private:
     int id;
     QString tipo;

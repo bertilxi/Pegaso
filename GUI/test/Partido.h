@@ -71,6 +71,8 @@ public:
 
     ~Partido();
 
+    bool estaCargado();
+
 private:
 
     int id;

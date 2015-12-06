@@ -44,8 +44,6 @@ public:
 
     virtual ~Resultado();
 
-    Resultado();
-
 protected:
 
     int id;

@@ -64,6 +64,7 @@ gestionar_fixture::gestionar_fixture(Competencia * compP, Partido *partP, GUI *g
             ui->checkBox_7->hide();
         }
 
+
     }
     else if(tr == "por puntos"){
         ui->tabWidget->removeTab(1);
@@ -73,8 +74,14 @@ gestionar_fixture::gestionar_fixture(Competencia * compP, Partido *partP, GUI *g
         ui->label_11->setText(partP->getEquipoA()->getNombre());
         ui->label_12->setText(partP->getEquipoB()->getNombre());
 
-        if(competencia->getModalidad()->getTipoMod()->getNombre().toLower() == "liga"){
+//        if(competencia->getModalidad()->getTipoMod()->getNombre().toLower() == "liga"){
 
+//        }
+
+        if(partidoGestionado->getActual() != NULL)
+        {
+            ui->lineEdit_9->setText(QString::number(partidoGestionado->getActual()->getPuntosA()));
+            ui->lineEdit_10->setText(QString::number(partidoGestionado->getActual()->getPuntosB()));
         }
     }
     else if(tr == "por sets"){
@@ -227,7 +234,6 @@ void gestionar_fixture::on_pushButton_clicked()
         }
         else{
             r->setId(-1);
-            Res* res = new Res();
 
             if(puntosA == puntosB){
                 res->setId(3);
@@ -236,10 +242,9 @@ void gestionar_fixture::on_pushButton_clicked()
                 r->setResultadoB(res);
             }
             //gano equipo A
-            else if(puntosA < puntosB){
+            else if(puntosA > puntosB){
                 res->setId(1);
                 res->setNombre("ganó");
-                Res* res2 = new Res();
                 res2->setId(2);
                 res2->setNombre("perdió");
                 r->setResultadoA(res);
@@ -255,6 +260,7 @@ void gestionar_fixture::on_pushButton_clicked()
                 r->setResultadoB(res);
                 r->setResultadoA(res2);
             }
+            qDebug()<<"enviando datos para persistir";
             gui->handleGestionarFixture(this,"",partidoGestionado,r);
         }
     }

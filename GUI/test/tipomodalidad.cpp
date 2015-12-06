@@ -10,6 +10,11 @@ void TipoModalidad::setNombre(const QString &value)
     nombre = value;
 }
 
+TipoModalidad::TipoModalidad()
+{
+    id = -1;
+}
+
 int TipoModalidad::getId()
 {
     return id;

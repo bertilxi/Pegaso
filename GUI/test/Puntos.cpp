@@ -32,7 +32,7 @@ bool Puntos::operator==(const Puntos &other) const
 }
 
 QString Puntos::getTable() const{
-    return "Por Puntos";
+    return "Puntos";
 }
 
 /**
@@ -67,6 +67,13 @@ int Puntos::getPuntosB() const
 void Puntos::setPuntosB(int value)
 {
     puntosB = value;
+}
+
+Puntos::Puntos()
+{
+    id = -1;
+    puntosA = -1;
+    puntosB = -1;
 }
 
 

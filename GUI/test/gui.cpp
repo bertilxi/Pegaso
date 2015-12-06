@@ -274,6 +274,7 @@ void GUI::handleMostrarFixture(QDialog *a, QString b,Partido* partido)
 void GUI::handleGestionarFixture(QDialog *a, QString b, Partido *partP, Resultado *resP)
 {
     gestorCompetencias->nuevoResultado(competenciaActual,partP,resP);
+
     competenciaActual = gestorCompetencias->getCompetenciaFull(competenciaActual->getId());
     QMessageBox* msg = new QMessageBox(a);
     msg->setText("Partido cargado correctamente");

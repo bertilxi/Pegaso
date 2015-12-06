@@ -23,8 +23,23 @@ mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp, QWidget *parent) 
         QString resultadoB = "" ;
         QString resultadoPartido = "";
 
-        if(comp->getPartidos()[i]->getActual() == NULL){
 
+
+        if(comp->getPartidos()[i]->getActual() != NULL){
+            resultadoA = comp->getPartidos()[i]->getActual()->getResultadoA()->getNombre().toLower();
+            resultadoB = comp->getPartidos()[i]->getActual()->getResultadoB()->getNombre().toLower();
+            if( resultadoA == "ganó" ){
+                resultadoPartido = "Ganó el equipo A";
+            }
+            else if( resultadoB == "ganó" ){
+                resultadoPartido = "Ganó el equipo B";
+            }
+            else if(resultadoA == "empate"){
+                resultadoPartido = "Empate";
+            }
+            else{
+                resultadoPartido = "Error";
+            }
             qDebug()<<"hay actual ? si";
         }
 
@@ -42,6 +57,7 @@ mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp, QWidget *parent) 
         }
         else if(resultadoA == "empató"){
             resultadoPartido = "Empate";
+
         }
 
         ui->tableWidget->setItem(i,3,new QTableWidgetItem(resultadoPartido));

@@ -22,6 +22,8 @@ public:
 
     void setNombre(const QString &value);
 
+    TipoModalidad();
+
 };
 
 #endif // TIPOMODALIDAD_H

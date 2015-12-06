@@ -27,3 +27,8 @@ void Doc::setId(int value)
     id = value;
 }
 
+Doc::Doc()
+{
+    id = -1;
+}
+

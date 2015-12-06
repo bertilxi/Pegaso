@@ -27,6 +27,8 @@ public:
 
     bool operator==(const Lugar &other)const;
 
+    Lugar();
+
 
 private:
 

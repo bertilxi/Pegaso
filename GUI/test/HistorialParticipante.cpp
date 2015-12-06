@@ -85,3 +85,8 @@ QVector<Atributo> HistorialParticipante::getAtributos() const{
     return result;
 }
 
+HistorialParticipante::HistorialParticipante()
+{
+    id = -1;
+}
+

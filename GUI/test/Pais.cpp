@@ -39,3 +39,8 @@ void Pais::setProvincias(const QVector<Provincia *> &value)
 {
     provincias = value;
 }
+
+Pais::Pais()
+{
+    id = -1;
+}

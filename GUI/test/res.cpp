@@ -19,3 +19,8 @@ void Res::setNombre(const QString &value)
 {
     nombre = value;
 }
+
+Res::Res()
+{
+    id = -1;
+}

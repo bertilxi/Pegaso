@@ -15,6 +15,8 @@ public:
 
     void setNombre(const QString &value);
 
+    Res();
+
 private:
 
     int id;
