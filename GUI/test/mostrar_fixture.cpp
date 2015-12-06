@@ -28,10 +28,10 @@ mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp, QWidget *parent) 
             qDebug()<<"hay actual ? si";
         }
 
-        if(comp->getPartidos()[i]->getActual()->getResultadoA() != NULL){
+        if(comp->getPartidos()[i]->getActual() != NULL){
             resultadoA = comp->getPartidos()[i]->getActual()->getResultadoA()->getNombre().toLower();
         }
-        if(comp->getPartidos()[i]->getActual()->getResultadoB() != NULL){
+        if(comp->getPartidos()[i]->getActual() != NULL){
             resultadoB = comp->getPartidos()[i]->getActual()->getResultadoB()->getNombre().toLower();
         }
         if( resultadoA == "ganó" ){
@@ -40,7 +40,7 @@ mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp, QWidget *parent) 
         else if( resultadoA == "ganó" ){
             resultadoPartido = "Ganó el equipo A";
         }
-        else{
+        else if(resultadoA == "empató"){
             resultadoPartido = "Empate";
         }
 
