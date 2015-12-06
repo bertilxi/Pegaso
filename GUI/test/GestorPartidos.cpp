@@ -69,10 +69,10 @@ void GestorPartidos::generarFixture(Competencia *comp) {
 void GestorPartidos::nuevoResultado(Competencia *comp, Partido *part, Resultado *res) {
 
     //Si ya tiene un resultado hay que agregarlo al historial
-    if(part->getActual()!=NULL){
-        QVector<Resultado*> historial=part->getModificado();
+    if(part->getActual() != NULL){
+        QVector<Resultado*> historial = part->getModificado();
         //Creo el nuevo resultado dependiendo el tipo de resultado
-        QString tipo_resultado=comp->getModalidad()->getTipoRes()->getNombre();
+        QString tipo_resultado = comp->getModalidad()->getTipoRes()->getNombre();
         if(tipo_resultado.toLower()=="resultado final"){
             Resultado *resAux=new Resultado;
             resAux->setResultadoA(part->getActual()->getResultadoA());

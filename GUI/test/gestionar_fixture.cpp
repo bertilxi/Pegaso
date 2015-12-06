@@ -72,7 +72,7 @@ gestionar_fixture::gestionar_fixture(Competencia * compP, mostrar_fixture *mf, P
             else if(partidoGestionado->getActual()->getResultadoB()->getNombre().toLower() == "ganó"){
                 ui->checkBox_6->setChecked(true);
             }
-            else if(partidoGestionado->getActual()->getResultadoA()->getNombre().toLower() == "empate"){
+            else if(partidoGestionado->getActual()->getResultadoA()->getNombre().toLower() == "empate" || partidoGestionado->getActual()->getResultadoA()->getNombre().toLower() == "empató"){
                 ui->checkBox_7->setChecked(true);
             }
             if(partidoGestionado->getActual()->getResultadoA()->getNombre().toLower() == "no se presentó"){
@@ -102,7 +102,7 @@ gestionar_fixture::gestionar_fixture(Competencia * compP, mostrar_fixture *mf, P
             if(partidoGestionado->getActual()->getResultadoA()->getNombre().toLower() == "no se presentó"){
                 ui->checkBox_3->setChecked(true);
             }
-            if(partidoGestionado->getActual()->getResultadoA()->getNombre().toLower() == "no se presentó"){
+            if(partidoGestionado->getActual()->getResultadoB()->getNombre().toLower() == "no se presentó"){
                 ui->checkBox_4->setChecked(true);
             }
         }

@@ -35,7 +35,7 @@ mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp, QWidget *parent) 
             else if( resultadoB == "ganó" ){
                 resultadoPartido = "Ganó el equipo B";
             }
-            else if(resultadoA == "empate"){
+            else if(resultadoA == "empate" || resultadoA == "empató"){
                 resultadoPartido = "Empate";
             }
             else if(resultadoA == "no se presentó"){
@@ -97,7 +97,7 @@ void mostrar_fixture::actualizarTabla()
             else if( resultadoB == "ganó" ){
                 resultadoPartido = "Ganó el equipo B";
             }
-            else if(resultadoA == "empate"){
+            else if(resultadoA == "empate" || resultadoA == "empató"){
                 resultadoPartido = "Empate";
             }
             else if(resultadoA == "no se presentó"){
@@ -118,6 +118,7 @@ void mostrar_fixture::actualizarTabla()
                     resultadoPartido = "Ganó el equipo A";
                 }
             }
+            else resultadoPartido = "Error";
         }
 
         ui->tableWidget->setItem(i,3,new QTableWidgetItem(resultadoPartido));

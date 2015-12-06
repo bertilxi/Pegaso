@@ -239,7 +239,8 @@ bool GUI::handleVerCompetencia(QDialog *a, QString b, QString &error, Competenci
     }
     else if (b == "mostrarFixture")
     {
-        comp = gestorCompetencias->getCompetenciaFull(comp->getId());
+        //comp = gestorCompetencias->getCompetenciaFull(comp->getId());
+        //competenciaActual = comp;
         mostrar_fixture* mf = new mostrar_fixture(this,comp,a);
         mf->setModal(true);
         mf->show();
@@ -275,7 +276,7 @@ void GUI::handleGestionarFixture(QDialog *a, QString b, mostrar_fixture* mf, Par
 {
     gestorCompetencias->nuevoResultado(competenciaActual,partP,resP);
 
-    competenciaActual = gestorCompetencias->getCompetenciaFull(competenciaActual->getId());
+    //competenciaActual = gestorCompetencias->getCompetenciaFull(competenciaActual->getId());
 
     QMessageBox* msg = new QMessageBox(a);
     msg->setText("Partido cargado correctamente");

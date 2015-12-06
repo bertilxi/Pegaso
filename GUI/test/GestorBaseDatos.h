@@ -216,7 +216,7 @@ public:
         if(resultado == NULL){
             return true;
         }
-        qDebug()<<"El partido que si tiene resultado es"<<partidoId.valor;
+        qDebug()<<"El partido que si tiene resultado es"<<partidoId.valor<<"campo"<<partidoId.campo;
         Puntos *puntos = dynamic_cast<Puntos *>(resultado);
         if(puntos != NULL)  //si es de clase Puntos
         {
