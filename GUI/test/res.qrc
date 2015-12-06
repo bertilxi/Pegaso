@@ -15,5 +15,6 @@
     <file>images/Heros-verde-64.png</file>
     <file>images/salir.png</file>
     <file>images/user.png</file>
+    <file>pegaso.db</file>    
 </qresource>
 </RCC>

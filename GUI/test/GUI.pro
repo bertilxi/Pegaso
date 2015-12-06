@@ -111,4 +111,4 @@ FORMS    += mainwindow.ui \
     gestionar_fixture.ui
 
 RESOURCES += \
-    img.qrc
+    res.qrc

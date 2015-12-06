@@ -28,6 +28,7 @@ mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp, QWidget *parent) 
         if(comp->getPartidos()[i]->getActual() != NULL){
             resultadoA = comp->getPartidos()[i]->getActual()->getResultadoA()->getNombre().toLower();
             resultadoB = comp->getPartidos()[i]->getActual()->getResultadoB()->getNombre().toLower();
+
             if( resultadoA == "ganó" ){
                 resultadoPartido = "Ganó el equipo A";
             }
@@ -37,26 +38,42 @@ mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp, QWidget *parent) 
             else if(resultadoA == "empate"){
                 resultadoPartido = "Empate";
             }
-            else{
-                resultadoPartido = "Error";
-            }
-            qDebug()<<"hay actual ? si";
-        }
+            else if(resultadoA == "no se presentó"){
+                if(resultadoB == "no se presentó"){
 
-        if(comp->getPartidos()[i]->getActual() != NULL){
-            resultadoA = comp->getPartidos()[i]->getActual()->getResultadoA()->getNombre().toLower();
-        }
-        if(comp->getPartidos()[i]->getActual() != NULL){
-            resultadoB = comp->getPartidos()[i]->getActual()->getResultadoB()->getNombre().toLower();
-        }
-        if( resultadoA == "ganó" ){
-            resultadoPartido = "Ganó el equipo A";
-        }
-        else if( resultadoA == "ganó" ){
-            resultadoPartido = "Ganó el equipo A";
-        }
-        else if(resultadoA == "empató"){
-            resultadoPartido = "Empate";
+                    resultadoPartido = "Partido Cancelado";
+                }
+                else{
+                    resultadoPartido = "Ganó el equipo B";
+                }
+            }
+            else if(resultadoB == "no se presentó"){
+                if(resultadoA == "no se presentó"){
+
+                    resultadoPartido = "Partido Cancelado";
+                }
+                else{
+                    resultadoPartido = "Ganó el equipo A";
+                }
+            }
+
+            if(comp->getPartidos()[i]->getActual() != NULL){
+                resultadoA = comp->getPartidos()[i]->getActual()->getResultadoA()->getNombre().toLower();
+            }
+            if(comp->getPartidos()[i]->getActual() != NULL){
+                resultadoB = comp->getPartidos()[i]->getActual()->getResultadoB()->getNombre().toLower();
+            }
+            if( resultadoA == "ganó" ){
+                resultadoPartido = "Ganó el equipo A";
+            }
+            else if( resultadoA == "ganó" ){
+                resultadoPartido = "Ganó el equipo A";
+            }
+            else if(resultadoA == "empató"){
+                resultadoPartido = "Ganó el equipo B";
+
+            }
+
 
         }
 

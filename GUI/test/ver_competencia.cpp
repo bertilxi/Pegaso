@@ -34,10 +34,10 @@ ver_competencia::ver_competencia(GUI *guiP, Competencia *compP, QWidget *parent)
         ui->pushButton_4->setDisabled(true);
     }
 
-    // si la competencia no esta planificada o en disputa no se muestra la tabla
-    if(compP->getEstado()->getNombre().toLower() == "en disputa"){
+    if(compP->getEstado()->getNombre().toLower() == "en disputa" || compP->getEstado()->getNombre().toLower() == "finalizada" ){
         ui->pushButton_5->setDisabled(true);
     }
+    // si la competencia no esta planificada o en disputa no se muestra la tabla
     if (!(compP->getEstado()->getNombre().toLower() == "planificada" || compP->getEstado()->getNombre().toLower() == "en disputa")){
         ui->tableWidget->hide();
         ui->label_6->hide();

@@ -63,6 +63,27 @@ gestionar_fixture::gestionar_fixture(Competencia * compP, Partido *partP, GUI *g
         if(!compP->getModalidad()->getEmpate()){
             ui->checkBox_7->hide();
         }
+        if(partidoGestionado->getActual() != NULL)
+        {
+            // checkbox 5 y 6
+            if(partidoGestionado->getActual()->getResultadoA()->getNombre().toLower() == "ganó"){
+                ui->checkBox_5->setChecked(true);
+            }
+            else if(partidoGestionado->getActual()->getResultadoB()->getNombre().toLower() == "ganó"){
+                ui->checkBox_6->setChecked(true);
+            }
+            else if(partidoGestionado->getActual()->getResultadoA()->getNombre().toLower() == "empate"){
+                ui->checkBox_7->setChecked(true);
+            }
+            if(partidoGestionado->getActual()->getResultadoA()->getNombre().toLower() == "no se presentó"){
+                ui->checkBox_8->setChecked(true);
+            }
+            if(partidoGestionado->getActual()->getResultadoB()->getNombre().toLower() == "no se presentó"){
+                ui->checkBox_9->setChecked(true);
+            }
+
+
+        }
 
 
     }
@@ -187,18 +208,32 @@ void gestionar_fixture::on_pushButton_clicked()
         }
         // equipo A no se presento
         if(ui->checkBox_8->isChecked()){
-
             res->setId(4);
             res->setNombre("no se presentó");
             r->setResultadoA(res);
+            if(ui->checkBox_9->isChecked()){
+                r->setResultadoB(res);
+            }
+            else{
+                res2->setId(1);
+                res2->setNombre("ganó");
+                r->setResultadoB(res2);
+            }
 
         }
         // equipo B no se presento
         if(ui->checkBox_9->isChecked()){
-
             res->setId(4);
             res->setNombre("no se presentó");
             r->setResultadoB(res);
+            if(ui->checkBox_8->isChecked()){
+                r->setResultadoA(res);
+            }
+            else{
+                res2->setId(1);
+                res2->setNombre("ganó");
+                r->setResultadoA(res2);
+            }
 
         }
         gui->handleGestionarFixture(this,"",partidoGestionado,r);
