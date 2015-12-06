@@ -23,8 +23,6 @@ mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp, QWidget *parent) 
         QString resultadoB = "" ;
         QString resultadoPartido = "";
 
-
-<<<<<<< HEAD
         if(comp->getPartidos()[i]->getActual() != NULL){
             resultadoA = comp->getPartidos()[i]->getActual()->getResultadoA()->getNombre().toLower();
             resultadoB = comp->getPartidos()[i]->getActual()->getResultadoB()->getNombre().toLower();
@@ -40,7 +38,6 @@ mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp, QWidget *parent) 
             else{
                 resultadoPartido = "Error";
             }
-=======
             qDebug()<<"hay actual ? si";
         }
 
