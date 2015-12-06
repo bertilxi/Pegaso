@@ -181,7 +181,7 @@ void gestionar_fixture::on_pushButton_clicked()
         else if (ui->checkBox_7->isChecked()){
 
             res->setId(3);
-            res->setNombre("empate");
+            res->setNombre("empató");
             r->setResultadoA(res);
             r->setResultadoB(res);
         }
@@ -237,7 +237,7 @@ void gestionar_fixture::on_pushButton_clicked()
 
             if(puntosA == puntosB){
                 res->setId(3);
-                res->setNombre("empate");
+                res->setNombre("empató");
                 r->setResultadoA(res);
                 r->setResultadoB(res);
             }
@@ -470,7 +470,7 @@ void gestionar_fixture::on_pushButton_clicked()
             res2->setId(2);
             res2->setNombre("perdió");
             res3->setId(3);
-            res3->setNombre("empate");
+            res3->setNombre("empató");
             res4->setId(4);
             res4->setNombre("no se presentó");
             // gano equipo A
