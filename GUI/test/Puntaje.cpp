@@ -201,7 +201,10 @@ Puntaje::Puntaje()
     TF = 0 ;
     TC = 0 ;
     Dif = 0 ;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 948d221a38c8d6bbc51b3b2f2c6eabbc0a0aa298
 }
 
 

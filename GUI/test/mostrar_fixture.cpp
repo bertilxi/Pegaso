@@ -38,6 +38,7 @@ mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp, QWidget *parent) 
             else if(resultadoA == "empate"){
                 resultadoPartido = "Empate";
             }
+<<<<<<< HEAD
             else if(resultadoA == "no se presentó"){
                 if(resultadoB == "no se presentó"){
 
@@ -72,6 +73,13 @@ mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp, QWidget *parent) 
             else if(resultadoA == "empató"){
                 resultadoPartido = "Ganó el equipo B";
 
+=======
+            else if(resultadoA == "no se presentó" && resultadoB == "no se presentó"){
+                resultadoPartido = "Ninguno se presentó";
+            }
+            else{
+                    resultadoPartido = "Error";
+>>>>>>> 948d221a38c8d6bbc51b3b2f2c6eabbc0a0aa298
             }
 
 
