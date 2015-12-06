@@ -140,4 +140,26 @@ Participante::~Participante()
     delete puntaje;
 }
 
+bool Participante::operator<(const Participante &other) const
+{
+    //Se ordena por puntos, diferencia de tantos, tantos a favor
+    if(puntaje == NULL)
+        return false;
+    else if(other.getPuntaje() == NULL){
+        return true;
+    }
+    else if(puntaje->getPuntos() > other.getPuntaje()->getPuntos()){
+        return true;
+    }
+    else if(puntaje->getPuntos() == other.getPuntaje()->getPuntos()){
+        if(puntaje->getDif() > other.getPuntaje()->getDif()){
+            return true;
+        }
+        else if(puntaje->getDif() == other.getPuntaje()->getDif()){
+            if(puntaje->getTF() > other.getPuntaje()->getTF())
+                return true;
+        }
+    }
+    return false;
+}
 

@@ -1,6 +1,7 @@
 #include "tabla_posiciones.h"
 #include "ui_tabla_posiciones.h"
 
+bool comparePtrParticipante(Participante* a, Participante* b) { return (*a < *b); }
 tabla_posiciones::tabla_posiciones(GUI *guiP, Competencia* compP, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::tabla_posiciones), gui(guiP)
@@ -17,6 +18,7 @@ tabla_posiciones::tabla_posiciones(GUI *guiP, Competencia* compP, QWidget *paren
     ui->label_6->setText(QString::number(compP->getFechaActual()));
 
     QVector<Participante*> participantesP = compP->getParticipantes();
+    qSort(participantesP.begin(),participantesP.end(),comparePtrParticipante);
     for (int i = 0; i < participantesP.size(); ++i) {
 
        ui->tableWidget->insertRow(i);

@@ -59,13 +59,6 @@ ver_competencia::ver_competencia(GUI *guiP, Competencia *compP, QWidget *parent)
         }
         ui->tableWidget->resizeColumnsToContents();
     }
-    for (int i = 0; i < comp->getPartidos().size(); ++i) {
-        qDebug()<<"Partido"<<comp->getPartidos()[i]->getId()<<"res actual"<<comp->getPartidos()[i]->getActual()->getId();
-        for (int j = 0; j < comp->getPartidos()[i]->getModificado().size(); ++j) {
-            qDebug()<<"modificado"<<comp->getPartidos()[i]->getModificado()[j]->getId();
-        }
-    }
-
 }
 
 ver_competencia::~ver_competencia()

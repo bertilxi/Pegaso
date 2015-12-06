@@ -53,6 +53,7 @@ public:
 
     ~Participante();
 
+    bool operator<(const Participante &other) const;
 
 private:
 
