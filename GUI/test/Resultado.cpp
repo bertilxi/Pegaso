@@ -82,3 +82,11 @@ Resultado::~Resultado()
     delete resultadoA;
     delete resultadoB;
 }
+
+Resultado::Resultado()
+{
+    id = -1;
+    Res* res = new Res();
+    resultadoA = res;
+    resultadoB = res;
+}

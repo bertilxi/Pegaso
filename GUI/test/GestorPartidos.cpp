@@ -87,7 +87,7 @@ void GestorPartidos::nuevoResultado(Competencia *comp, Partido *part, Resultado 
             resAux->setResultadoB(part->getActual()->getResultadoB());
             historial.push_back(resAux);
         }
-        else if(tipo_resultado=="Por Sets"){
+        else if(tipo_resultado.toLower()=="por sets"){
             Sets *resAux=new Sets;
             resAux->setResultadoA(part->getActual()->getResultadoA());
             resAux->setResultadoB(part->getActual()->getResultadoB());
@@ -96,7 +96,7 @@ void GestorPartidos::nuevoResultado(Competencia *comp, Partido *part, Resultado 
         }
         part->setModificado(historial);
         //Si es de liga hay que modificar los puntos
-        if(comp->getModalidad()->getTipoMod()->getNombre()=="Liga"){
+        if(comp->getModalidad()->getTipoMod()->getNombre().toLower()=="liga"){
             part->getEquipoA()->getPuntaje()->restar(part->getActual(),comp->getModalidad(),"EquipoA");
             part->getEquipoB()->getPuntaje()->restar(part->getActual(),comp->getModalidad(),"EquipoB");
         }
@@ -104,7 +104,7 @@ void GestorPartidos::nuevoResultado(Competencia *comp, Partido *part, Resultado 
     //Seteo el nuevo resultado como actual
     part->setActual(res);
     //Si es de liga hay que modificar los puntos
-   if(comp->getModalidad()->getTipoMod()->getNombre() == "Liga"){
+   if(comp->getModalidad()->getTipoMod()->getNombre().toLower() == "liga"){
        part->getEquipoA()->getPuntaje()->sumar(part->getActual(),comp->getModalidad(),"EquipoA");
        part->getEquipoB()->getPuntaje()->sumar(part->getActual(),comp->getModalidad(),"EquipoB");
        return;
@@ -113,7 +113,7 @@ void GestorPartidos::nuevoResultado(Competencia *comp, Partido *part, Resultado 
    Participante* ganador;
    if(comp->getModalidad()->getTipoMod()->getNombre()=="Simple"||comp->getModalidad()->getTipoMod()->getNombre()=="Doble"){
        //Obtengo el ganador
-       if(res->getResultadoA()->getNombre()=="Ganó")
+       if(res->getResultadoA()->getNombre().toLower()=="ganó")
            ganador=part->getEquipoA();
        else ganador=part->getEquipoB();
        //Si no es el último partido lo asigno al sucesor (sucesor de ronda ganadores si es elim. doble)
@@ -162,7 +162,7 @@ void GestorPartidos::nuevoResultado(Competencia *comp, Partido *part, Resultado 
 bool GestorPartidos::puedeModificar(Partido *part, Competencia *comp,QString &error) {
     error="";
     //Si la modalidad es de liga siempre se puede mofificar un resultado
-    if(comp->getModalidad()->getTipoMod()->getNombre()=="Liga")
+    if(comp->getModalidad()->getTipoMod()->getNombre().toLower()=="liga")
         return true;
     else{
         int fecha=part->getFecha();
@@ -280,8 +280,8 @@ void GestorPartidos::generarFixtureElimSimple(Competencia *comp) {
     //Por cada partido auxiliar que se creó para que sea potencia de dos, declaro como ganador al participante no dummy
     for (int j = 0; j < dif; ++j) {
         Resultado *res=new Resultado; //Creo un resultado genérico porque no importan los puntos o sets
-        res->setResultadoA(this->buscarRes("Ganó"));
-        res->setResultadoB(this->buscarRes("Perdió"));
+        res->setResultadoA(this->buscarRes("ganó"));
+        res->setResultadoB(this->buscarRes("perdió"));
         partidos[i]->setActual(res);
         if(partidos[i]->getSucesores()[0]->getEquipoA()==NULL)
             partidos[i]->getSucesores()[0]->setEquipoA(partidos[i]->getEquipoA());

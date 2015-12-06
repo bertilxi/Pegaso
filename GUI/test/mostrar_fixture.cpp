@@ -19,6 +19,32 @@ mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp, QWidget *parent) 
         ui->tableWidget->setItem(i,0,new QTableWidgetItem(QString::number(comp->getPartidos()[i]->getFecha())));
         ui->tableWidget->setItem(i,1,new QTableWidgetItem(comp->getPartidos()[i]->getEquipoA()->getNombre()));
         ui->tableWidget->setItem(i,2,new QTableWidgetItem(comp->getPartidos()[i]->getEquipoB()->getNombre()));
+        QString resultadoA = "" ;
+        QString resultadoB = "" ;
+        QString resultadoPartido = "";
+
+        if(comp->getPartidos()[i]->getActual() == NULL){
+
+            qDebug()<<"hay actual ? si";
+        }
+
+        if(comp->getPartidos()[i]->getActual()->getResultadoA() != NULL){
+            resultadoA = comp->getPartidos()[i]->getActual()->getResultadoA()->getNombre().toLower();
+        }
+        if(comp->getPartidos()[i]->getActual()->getResultadoB() != NULL){
+            resultadoB = comp->getPartidos()[i]->getActual()->getResultadoB()->getNombre().toLower();
+        }
+        if( resultadoA == "ganó" ){
+            resultadoPartido = "Ganó el equipo A";
+        }
+        else if( resultadoA == "ganó" ){
+            resultadoPartido = "Ganó el equipo A";
+        }
+        else{
+            resultadoPartido = "Empate";
+        }
+
+        ui->tableWidget->setItem(i,3,new QTableWidgetItem(resultadoPartido));
 
     }
     ui->tableWidget->resizeColumnsToContents();
