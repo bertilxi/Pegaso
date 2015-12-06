@@ -210,46 +210,33 @@ void gestionar_fixture::on_pushButton_clicked()
             res->setId(4);
             res->setNombre("no se presentó");
             r->setResultadoA(res);
-<<<<<<< HEAD
             if(ui->checkBox_9->isChecked()){
                 r->setResultadoB(res);
             }
             else{
-=======
             //Si el B se presentó, se lo da como ganador
             if(!ui->checkBox_9->isChecked()){
->>>>>>> 948d221a38c8d6bbc51b3b2f2c6eabbc0a0aa298
                 res2->setId(1);
                 res2->setNombre("ganó");
                 r->setResultadoB(res2);
             }
-<<<<<<< HEAD
 
-=======
->>>>>>> 948d221a38c8d6bbc51b3b2f2c6eabbc0a0aa298
         }
         // equipo B no se presento
         if(ui->checkBox_9->isChecked()){
             res->setId(4);
             res->setNombre("no se presentó");
             r->setResultadoB(res);
-<<<<<<< HEAD
             if(ui->checkBox_8->isChecked()){
                 r->setResultadoA(res);
             }
             else{
-=======
             //Si el A se presentó, se lo da como ganador
             if(!ui->checkBox_8->isChecked()){
->>>>>>> 948d221a38c8d6bbc51b3b2f2c6eabbc0a0aa298
                 res2->setId(1);
                 res2->setNombre("ganó");
                 r->setResultadoA(res2);
             }
-<<<<<<< HEAD
-
-=======
->>>>>>> 948d221a38c8d6bbc51b3b2f2c6eabbc0a0aa298
         }
         gui->handleGestionarFixture(this,"",partidoGestionado,r);
     }
@@ -611,7 +598,7 @@ void gestionar_fixture::on_pushButton_clicked()
             gui->handleGestionarFixture(this,"",partidoGestionado,sets);
         }
     }
-}
+}}}
 
 void gestionar_fixture::on_checkBox_5_toggled(bool checked)
 {
@@ -707,7 +694,6 @@ void gestionar_fixture::on_checkBox_8_toggled(bool checked)
         }
         noSePresentoA = false;
     }
-
 }
 
 void gestionar_fixture::on_checkBox_9_toggled(bool checked)
