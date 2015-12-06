@@ -37,8 +37,11 @@ mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp, QWidget *parent) 
             else if(resultadoA == "empate"){
                 resultadoPartido = "Empate";
             }
+            else if(resultadoA == "no se presentó" && resultadoB == "no se presentó"){
+                resultadoPartido = "Ninguno se presentó";
+            }
             else{
-                resultadoPartido = "Error";
+                    resultadoPartido = "Error";
             }
             qDebug()<<"hay actual ? si";
         }

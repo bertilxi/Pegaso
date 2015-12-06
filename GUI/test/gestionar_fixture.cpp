@@ -148,7 +148,6 @@ void gestionar_fixture::on_pushButton_2_clicked()
 
 void gestionar_fixture::on_pushButton_clicked()
 {
-    Puntos* r = new Puntos();
     Res* res = new Res();
     Res* res2 = new Res();
     Res* res3 = new Res();
@@ -156,7 +155,7 @@ void gestionar_fixture::on_pushButton_clicked()
 
     QString tr = competencia->getModalidad()->getTipoRes()->getNombre().toLower();
     if(tr == "resultado final" ){
-
+        Resultado* r = new Resultado();
         r->setId(-1);
         // gano equipo A
         if(ui->checkBox_5->isChecked()){
@@ -191,7 +190,12 @@ void gestionar_fixture::on_pushButton_clicked()
             res->setId(4);
             res->setNombre("no se presentó");
             r->setResultadoA(res);
-
+            //Si el B se presentó, se lo da como ganador
+            if(!ui->checkBox_9->isChecked()){
+                res2->setId(1);
+                res2->setNombre("ganó");
+                r->setResultadoB(res2);
+            }
         }
         // equipo B no se presento
         if(ui->checkBox_9->isChecked()){
@@ -199,12 +203,17 @@ void gestionar_fixture::on_pushButton_clicked()
             res->setId(4);
             res->setNombre("no se presentó");
             r->setResultadoB(res);
-
+            //Si el A se presentó, se lo da como ganador
+            if(!ui->checkBox_8->isChecked()){
+                res2->setId(1);
+                res2->setNombre("ganó");
+                r->setResultadoA(res2);
+            }
         }
         gui->handleGestionarFixture(this,"",partidoGestionado,r);
     }
     else if(tr == "por puntos"){
-
+        Puntos* r = new Puntos();
         int puntosA = ui->lineEdit_9->text().toInt();
         int puntosB = ui->lineEdit_10->text().toInt();
         // seteamos los puntos de todas formas para ahorrar trabajo
