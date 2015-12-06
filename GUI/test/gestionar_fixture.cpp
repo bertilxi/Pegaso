@@ -95,14 +95,16 @@ gestionar_fixture::gestionar_fixture(Competencia * compP, mostrar_fixture *mf, P
         ui->label_11->setText(partP->getEquipoA()->getNombre());
         ui->label_12->setText(partP->getEquipoB()->getNombre());
 
-//        if(competencia->getModalidad()->getTipoMod()->getNombre().toLower() == "liga"){
-
-//        }
-
         if(partidoGestionado->getActual() != NULL)
         {
             ui->lineEdit_9->setText(QString::number(partidoGestionado->getActual()->getPuntosA()));
             ui->lineEdit_10->setText(QString::number(partidoGestionado->getActual()->getPuntosB()));
+            if(partidoGestionado->getActual()->getResultadoA()->getNombre().toLower() == "no se presentó"){
+                ui->checkBox_3->setChecked(true);
+            }
+            if(partidoGestionado->getActual()->getResultadoA()->getNombre().toLower() == "no se presentó"){
+                ui->checkBox_4->setChecked(true);
+            }
         }
     }
     else if(tr == "por sets"){
@@ -116,9 +118,8 @@ gestionar_fixture::gestionar_fixture(Competencia * compP, mostrar_fixture *mf, P
         ui->checkBox_11->setText(partP->getEquipoB()->getNombre() + " no se presentó");
 
 
+
         if(compP->getModalidad()->getCant_max_sets() <= 9){
-
-
             if(compP->getModalidad()->getCant_max_sets() <= 7){
                 ui->lineEdit->hide();
                 ui->lineEdit_22->hide();
@@ -152,6 +153,44 @@ gestionar_fixture::gestionar_fixture(Competencia * compP, mostrar_fixture *mf, P
                 }
             }
 
+        }
+        if(partidoGestionado->getActual() != NULL){
+
+            if(compP->getModalidad()->getCant_max_sets() >= 1 ){
+                ui->lineEdit_6->setText(QString::number(partidoGestionado->getActual()->getSets()[0]->getPuntosA()));
+                ui->lineEdit_11->setText(QString::number(partidoGestionado->getActual()->getSets()[0]->getPuntosB()));
+                if(compP->getModalidad()->getCant_max_sets() >= 3){
+                    ui->lineEdit_15->setText(QString::number(partidoGestionado->getActual()->getSets()[2]->getPuntosA()));
+                    ui->lineEdit_2->setText(QString::number(partidoGestionado->getActual()->getSets()[2]->getPuntosB()));
+                    ui->lineEdit_5->setText(QString::number(partidoGestionado->getActual()->getSets()[1]->getPuntosA()));
+                    ui->lineEdit_12->setText(QString::number(partidoGestionado->getActual()->getSets()[1]->getPuntosB()));
+                    if(compP->getModalidad()->getCant_max_sets() >= 5){
+                        ui->lineEdit_17->setText(QString::number(partidoGestionado->getActual()->getSets()[4]->getPuntosA()));
+                        ui->lineEdit_14->setText(QString::number(partidoGestionado->getActual()->getSets()[4]->getPuntosB()));
+                        ui->lineEdit_3->setText(QString::number(partidoGestionado->getActual()->getSets()[3]->getPuntosA()));
+                        ui->lineEdit_18->setText(QString::number(partidoGestionado->getActual()->getSets()[3]->getPuntosB()));
+                        if(compP->getModalidad()->getCant_max_sets() >= 7){
+                            ui->lineEdit_13->setText(QString::number(partidoGestionado->getActual()->getSets()[6]->getPuntosA()));
+                            ui->lineEdit_20->setText(QString::number(partidoGestionado->getActual()->getSets()[6]->getPuntosB()));
+                            ui->lineEdit_4->setText(QString::number(partidoGestionado->getActual()->getSets()[5]->getPuntosA()));
+                            ui->lineEdit_19->setText(QString::number(partidoGestionado->getActual()->getSets()[5]->getPuntosB()));
+                            if(compP->getModalidad()->getCant_max_sets() == 9){
+                                ui->lineEdit->setText(QString::number( partidoGestionado->getActual()->getSets()[8]->getPuntosA()));
+                                ui->lineEdit_22->setText(QString::number(partidoGestionado->getActual()->getSets()[8]->getPuntosB()));
+                                ui->lineEdit_16->setText(QString::number(partidoGestionado->getActual()->getSets()[7]->getPuntosA()));
+                                ui->lineEdit_21->setText(QString::number(partidoGestionado->getActual()->getSets()[7]->getPuntosB()));
+                            }
+                        }
+                    }
+                }
+            }
+
+            if(partidoGestionado->getActual()->getResultadoA()->getNombre().toLower() == "no se presentó"){
+                ui->checkBox_10->setChecked(true);
+            }
+            if(partidoGestionado->getActual()->getResultadoB()->getNombre().toLower() == "no se presentó"){
+                ui->checkBox_11->setChecked(true);
+            }
         }
     }
 
@@ -545,14 +584,32 @@ void gestionar_fixture::on_pushButton_clicked()
             else if(sumA == sumB){
                 sets->setResultadoA(res3);
                 sets->setResultadoB(res3);
-            }
-            // si no se presento equipo a
+            }            
             if(ui->checkBox_10->isChecked()){
-                sets->setResultadoA(res4);
+                res->setId(4);
+                res->setNombre("no se presentó");
+                sets->setResultadoA(res);
+                if(ui->checkBox_11->isChecked()){
+                    sets->setResultadoB(res);
+                }
+                else{
+                    res2->setId(1);
+                    res2->setNombre("ganó");
+                    sets->setResultadoB(res2);
+                }
             }
-            // si no se presento equipo b
             if(ui->checkBox_11->isChecked()){
-                sets->setResultadoB(res4);
+                res->setId(4);
+                res->setNombre("no se presentó");
+                sets->setResultadoB(res);
+                if(ui->checkBox_10->isChecked()){
+                    sets->setResultadoA(res);
+                }
+                else{
+                    res2->setId(1);
+                    res2->setNombre("ganó");
+                    sets->setResultadoA(res2);
+                }
             }
 
             if(maxset >= 1 ){
@@ -616,6 +673,9 @@ void gestionar_fixture::on_pushButton_clicked()
                     }
                 }
             }
+
+
+
             gui->handleGestionarFixture(this,"",mostrarFixture,partidoGestionado,sets);
         }
 }
