@@ -260,19 +260,18 @@ bool GUI::handleVerCompetencia(QDialog *a, QString b, QString &error, Competenci
     return false;
 }
 
-bool GUI::handleMostrarFixture(QDialog *a, QString b,Partido* partido)
+bool GUI::handleMostrarFixture(mostrar_fixture *a, QString b,Partido* partido)
 {
     if (b == "gestionarFixture")
     {
-        gestionar_fixture* gf = new gestionar_fixture(competenciaActual,partido,this,a);
+        gestionar_fixture* gf = new gestionar_fixture(competenciaActual,a,partido,this,a);
         gf->setModal(true);
         gf->show();
         return true;
-
     }
 }
 
-void GUI::handleGestionarFixture(QDialog *a, QString b, Partido *partP, Resultado *resP)
+void GUI::handleGestionarFixture(QDialog *a, QString b, mostrar_fixture* mf, Partido *partP, Resultado *resP)
 {
     gestorCompetencias->nuevoResultado(competenciaActual,partP,resP);
 
@@ -285,6 +284,8 @@ void GUI::handleGestionarFixture(QDialog *a, QString b, Partido *partP, Resultad
     msg->setModal(true);
     msg->exec();
     a->close();
+
+    mf->actualizarTabla();
 }
 
 QVector<Competencia*> GUI::handleFiltrarCompetencias(QStringList data)

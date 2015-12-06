@@ -41,6 +41,7 @@
 #include "registrar_usuario.h"
 #include "listar_participante.h"
 #include "gestionar_fixture.h"
+#include "mostrar_fixture.h"
 
 
 namespace Ui {
@@ -52,6 +53,8 @@ class MainWindow;
 class pantalla_usuario;
 
 class listar_competencias;
+
+class mostrar_fixture;
 
 class GUI
 {
@@ -122,9 +125,9 @@ public:
 
     bool handleVerCompetencia(QDialog* a, QString b, QString &error, Competencia *comp = NULL);
 
-    bool handleMostrarFixture(QDialog* a, QString b, Partido *partido);
+    bool handleMostrarFixture(mostrar_fixture *a, QString b, Partido *partido);
 
-    void handleGestionarFixture(QDialog* a, QString b, Partido* partP, Resultado* resP);
+    void handleGestionarFixture(QDialog* a, QString b, mostrar_fixture *mf, Partido* partP, Resultado* resP);
 
     QVector<Competencia*> handleFiltrarCompetencias(QStringList datos);
 

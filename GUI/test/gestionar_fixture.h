@@ -4,6 +4,9 @@
 #include <QDialog>
 #include "gui.h"
 #include "tiporesultado.h"
+#include "mostrar_fixture.h"
+
+class mostrar_fixture;
 
 namespace Ui {
 class gestionar_fixture;
@@ -14,7 +17,7 @@ class gestionar_fixture : public QDialog
     Q_OBJECT
 
 public:
-    explicit gestionar_fixture(Competencia *compP, Partido* partP , GUI* guiP, QWidget *parent = 0);
+    explicit gestionar_fixture(Competencia *compP, mostrar_fixture* mf, Partido* partP , GUI* guiP, QWidget *parent = 0);
     ~gestionar_fixture();
 
 private slots:
@@ -45,6 +48,7 @@ private slots:
 private:
     Ui::gestionar_fixture *ui;
     GUI* gui;
+    mostrar_fixture* mostrarFixture;
     Competencia* competencia;
     Partido* partidoGestionado;
     bool noSePresentoA;

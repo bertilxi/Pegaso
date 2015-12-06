@@ -20,6 +20,8 @@ public:
 
     ~mostrar_fixture();
 
+    void actualizarTabla();
+
 
 private slots:
 

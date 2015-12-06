@@ -2,9 +2,9 @@
 #include "ui_gestionar_fixture.h"
 #include "qpixmap.h"
 
-gestionar_fixture::gestionar_fixture(Competencia * compP, Partido *partP, GUI *guiP, QWidget *parent) :
+gestionar_fixture::gestionar_fixture(Competencia * compP, mostrar_fixture *mf, Partido *partP, GUI *guiP, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::gestionar_fixture), gui(guiP), competencia(compP), partidoGestionado(partP)
+    ui(new Ui::gestionar_fixture), gui(guiP), competencia(compP), partidoGestionado(partP), mostrarFixture(mf)
 {
     ui->setupUi(this);
     QPixmap pix(":images/Heros64.png");
@@ -212,15 +212,12 @@ void gestionar_fixture::on_pushButton_clicked()
             r->setResultadoA(res);
             if(ui->checkBox_9->isChecked()){
                 r->setResultadoB(res);
-            }
+            }           
             else{
-            //Si el B se presentó, se lo da como ganador
-            if(!ui->checkBox_9->isChecked()){
                 res2->setId(1);
                 res2->setNombre("ganó");
                 r->setResultadoB(res2);
             }
-
         }
         // equipo B no se presento
         if(ui->checkBox_9->isChecked()){
@@ -231,14 +228,12 @@ void gestionar_fixture::on_pushButton_clicked()
                 r->setResultadoA(res);
             }
             else{
-            //Si el A se presentó, se lo da como ganador
-            if(!ui->checkBox_8->isChecked()){
                 res2->setId(1);
                 res2->setNombre("ganó");
                 r->setResultadoA(res2);
             }
         }
-        gui->handleGestionarFixture(this,"",partidoGestionado,r);
+        gui->handleGestionarFixture(this,"",mostrarFixture,partidoGestionado,r);
     }
     else if(tr == "por puntos"){
         Puntos* r = new Puntos();
@@ -298,7 +293,7 @@ void gestionar_fixture::on_pushButton_clicked()
                 r->setResultadoA(res2);
             }
             qDebug()<<"enviando datos para persistir";
-            gui->handleGestionarFixture(this,"",partidoGestionado,r);
+            gui->handleGestionarFixture(this,"",mostrarFixture,partidoGestionado,r);
         }
     }
     else if(tr == "por sets"){
@@ -595,10 +590,10 @@ void gestionar_fixture::on_pushButton_clicked()
                     }
                 }
             }
-            gui->handleGestionarFixture(this,"",partidoGestionado,sets);
+            gui->handleGestionarFixture(this,"",mostrarFixture,partidoGestionado,sets);
         }
-    }
-}}}
+}
+}
 
 void gestionar_fixture::on_checkBox_5_toggled(bool checked)
 {
