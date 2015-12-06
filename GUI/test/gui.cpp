@@ -276,6 +276,7 @@ void GUI::handleGestionarFixture(QDialog *a, QString b, Partido *partP, Resultad
     gestorCompetencias->nuevoResultado(competenciaActual,partP,resP);
 
     competenciaActual = gestorCompetencias->getCompetenciaFull(competenciaActual->getId());
+
     QMessageBox* msg = new QMessageBox(a);
     msg->setText("Partido cargado correctamente");
     QPixmap icono(":/images/Heros-verde-64.png");

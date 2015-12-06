@@ -201,7 +201,6 @@ Puntaje::Puntaje()
     TF = 0 ;
     TC = 0 ;
     Dif = 0 ;
-    id = -1;
 }
 
 

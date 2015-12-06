@@ -264,10 +264,6 @@ Competencia *GestorCompetencias::getCompetenciaFull(int id_comp)
 {
     Competencia * comp = gestorBaseDatos->getCompetenciaFull(id_comp);
 
-    if(comp == NULL){
-
-        qDebug()<<"id comp "<< id_comp;
-    }
     // si la competencia esta en planificada o en disputa,
     // la ventana de ver competencias va a necesitar que los proximos encuentros esten cargados
     if(comp->getEstado()->getNombre().toLower() == "planificada" || comp->getEstado()->getNombre().toLower() == "en disputa"){
