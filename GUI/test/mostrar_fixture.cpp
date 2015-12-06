@@ -23,6 +23,8 @@ mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp, QWidget *parent) 
         QString resultadoB = "" ;
         QString resultadoPartido = "";
 
+
+
         if(comp->getPartidos()[i]->getActual() != NULL){
             resultadoA = comp->getPartidos()[i]->getActual()->getResultadoA()->getNombre().toLower();
             resultadoB = comp->getPartidos()[i]->getActual()->getResultadoB()->getNombre().toLower();
@@ -55,7 +57,7 @@ mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp, QWidget *parent) 
         }
         else if(resultadoA == "empató"){
             resultadoPartido = "Empate";
->>>>>>> 074f7bdc2ba1187336732b69616c1e8793b257b7
+
         }
 
         ui->tableWidget->setItem(i,3,new QTableWidgetItem(resultadoPartido));

@@ -21,6 +21,8 @@ public:
 
     bool operator==(const Deporte &other)const;
 
+    Deporte();
+
 private:
 
     int id;

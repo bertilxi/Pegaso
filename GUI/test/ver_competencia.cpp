@@ -35,6 +35,9 @@ ver_competencia::ver_competencia(GUI *guiP, Competencia *compP, QWidget *parent)
     }
 
     // si la competencia no esta planificada o en disputa no se muestra la tabla
+    if(compP->getEstado()->getNombre().toLower() == "en disputa"){
+        ui->pushButton_5->setDisabled(true);
+    }
     if (!(compP->getEstado()->getNombre().toLower() == "planificada" || compP->getEstado()->getNombre().toLower() == "en disputa")){
         ui->tableWidget->hide();
         ui->label_6->hide();
@@ -56,6 +59,7 @@ ver_competencia::ver_competencia(GUI *guiP, Competencia *compP, QWidget *parent)
         }
         ui->tableWidget->resizeColumnsToContents();
     }
+
 }
 
 ver_competencia::~ver_competencia()

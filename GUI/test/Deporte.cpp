@@ -41,3 +41,8 @@ bool Deporte::operator==(const Deporte &other) const
     return 1;
 }
 
+Deporte::Deporte()
+{
+    id = -1;
+}
+

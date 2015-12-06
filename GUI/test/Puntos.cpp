@@ -71,6 +71,7 @@ void Puntos::setPuntosB(int value)
 
 Puntos::Puntos()
 {
+    id = -1;
     puntosA = -1;
     puntosB = -1;
 }

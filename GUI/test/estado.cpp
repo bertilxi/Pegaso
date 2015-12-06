@@ -23,6 +23,6 @@ void Estado::setId(int value)
 
 Estado::Estado()
 {
-//    id = -1;
-//    nombre = "";
+    id = -1;
+
 }

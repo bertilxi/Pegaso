@@ -18,6 +18,7 @@ public:
 
     void setFecha(const QString &value);
 
+
 private:
 
     QString fecha;
