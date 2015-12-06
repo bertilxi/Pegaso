@@ -36,6 +36,8 @@ public:
 
     QVector<Atributo> getAtributos() const;
 
+    HistorialParticipante();
+
 
 private:
 

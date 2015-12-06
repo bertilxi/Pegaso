@@ -7,6 +7,8 @@ class TipoResultado
 {
 public:
 
+    TipoResultado();
+
     int getId() const;
 
     void setId(int value);

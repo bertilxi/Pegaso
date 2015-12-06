@@ -38,3 +38,8 @@ void Provincia::setNombre(const QString &value)
 {
     nombre = value;
 }
+
+Provincia::Provincia()
+{
+    id = -1;
+}

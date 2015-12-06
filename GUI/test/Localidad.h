@@ -25,6 +25,8 @@ public:
 
     void setProvincia(Provincia *value);
 
+    Localidad();
+
 private:
 
     int id;

@@ -54,4 +54,9 @@ bool Lugar::operator==(const Lugar &other) const
     return 1;
 }
 
+Lugar::Lugar()
+{
+    id = -1;
+}
+
 

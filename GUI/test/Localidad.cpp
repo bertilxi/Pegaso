@@ -28,3 +28,8 @@ void Localidad::setNombre(const QString &value)
 {
     nombre = value;
 }
+
+Localidad::Localidad()
+{
+    id = -1;
+}

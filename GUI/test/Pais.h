@@ -26,6 +26,8 @@ public:
     QVector<Provincia*> getProvincias() const;
     void setProvincias(const QVector<Provincia*> &value);
 
+    Pais();
+
 private:
 
     QVector<Provincia*> provincias;
