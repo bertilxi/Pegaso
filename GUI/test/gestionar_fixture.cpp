@@ -292,7 +292,33 @@ void gestionar_fixture::on_pushButton_clicked()
                 r->setResultadoB(res);
                 r->setResultadoA(res2);
             }
-            qDebug()<<"enviando datos para persistir";
+            if(ui->checkBox_3->isChecked()){
+                res->setId(4);
+                res->setNombre("no se presentó");
+                r->setResultadoA(res);
+                if(ui->checkBox_4->isChecked()){
+                    r->setResultadoB(res);
+                }
+                else{
+                    res2->setId(1);
+                    res2->setNombre("ganó");
+                    r->setResultadoB(res2);
+                }
+            }
+            if(ui->checkBox_4->isChecked()){
+                res->setId(4);
+                res->setNombre("no se presentó");
+                r->setResultadoB(res);
+                if(ui->checkBox_3->isChecked()){
+                    r->setResultadoA(res);
+                }
+                else{
+                    res2->setId(1);
+                    res2->setNombre("ganó");
+                    r->setResultadoA(res2);
+                }
+            }
+
             gui->handleGestionarFixture(this,"",mostrarFixture,partidoGestionado,r);
         }
     }

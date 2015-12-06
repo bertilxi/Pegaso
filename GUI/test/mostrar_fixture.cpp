@@ -123,6 +123,8 @@ void mostrar_fixture::actualizarTabla()
         ui->tableWidget->setItem(i,3,new QTableWidgetItem(resultadoPartido));
 
     }
+    ui->tableWidget->resizeColumnsToContents();
+    ui->tableWidget->setCurrentCell(-1,-1);
 }
 
 void mostrar_fixture::on_pushButton_clicked()
