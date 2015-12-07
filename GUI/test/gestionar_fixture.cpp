@@ -276,16 +276,19 @@ void gestionar_fixture::on_pushButton_clicked()
     }
     else if(tr == "por puntos"){
         Puntos* r = new Puntos();
-        int puntosA = ui->lineEdit_9->text().toInt();
-        int puntosB = ui->lineEdit_10->text().toInt();
+        int puntosA = -1;
+        int puntosB = -1;
+
+        puntosA = ui->lineEdit_9->text().toInt();
+        puntosB = ui->lineEdit_10->text().toInt();
         // seteamos los puntos de todas formas para ahorrar trabajo
         r->setPuntosA(puntosA);
         r->setPuntosB(puntosB);
 
         // si algun equipo esta ausente pero se le coloca puntos dara una alerta de error
 
-        if( (ui->lineEdit_9->isEnabled()  && puntosA == 0) ||
-            (ui->lineEdit_10->isEnabled() && puntosB == 0 )  ){
+        if( (ui->lineEdit_9->isEnabled()  && puntosA == -1) ||
+            (ui->lineEdit_10->isEnabled() && puntosB == -1)  ){
 
             QMessageBox* msg = new QMessageBox(this);
             msg->setText("Coloque los puntos del equipo faltante por favor");
