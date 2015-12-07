@@ -74,8 +74,6 @@ mostrar_fixture::~mostrar_fixture()
 void mostrar_fixture::actualizarTabla()
 {
     // actualizamos la tabla
-     qDebug()<<"hola fixture";
-
     Competencia* comp = competencia;
     ui->tableWidget->setRowCount(0);
     for (int i = 0; i < comp->getPartidos().size(); ++i) {
