@@ -656,10 +656,11 @@ ORDER BY id_partido ASC
             }
 
 
-
+            Sets *sets = NULL;
             QVector<Set *> grupoSet;
             QVector<Resultado *> resultadosModificados;
             bool primerResultado = true;
+            bool actual;
             int resultadoActual = -1000;
 
             //por cada fila en la tabla resultado
@@ -680,32 +681,15 @@ ORDER BY id_partido ASC
                 if(resultadoActual != query.value(0).toInt()){
                     resultadoActual = query.value(0).toInt();
 
-                    //si ya hemos cargado todos los sets correspondientes a un Resultado
+                    //si ya hemos levantado todos los sets correspondientes a un Resultado
                     if(primerResultado == false){
 
-                        //creo un resultado de tipo "Por Sets"
-                        Sets *sets = new Sets;
-
-                        //lo seteo con los atributos de cualquier Resultado
-                        sets->setId(query.value(0).toInt());
-
-                        Res* resA = new Res();
-                        Res* resB = new Res();
-                        resA->setId(query.value(1).toInt());
-                        resA->setNombre(query.value(2).toString());
-                        resB->setId(query.value(3).toInt());
-                        resB->setNombre(query.value(4).toString());
-
-                        sets->setResultadoA(resA);
-                        sets->setResultadoB(resB);
-
                         //lo seteo con sus correspondientes "Set"
-
                         sets->setSets(grupoSet);
                         grupoSet.clear();
 
                         //si no es el resultado actual, lo pongo en una lista de modificados
-                        if(query.value(5).isNull()){
+                        if(!actual){
                             resultadosModificados.push_back(sets);
                         }
 
@@ -715,8 +699,30 @@ ORDER BY id_partido ASC
                             partidos[i]->setActual(sets);
                         }
                     }
-
                     primerResultado = false;
+
+                    //creo un resultado de tipo "Por Sets"
+                    sets = new Sets;
+
+                    //lo seteo con los atributos de cualquier Resultado
+                    sets->setId(query.value(0).toInt());
+
+                    Res* resA = new Res();
+                    Res* resB = new Res();
+                    resA->setId(query.value(1).toInt());
+                    resA->setNombre(query.value(2).toString());
+                    resB->setId(query.value(3).toInt());
+                    resB->setNombre(query.value(4).toString());
+
+                    sets->setResultadoA(resA);
+                    sets->setResultadoB(resB);
+
+                    if(query.value(5).isNull()){
+                        actual = false;
+                    }
+                    else{
+                        actual = true;
+                    }
                 }
 
                 Set *set = new Set;
@@ -729,32 +735,15 @@ ORDER BY id_partido ASC
                 //fin while()
             }
 
-            //repito por ultima vez el codigo para guardar el ultimo Resultado
-            //pero antes reviso que la cantidad de resultados no haya sido nula
-            if(grupoSet.size() != 0){
-
-                //creo un resultado de tipo "Por Sets"
-                Sets *sets = new Sets;
-
-                //lo seteo con los atributos de cualquier Resultado
-                sets->setId(query.value(0).toInt());
-
-
-                Res* resA = new Res();
-                Res* resB = new Res();
-                resA->setId(query.value(1).toInt());
-                resA->setNombre(query.value(2).toString());
-                resB->setId(query.value(3).toInt());
-                resB->setNombre(query.value(4).toString());
-
-                sets->setResultadoA(resA);
-                sets->setResultadoB(resB);
+            //si ya hemos levantado todos los sets correspondientes a un Resultado
+            if(primerResultado == false){
 
                 //lo seteo con sus correspondientes "Set"
                 sets->setSets(grupoSet);
+                grupoSet.clear();
 
                 //si no es el resultado actual, lo pongo en una lista de modificados
-                if(query.value(5).isNull()){
+                if(!actual){
                     resultadosModificados.push_back(sets);
                 }
 

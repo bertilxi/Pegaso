@@ -28,11 +28,12 @@ mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp, QWidget *parent) 
         if(comp->getPartidos()[i]->getActual() != NULL){
             resultadoA = comp->getPartidos()[i]->getActual()->getResultadoA()->getNombre().toLower();
             resultadoB = comp->getPartidos()[i]->getActual()->getResultadoB()->getNombre().toLower();
-
-            if( resultadoA == "ganó" ){
+            qDebug() << comp->getPartidos()[i]->getActual()->getResultadoA()->getNombre();
+            qDebug() << resultadoA;
+            if( resultadoA == "gano" ){
                 resultadoPartido = "Ganó el equipo A";
             }
-            else if( resultadoB == "ganó" ){
+            else if( resultadoB == "gano" ){
                 resultadoPartido = "Ganó el equipo B";
             }
             else if(resultadoA == "empate"){
