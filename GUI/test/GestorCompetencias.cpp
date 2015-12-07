@@ -243,13 +243,6 @@ void GestorCompetencias::nuevoResultado(Competencia *comp, Partido *part, Result
     //Guardo los cambios
     gestorBaseDatos->saveCompetencia(comp,gestorUsuarios->getActual()->getId());
 
-
-    if(part->getActual() != NULL){
-        qDebug()<<"id "<<part->getId();
-        qDebug()<<"puntos A "<<part->getActual()->getPuntosA();
-        qDebug()<<"puntos B "<<part->getActual()->getPuntosB();
-    }
-
 }
 
 Competencia *GestorCompetencias::getCompetenciaFull(int id_comp)
