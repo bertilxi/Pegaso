@@ -816,6 +816,25 @@ void gestionar_fixture::on_checkBox_10_toggled(bool checked)
         ui->lineEdit_20->setDisabled(true);
         ui->lineEdit_21->setDisabled(true);
         ui->lineEdit_22->setDisabled(true);
+
+        ui->lineEdit_6->clear();
+        ui->lineEdit_5->clear();
+        ui->lineEdit_15->clear();
+        ui->lineEdit_3->clear();
+        ui->lineEdit_17->clear();
+        ui->lineEdit_4->clear();
+        ui->lineEdit_13->clear();
+        ui->lineEdit_16->clear();
+        ui->lineEdit->clear();
+        ui->lineEdit_11->clear();
+        ui->lineEdit_12->clear();
+        ui->lineEdit_2->clear();
+        ui->lineEdit_18->clear();
+        ui->lineEdit_14->clear();
+        ui->lineEdit_19->clear();
+        ui->lineEdit_20->clear();
+        ui->lineEdit_21->clear();
+        ui->lineEdit_22->clear();
     }
     else{
 
@@ -863,6 +882,24 @@ void gestionar_fixture::on_checkBox_11_toggled(bool checked)
         ui->lineEdit_20->setDisabled(true);
         ui->lineEdit_21->setDisabled(true);
         ui->lineEdit_22->setDisabled(true);
+        ui->lineEdit_6->clear();
+        ui->lineEdit_5->clear();
+        ui->lineEdit_15->clear();
+        ui->lineEdit_3->clear();
+        ui->lineEdit_17->clear();
+        ui->lineEdit_4->clear();
+        ui->lineEdit_13->clear();
+        ui->lineEdit_16->clear();
+        ui->lineEdit->clear();
+        ui->lineEdit_11->clear();
+        ui->lineEdit_12->clear();
+        ui->lineEdit_2->clear();
+        ui->lineEdit_18->clear();
+        ui->lineEdit_14->clear();
+        ui->lineEdit_19->clear();
+        ui->lineEdit_20->clear();
+        ui->lineEdit_21->clear();
+        ui->lineEdit_22->clear();
     }
     else{
         ui->lineEdit_6->setEnabled(true);
