@@ -43,6 +43,7 @@
 #include "gestionar_fixture.h"
 #include "mostrar_fixture.h"
 
+#include "../../Modules/Excel/generadorexcel.h"
 
 namespace Ui {
     class MainWindow;

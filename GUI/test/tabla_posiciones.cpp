@@ -2,9 +2,9 @@
 #include "ui_tabla_posiciones.h"
 
 bool comparePtrParticipante(Participante* a, Participante* b) { return (*a < *b); }
-tabla_posiciones::tabla_posiciones(GUI *guiP, Competencia* compP, QWidget *parent) :
+tabla_posiciones::tabla_posiciones(GUI *guiP, Competencia* compP, QWidget *parent, GeneradorExcel *genExcelP) :
     QDialog(parent),
-    ui(new Ui::tabla_posiciones), gui(guiP)
+    ui(new Ui::tabla_posiciones), gui(guiP), genExcel(genExcelP), comp(compP)
 {
     ui->setupUi(this);
     QPixmap pix(":/images/Heros64.png");
@@ -13,12 +13,13 @@ tabla_posiciones::tabla_posiciones(GUI *guiP, Competencia* compP, QWidget *paren
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
 
-    ui->label_2->setText(compP->getNombre());
-    ui->label_4->setText(compP->getModalidad()->getTipoMod()->getNombre());
-    ui->label_6->setText(QString::number(compP->getFechaActual()));
+    ui->label_2->setText(comp->getNombre());
+    ui->label_4->setText(comp->getModalidad()->getTipoMod()->getNombre());
+    ui->label_6->setText(QString::number(comp->getFechaActual()));
 
-    QVector<Participante*> participantesP = compP->getParticipantes();
+    QVector<Participante*> participantesP = comp->getParticipantes();
     qSort(participantesP.begin(),participantesP.end(),comparePtrParticipante);
+    comp->setParticipantes(participantesP);
     for (int i = 0; i < participantesP.size(); ++i) {
 
        ui->tableWidget->insertRow(i);
@@ -44,4 +45,15 @@ tabla_posiciones::~tabla_posiciones()
 void tabla_posiciones::on_pushButton_3_clicked()
 {
     this->close();
+}
+
+void tabla_posiciones::on_pushButton_clicked()
+{
+    genExcel->generarExcel(comp);
+    QMessageBox* msg = new QMessageBox(this);
+    msg->setText("Se ha generado una planilla de cálculo con las posiciones");
+    QPixmap icono(":/images/Heros-verde-64.png");
+    msg->setIconPixmap(icono);
+    msg->setModal(true);
+    msg->exec();
 }

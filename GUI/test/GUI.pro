@@ -53,10 +53,10 @@ SOURCES += main.cpp\
     tabla_posiciones.cpp \
     registrar_usuario.cpp \
     listar_participante.cpp \
-    gestionar_fixture.cpp
+    gestionar_fixture.cpp \
+    ../../Modules/Excel/generadorexcel.cpp
 
-HEADERS  += \
-    Atributo.h \
+HEADERS  += Atributo.h \
     Auditoria.h \
     Competencia.h \
     Deporte.h \
@@ -96,7 +96,8 @@ HEADERS  += \
     tabla_posiciones.h \
     registrar_usuario.h \
     listar_participante.h \
-    gestionar_fixture.h
+    gestionar_fixture.h \
+    ../../Modules/Excel/generadorexcel.h
 
 FORMS    += mainwindow.ui \
     ver_competencia.ui \
@@ -112,3 +113,5 @@ FORMS    += mainwindow.ui \
 
 RESOURCES += \
     res.qrc
+
+include(../../Modules/Excel/qtxlsx/src/xlsx/qtxlsx.pri)
