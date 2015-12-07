@@ -450,7 +450,7 @@ void gestionar_fixture::on_pushButton_clicked()
                     errFlag = true;
                 }
                 else if (!empate && (sumA == sumB || setA1 == setB1 || setA2 == setB2 || setA3 == setB3)){
-                    errFlag2 == true;
+                    errFlag2 = true;
                 }
             }
             else if(maxset == 5){
