@@ -186,7 +186,7 @@ public:
             //guardo los resultados de cada partido
             status &= this->saveResultado(partidos[i]->getActual(), Atributo("partido_actual",QString::number(partidos[i]->getId())));
 
-            qDebug()<<"equipo a "<<partidos[i]->getActual()->getResultadoA()->getNombre();
+//            qDebug()<<"equipo a "<<partidos[i]->getActual()->getResultadoA()->getNombre();
 
             //guardo el historial de cada partido
             QVector<Resultado *> modificados = partidos[i]->getModificado();
@@ -234,6 +234,7 @@ public:
                 status &= this->save(QVector<Resultado *>(1,resultado), &partidoId);
                 Atributo resultadoId("id_resultado",QString::number(resultado->getId()));
                 status &= this->save(sets->getSets(), &resultadoId);
+                qDebug()<<"equipo a "<<QVector<Resultado *>(1,resultado)[0]->getResultadoA()->getNombre();
             }
             else    //si es de clase Resultado
             {

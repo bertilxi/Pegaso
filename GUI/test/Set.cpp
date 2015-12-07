@@ -73,3 +73,10 @@ QVector<Atributo> Set::getAtributos() const{
     return result;
 }
 
+Set::Set()
+{
+    nro_set =-1;
+    puntosA = -1;
+    puntosB = -1;
+}
+
