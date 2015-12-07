@@ -19,7 +19,7 @@ public:
 
     virtual int getPuntosB() const{}
 
-    virtual QVector<Set*> getSets(){
+    virtual QVector<Set*> getSets() const{
         QVector<Set*> a;
         return a;
     }
