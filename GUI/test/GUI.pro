@@ -6,7 +6,7 @@
 
 QT       += core gui sql network
 
-CONFIG += c++11
+CONFIG += c++14
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -54,7 +54,8 @@ SOURCES += main.cpp\
     registrar_usuario.cpp \
     listar_participante.cpp \
     gestionar_fixture.cpp \
-    ../../Modules/Excel/generadorexcel.cpp
+    ../../Modules/Excel/generadorexcel.cpp \
+    ../../Modules/Reporte/generadorreporte.cpp
 
 HEADERS  += Atributo.h \
     Auditoria.h \
@@ -97,7 +98,8 @@ HEADERS  += Atributo.h \
     registrar_usuario.h \
     listar_participante.h \
     gestionar_fixture.h \
-    ../../Modules/Excel/generadorexcel.h
+    ../../Modules/Excel/generadorexcel.h \
+    ../../Modules/Reporte/generadorreporte.h
 
 FORMS    += mainwindow.ui \
     ver_competencia.ui \
@@ -115,3 +117,4 @@ RESOURCES += \
     res.qrc
 
 include(../../Modules/Excel/qtxlsx/src/xlsx/qtxlsx.pri)
+include($$PWD/../../Modules/Reporte/QtRptProject/QtRPT/QtRPT.pri)

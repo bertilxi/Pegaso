@@ -248,7 +248,8 @@ bool GUI::handleVerCompetencia(QDialog *a, QString b, QString &error, Competenci
     else if (b == "mostrarTablasPosiciones")
     {
         GeneradorExcel* genExcel = new GeneradorExcel();
-        tabla_posiciones* t = new tabla_posiciones(this,comp,a,genExcel);
+        generadorReporte* genRep = new generadorReporte();
+        tabla_posiciones* t = new tabla_posiciones(this,comp,a,genExcel,genRep);
         t->setModal(true);
         t->show();
     }

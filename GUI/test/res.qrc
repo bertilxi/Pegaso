@@ -1,20 +1,25 @@
-<!DOCTYPE RCC><RCC version="1.0">
-<qresource>
-    <file>images/Heros.png</file>
-    <file>images/Heros64.png</file>
-    <file>images/Heros96.png</file>
-    <file>images/Heros128.png</file>
-    <file>images/Heros256.png</file>
-    <file>images/Heros-amarillo.png</file>
-    <file>images/Heros-amarillo-64.png</file>
-    <file>images/Heros-azul.png</file>
-    <file>images/Heros-azul-64.png</file>
-    <file>images/Heros-rojo.png</file>
-    <file>images/Heros-rojo-64.png</file>
-    <file>images/Heros-verde.png</file>
-    <file>images/Heros-verde-64.png</file>
-    <file>images/salir.png</file>
-    <file>images/user.png</file>
-    <file>pegaso.db</file>    
-</qresource>
+<RCC>
+    <qresource prefix="/">
+        <file>images/Heros.png</file>
+        <file>images/Heros64.png</file>
+        <file>images/Heros96.png</file>
+        <file>images/Heros128.png</file>
+        <file>images/Heros256.png</file>
+        <file>images/Heros-amarillo.png</file>
+        <file>images/Heros-amarillo-64.png</file>
+        <file>images/Heros-azul.png</file>
+        <file>images/Heros-azul-64.png</file>
+        <file>images/Heros-rojo.png</file>
+        <file>images/Heros-rojo-64.png</file>
+        <file>images/Heros-verde.png</file>
+        <file>images/Heros-verde-64.png</file>
+        <file>images/salir.png</file>
+        <file>images/user.png</file>
+        <file>pegaso.db</file>
+        <file>../../Modules/Reporte/Heros256.png</file>
+        <file>reportes/reporte.xml</file>
+        <file>reportes/reporte_no_puntuacion.xml</file>
+        <file>reportes/reporte_no_puntuacion_sin_empate.xml</file>
+        <file>reportes/reporte_sin_empate.xml</file>
+    </qresource>
 </RCC>

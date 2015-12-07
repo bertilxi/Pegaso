@@ -15,15 +15,15 @@ void generadorReporte::generar(Competencia *comp) {
     QString fileName;
     if(comp->getModalidad()->getTipoRes()->getNombre().toLower()=="puntuación"){
         if(comp->getModalidad()->getEmpate()==true)
-            fileName = ":/reporte.xml";
+            fileName = ":/reportes/reporte.xml";
         else
-            fileName = ":/reporte_sin_empate.xml";
+            fileName = ":/reportes/reporte_sin_empate.xml";
     }
     else{
         if(comp->getModalidad()->getEmpate()==true)
-            fileName = ":/reporte_no_puntuacion.xml";
+            fileName = ":/reportes/reporte_no_puntuacion.xml";
         else
-            fileName = ":/reporte_no_puntuacion_sin_empate.xml";
+            fileName = ":/reportes/reporte_no_puntuacion_sin_empate.xml";
     }
 
     if (report->loadReport(fileName) == false) {

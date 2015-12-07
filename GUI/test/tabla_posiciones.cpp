@@ -2,9 +2,9 @@
 #include "ui_tabla_posiciones.h"
 
 bool comparePtrParticipante(Participante* a, Participante* b) { return (*a < *b); }
-tabla_posiciones::tabla_posiciones(GUI *guiP, Competencia* compP, QWidget *parent, GeneradorExcel *genExcelP) :
+tabla_posiciones::tabla_posiciones(GUI *guiP, Competencia* compP, QWidget *parent, GeneradorExcel *genExcelP, generadorReporte *genRepP) :
     QDialog(parent),
-    ui(new Ui::tabla_posiciones), gui(guiP), genExcel(genExcelP), comp(compP)
+    ui(new Ui::tabla_posiciones), gui(guiP), genExcel(genExcelP), comp(compP), genRep(genRepP)
 {
     ui->setupUi(this);
     QPixmap pix(":/images/Heros64.png");
@@ -56,4 +56,9 @@ void tabla_posiciones::on_pushButton_clicked()
     msg->setIconPixmap(icono);
     msg->setModal(true);
     msg->exec();
+}
+
+void tabla_posiciones::on_pushButton_2_clicked()
+{
+    genRep->generar(comp);
 }
