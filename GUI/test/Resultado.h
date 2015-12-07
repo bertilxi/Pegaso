@@ -42,6 +42,8 @@ public:
 
     Res *getResultadoB() const;
 
+    Resultado();
+
     virtual ~Resultado();
 
 protected:

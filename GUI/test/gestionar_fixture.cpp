@@ -566,8 +566,6 @@ void gestionar_fixture::on_pushButton_clicked()
             Sets* sets = new Sets();
             QVector<Set*> listaSets;
 
-            sets->setSets(listaSets);
-
             res->setId(1);
             res->setNombre("ganó");
             res2->setId(2);
@@ -677,6 +675,7 @@ void gestionar_fixture::on_pushButton_clicked()
                 }
             }
 
+            sets->setSets(listaSets);
             gui->handleGestionarFixture(this,"",mostrarFixture,partidoGestionado,sets);
         }
 }

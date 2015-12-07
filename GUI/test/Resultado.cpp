@@ -77,6 +77,13 @@ Res *Resultado::getResultadoB() const
     return resultadoB;
 }
 
+Resultado::Resultado()
+{
+    id = -1;
+    resultadoA = NULL;
+    resultadoB = NULL;
+}
+
 Resultado::~Resultado()
 {
     delete resultadoA;
