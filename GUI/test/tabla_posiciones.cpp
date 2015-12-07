@@ -35,6 +35,11 @@ tabla_posiciones::tabla_posiciones(GUI *guiP, Competencia* compP, QWidget *paren
 
     }
 
+    ui->tableWidget->resizeColumnsToContents();
+    int ancho = ui->tableWidget->geometry().width()*3.5;
+    qDebug()<<ancho;
+    this->resize(ancho ,500);
+
 }
 
 tabla_posiciones::~tabla_posiciones()

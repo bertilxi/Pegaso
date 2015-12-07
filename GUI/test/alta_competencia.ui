@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
-    <height>847</height>
+    <width>411</width>
+    <height>744</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -305,34 +305,18 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
-     <item alignment="Qt::AlignHCenter">
-      <widget class="QTableWidget" name="tableWidget">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>400</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <column>
-        <property name="text">
-         <string>Lugar</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Disponibilidad</string>
-        </property>
-       </column>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QTableWidget" name="tableWidget">
+     <column>
+      <property name="text">
+       <string>Lugar</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Disponibilidad</string>
+      </property>
+     </column>
+    </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_13">
@@ -887,6 +871,7 @@
   <zorder>verticalSpacer_4</zorder>
   <zorder>verticalSpacer_5</zorder>
   <zorder>label_9</zorder>
+  <zorder>tableWidget</zorder>
  </widget>
  <tabstops>
   <tabstop>lineEdit</tabstop>

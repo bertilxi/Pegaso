@@ -78,9 +78,10 @@ alta_competencia::alta_competencia(GUI *guiP, QVector<Deporte*> deportesP, QVect
      ui->lineEdit_6->hide();
      ui->label_12->hide();
 
-     this->resize(500,600);
+     this->resize(300,600);
 
      maxSet = 0;
+     ui->tableWidget->resizeColumnsToContents();
 
  }
 
@@ -240,6 +241,7 @@ void alta_competencia::on_pushButton_3_clicked()
         }
 
     }
+    ui->tableWidget->resizeColumnsToContents();
 }
 
 void alta_competencia::on_pushButton_4_clicked()

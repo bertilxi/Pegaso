@@ -10,7 +10,7 @@ pantalla_usuario::pantalla_usuario(GUI *guiP, QWidget *parent) :
 
     this->setWindowTitle("Opciones de usuario");
 
-    QPixmap pix(":/images/Heros128.png");
+    QPixmap pix(":/images/Heros64.png");
     ui->label_logo->setPixmap(pix);
 
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>825</width>
-    <height>477</height>
+    <width>590</width>
+    <height>482</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,9 +26,9 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>Nombre de la competencia:</string>
+          <string>Competencia1</string>
          </property>
         </widget>
        </item>
@@ -51,9 +51,9 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QLabel" name="label_2">
+        <widget class="QLabel" name="label">
          <property name="text">
-          <string>Competencia1</string>
+          <string/>
          </property>
         </widget>
        </item>
