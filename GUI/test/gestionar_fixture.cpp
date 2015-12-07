@@ -816,7 +816,6 @@ void gestionar_fixture::on_checkBox_10_toggled(bool checked)
         ui->lineEdit_20->setDisabled(true);
         ui->lineEdit_21->setDisabled(true);
         ui->lineEdit_22->setDisabled(true);
-
         ui->lineEdit_6->clear();
         ui->lineEdit_5->clear();
         ui->lineEdit_15->clear();
@@ -835,27 +834,31 @@ void gestionar_fixture::on_checkBox_10_toggled(bool checked)
         ui->lineEdit_20->clear();
         ui->lineEdit_21->clear();
         ui->lineEdit_22->clear();
+        noSePresentoA = true;
     }
     else{
+        if(!noSePresentoB){
 
-        ui->lineEdit_6->setEnabled(true);
-        ui->lineEdit_5->setEnabled(true);
-        ui->lineEdit_15->setEnabled(true);
-        ui->lineEdit_3->setEnabled(true);
-        ui->lineEdit_17->setEnabled(true);
-        ui->lineEdit_4->setEnabled(true);
-        ui->lineEdit_13->setEnabled(true);
-        ui->lineEdit_16->setEnabled(true);
-        ui->lineEdit->setEnabled(true);
-        ui->lineEdit_11->setEnabled(true);
-        ui->lineEdit_12->setEnabled(true);
-        ui->lineEdit_2->setEnabled(true);
-        ui->lineEdit_18->setEnabled(true);
-        ui->lineEdit_14->setEnabled(true);
-        ui->lineEdit_19->setEnabled(true);
-        ui->lineEdit_20->setEnabled(true);
-        ui->lineEdit_21->setEnabled(true);
-        ui->lineEdit_22->setEnabled(true);
+            ui->lineEdit_6->setEnabled(true);
+            ui->lineEdit_5->setEnabled(true);
+            ui->lineEdit_15->setEnabled(true);
+            ui->lineEdit_3->setEnabled(true);
+            ui->lineEdit_17->setEnabled(true);
+            ui->lineEdit_4->setEnabled(true);
+            ui->lineEdit_13->setEnabled(true);
+            ui->lineEdit_16->setEnabled(true);
+            ui->lineEdit->setEnabled(true);
+            ui->lineEdit_11->setEnabled(true);
+            ui->lineEdit_12->setEnabled(true);
+            ui->lineEdit_2->setEnabled(true);
+            ui->lineEdit_18->setEnabled(true);
+            ui->lineEdit_14->setEnabled(true);
+            ui->lineEdit_19->setEnabled(true);
+            ui->lineEdit_20->setEnabled(true);
+            ui->lineEdit_21->setEnabled(true);
+            ui->lineEdit_22->setEnabled(true);
+        }
+        noSePresentoA = false;
 
     }
 }
@@ -900,26 +903,31 @@ void gestionar_fixture::on_checkBox_11_toggled(bool checked)
         ui->lineEdit_20->clear();
         ui->lineEdit_21->clear();
         ui->lineEdit_22->clear();
+        noSePresentoB = true;
     }
     else{
-        ui->lineEdit_6->setEnabled(true);
-        ui->lineEdit_5->setEnabled(true);
-        ui->lineEdit_15->setEnabled(true);
-        ui->lineEdit_3->setEnabled(true);
-        ui->lineEdit_17->setEnabled(true);
-        ui->lineEdit_4->setEnabled(true);
-        ui->lineEdit_13->setEnabled(true);
-        ui->lineEdit_16->setEnabled(true);
-        ui->lineEdit->setEnabled(true);
-        ui->lineEdit_11->setEnabled(true);
-        ui->lineEdit_12->setEnabled(true);
-        ui->lineEdit_2->setEnabled(true);
-        ui->lineEdit_18->setEnabled(true);
-        ui->lineEdit_14->setEnabled(true);
-        ui->lineEdit_19->setEnabled(true);
-        ui->lineEdit_20->setEnabled(true);
-        ui->lineEdit_21->setEnabled(true);
-        ui->lineEdit_22->setEnabled(true);
+        if(!noSePresentoA){
+
+            ui->lineEdit_6->setEnabled(true);
+            ui->lineEdit_5->setEnabled(true);
+            ui->lineEdit_15->setEnabled(true);
+            ui->lineEdit_3->setEnabled(true);
+            ui->lineEdit_17->setEnabled(true);
+            ui->lineEdit_4->setEnabled(true);
+            ui->lineEdit_13->setEnabled(true);
+            ui->lineEdit_16->setEnabled(true);
+            ui->lineEdit->setEnabled(true);
+            ui->lineEdit_11->setEnabled(true);
+            ui->lineEdit_12->setEnabled(true);
+            ui->lineEdit_2->setEnabled(true);
+            ui->lineEdit_18->setEnabled(true);
+            ui->lineEdit_14->setEnabled(true);
+            ui->lineEdit_19->setEnabled(true);
+            ui->lineEdit_20->setEnabled(true);
+            ui->lineEdit_21->setEnabled(true);
+            ui->lineEdit_22->setEnabled(true);
+        }
+        noSePresentoB = false;
     }
 }
 
