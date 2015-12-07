@@ -32,7 +32,7 @@ bool Puntos::operator==(const Puntos &other) const
 }
 
 QString Puntos::getTable() const{
-    return "Puntos";
+    return "Resultado";
 }
 
 /**

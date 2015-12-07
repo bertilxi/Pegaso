@@ -186,8 +186,6 @@ public:
             //guardo los resultados de cada partido
             status &= this->saveResultado(partidos[i]->getActual(), Atributo("partido_actual",QString::number(partidos[i]->getId())));
 
-//            qDebug()<<"equipo a "<<partidos[i]->getActual()->getResultadoA()->getNombre();
-
             //guardo el historial de cada partido
             QVector<Resultado *> modificados = partidos[i]->getModificado();
             for(int j = 0; j < modificados.size(); j++){
