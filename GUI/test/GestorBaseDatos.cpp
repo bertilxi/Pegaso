@@ -768,6 +768,9 @@ ORDER BY id_partido ASC
 
             //al final, seteo el partido con su lista de resultados modificados
             partidos[i]->setModificado(resultadosModificados);
+            if(partidos[i]->getActual() != NULL)
+                qDebug()<<"res actual"<<partidos[i]->getActual()->getId();
+            qDebug()<<"resultados modificados"<<partidos[i]->getModificado().size();
         }
         else
         {
