@@ -565,7 +565,9 @@ void gestionar_fixture::on_pushButton_clicked()
 
             Sets* sets = new Sets();
             QVector<Set*> listaSets;
+
             sets->setSets(listaSets);
+
             res->setId(1);
             res->setNombre("ganó");
             res2->setId(2);
@@ -574,6 +576,7 @@ void gestionar_fixture::on_pushButton_clicked()
             res3->setNombre("empate");
             res4->setId(4);
             res4->setNombre("no se presentó");
+
             // gano equipo A
             if(sumA > sumB){
                 sets->setResultadoA(res);
@@ -589,30 +592,26 @@ void gestionar_fixture::on_pushButton_clicked()
                 sets->setResultadoA(res3);
                 sets->setResultadoB(res3);
             }
+            // no se presento equipo a
             if(ui->checkBox_10->isChecked()){
-                res->setId(4);
-                res->setNombre("no se presentó");
-                sets->setResultadoA(res);
+                sets->setResultadoA(res4);
+                // tampoco se presento equipo b
                 if(ui->checkBox_11->isChecked()){
+                    sets->setResultadoB(res4);
+                }
+                // si se presento b, gana b
+                else{
                     sets->setResultadoB(res);
                 }
-                else{
-                    res2->setId(1);
-                    res2->setNombre("ganó");
-                    sets->setResultadoB(res2);
-                }
             }
+            // Se repite el caso para evitar errores, hace lo mismo que if anterior pero cambia al equipo a por el b
             if(ui->checkBox_11->isChecked()){
-                res->setId(4);
-                res->setNombre("no se presentó");
-                sets->setResultadoB(res);
+                sets->setResultadoB(res4);
                 if(ui->checkBox_10->isChecked()){
-                    sets->setResultadoA(res);
+                    sets->setResultadoA(res4);
                 }
                 else{
-                    res2->setId(1);
-                    res2->setNombre("ganó");
-                    sets->setResultadoA(res2);
+                    sets->setResultadoA(res);
                 }
             }
 
@@ -677,6 +676,7 @@ void gestionar_fixture::on_pushButton_clicked()
                     }
                 }
             }
+
             gui->handleGestionarFixture(this,"",mostrarFixture,partidoGestionado,sets);
         }
 }
