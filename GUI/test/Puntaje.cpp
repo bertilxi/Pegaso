@@ -26,7 +26,7 @@ void Puntaje::restar(Resultado *res,Modalidad *mod,QString equipo) {
         puntos -= mod->getPuntos_ganar();
         PG--;
     }
-    if(resultado->getNombre().toLower()=="empató"){
+    if(resultado->getNombre().toLower()=="empate"){
         puntos-=mod->getPuntos_empate();
         PE--;
     }
@@ -69,7 +69,7 @@ void Puntaje::sumar(Resultado *res,Modalidad *mod,QString equipo) {
         puntos+=mod->getPuntos_ganar();
         PG++;
     }
-    if(resultado->getNombre().toLower()=="empató"){
+    if(resultado->getNombre().toLower()=="empate"){
         puntos+=mod->getPuntos_empate();
         PE++;
     }

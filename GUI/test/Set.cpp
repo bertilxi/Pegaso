@@ -55,7 +55,7 @@ bool Set::operator==(const Set &other) const
 }
 
 QString Set::getTable() const{
-    return "Por Sets";
+    return "Sets";
 }
 
 /**
@@ -71,5 +71,12 @@ QVector<Atributo> Set::getAtributos() const{
     result.push_back(Atributo("puntosB", QString::number(puntosB)));
 
     return result;
+}
+
+Set::Set()
+{
+    nro_set =-1;
+    puntosA = -1;
+    puntosB = -1;
 }
 

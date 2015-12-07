@@ -32,6 +32,8 @@ public:
 
     QVector<Atributo> getAtributos() const;
 
+    Set();
+
 
 private:
 

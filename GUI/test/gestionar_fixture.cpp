@@ -240,7 +240,7 @@ void gestionar_fixture::on_pushButton_clicked()
         else if (ui->checkBox_7->isChecked()){
 
             res->setId(3);
-            res->setNombre("empató");
+            res->setNombre("empate");
             r->setResultadoA(res);
             r->setResultadoB(res);
         }
@@ -276,16 +276,19 @@ void gestionar_fixture::on_pushButton_clicked()
     }
     else if(tr == "por puntos"){
         Puntos* r = new Puntos();
-        int puntosA = ui->lineEdit_9->text().toInt();
-        int puntosB = ui->lineEdit_10->text().toInt();
+        int puntosA = -1;
+        int puntosB = -1;
+
+        puntosA = ui->lineEdit_9->text().toInt();
+        puntosB = ui->lineEdit_10->text().toInt();
         // seteamos los puntos de todas formas para ahorrar trabajo
         r->setPuntosA(puntosA);
         r->setPuntosB(puntosB);
 
         // si algun equipo esta ausente pero se le coloca puntos dara una alerta de error
 
-        if( (ui->lineEdit_9->isEnabled()  && puntosA == 0) ||
-            (ui->lineEdit_10->isEnabled() && puntosB == 0 )  ){
+        if( (ui->lineEdit_9->isEnabled()  && puntosA == -1) ||
+            (ui->lineEdit_10->isEnabled() && puntosB == -1)  ){
 
             QMessageBox* msg = new QMessageBox(this);
             msg->setText("Coloque los puntos del equipo faltante por favor");
@@ -308,7 +311,7 @@ void gestionar_fixture::on_pushButton_clicked()
 
             if(puntosA == puntosB){
                 res->setId(3);
-                res->setNombre("empató");
+                res->setNombre("empate");
                 r->setResultadoA(res);
                 r->setResultadoB(res);
             }
@@ -562,15 +565,18 @@ void gestionar_fixture::on_pushButton_clicked()
 
             Sets* sets = new Sets();
             QVector<Set*> listaSets;
+
             sets->setSets(listaSets);
+
             res->setId(1);
             res->setNombre("ganó");
             res2->setId(2);
             res2->setNombre("perdió");
             res3->setId(3);
-            res3->setNombre("empató");
+            res3->setNombre("empate");
             res4->setId(4);
             res4->setNombre("no se presentó");
+
             // gano equipo A
             if(sumA > sumB){
                 sets->setResultadoA(res);
@@ -586,30 +592,26 @@ void gestionar_fixture::on_pushButton_clicked()
                 sets->setResultadoA(res3);
                 sets->setResultadoB(res3);
             }
+            // no se presento equipo a
             if(ui->checkBox_10->isChecked()){
-                res->setId(4);
-                res->setNombre("no se presentó");
-                sets->setResultadoA(res);
+                sets->setResultadoA(res4);
+                // tampoco se presento equipo b
                 if(ui->checkBox_11->isChecked()){
+                    sets->setResultadoB(res4);
+                }
+                // si se presento b, gana b
+                else{
                     sets->setResultadoB(res);
                 }
-                else{
-                    res2->setId(1);
-                    res2->setNombre("ganó");
-                    sets->setResultadoB(res2);
-                }
             }
+            // Se repite el caso para evitar errores, hace lo mismo que if anterior pero cambia al equipo a por el b
             if(ui->checkBox_11->isChecked()){
-                res->setId(4);
-                res->setNombre("no se presentó");
-                sets->setResultadoB(res);
+                sets->setResultadoB(res4);
                 if(ui->checkBox_10->isChecked()){
-                    sets->setResultadoA(res);
+                    sets->setResultadoA(res4);
                 }
                 else{
-                    res2->setId(1);
-                    res2->setNombre("ganó");
-                    sets->setResultadoA(res2);
+                    sets->setResultadoA(res);
                 }
             }
 
@@ -674,6 +676,7 @@ void gestionar_fixture::on_pushButton_clicked()
                     }
                 }
             }
+
             gui->handleGestionarFixture(this,"",mostrarFixture,partidoGestionado,sets);
         }
 }

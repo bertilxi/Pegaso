@@ -235,15 +235,7 @@ void GestorCompetencias::nuevoResultado(Competencia *comp, Partido *part, Result
 //            break;
 //        }
 //    }
-//    comp->setPartidos(partidos);
-
-    for (int i = 0; i < partidos.size(); ++i) {
-        if(partidos[i]->getActual() != NULL){
-            qDebug()<<"id "<<partidos[i]->getId();
-            qDebug()<<"puntos A "<<partidos[i]->getActual()->getPuntosA();
-            qDebug()<<"puntos B "<<partidos[i]->getActual()->getPuntosB();
-        }
-    }
+    comp->setPartidos(partidos);
 
     //Modifico la fechaActual, la próxima vez que se haga getFechaActual se volverá a calcular
     comp->setFechaActual(-1);
