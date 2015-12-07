@@ -72,7 +72,7 @@ gestionar_fixture::gestionar_fixture(Competencia * compP, mostrar_fixture *mf, P
             else if(partidoGestionado->getActual()->getResultadoB()->getNombre().toLower() == "ganó"){
                 ui->checkBox_6->setChecked(true);
             }
-            else if(partidoGestionado->getActual()->getResultadoA()->getNombre().toLower() == "empate" || partidoGestionado->getActual()->getResultadoA()->getNombre().toLower() == "empató"){
+            else if(partidoGestionado->getActual()->getResultadoA()->getNombre().toLower() == "empate"){
                 ui->checkBox_7->setChecked(true);
             }
             if(partidoGestionado->getActual()->getResultadoA()->getNombre().toLower() == "no se presentó"){
@@ -102,7 +102,7 @@ gestionar_fixture::gestionar_fixture(Competencia * compP, mostrar_fixture *mf, P
             if(partidoGestionado->getActual()->getResultadoA()->getNombre().toLower() == "no se presentó"){
                 ui->checkBox_3->setChecked(true);
             }
-            if(partidoGestionado->getActual()->getResultadoB()->getNombre().toLower() == "no se presentó"){
+            if(partidoGestionado->getActual()->getResultadoA()->getNombre().toLower() == "no se presentó"){
                 ui->checkBox_4->setChecked(true);
             }
         }
@@ -251,7 +251,7 @@ void gestionar_fixture::on_pushButton_clicked()
             r->setResultadoA(res);
             if(ui->checkBox_9->isChecked()){
                 r->setResultadoB(res);
-            }           
+            }
             else{
                 res2->setId(1);
                 res2->setNombre("ganó");
@@ -424,8 +424,9 @@ void gestionar_fixture::on_pushButton_clicked()
 
         // validaciones
         if(maxset == 1){
-            sumA += setA1;
-            sumB += setB1;
+            if(setA1 > setB1) sumA++;
+            else if(setA1 < setB1) sumB++;
+
             if (setA1  == 0 || setB1 == 0 ){
 
                 errFlag = true;
@@ -437,11 +438,11 @@ void gestionar_fixture::on_pushButton_clicked()
         else if(maxset == 3){
 
             if(setA1 > setB1) sumA++;
-            else sumB++;
+            else if(setA1 < setB1) sumB++;
             if(setA2 > setB2) sumA++;
-            else sumB++;
+            else if(setA2 < setB2) sumB++;
             if(setA3 > setB3) sumA++;
-            else sumB++;
+            else if(setA3 < setB3) sumB++;
 
             if(setA1  == 0 || setB1 == 0 || setA2 == 0 || setB2 == 0 || setA3 == 0 || setB3 == 0 ){
 
@@ -454,15 +455,15 @@ void gestionar_fixture::on_pushButton_clicked()
         else if(maxset == 5){
 
             if(setA1 > setB1) sumA++;
-            else sumB++;
+            else if(setA1 < setB1) sumB++;
             if(setA2 > setB2) sumA++;
-            else sumB++;
+            else if(setA2 < setB2) sumB++;
             if(setA3 > setB3) sumA++;
-            else sumB++;
+            else if(setA3 < setB3) sumB++;
             if(setA4 > setB4) sumA++;
-            else sumB++;
+            else if(setA4 < setB4) sumB++;
             if(setA5 > setB5) sumA++;
-            else sumB++;
+            else if(setA5 < setB5) sumB++;
 
             if(setA1 == 0 || setB1 == 0 || setA2 == 0 || setB2 == 0 || setA3 == 0 || setB3 == 0 ||
              setA4 == 0 || setB4 == 0 || setA5 == 0 || setB5 == 0 )
@@ -478,19 +479,19 @@ void gestionar_fixture::on_pushButton_clicked()
         else if(maxset == 7){
 
             if(setA1 > setB1) sumA++;
-            else sumB++;
+            else if(setA1 < setB1) sumB++;
             if(setA2 > setB2) sumA++;
-            else sumB++;
+            else if(setA2 < setB2) sumB++;
             if(setA3 > setB3) sumA++;
-            else sumB++;
+            else if(setA3 < setB3) sumB++;
             if(setA4 > setB4) sumA++;
-            else sumB++;
+            else if(setA4 < setB4) sumB++;
             if(setA5 > setB5) sumA++;
-            else sumB++;
+            else if(setA5 < setB5) sumB++;
             if(setA6 > setB6) sumA++;
-            else sumB++;
+            else if(setA6 < setB6) sumB++;
             if(setA7 > setB7) sumA++;
-            else sumB++;
+            else if(setA7 < setB7) sumB++;
 
             if(setA1 == 0 || setB1 == 0 || setA2 == 0 || setB2 == 0 || setA3 == 0 || setB3 == 0 ||
              setA4 == 0 || setB4 == 0 || setA5 == 0 || setB5 == 0 || setA6 == 0 || setB6 == 0 ||
@@ -507,23 +508,23 @@ void gestionar_fixture::on_pushButton_clicked()
         else if(maxset == 9){
 
             if(setA1 > setB1) sumA++;
-            else sumB++;
+            else if(setA1 < setB1) sumB++;
             if(setA2 > setB2) sumA++;
-            else sumB++;
+            else if(setA2 < setB2) sumB++;
             if(setA3 > setB3) sumA++;
-            else sumB++;
+            else if(setA3 < setB3) sumB++;
             if(setA4 > setB4) sumA++;
-            else sumB++;
+            else if(setA4 < setB4) sumB++;
             if(setA5 > setB5) sumA++;
-            else sumB++;
+            else if(setA5 < setB5) sumB++;
             if(setA6 > setB6) sumA++;
-            else sumB++;
+            else if(setA6 < setB6) sumB++;
             if(setA7 > setB7) sumA++;
-            else sumB++;
+            else if(setA7 < setB7) sumB++;
             if(setA8 > setB8) sumA++;
-            else sumB++;
+            else if(setA8 < setB8) sumB++;
             if(setA9 > setB9) sumA++;
-            else sumB++;
+            else if(setA9 < setB9) sumB++;
 
             if(setA1 == 0 || setB1 == 0 || setA2 == 0 || setB2 == 0 || setA3 == 0 || setB3 == 0 ||
              setA4 == 0 || setB4 == 0 || setA5 == 0 || setB5 == 0 || setA6 == 0 || setB6 == 0 ||
@@ -584,7 +585,7 @@ void gestionar_fixture::on_pushButton_clicked()
             else if(sumA == sumB){
                 sets->setResultadoA(res3);
                 sets->setResultadoB(res3);
-            }            
+            }
             if(ui->checkBox_10->isChecked()){
                 res->setId(4);
                 res->setNombre("no se presentó");
@@ -673,9 +674,6 @@ void gestionar_fixture::on_pushButton_clicked()
                     }
                 }
             }
-
-
-
             gui->handleGestionarFixture(this,"",mostrarFixture,partidoGestionado,sets);
         }
 }
@@ -808,26 +806,6 @@ void gestionar_fixture::on_checkBox_10_toggled(bool checked)
         ui->lineEdit_13->setDisabled(true);
         ui->lineEdit_16->setDisabled(true);
         ui->lineEdit->setDisabled(true);
-    }
-    else{
-
-        ui->lineEdit_6->setEnabled(true);
-        ui->lineEdit_5->setEnabled(true);
-        ui->lineEdit_15->setEnabled(true);
-        ui->lineEdit_3->setEnabled(true);
-        ui->lineEdit_17->setEnabled(true);
-        ui->lineEdit_4->setEnabled(true);
-        ui->lineEdit_13->setEnabled(true);
-        ui->lineEdit_16->setEnabled(true);
-        ui->lineEdit->setEnabled(true);
-
-    }
-}
-
-void gestionar_fixture::on_checkBox_11_toggled(bool checked)
-{
-    if(checked){
-
         ui->lineEdit_11->setDisabled(true);
         ui->lineEdit_12->setDisabled(true);
         ui->lineEdit_2->setDisabled(true);
@@ -840,6 +818,61 @@ void gestionar_fixture::on_checkBox_11_toggled(bool checked)
     }
     else{
 
+        ui->lineEdit_6->setEnabled(true);
+        ui->lineEdit_5->setEnabled(true);
+        ui->lineEdit_15->setEnabled(true);
+        ui->lineEdit_3->setEnabled(true);
+        ui->lineEdit_17->setEnabled(true);
+        ui->lineEdit_4->setEnabled(true);
+        ui->lineEdit_13->setEnabled(true);
+        ui->lineEdit_16->setEnabled(true);
+        ui->lineEdit->setEnabled(true);
+        ui->lineEdit_11->setEnabled(true);
+        ui->lineEdit_12->setEnabled(true);
+        ui->lineEdit_2->setEnabled(true);
+        ui->lineEdit_18->setEnabled(true);
+        ui->lineEdit_14->setEnabled(true);
+        ui->lineEdit_19->setEnabled(true);
+        ui->lineEdit_20->setEnabled(true);
+        ui->lineEdit_21->setEnabled(true);
+        ui->lineEdit_22->setEnabled(true);
+
+    }
+}
+
+void gestionar_fixture::on_checkBox_11_toggled(bool checked)
+{
+    if(checked){
+
+        ui->lineEdit_6->setDisabled(true);
+        ui->lineEdit_5->setDisabled(true);
+        ui->lineEdit_15->setDisabled(true);
+        ui->lineEdit_3->setDisabled(true);
+        ui->lineEdit_17->setDisabled(true);
+        ui->lineEdit_4->setDisabled(true);
+        ui->lineEdit_13->setDisabled(true);
+        ui->lineEdit_16->setDisabled(true);
+        ui->lineEdit->setDisabled(true);
+        ui->lineEdit_11->setDisabled(true);
+        ui->lineEdit_12->setDisabled(true);
+        ui->lineEdit_2->setDisabled(true);
+        ui->lineEdit_18->setDisabled(true);
+        ui->lineEdit_14->setDisabled(true);
+        ui->lineEdit_19->setDisabled(true);
+        ui->lineEdit_20->setDisabled(true);
+        ui->lineEdit_21->setDisabled(true);
+        ui->lineEdit_22->setDisabled(true);
+    }
+    else{
+        ui->lineEdit_6->setEnabled(true);
+        ui->lineEdit_5->setEnabled(true);
+        ui->lineEdit_15->setEnabled(true);
+        ui->lineEdit_3->setEnabled(true);
+        ui->lineEdit_17->setEnabled(true);
+        ui->lineEdit_4->setEnabled(true);
+        ui->lineEdit_13->setEnabled(true);
+        ui->lineEdit_16->setEnabled(true);
+        ui->lineEdit->setEnabled(true);
         ui->lineEdit_11->setEnabled(true);
         ui->lineEdit_12->setEnabled(true);
         ui->lineEdit_2->setEnabled(true);
@@ -851,3 +884,4 @@ void gestionar_fixture::on_checkBox_11_toggled(bool checked)
         ui->lineEdit_22->setEnabled(true);
     }
 }
+
