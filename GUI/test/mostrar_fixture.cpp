@@ -30,10 +30,10 @@ mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp, QWidget *parent) 
             resultadoB = comp->getPartidos()[i]->getActual()->getResultadoB()->getNombre().toLower();
             qDebug() << comp->getPartidos()[i]->getActual()->getResultadoA()->getNombre();
             qDebug() << resultadoA;
-            if( resultadoA == "gano" ){
+            if( resultadoA == "ganó" ){
                 resultadoPartido = "Ganó el equipo A";
             }
-            else if( resultadoB == "gano" ){
+            else if( resultadoB == "ganó" ){
                 resultadoPartido = "Ganó el equipo B";
             }
             else if(resultadoA == "empate"){
@@ -143,8 +143,6 @@ void mostrar_fixture::on_pushButton_2_clicked()
         Partido* p = competencia->getPartidos()[partidoSeleccionado];
 
        if(gui->handleMostrarFixture(this,"gestionarFixture",p)){
-
-
        }
    }
    else{

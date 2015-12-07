@@ -29,7 +29,6 @@ gestionar_fixture::gestionar_fixture(Competencia * compP, mostrar_fixture *mf, P
 
     ui->lineEdit_9->setValidator(numValidator);
     ui->lineEdit_10->setValidator(numValidator);
-
     ui->lineEdit_6->setValidator(numValidator);
     ui->lineEdit_5->setValidator(numValidator);
     ui->lineEdit_15->setValidator(numValidator);
@@ -39,7 +38,6 @@ gestionar_fixture::gestionar_fixture(Competencia * compP, mostrar_fixture *mf, P
     ui->lineEdit_13->setValidator(numValidator);
     ui->lineEdit_16->setValidator(numValidator);
     ui->lineEdit->setValidator(numValidator);
-
     ui->lineEdit_11->setValidator(numValidator);
     ui->lineEdit_12->setValidator(numValidator);
     ui->lineEdit_2->setValidator(numValidator);
@@ -81,11 +79,7 @@ gestionar_fixture::gestionar_fixture(Competencia * compP, mostrar_fixture *mf, P
             if(partidoGestionado->getActual()->getResultadoB()->getNombre().toLower() == "no se presentó"){
                 ui->checkBox_9->setChecked(true);
             }
-
-
         }
-
-
     }
     else if(tr == "por puntos"){
         ui->tabWidget->removeTab(1);
@@ -154,41 +148,43 @@ gestionar_fixture::gestionar_fixture(Competencia * compP, mostrar_fixture *mf, P
             }
 
         }
-        if(partidoGestionado->getActual() != NULL){
+        Sets* setsAct = dynamic_cast<Sets *>(partidoGestionado->getActual());
+
+        if(setsAct != NULL){
 
             if(compP->getModalidad()->getCant_max_sets() >= 1 ){
-                ui->lineEdit_6->setText(QString::number(partidoGestionado->getActual()->getSets()[0]->getPuntosA()));
-                ui->lineEdit_11->setText(QString::number(partidoGestionado->getActual()->getSets()[0]->getPuntosB()));
+                ui->lineEdit_6->setText(QString::number(setsAct->getSets()[0]->getPuntosA()));
+                ui->lineEdit_11->setText(QString::number(setsAct->getSets()[0]->getPuntosB()));
                 if(compP->getModalidad()->getCant_max_sets() >= 3){
-                    ui->lineEdit_15->setText(QString::number(partidoGestionado->getActual()->getSets()[2]->getPuntosA()));
-                    ui->lineEdit_2->setText(QString::number(partidoGestionado->getActual()->getSets()[2]->getPuntosB()));
-                    ui->lineEdit_5->setText(QString::number(partidoGestionado->getActual()->getSets()[1]->getPuntosA()));
-                    ui->lineEdit_12->setText(QString::number(partidoGestionado->getActual()->getSets()[1]->getPuntosB()));
+                    ui->lineEdit_15->setText(QString::number(setsAct->getSets()[2]->getPuntosA()));
+                    ui->lineEdit_2->setText(QString::number(setsAct->getSets()[2]->getPuntosB()));
+                    ui->lineEdit_5->setText(QString::number(setsAct->getSets()[1]->getPuntosA()));
+                    ui->lineEdit_12->setText(QString::number(setsAct->getSets()[1]->getPuntosB()));
                     if(compP->getModalidad()->getCant_max_sets() >= 5){
-                        ui->lineEdit_17->setText(QString::number(partidoGestionado->getActual()->getSets()[4]->getPuntosA()));
-                        ui->lineEdit_14->setText(QString::number(partidoGestionado->getActual()->getSets()[4]->getPuntosB()));
-                        ui->lineEdit_3->setText(QString::number(partidoGestionado->getActual()->getSets()[3]->getPuntosA()));
-                        ui->lineEdit_18->setText(QString::number(partidoGestionado->getActual()->getSets()[3]->getPuntosB()));
+                        ui->lineEdit_17->setText(QString::number(setsAct->getSets()[4]->getPuntosA()));
+                        ui->lineEdit_14->setText(QString::number(setsAct->getSets()[4]->getPuntosB()));
+                        ui->lineEdit_3->setText(QString::number(setsAct->getSets()[3]->getPuntosA()));
+                        ui->lineEdit_18->setText(QString::number(setsAct->getSets()[3]->getPuntosB()));
                         if(compP->getModalidad()->getCant_max_sets() >= 7){
-                            ui->lineEdit_13->setText(QString::number(partidoGestionado->getActual()->getSets()[6]->getPuntosA()));
-                            ui->lineEdit_20->setText(QString::number(partidoGestionado->getActual()->getSets()[6]->getPuntosB()));
-                            ui->lineEdit_4->setText(QString::number(partidoGestionado->getActual()->getSets()[5]->getPuntosA()));
-                            ui->lineEdit_19->setText(QString::number(partidoGestionado->getActual()->getSets()[5]->getPuntosB()));
+                            ui->lineEdit_13->setText(QString::number(setsAct->getSets()[6]->getPuntosA()));
+                            ui->lineEdit_20->setText(QString::number(setsAct->getSets()[6]->getPuntosB()));
+                            ui->lineEdit_4->setText(QString::number(setsAct->getSets()[5]->getPuntosA()));
+                            ui->lineEdit_19->setText(QString::number(setsAct->getSets()[5]->getPuntosB()));
                             if(compP->getModalidad()->getCant_max_sets() == 9){
-                                ui->lineEdit->setText(QString::number( partidoGestionado->getActual()->getSets()[8]->getPuntosA()));
-                                ui->lineEdit_22->setText(QString::number(partidoGestionado->getActual()->getSets()[8]->getPuntosB()));
-                                ui->lineEdit_16->setText(QString::number(partidoGestionado->getActual()->getSets()[7]->getPuntosA()));
-                                ui->lineEdit_21->setText(QString::number(partidoGestionado->getActual()->getSets()[7]->getPuntosB()));
+                                ui->lineEdit->setText(QString::number( setsAct->getSets()[8]->getPuntosA()));
+                                ui->lineEdit_22->setText(QString::number(setsAct->getSets()[8]->getPuntosB()));
+                                ui->lineEdit_16->setText(QString::number(setsAct->getSets()[7]->getPuntosA()));
+                                ui->lineEdit_21->setText(QString::number(setsAct->getSets()[7]->getPuntosB()));
                             }
                         }
                     }
                 }
             }
 
-            if(partidoGestionado->getActual()->getResultadoA()->getNombre().toLower() == "no se presentó"){
+            if(setsAct->getResultadoA()->getNombre().toLower() == "no se presentó"){
                 ui->checkBox_10->setChecked(true);
             }
-            if(partidoGestionado->getActual()->getResultadoB()->getNombre().toLower() == "no se presentó"){
+            if(setsAct->getResultadoB()->getNombre().toLower() == "no se presentó"){
                 ui->checkBox_11->setChecked(true);
             }
         }
