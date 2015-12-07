@@ -680,7 +680,7 @@ ORDER BY id_partido ASC
                 if(resultadoActual != query.value(0).toInt()){
                     resultadoActual = query.value(0).toInt();
 
-                    //si ya hemos cargado los todos los sets correspondientes a un Resultado
+                    //si ya hemos cargado todos los sets correspondientes a un Resultado
                     if(primerResultado == false){
 
                         //creo un resultado de tipo "Por Sets"
@@ -730,36 +730,39 @@ ORDER BY id_partido ASC
             }
 
             //repito por ultima vez el codigo para guardar el ultimo Resultado
+            //pero antes reviso que la cantidad de resultados no haya sido nula
+            if(grupoSet.size() != 0){
 
-            //creo un resultado de tipo "Por Sets"
-            Sets *sets = new Sets;
+                //creo un resultado de tipo "Por Sets"
+                Sets *sets = new Sets;
 
-            //lo seteo con los atributos de cualquier Resultado
-            sets->setId(query.value(0).toInt());
+                //lo seteo con los atributos de cualquier Resultado
+                sets->setId(query.value(0).toInt());
 
 
-            Res* resA = new Res();
-            Res* resB = new Res();
-            resA->setId(query.value(1).toInt());
-            resA->setNombre(query.value(2).toString());
-            resB->setId(query.value(3).toInt());
-            resB->setNombre(query.value(4).toString());
+                Res* resA = new Res();
+                Res* resB = new Res();
+                resA->setId(query.value(1).toInt());
+                resA->setNombre(query.value(2).toString());
+                resB->setId(query.value(3).toInt());
+                resB->setNombre(query.value(4).toString());
 
-            sets->setResultadoA(resA);
-            sets->setResultadoB(resB);
+                sets->setResultadoA(resA);
+                sets->setResultadoB(resB);
 
-            //lo seteo con sus correspondientes "Set"
-            sets->setSets(grupoSet);
+                //lo seteo con sus correspondientes "Set"
+                sets->setSets(grupoSet);
 
-            //si no es el resultado actual, lo pongo en una lista de modificados
-            if(query.value(5).isNull()){
-                resultadosModificados.push_back(sets);
-            }
+                //si no es el resultado actual, lo pongo en una lista de modificados
+                if(query.value(5).isNull()){
+                    resultadosModificados.push_back(sets);
+                }
 
-            //si es es resultado actual, seteo el partido con él
-            else
-            {
-                partidos[i]->setActual(sets);
+                //si es es resultado actual, seteo el partido con él
+                else
+                {
+                    partidos[i]->setActual(sets);
+                }
             }
 
 
