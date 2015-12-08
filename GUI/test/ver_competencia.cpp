@@ -117,6 +117,7 @@ ver_competencia::~ver_competencia()
 
 void ver_competencia::on_pushButton_7_clicked() //Salir
 {
+    delete comp;
     this->close();
 }
 
