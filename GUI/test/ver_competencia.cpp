@@ -106,6 +106,7 @@ void ver_competencia::on_pushButton_5_clicked() //Generar fixture
         msg->setModal(true);
         msg->exec();
     }
+    ui->pushButton_5->setDisabled(true);
 }
 
 void ver_competencia::on_pushButton_6_clicked() //Mostrar tabla posiciones

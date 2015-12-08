@@ -32,10 +32,27 @@ tabla_posiciones::tabla_posiciones(GUI *guiP, Competencia* compP, QWidget *paren
        if(comp->getModalidad()->getEmpate()){
            ui->tableWidget->setItem(i,j++,new QTableWidgetItem(QString::number(participantesP[i]->getPuntaje()->getPE())));
        }
+       else{
+           for (int i2 = 0; i2 < ui->tableWidget->columnCount(); ++i2) {
+                if(ui->tableWidget->horizontalHeaderItem(i2)->text().toLower() == "pe"){
+                    ui->tableWidget->removeColumn(i2);
+                }
+           }
+       }
        if(comp->getModalidad()->getTipoRes()->getNombre().toLower() != "resultado final"){
            ui->tableWidget->setItem(i,j++,new QTableWidgetItem(QString::number(participantesP[i]->getPuntaje()->getTF())));
            ui->tableWidget->setItem(i,j++,new QTableWidgetItem(QString::number(participantesP[i]->getPuntaje()->getTC())));
            ui->tableWidget->setItem(i,j++,new QTableWidgetItem(QString::number(participantesP[i]->getPuntaje()->getDif())));
+       }
+       else{
+           for (int i2 = 0; i2 < ui->tableWidget->columnCount(); ++i2) {
+                if(ui->tableWidget->horizontalHeaderItem(i2)->text().toLower() == "dt" ||
+                   ui->tableWidget->horizontalHeaderItem(i2)->text().toLower() == "tf" ||
+                   ui->tableWidget->horizontalHeaderItem(i2)->text().toLower() == "tc"  )
+                {
+                    ui->tableWidget->removeColumn(i2);
+                }
+           }
        }
 
     }
