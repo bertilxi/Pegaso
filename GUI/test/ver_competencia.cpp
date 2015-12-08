@@ -32,6 +32,7 @@ ver_competencia::ver_competencia(GUI *guiP, Competencia *compP, QWidget *parent)
     }
     else {
         ui->pushButton_4->setDisabled(true);
+        ui->checkBox->setCheckable(false);
     }
 
     if(compP->getEstado()->getNombre().toLower() == "en disputa" || compP->getEstado()->getNombre().toLower() == "finalizada" ){
