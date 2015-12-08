@@ -53,6 +53,7 @@ alta_competencia::alta_competencia(GUI *guiP, QVector<Deporte*> deportesP, QVect
      ui->lineEdit_5->setValidator(numValidator);
      ui->lineEdit_2->setValidator(numValidator);
      ui->lineEdit_3->setValidator(numValidator);
+     ui->lineEdit_6->setValidator(numValidator);
 
      ui->comboBox->setCurrentIndex(-1);
      ui->comboBox_2->setCurrentIndex(-1);
