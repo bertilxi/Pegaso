@@ -39,7 +39,7 @@ void GeneradorExcel::generarExcel(Competencia *comp)
     xlsx.write("H2","",format1);
 
     //Genero la tercer fila y cargo resultados según la modalidad de la competencia
-    if(comp->getModalidad()->getTipoRes()->getNombre().toLower()=="puntuación"){
+    if(comp->getModalidad()->getTipoRes()->getNombre().toLower()=="por puntos"){
         if(comp->getModalidad()->getEmpate()){
             this->mod_puntuacion_con_empate(comp,xlsx);
         }

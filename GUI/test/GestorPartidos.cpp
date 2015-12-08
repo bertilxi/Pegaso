@@ -8,7 +8,7 @@
 /**
  * GestorPartidos implementation
  */
-
+bool comparePtr(Partido* a, Partido* b) { return (*a < *b);}
 void GestorPartidos::generarFixture(Competencia *comp) {
     //Llamo a la función adecuada según la modalidad de la competencia
     QString modalidad=comp->getModalidad()->getTipoMod()->getNombre().toLower();
@@ -27,8 +27,11 @@ void GestorPartidos::generarFixture(Competencia *comp) {
                 return; //Quitar al implementar elim doble
             }
     }
-
-//Asigno lugares de realización a los partidos
+    //Ordeno por fecha los partidos
+    QVector<Partido*> partidos=comp->getPartidos();
+    qSort(partidos.begin(),partidos.end(),comparePtr);
+    comp->setPartidos(partidos);
+    //Asigno lugares de realización a los partidos
 
     QVector<Disponibilidad*> disponibilidades=comp->getDisponibilidades();
     //Cargo el número de disponibilidades de cada lugar
@@ -36,7 +39,7 @@ void GestorPartidos::generarFixture(Competencia *comp) {
     for (int i = 0; i < disponibilidades.size(); ++i) {
         numeroDisponibles.push_back(disponibilidades[i]->getDisponibilidad());
     }
-    QVector<Partido*> partidos=comp->getPartidos();
+
     int actual=0; //Cual es el lugar que en el que estoy parado actualmente
     bool seAsigno; //Bandera para saber si se asigno un lugar a un partido
     for (int i = 0; i < partidos.size(); ++i) {
@@ -44,6 +47,7 @@ void GestorPartidos::generarFixture(Competencia *comp) {
         for(int j=0;j<disponibilidades.size();j++){ //Compruebo en todos los lugares si tengo disponibilidad
             //Voy asignando cíclicamente los lugares
             if(numeroDisponibles[(actual+j)%disponibilidades.size()]){
+                numeroDisponibles[(actual+j)%disponibilidades.size()]--;
                 partidos[i]->setLugar(disponibilidades[(actual+j)%disponibilidades.size()]->getLugar());
                 seAsigno=true;
                 actual=(actual+j+1)%disponibilidades.size();
