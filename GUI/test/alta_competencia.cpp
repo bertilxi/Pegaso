@@ -106,7 +106,7 @@ void alta_competencia::on_pushButton_clicked()
     QString tipoPuntos = ui->comboBox_4->currentText().toLower();
 
     if(nombreCompetencia.isEmpty() || deporte.isEmpty() || tipoModalidad.isEmpty() || ui->tableWidget->item(0,0)->text().isEmpty() ||
-        ui->comboBox_2->currentIndex() < 0 || ui->comboBox_4->currentIndex() < 0 ||
+        ui->comboBox_2->currentIndex() < 0 || ui->comboBox_4->currentIndex() < 0 || ui->comboBox_3->currentIndex() < 0 || ui->comboBox->currentIndex() < 0 ||
         ui->lineEdit_2->text().toInt() <= 0 || (ui->lineEdit_6->text().toInt() <= 0 && tipoPuntos == "por puntos"  ) ||
         ui->lineEdit_4->text().toInt() <= 0 || ui->lineEdit_5->text().toInt() <= 0 ||
         ( ui->lineEdit_3->text().toInt() <= 0 && ui->radioButton->isChecked() ) || (tipoPuntos.toLower() == "por sets" && maxSet < 0 ) )
@@ -118,7 +118,6 @@ void alta_competencia::on_pushButton_clicked()
         msg->setModal(true);
         msg->exec();
     }
-
     else if(tipoModalidad.toLower() == "liga" && ui->lineEdit_4->text().toInt() < ui->lineEdit_3->text().toInt()){
         QMessageBox* msg = new QMessageBox(this);
         msg->setText("Los puntos por partido ganado no deben ser menores que los puntos por empate.");
