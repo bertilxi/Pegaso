@@ -13,7 +13,7 @@ void generadorReporte::generar(Competencia *comp) {
 
     //Abro el template del reporte dependiendo la modalidad de la competencia
     QString fileName;
-    if(comp->getModalidad()->getTipoRes()->getNombre().toLower()=="puntuación"){
+    if(comp->getModalidad()->getTipoRes()->getNombre().toLower()=="por puntos"){
         if(comp->getModalidad()->getEmpate()==true)
             fileName = ":/reportes/reporte.xml";
         else
