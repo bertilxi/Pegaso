@@ -20,6 +20,7 @@ ver_competencia::ver_competencia(GUI *guiP, Competencia *compP, QWidget *parent)
 
     ui->label_9->setText(compP->getEstado()->getNombre());
     ui->tableWidget->resizeColumnsToContents();
+    ui->checkBox->setCheckable(false);
 
     //Si la competencia no está en estado creada, se permite ver el fixture y se tilda el checkbox
     if (compP->getEstado()->getNombre().toLower() != "creada"){
@@ -30,7 +31,7 @@ ver_competencia::ver_competencia(GUI *guiP, Competencia *compP, QWidget *parent)
     }
     else {
         ui->pushButton_4->setDisabled(true);
-        ui->checkBox->setCheckable(false);
+
     }
 
     if(compP->getEstado()->getNombre().toLower() == "en disputa" || compP->getEstado()->getNombre().toLower() == "finalizada" ){
