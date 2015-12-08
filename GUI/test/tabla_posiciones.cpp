@@ -40,7 +40,7 @@ tabla_posiciones::tabla_posiciones(GUI *guiP, Competencia* compP, QWidget *paren
                 }
            }
        }
-       if(comp->getModalidad()->getTipoRes()->getNombre().toLower() != "resultado final"){
+       if(comp->getModalidad()->getTipoRes()->getNombre().toLower() == "por puntos"){
            ui->tableWidget->setItem(i,j++,new QTableWidgetItem(QString::number(participantesP[i]->getPuntaje()->getTF())));
            ui->tableWidget->setItem(i,j++,new QTableWidgetItem(QString::number(participantesP[i]->getPuntaje()->getTC())));
            ui->tableWidget->setItem(i,j++,new QTableWidgetItem(QString::number(participantesP[i]->getPuntaje()->getDif())));
