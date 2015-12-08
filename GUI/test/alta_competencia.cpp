@@ -47,12 +47,12 @@ alta_competencia::alta_competencia(GUI *guiP, QVector<Deporte*> deportesP, QVect
      QValidator* compValidator = new QRegExpValidator(compRegex,this);
      ui->lineEdit->setValidator(compValidator);
 
-     QRegExp numRegex("[0-9]{0,5}");
+     QRegExp numRegex("[0-9]{1,5}");
      QValidator* numValidator = new QRegExpValidator(numRegex,this);
-     ui->lineEdit_4->setValidator(numValidator);
-     ui->lineEdit_5->setValidator(numValidator);
      ui->lineEdit_2->setValidator(numValidator);
      ui->lineEdit_3->setValidator(numValidator);
+     ui->lineEdit_4->setValidator(numValidator);
+     ui->lineEdit_5->setValidator(numValidator);
      ui->lineEdit_6->setValidator(numValidator);
 
      ui->comboBox->setCurrentIndex(-1);
@@ -107,9 +107,12 @@ void alta_competencia::on_pushButton_clicked()
 
     if(nombreCompetencia.isEmpty() || deporte.isEmpty() || tipoModalidad.isEmpty() || ui->tableWidget->item(0,0)->text().isEmpty() ||
         ui->comboBox_2->currentIndex() < 0 || ui->comboBox_4->currentIndex() < 0 ||
-            (tipoPuntos.toLower() == "por sets" && maxSet < 0 ) ){
+        ui->lineEdit_2->text().toInt() <= 0 || (ui->lineEdit_6->text().toInt() <= 0 && tipoPuntos == "por puntos"  ) ||
+        ui->lineEdit_4->text().toInt() <= 0 || ui->lineEdit_5->text().toInt() <= 0 ||
+        ( ui->lineEdit_3->text().toInt() <= 0 && ui->radioButton->isChecked() ) || (tipoPuntos.toLower() == "por sets" && maxSet < 0 ) )
+    {
         QMessageBox* msg = new QMessageBox(this);
-        msg->setText("Por favor complete todos los datos");
+        msg->setText("Por favor complete correctamente todos los datos");
         QPixmap icono(":/images/Heros-amarillo-64.png");
         msg->setIconPixmap(icono);
         msg->setModal(true);

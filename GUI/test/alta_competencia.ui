@@ -766,7 +766,7 @@
      <item>
       <widget class="QLabel" name="label_12">
        <property name="text">
-        <string>Puntos por no presentarse</string>
+        <string>Puntos por si no se presenta el adversario</string>
        </property>
       </widget>
      </item>
