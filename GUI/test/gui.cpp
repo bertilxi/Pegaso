@@ -33,6 +33,8 @@ MainWindow::MainWindow(GUI* guiP, QWidget *parent):
     ui->lineEdit_2->setEchoMode(QLineEdit::Password);
     ui->pushButton_3->hide();
     ui->pushButton->hide();
+
+
 //    this->setGeometry(0,0,350,100);
 
 }

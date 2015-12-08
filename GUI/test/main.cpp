@@ -21,6 +21,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    a.setQuitOnLastWindowClosed(false);
 
     /**
      * creamos el gestor de la base de datos y
