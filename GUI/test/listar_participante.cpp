@@ -60,7 +60,7 @@ listar_participante::~listar_participante()
 void listar_participante::on_pushButton_clicked()
 {
     this->close();
-    verCompetencia->actualizar();
+    verCompetencia->actualizar(competencia);
 }
 
 void listar_participante::on_pushButton_2_clicked()
@@ -110,7 +110,8 @@ void listar_participante::on_pushButton_8_clicked()
         // se piden los participantes actualizados
         if(email != "" && nombre != "" && ui->lineEdit_2->hasAcceptableInput() ){
 
-            QVector<Participante*> participantesActualizados = gui->handleAltaParticipante(this,nombre,email,imgUrl);
+            competencia = gui->handleAltaParticipante(this,nombre,email,imgUrl);
+            QVector<Participante*> participantesActualizados = competencia->getParticipantes();
             if(participantesActualizados.size() != 0){
 
                 ui->tableWidget->setRowCount(0);
@@ -123,9 +124,8 @@ void listar_participante::on_pushButton_8_clicked()
                 ui->lineEdit_2->clear();
                 participantes = participantesActualizados;
                 ui->tableWidget->resizeColumnsToContents();
-                this->on_pushButton_7_clicked();                
+                this->on_pushButton_7_clicked();
             }
-//            verCompetencia->actualizar();
         }
         else{
             QMessageBox* msg = new QMessageBox(this);

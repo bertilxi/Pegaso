@@ -17,7 +17,7 @@ public:
 
     explicit ver_competencia(GUI* guiP,Competencia *compP, QWidget *parent = 0);
 
-    void actualizar();
+    void actualizar(Competencia *nuevaComp);
 
     ~ver_competencia();
 

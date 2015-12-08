@@ -147,9 +147,7 @@ public:
 
     QVector<Localidad*> getLocalidades(Provincia* provinciaP);
 
-    QVector<Participante *> handleAltaParticipante(QDialog *a, QString nombre, QString email, QString ImgUrl);
-
-
+    Competencia *handleAltaParticipante(QDialog *a, QString nombre, QString email, QString ImgUrl);
 
 };
 

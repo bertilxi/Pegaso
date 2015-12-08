@@ -61,7 +61,7 @@ ver_competencia::ver_competencia(GUI *guiP, Competencia *compP, QWidget *parent)
     }
 }
 
-void ver_competencia::actualizar()
+void ver_competencia::actualizar(Competencia* nuevaComp)
 {
     Competencia* compP = comp;
     QString nombre = "Competencia " + compP->getNombre();
@@ -98,7 +98,7 @@ void ver_competencia::actualizar()
 
         }
         else{
-
+            ui->tableWidget->setRowCount(0);
             for (int i = 0; i < proxEnc.size(); ++i) {
                 ui->tableWidget->insertRow(i);
                 ui->tableWidget->setItem(i,0,new QTableWidgetItem(proxEnc[i]->getEquipoA()->getNombre()));

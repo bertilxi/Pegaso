@@ -345,7 +345,7 @@ QVector<Localidad *> GUI::getLocalidades(Provincia *provinciaP)
     return gestorUsuarios->getLocalidades(provinciaP);
 }
 
-QVector<Participante*> GUI::handleAltaParticipante(QDialog *a, QString nombre, QString email, QString ImgUrl)
+Competencia* GUI::handleAltaParticipante(QDialog *a, QString nombre, QString email, QString ImgUrl)
 {
     DtoParticipante* datos = new DtoParticipante(nombre,email,ImgUrl);
     QString error;
@@ -356,7 +356,7 @@ QVector<Participante*> GUI::handleAltaParticipante(QDialog *a, QString nombre, Q
         msg->setIconPixmap(icono);
         msg->setModal(true);
         msg->exec();
-        return competenciaActual->getParticipantes();
+        return competenciaActual;
     }
     else{
         QMessageBox* msg = new QMessageBox(a);
@@ -365,12 +365,11 @@ QVector<Participante*> GUI::handleAltaParticipante(QDialog *a, QString nombre, Q
         msg->setIconPixmap(icono);
         msg->setModal(true);
         msg->exec();
-        QVector<Participante*> aux;
+        Competencia* aux;
         return aux;
     }
 
 }
-
 Estado *GUI::buscarEstado(QString estado)
 {
     for (int i = 0; i < estados.size(); ++i) {
