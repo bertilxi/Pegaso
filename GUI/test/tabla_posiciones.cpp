@@ -2,6 +2,7 @@
 #include "ui_tabla_posiciones.h"
 
 bool comparePtrParticipante(Participante* a, Participante* b) { return (*a < *b); }
+
 tabla_posiciones::tabla_posiciones(GUI *guiP, Competencia* compP, QWidget *parent, GeneradorExcel *genExcelP, generadorReporte *genRepP) :
     QDialog(parent),
     ui(new Ui::tabla_posiciones), gui(guiP), genExcel(genExcelP), comp(compP), genRep(genRepP)
@@ -23,15 +24,19 @@ tabla_posiciones::tabla_posiciones(GUI *guiP, Competencia* compP, QWidget *paren
     for (int i = 0; i < participantesP.size(); ++i) {
 
        ui->tableWidget->insertRow(i);
-
-       ui->tableWidget->setItem(i,0,new QTableWidgetItem(participantesP[i]->getNombre()));
-       ui->tableWidget->setItem(i,1,new QTableWidgetItem(QString::number(participantesP[i]->getPuntaje()->getPuntos())));
-       ui->tableWidget->setItem(i,2,new QTableWidgetItem(QString::number(participantesP[i]->getPuntaje()->getPG())));
-       ui->tableWidget->setItem(i,3,new QTableWidgetItem(QString::number(participantesP[i]->getPuntaje()->getPE())));
-       ui->tableWidget->setItem(i,4,new QTableWidgetItem(QString::number(participantesP[i]->getPuntaje()->getPP())));
-       ui->tableWidget->setItem(i,5,new QTableWidgetItem(QString::number(participantesP[i]->getPuntaje()->getTF())));
-       ui->tableWidget->setItem(i,6,new QTableWidgetItem(QString::number(participantesP[i]->getPuntaje()->getTC())));
-       ui->tableWidget->setItem(i,7,new QTableWidgetItem(QString::number(participantesP[i]->getPuntaje()->getDif())));
+       int j =0;
+       ui->tableWidget->setItem(i,j++,new QTableWidgetItem(participantesP[i]->getNombre()));
+       ui->tableWidget->setItem(i,j++,new QTableWidgetItem(QString::number(participantesP[i]->getPuntaje()->getPuntos())));
+       ui->tableWidget->setItem(i,j++,new QTableWidgetItem(QString::number(participantesP[i]->getPuntaje()->getPG())));
+       ui->tableWidget->setItem(i,j++,new QTableWidgetItem(QString::number(participantesP[i]->getPuntaje()->getPP())));
+       if(comp->getModalidad()->getEmpate()){
+           ui->tableWidget->setItem(i,j++,new QTableWidgetItem(QString::number(participantesP[i]->getPuntaje()->getPE())));
+       }
+       if(comp->getModalidad()->getTipoRes()->getNombre().toLower() != "resultado final"){
+           ui->tableWidget->setItem(i,j++,new QTableWidgetItem(QString::number(participantesP[i]->getPuntaje()->getTF())));
+           ui->tableWidget->setItem(i,j++,new QTableWidgetItem(QString::number(participantesP[i]->getPuntaje()->getTC())));
+           ui->tableWidget->setItem(i,j++,new QTableWidgetItem(QString::number(participantesP[i]->getPuntaje()->getDif())));
+       }
 
     }
 
