@@ -20,8 +20,8 @@ ver_competencia::ver_competencia(GUI *guiP, Competencia *compP, QWidget *parent)
     ui->label_9->setText(compP->getEstado()->getNombre());
     ui->tableWidget->resizeColumnsToContents();
 
-    ui->pushButton_2->hide();
-    ui->pushButton_3->hide();
+//    ui->pushButton_2->hide();
+//    ui->pushButton_3->hide();
 
     //Si la competencia no está en estado creada, se permite ver el fixture y se tilda el checkbox
     if (compP->getEstado()->getNombre().toLower() != "creada"){

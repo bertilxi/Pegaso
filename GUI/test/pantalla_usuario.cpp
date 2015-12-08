@@ -14,8 +14,8 @@ pantalla_usuario::pantalla_usuario(GUI *guiP, QWidget *parent) :
     ui->label_logo->setPixmap(pix);
 
 
-    ui->pushButton->hide();
-    ui->pushButton_3->hide();
+//    ui->pushButton->hide();
+//    ui->pushButton_3->hide();
 }
 
 pantalla_usuario::~pantalla_usuario()

@@ -29,8 +29,8 @@ listar_participante::listar_participante(GUI *guiP, Competencia *compP, QWidget 
     ui->lineEdit_2->setValidator(emailValidator);
 
     resize(300,400);
-    ui->pushButton_3->hide();
-    ui->pushButton_4->hide();
+//    ui->pushButton_3->hide();
+//    ui->pushButton_4->hide();
     ui->label_2->setText(compP->getNombre());
 
     participantes = compP->getParticipantes();
