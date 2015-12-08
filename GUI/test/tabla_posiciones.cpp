@@ -19,6 +19,7 @@ tabla_posiciones::tabla_posiciones(GUI *guiP, Competencia* compP, QWidget *paren
     ui->label_6->setText(QString::number(comp->getFechaActual()));
 
     QVector<Participante*> participantesP = comp->getParticipantes();
+
     qSort(participantesP.begin(),participantesP.end(),comparePtrParticipante);
     comp->setParticipantes(participantesP);
     for (int i = 0; i < participantesP.size(); ++i) {

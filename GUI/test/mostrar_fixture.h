@@ -6,6 +6,8 @@
 #include "Competencia.h"
 #include "gui.h"
 
+class Partido;
+
 namespace Ui {
     class mostrar_fixture;
 }

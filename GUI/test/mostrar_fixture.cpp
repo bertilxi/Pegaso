@@ -3,6 +3,8 @@
 #include "gestionar_fixture.h"
 #include "qpixmap.h"
 
+bool comparePartido(Partido* a, Partido* b) { return (a->getFecha() < b->getFecha()); }
+
 mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::mostrar_fixture), competencia(comp), gui(guiP)
@@ -14,11 +16,15 @@ mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp, QWidget *parent) 
 
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    for (int i = 0; i < comp->getPartidos().size(); ++i) {
+    QVector<Partido*> partidos = comp->getPartidos();
+
+     qSort(partidos.begin(),partidos.end(),comparePartido);
+
+    for (int i = 0; i < partidos.size(); ++i) {
         ui->tableWidget->insertRow(i);
-        ui->tableWidget->setItem(i,0,new QTableWidgetItem(QString::number(comp->getPartidos()[i]->getFecha())));
-        ui->tableWidget->setItem(i,1,new QTableWidgetItem(comp->getPartidos()[i]->getEquipoA()->getNombre()));
-        ui->tableWidget->setItem(i,2,new QTableWidgetItem(comp->getPartidos()[i]->getEquipoB()->getNombre()));
+        ui->tableWidget->setItem(i,0,new QTableWidgetItem(QString::number(partidos[i]->getFecha())));
+        ui->tableWidget->setItem(i,1,new QTableWidgetItem(partidos[i]->getEquipoA()->getNombre()));
+        ui->tableWidget->setItem(i,2,new QTableWidgetItem(partidos[i]->getEquipoB()->getNombre()));
         QString resultadoA = "" ;
         QString resultadoB = "" ;
         QString resultadoPartido = "";
