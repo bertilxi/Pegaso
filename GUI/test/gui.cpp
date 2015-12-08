@@ -53,12 +53,12 @@ MainWindow::MainWindow(GUI* guiP, QWidget *parent):
  * @param modalidadesP
  *
  */
-GUI::GUI(GestorBaseDatos *gestorDBP, GestorCompetencias *gestorCompetenciasP, GestorLugares *gestorLugaresP,
+GUI::GUI(QApplication *appP, GestorBaseDatos *gestorDBP, GestorCompetencias *gestorCompetenciasP, GestorLugares *gestorLugaresP,
          GestorPartidos *gestorPartidosP, GestorUsuarios *gestorUsuariosP, QVector<Deporte *> deportesP,
          QVector<Pais *> paisesP, QVector<Estado *> estadosP, QVector<TipoModalidad *> modalidadesP):
     gestorDB(gestorDBP), gestorCompetencias(gestorCompetenciasP), gestorLugares(gestorLugaresP),
     gestorPartidos(gestorPartidosP), gestorUsuarios(gestorUsuariosP), deportes(deportesP),
-    paises(paisesP), estados(estadosP), modalidades(modalidadesP)
+    paises(paisesP), estados(estadosP), modalidades(modalidadesP), app(appP)
 {}
 
 MainWindow::~MainWindow()
@@ -101,6 +101,7 @@ void MainWindow::on_pushButton_2_clicked()
 void MainWindow::on_pushButton_4_clicked()
 {
     this->close();
+    gui->close();
 }
 
 /**
@@ -401,6 +402,12 @@ void GUI::show()
 {
     MainWindow * m = new MainWindow(this);
     m->show();
+}
+
+void GUI::close()
+{
+//    app->setQuitOnLastWindowClosed(true);
+    app->quit();
 }
 
 void MainWindow::on_pushButton_clicked()

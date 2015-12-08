@@ -20,8 +20,8 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    a.setQuitOnLastWindowClosed(false);
+    QApplication* a = new QApplication(argc, argv);
+    a->setQuitOnLastWindowClosed(false);
 
     /**
      * creamos el gestor de la base de datos y
@@ -58,11 +58,11 @@ int main(int argc, char *argv[])
      * Se lo inyecta con todos los gestores y datos cargados de la base de datos,
      * ya que los va a necesitar para gestionar todo.
      */
-    GUI * gui = new GUI(gestorBaseDeDatos, gestorCompetencias, gestorLugares, gestorPartidos, gestorUsuarios,
+    GUI * gui = new GUI(a,gestorBaseDeDatos, gestorCompetencias, gestorLugares, gestorPartidos, gestorUsuarios,
                         deportes, paises, estados, tiposModalidad);
 
     // mostramos el programa.
     gui->show();
 
-    return a.exec();
+    return a->exec();
 }

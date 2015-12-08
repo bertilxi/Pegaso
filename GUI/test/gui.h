@@ -62,9 +62,7 @@ class GUI
 {
 private:
 
-    QWidget* ventanaActual;
-
-    QWidget* ventanaAnterior;
+    QApplication* app;
 
     GestorBaseDatos* gestorDB;
 
@@ -114,6 +112,8 @@ public:
 
     void show();
 
+    void close();
+
     void handleMain(QMainWindow* a, QString b, QString email = "", QByteArray pass = NULL);
 
     void handlePantallaUsuario(QDialog* a, QString b);
@@ -135,7 +135,7 @@ public:
 
     QString handleRegistrarUsuario(DtoUsuario * datos);
 
-    GUI(GestorBaseDatos* gestorDBP, GestorCompetencias* gestorCompetenciasP,
+    GUI(QApplication* appP,GestorBaseDatos* gestorDBP, GestorCompetencias* gestorCompetenciasP,
         GestorLugares* gestorLugaresP, GestorPartidos* gestorPartidosP, GestorUsuarios* gestorUsuariosP,
         QVector<Deporte*> deportesP, QVector<Pais*> paisesP, QVector<Estado*> estadosP, QVector<TipoModalidad*> modalidadesP);
 
