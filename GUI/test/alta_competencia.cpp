@@ -106,6 +106,7 @@ void alta_competencia::on_pushButton_clicked()
     QString tipoPuntos = ui->comboBox_4->currentText().toLower();
 
     if(nombreCompetencia.isEmpty() || deporte.isEmpty() || tipoModalidad.isEmpty() || ui->tableWidget->item(0,0)->text().isEmpty() ||
+        ui->comboBox_2->currentIndex() < 0 || ui->comboBox_4->currentIndex() < 0 ||
             (tipoPuntos.toLower() == "por sets" && maxSet < 0 ) ){
         QMessageBox* msg = new QMessageBox(this);
         msg->setText("Por favor complete todos los datos");
