@@ -17,11 +17,59 @@ ver_competencia::ver_competencia(GUI *guiP, Competencia *compP, QWidget *parent)
     ui->label->setText(nombre);
     ui->label_7->setText(compP->getModalidad()->getTipoMod()->getNombre());
     ui->label_8->setText(compP->getDeporte()->getNombre());
+
     ui->label_9->setText(compP->getEstado()->getNombre());
     ui->tableWidget->resizeColumnsToContents();
 
-//    ui->pushButton_2->hide();
-//    ui->pushButton_3->hide();
+    //Si la competencia no está en estado creada, se permite ver el fixture y se tilda el checkbox
+    if (compP->getEstado()->getNombre().toLower() != "creada"){
+        ui->checkBox->setCheckable(true);
+        ui->checkBox->setChecked(true);
+        ui->checkBox->setDisabled(true);
+        ui->pushButton_4->setEnabled(true);
+    }
+    else {
+        ui->pushButton_4->setDisabled(true);
+        ui->checkBox->setCheckable(false);
+    }
+
+    if(compP->getEstado()->getNombre().toLower() == "en disputa" || compP->getEstado()->getNombre().toLower() == "finalizada" ){
+        ui->pushButton_5->setDisabled(true);
+    }
+    // si la competencia no esta planificada o en disputa no se muestra la tabla
+    if (!(compP->getEstado()->getNombre().toLower() == "planificada" || compP->getEstado()->getNombre().toLower() == "en disputa")){
+        ui->tableWidget->hide();
+        ui->label_6->hide();
+    }
+    else{
+        QVector<Partido*> proxEnc = comp->getProximosEncuentros() ;
+        if(proxEnc.size() == 0){
+
+        }
+        else{
+
+            for (int i = 0; i < proxEnc.size(); ++i) {
+                ui->tableWidget->insertRow(i);
+                ui->tableWidget->setItem(i,0,new QTableWidgetItem(proxEnc[i]->getEquipoA()->getNombre()));
+                ui->tableWidget->setItem(i,1,new QTableWidgetItem(proxEnc[i]->getEquipoB()->getNombre()));
+                ui->tableWidget->setItem(i,2,new QTableWidgetItem(QString::number(proxEnc[i]->getFecha())));
+
+            }
+        }
+        ui->tableWidget->resizeColumnsToContents();
+    }
+}
+
+void ver_competencia::actualizar()
+{
+    Competencia* compP = comp;
+    QString nombre = "Competencia " + compP->getNombre();
+    ui->label->setText(nombre);
+    ui->label_7->setText(compP->getModalidad()->getTipoMod()->getNombre());
+    ui->label_8->setText(compP->getDeporte()->getNombre());
+
+    ui->label_9->setText(compP->getEstado()->getNombre());
+    ui->tableWidget->resizeColumnsToContents();
 
     //Si la competencia no está en estado creada, se permite ver el fixture y se tilda el checkbox
     if (compP->getEstado()->getNombre().toLower() != "creada"){
@@ -75,7 +123,7 @@ void ver_competencia::on_pushButton_7_clicked() //Salir
 void ver_competencia::on_pushButton_5_clicked() //Generar fixture
 {
     QString error;
-    if (gui->handleVerCompetencia(this,QString("generarFixture"),error,comp)){
+    if (gui->handleVerCompetencia(this,QString("generarFixture"), error,comp)){
         //Se coloca el tilde en el checkbox
         ui->checkBox->setCheckable(true);
         ui->checkBox->setChecked(true);

@@ -5,9 +5,9 @@
 
 
 
-listar_participante::listar_participante(GUI *guiP, Competencia *compP, QWidget *parent) :
+listar_participante::listar_participante(GUI *guiP, Competencia *compP, ver_competencia *vc, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::listar_participante), competencia(compP), gui(guiP)
+    ui(new Ui::listar_participante), competencia(compP), gui(guiP), verCompetencia(vc)
 {
     ui->setupUi(this);
     QPixmap pix(":/images/Heros64.png");
@@ -29,8 +29,7 @@ listar_participante::listar_participante(GUI *guiP, Competencia *compP, QWidget 
     ui->lineEdit_2->setValidator(emailValidator);
 
     resize(300,400);
-//    ui->pushButton_3->hide();
-//    ui->pushButton_4->hide();
+
     ui->label_2->setText(compP->getNombre());
 
     participantes = compP->getParticipantes();
@@ -42,15 +41,14 @@ listar_participante::listar_participante(GUI *guiP, Competencia *compP, QWidget 
         ui->tableWidget->setItem(i,0,new QTableWidgetItem(participantes[i]->getNombre()));
         ui->tableWidget->setItem(i,1,new QTableWidgetItem(participantes[i]->getCorreo()));
     }
-//    ui->tableWidget->resize(500,300);
+
     ui->tableWidget->resizeColumnsToContents();
     ui->tableWidget->horizontalHeader()->setVisible(false);
 
     ui->tabWidget->setCurrentIndex(0);
     ui->tabWidget->setTabText(0,"Participantes");
     ui->tabWidget->setTabText(1,"");
-//    ui->tabWidget->setTabEnabled(0,false);
-//    ui->tabWidget->setTabEnabled(1,false);
+
 
 }
 
@@ -62,6 +60,7 @@ listar_participante::~listar_participante()
 void listar_participante::on_pushButton_clicked()
 {
     this->close();
+    verCompetencia->actualizar();
 }
 
 void listar_participante::on_pushButton_2_clicked()
@@ -124,8 +123,9 @@ void listar_participante::on_pushButton_8_clicked()
                 ui->lineEdit_2->clear();
                 participantes = participantesActualizados;
                 ui->tableWidget->resizeColumnsToContents();
-                this->on_pushButton_7_clicked();
+                this->on_pushButton_7_clicked();                
             }
+//            verCompetencia->actualizar();
         }
         else{
             QMessageBox* msg = new QMessageBox(this);

@@ -125,7 +125,7 @@ public:
     void handleAltaCompetencia(QDialog *a, QString b, QString nombreComp, Deporte *dep, QVector<Lugar *> lugs,
                                QVector<int> disps, Modalidad *mod, QString reglamento);
 
-    bool handleVerCompetencia(QDialog* a, QString b, QString &error, Competencia *comp = NULL);
+    bool handleVerCompetencia(ver_competencia *a, QString b, QString &error, Competencia *comp = NULL);
 
     bool handleMostrarFixture(mostrar_fixture *a, QString b, Partido *partido);
 

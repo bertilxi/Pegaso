@@ -17,13 +17,14 @@ public:
 
     explicit ver_competencia(GUI* guiP,Competencia *compP, QWidget *parent = 0);
 
+    void actualizar();
+
     ~ver_competencia();
 
 
 private slots:
 
     void on_pushButton_7_clicked();
-
 
     void on_pushButton_5_clicked();
 

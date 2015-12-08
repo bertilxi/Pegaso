@@ -222,7 +222,7 @@ void GUI::handleAltaCompetencia(QDialog *a, QString b, QString nombreComp, Depor
     }
 }
 
-bool GUI::handleVerCompetencia(QDialog *a, QString b, QString &error, Competencia* comp)
+bool GUI::handleVerCompetencia(ver_competencia *a, QString b, QString &error, Competencia* comp)
 {
     competenciaActual = comp;
     if (b == "modificarCompetencia")
