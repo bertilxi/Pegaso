@@ -74,6 +74,7 @@ alta_competencia::alta_competencia(GUI *guiP, QVector<Deporte*> deportesP, QVect
      ui->lineEdit_5->hide();
      ui->label_5->hide();
      ui->lineEdit_3->hide();
+     ui->radioButton->setChecked(true);
 
      ui->lineEdit_6->hide();
      ui->label_12->hide();
@@ -159,6 +160,9 @@ void alta_competencia::on_pushButton_clicked()
 
             if(conEmpate){
                 mod->setPuntos_empate(ui->lineEdit_3->text().toInt());
+            }
+            else{
+                mod->setPuntos_empate(-1);
             }
 
             if(tipoPuntos.toLower() == "por puntos"){
