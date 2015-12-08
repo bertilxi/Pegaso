@@ -5,7 +5,9 @@
 #include "Partido.h"
 #include "Competencia.h"
 #include "gui.h"
+#include "ver_competencia.h"
 
+class ver_competencia;
 class Partido;
 
 namespace Ui {
@@ -18,7 +20,7 @@ class mostrar_fixture : public QDialog
 
 public:
 
-    explicit mostrar_fixture(GUI* guiP,Competencia* comp, QWidget *parent = 0);
+    explicit mostrar_fixture(GUI* guiP,Competencia* comp,ver_competencia* vc, QWidget *parent = 0);
 
     ~mostrar_fixture();
 
@@ -37,6 +39,7 @@ private:
     Ui::mostrar_fixture *ui;
     GUI* gui;
     Competencia* competencia;
+    ver_competencia* verCompetencia;
 };
 
 #endif // MOSTRAR_FIXTURE_H

@@ -244,7 +244,7 @@ bool GUI::handleVerCompetencia(ver_competencia *a, QString b, QString &error, Co
     {
         //comp = gestorCompetencias->getCompetenciaFull(comp->getId());
         //competenciaActual = comp;
-        mostrar_fixture* mf = new mostrar_fixture(this,comp,a);
+        mostrar_fixture* mf = new mostrar_fixture(this,comp,a,a);
         mf->setModal(true);
         mf->show();
     }
