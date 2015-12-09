@@ -5,9 +5,9 @@
 
 bool comparePartido(Partido* a, Partido* b) { return (a->getFecha() < b->getFecha()); }
 
-mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp, QWidget *parent) :
+mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp,ver_competencia* vc, QWidget *parent):
     QDialog(parent),
-    ui(new Ui::mostrar_fixture), competencia(comp), gui(guiP)
+    ui(new Ui::mostrar_fixture), competencia(comp), gui(guiP), verCompetencia(vc)
 {
     ui->setupUi(this);
     QPixmap pix(":/images/Heros64.png");
@@ -136,6 +136,7 @@ void mostrar_fixture::actualizarTabla()
 void mostrar_fixture::on_pushButton_clicked()
 {
     this->close();
+    verCompetencia->actualizar(competencia);
 }
 
 
@@ -148,8 +149,8 @@ void mostrar_fixture::on_pushButton_2_clicked()
 
         Partido* p = competencia->getPartidos()[partidoSeleccionado];
 
-       if(gui->handleMostrarFixture(this,"gestionarFixture",p)){
-       }
+        gui->handleMostrarFixture(this,"gestionarFixture",p);
+
    }
    else{
        QMessageBox* msg = new QMessageBox(this);
