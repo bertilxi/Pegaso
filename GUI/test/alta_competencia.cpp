@@ -43,7 +43,7 @@ alta_competencia::alta_competencia(GUI *guiP, QVector<Deporte*> deportesP, QVect
      }
 
      // crear validadores para nombre y para reglamento
-     QRegExp compRegex("[a-zA-Z0-9.'áéíóú_-]+( [a-zA-Z0-9.'áéíóú_-]+)*");
+     QRegExp compRegex("[a-zA-Z0-9.'ñÑáéíóúÁÉÍÓÚüÜ_-]+( [a-zA-Z0-9.'ñÑáéíóúÁÉÍÓÚüÜ_-]+)*");
      QValidator* compValidator = new QRegExpValidator(compRegex,this);
      ui->lineEdit->setValidator(compValidator);
      ui->lineEdit->setMaxLength(35);
