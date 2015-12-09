@@ -59,10 +59,15 @@ tabla_posiciones::tabla_posiciones(GUI *guiP, Competencia* compP, QWidget *paren
     }
 
     ui->tableWidget->resizeColumnsToContents();
-    int ancho = ui->tableWidget->geometry().width()*3.5;
-    qDebug()<<ancho;
-    this->resize(ancho ,500);
-
+//    int ancho = ui->tableWidget->geometry().width()*3.5;
+//    qDebug()<<ancho;
+//    this->resize(ancho ,500);
+    int width = (ui->tableWidget->columnCount() - 1) + ui->tableWidget->verticalHeader()->width();
+    for(int column = 0; column < ui->tableWidget->columnCount(); column++)
+    width = width + ui->tableWidget->columnWidth(column);
+    ui->tableWidget->setMinimumWidth(width);
+    width+=10;
+    this->resize(sizeHint().width(),500);
 }
 
 tabla_posiciones::~tabla_posiciones()
