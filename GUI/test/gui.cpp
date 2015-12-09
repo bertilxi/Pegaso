@@ -207,6 +207,7 @@ void GUI::handleAltaCompetencia(QDialog *a, QString b, QString nombreComp, Depor
             msg->setIconPixmap(icono);
             msg->setModal(true);
             msg->exec();
+            a->close();
         }
         else{
             // QMessageBox fracaso
@@ -218,7 +219,6 @@ void GUI::handleAltaCompetencia(QDialog *a, QString b, QString nombreComp, Depor
             msg->setModal(true);
             msg->exec();
         }
-        a->close();
 
     }
 }
@@ -365,8 +365,7 @@ Competencia* GUI::handleAltaParticipante(QDialog *a, QString nombre, QString ema
         msg->setIconPixmap(icono);
         msg->setModal(true);
         msg->exec();
-        Competencia* aux;
-        return aux;
+        return competenciaActual;
     }
 
 }
