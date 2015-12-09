@@ -12,14 +12,14 @@ void GeneradorExcel::generarExcel(Competencia *comp)
     format1.setHorizontalAlignment(QXlsx::Format::AlignHCenter);
     format1.setVerticalAlignment(QXlsx::Format::AlignVCenter);
     format1.setTopBorderStyle(QXlsx::Format::BorderMedium);
-    xlsx.setColumnWidth(1,30);//La primer columna es un poco más ancha
+    xlsx.setColumnWidth(1,41);//La primer columna es un más ancha
 
     //Escribo la primer fila
     format1.setLeftBorderStyle(QXlsx::Format::BorderMedium);//La primer celda tiene borde izquierdo Medio
     xlsx.write("A1", "Competencia:",format1);
     format1.setLeftBorderStyle(QXlsx::Format::BorderThin);
     xlsx.write("B1",comp->getNombre(),format1);
-    xlsx.mergeCells("B1:E1",format1);
+    xlsx.mergeCells("B1:F1",format1);
     xlsx.write("F1","",format1);
     xlsx.write("G1","Fecha:",format1);
     format1.setRightBorderStyle(QXlsx::Format::BorderMedium);//La última celda tiene borde derecho Medio
@@ -32,7 +32,7 @@ void GeneradorExcel::generarExcel(Competencia *comp)
     xlsx.write("A2","Modalidad:",format1);
     format1.setLeftBorderStyle(QXlsx::Format::BorderThin);
     xlsx.write("B2",comp->getModalidad()->getTipoRes()->getNombre(),format1);
-    xlsx.mergeCells("B2:E2",format1);
+    xlsx.mergeCells("B2:F2",format1);
     xlsx.write("F2","",format1);
     xlsx.write("G2","",format1);
     format1.setRightBorderStyle(QXlsx::Format::BorderMedium);//La última celda tiene borde derecho Medio

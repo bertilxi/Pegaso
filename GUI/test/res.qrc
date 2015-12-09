@@ -19,7 +19,7 @@
         <file>../../Modules/Reporte/Heros256.png</file>
         <file>reportes/reporte_no_puntuacion.xml</file>
         <file>reportes/reporte_no_puntuacion_sin_empate.xml</file>
-        <file>reportes/reporte_sin_empate.xml</file>
         <file>reportes/reporte.xml</file>
+        <file>reportes/reporte_sin_empate.xml</file>
     </qresource>
 </RCC>

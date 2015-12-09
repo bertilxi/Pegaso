@@ -46,6 +46,7 @@ alta_competencia::alta_competencia(GUI *guiP, QVector<Deporte*> deportesP, QVect
      QRegExp compRegex("[a-zA-Z0-9.'áéíóú_-]+( [a-zA-Z0-9.'áéíóú_-]+)*");
      QValidator* compValidator = new QRegExpValidator(compRegex,this);
      ui->lineEdit->setValidator(compValidator);
+     ui->lineEdit->setMaxLength(35);
 
      QRegExp numRegex("[0-9]{1,5}");
      QValidator* numValidator = new QRegExpValidator(numRegex,this);

@@ -23,6 +23,7 @@ listar_participante::listar_participante(GUI *guiP, Competencia *compP, ver_comp
     QRegExp nombre("[a-zA-Z0-9.'áéíóú-]+( [a-zA-Z0-9.'áéíóú-]+)*");
     QValidator* nomValidator = new QRegExpValidator(nombre,this);
     ui->lineEdit->setValidator(nomValidator);
+    ui->lineEdit->setMaxLength(32);
 
     // validador del email
     EmailValidator* emailValidator = new EmailValidator(this);
