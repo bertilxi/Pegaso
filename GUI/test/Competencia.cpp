@@ -278,7 +278,6 @@ Competencia::Competencia()
 
 Competencia::~Competencia()
 {
-    delete estado;
     for(int i = 0; i < disponibilidades.size(); i++){
         delete disponibilidades[i];
     }
