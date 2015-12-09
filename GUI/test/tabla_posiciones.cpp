@@ -66,7 +66,6 @@ tabla_posiciones::tabla_posiciones(GUI *guiP, Competencia* compP, QWidget *paren
     for(int column = 0; column < ui->tableWidget->columnCount(); column++)
     width = width + ui->tableWidget->columnWidth(column);
     ui->tableWidget->setMinimumWidth(width);
-    width+=10;
     this->resize(sizeHint().width(),500);
 }
 

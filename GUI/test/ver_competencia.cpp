@@ -56,8 +56,14 @@ ver_competencia::ver_competencia(GUI *guiP, Competencia *compP, QWidget *parent)
                 ui->tableWidget->setItem(i,2,new QTableWidgetItem(QString::number(proxEnc[i]->getFecha())));
 
             }
+            ui->tableWidget->resizeColumnsToContents();
+            int width = (ui->tableWidget->columnCount() - 1) + ui->tableWidget->verticalHeader()->width();
+            for(int column = 0; column < ui->tableWidget->columnCount(); column++)
+            width = width + ui->tableWidget->columnWidth(column);
+            width+=40;
+            ui->tableWidget->setMinimumWidth(width);
+            this->resize(sizeHint().width(),550);
         }
-        ui->tableWidget->resizeColumnsToContents();
     }
 }
 
@@ -89,13 +95,18 @@ void ver_competencia::actualizar(Competencia* nuevaComp)
     }
     // si la competencia no esta planificada o en disputa no se muestra la tabla
     if (!(compP->getEstado()->getNombre().toLower() == "planificada" || compP->getEstado()->getNombre().toLower() == "en disputa")){
+        ui->tableWidget->setRowCount(0);
         ui->tableWidget->hide();
         ui->label_6->hide();
+        this->resize(495,573);
     }
     else{
         QVector<Partido*> proxEnc = comp->getProximosEncuentros() ;
         if(proxEnc.size() == 0){
-
+            ui->tableWidget->setRowCount(0);
+            ui->tableWidget->hide();
+            ui->label_6->hide();
+            this->resize(495,573);
         }
         else{
             ui->tableWidget->setRowCount(0);
@@ -106,8 +117,14 @@ void ver_competencia::actualizar(Competencia* nuevaComp)
                 ui->tableWidget->setItem(i,2,new QTableWidgetItem(QString::number(proxEnc[i]->getFecha())));
 
             }
+            ui->tableWidget->resizeColumnsToContents();
+            int width = (ui->tableWidget->columnCount() - 1) + ui->tableWidget->verticalHeader()->width();
+            for(int column = 0; column < ui->tableWidget->columnCount(); column++)
+            width = width + ui->tableWidget->columnWidth(column);
+            width+=20;
+            ui->tableWidget->setMinimumWidth(width);
+            this->resize(sizeHint().width(),573);
         }
-        ui->tableWidget->resizeColumnsToContents();
     }
 }
 
@@ -145,6 +162,11 @@ void ver_competencia::on_pushButton_5_clicked() //Generar fixture
 
         }
         ui->tableWidget->resizeColumnsToContents();
+        int width = (ui->tableWidget->columnCount() - 1) + ui->tableWidget->verticalHeader()->width();
+        for(int column = 0; column < ui->tableWidget->columnCount(); column++)
+        width = width + ui->tableWidget->columnWidth(column);
+        ui->tableWidget->setMinimumWidth(width);
+        this->resize(sizeHint().width(),550);
 
         //Se cambia el estado de la competencia
         ui->label_9->setText(comp->getEstado()->getNombre());

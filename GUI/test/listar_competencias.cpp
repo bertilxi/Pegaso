@@ -123,6 +123,12 @@ void listar_competencias::on_pushButton_clicked()
 
     mostrarCompetencias();
     ui->tableWidget->resizeColumnsToContents();
+    int width = (ui->tableWidget->columnCount() - 1) + ui->tableWidget->verticalHeader()->width();
+    for(int column = 0; column < ui->tableWidget->columnCount(); column++)
+    width = width + ui->tableWidget->columnWidth(column);
+    width+=15;
+    ui->tableWidget->setMinimumWidth(width);
+    this->resize(sizeHint().width(),550);
 
 }
 

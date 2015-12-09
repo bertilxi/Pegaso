@@ -70,7 +70,12 @@ mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp,ver_competencia* v
 
     }
     ui->tableWidget->resizeColumnsToContents();
-    ui->tableWidget->resize(200,450);
+    int width = (ui->tableWidget->columnCount() - 1) + ui->tableWidget->verticalHeader()->width();
+    for(int column = 0; column < ui->tableWidget->columnCount(); column++)
+    width = width + ui->tableWidget->columnWidth(column);
+    width+=20;
+    ui->tableWidget->setMinimumWidth(width);
+    this->resize(sizeHint().width(),450);
     ui->tableWidget->setCurrentCell(-1,-1);
 }
 
