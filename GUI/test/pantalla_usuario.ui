@@ -95,8 +95,8 @@
         <string>Cerrar sesión</string>
        </property>
        <property name="icon">
-        <iconset>
-         <normaloff>arrow.png</normaloff>arrow.png</iconset>
+        <iconset resource="res.qrc">
+         <normaloff>:/images/arrow.png</normaloff>:/images/arrow.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -123,6 +123,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections/>
 </ui>

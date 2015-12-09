@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>294</width>
+    <width>299</width>
     <height>492</height>
    </rect>
   </property>
@@ -214,8 +214,8 @@
          <string>Salir</string>
         </property>
         <property name="icon">
-         <iconset>
-          <normaloff>salir.png</normaloff>salir.png</iconset>
+         <iconset resource="res.qrc">
+          <normaloff>:/images/salir.png</normaloff>:/images/salir.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -231,6 +231,8 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections/>
 </ui>
