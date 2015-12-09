@@ -12,7 +12,7 @@ void GeneradorExcel::generarExcel(Competencia *comp)
     format1.setHorizontalAlignment(QXlsx::Format::AlignHCenter);
     format1.setVerticalAlignment(QXlsx::Format::AlignVCenter);
     format1.setTopBorderStyle(QXlsx::Format::BorderMedium);
-    xlsx.setColumnWidth(1,20);//La primer columna es un poco más ancha
+    xlsx.setColumnWidth(1,30);//La primer columna es un poco más ancha
 
     //Escribo la primer fila
     format1.setLeftBorderStyle(QXlsx::Format::BorderMedium);//La primer celda tiene borde izquierdo Medio

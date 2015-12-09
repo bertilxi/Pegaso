@@ -19,6 +19,7 @@ mostrar_fixture::mostrar_fixture(GUI *guiP, Competencia *comp,ver_competencia* v
     QVector<Partido*> partidos = comp->getPartidos();
 
      qSort(partidos.begin(),partidos.end(),comparePartido);
+     comp->setPartidos(partidos);
 
     for (int i = 0; i < partidos.size(); ++i) {
         ui->tableWidget->insertRow(i);

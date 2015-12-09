@@ -53,7 +53,7 @@ void generadorReporte::generar(Competencia *comp) {
         paramValue = participantes[recNo]->getPuntaje()->getPP();
     if (paramName == "tf")
         paramValue = participantes[recNo]->getPuntaje()->getTF();
-    if (paramName == "pc")
+    if (paramName == "tc")
         paramValue = participantes[recNo]->getPuntaje()->getTC();
     if (paramName == "dif")
         paramValue = participantes[recNo]->getPuntaje()->getDif();
