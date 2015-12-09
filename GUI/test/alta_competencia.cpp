@@ -43,7 +43,7 @@ alta_competencia::alta_competencia(GUI *guiP, QVector<Deporte*> deportesP, QVect
      }
 
      // crear validadores para nombre y para reglamento
-     QRegExp compRegex("[-a-zA-Z0-9_ ]*");
+     QRegExp compRegex("[a-zA-Z0-9.'áéíóú_-]+( [a-zA-Z0-9.'áéíóú_-]+)*");
      QValidator* compValidator = new QRegExpValidator(compRegex,this);
      ui->lineEdit->setValidator(compValidator);
 
@@ -100,7 +100,7 @@ void alta_competencia::on_pushButton_2_clicked()
 void alta_competencia::on_pushButton_clicked()
 {
 
-    QString nombreCompetencia = ui->lineEdit->text().toUpper();
+    QString nombreCompetencia = ui->lineEdit->text().toUpper().trimmed();
     QString deporte = ui->comboBox->currentText().toLower();
     QString tipoModalidad = ui->comboBox_2->currentText().toLower();
     QString tipoPuntos = ui->comboBox_4->currentText().toLower();

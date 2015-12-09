@@ -20,7 +20,7 @@ listar_participante::listar_participante(GUI *guiP, Competencia *compP, ver_comp
 
     this->setWindowTitle("Listar Participantes de competencia");
 
-    QRegExp nombre("[a-zA-Z0-9.'-]+( [a-zA-Z0-9.'-]+)*");
+    QRegExp nombre("[a-zA-Z0-9.'áéíóú-]+( [a-zA-Z0-9.'áéíóú-]+)*");
     QValidator* nomValidator = new QRegExpValidator(nombre,this);
     ui->lineEdit->setValidator(nomValidator);
 
@@ -99,7 +99,7 @@ void listar_participante::on_tabWidget_currentChanged(int index)
 void listar_participante::on_pushButton_8_clicked()
 {
     QString email = ui->lineEdit_2->text();
-    QString nombre = ui->lineEdit->text();
+    QString nombre = ui->lineEdit->text().trimmed();
 
 
     // si la competencia esta creada o planificada se puede agregar participantes, sino no
