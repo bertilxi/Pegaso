@@ -20,7 +20,7 @@ listar_participante::listar_participante(GUI *guiP, Competencia *compP, ver_comp
 
     this->setWindowTitle("Listar Participantes de competencia");
 
-    QRegExp nombre("[a-zA-Z0-9.'áéíóú-]+( [a-zA-Z0-9.'áéíóú-]+)*");
+    QRegExp nombre("[a-zA-Z0-9.'ñÑáéíóúÁÉÍÓÚüÜ-]+( [a-zA-Z0-9.'ñÑáéíóúÁÉÍÓÚüÜ-]+)*");
     QValidator* nomValidator = new QRegExpValidator(nombre,this);
     ui->lineEdit->setValidator(nomValidator);
     ui->lineEdit->setMaxLength(32);
