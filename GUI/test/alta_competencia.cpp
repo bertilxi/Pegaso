@@ -514,3 +514,8 @@ int alta_competencia::buscarLugar(QString lugarP)
     }
     return 0;
 }
+
+void alta_competencia::on_lineEdit_textChanged(const QString &arg1)
+{
+    ui->lineEdit->setText(ui->lineEdit->text().toUpper());
+}
