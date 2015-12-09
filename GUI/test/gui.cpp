@@ -17,7 +17,7 @@ MainWindow::MainWindow(GUI* guiP, QWidget *parent):
     ui->label_logo->setPixmap(pix);
 
     this->setWindowTitle("Sistema deportivo Pegaso");
-
+    this->setWindowIcon(pix);
 
     // validador del email
     EmailValidator* emailValidator = new EmailValidator(this);

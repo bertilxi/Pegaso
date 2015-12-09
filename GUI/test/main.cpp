@@ -22,7 +22,6 @@ int main(int argc, char *argv[])
 {
     QApplication* a = new QApplication(argc, argv);
     a->setQuitOnLastWindowClosed(false);
-
     /**
      * creamos el gestor de la base de datos y
      * lo inicializamos con el archivo de la base de datos
@@ -60,7 +59,6 @@ int main(int argc, char *argv[])
      */
     GUI * gui = new GUI(a,gestorBaseDeDatos, gestorCompetencias, gestorLugares, gestorPartidos, gestorUsuarios,
                         deportes, paises, estados, tiposModalidad);
-
     // mostramos el programa.
     gui->show();
 

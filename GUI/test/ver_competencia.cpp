@@ -62,7 +62,7 @@ ver_competencia::ver_competencia(GUI *guiP, Competencia *compP, QWidget *parent)
             width = width + ui->tableWidget->columnWidth(column);
             width+=40;
             ui->tableWidget->setMinimumWidth(width);
-            this->resize(sizeHint().width(),550);
+            this->resize(sizeHint().width(),573);
         }
     }
 }
@@ -143,10 +143,11 @@ void ver_competencia::on_pushButton_5_clicked() //Generar fixture
 {
     QString error;
     if (gui->handleVerCompetencia(this,QString("generarFixture"), error,comp)){
-        //Se coloca el tilde en el checkbox
+        //Se coloca el tilde en el checkbox y se permite ver el fixture
         ui->checkBox->setCheckable(true);
         ui->checkBox->setChecked(true);
         ui->checkBox->setDisabled(true);
+        ui->pushButton_4->setEnabled(true);
 
         //También se muestran los próximos encuentros
         ui->tableWidget->show();
@@ -166,7 +167,7 @@ void ver_competencia::on_pushButton_5_clicked() //Generar fixture
         for(int column = 0; column < ui->tableWidget->columnCount(); column++)
         width = width + ui->tableWidget->columnWidth(column);
         ui->tableWidget->setMinimumWidth(width);
-        this->resize(sizeHint().width(),550);
+        this->resize(sizeHint().width(),573);
 
         //Se cambia el estado de la competencia
         ui->label_9->setText(comp->getEstado()->getNombre());
