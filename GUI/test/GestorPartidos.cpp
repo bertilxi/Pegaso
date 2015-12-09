@@ -75,29 +75,7 @@ void GestorPartidos::nuevoResultado(Competencia *comp, Partido *part, Resultado 
     //Si ya tiene un resultado hay que agregarlo al historial
     if(part->getActual() != NULL){
         QVector<Resultado*> historial = part->getModificado();
-        //Creo el nuevo resultado dependiendo el tipo de resultado
-        QString tipo_resultado = comp->getModalidad()->getTipoRes()->getNombre();
-        if(tipo_resultado.toLower()=="resultado final"){
-            Resultado *resAux=new Resultado;
-            resAux->setResultadoA(part->getActual()->getResultadoA());
-            resAux->setResultadoB(part->getActual()->getResultadoB());
-            historial.push_back(resAux);
-        }
-        else if(tipo_resultado.toLower()=="por puntos"){
-            Puntos *resAux=new Puntos;
-            resAux->setPuntosA(part->getActual()->getPuntosA());
-            resAux->setPuntosB(part->getActual()->getPuntosB());
-            resAux->setResultadoA(part->getActual()->getResultadoA());
-            resAux->setResultadoB(part->getActual()->getResultadoB());
-            historial.push_back(resAux);
-        }
-        else if(tipo_resultado.toLower()=="por sets"){
-            Sets *resAux=new Sets;
-            resAux->setResultadoA(part->getActual()->getResultadoA());
-            resAux->setResultadoB(part->getActual()->getResultadoB());
-            resAux->setSets(part->getActual()->getSets());
-            historial.push_back(resAux);
-        }
+        historial.push_back(part->getActual());
         part->setModificado(historial);
         //Si es de liga hay que modificar los puntos
         if(comp->getModalidad()->getTipoMod()->getNombre().toLower()=="liga"){
